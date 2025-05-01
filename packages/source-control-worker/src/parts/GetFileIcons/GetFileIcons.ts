@@ -1,3 +1,4 @@
+import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
 import type { FileIconCache } from '../FileIconCache/FileIconCache.ts'
 import type { FileIconsResult } from '../FileIconsRequest/FileIconsResult.ts'
 import * as GetFileIconsCached from '../GetFileIconsCached/GetFileIconsCached.ts'
@@ -6,7 +7,7 @@ import { getPaths } from '../GetPaths/GetPaths.ts'
 import * as RequestFileIcons from '../RequestFileIcons/RequestFileIcons.ts'
 import * as UpdateIconCache from '../UpdateIconCache/UpdateIconCache.ts'
 
-export const getFileIcons = async (dirents: readonly any[], fileIconCache: FileIconCache): Promise<FileIconsResult> => {
+export const getFileIcons = async (dirents: readonly DisplayItem[], fileIconCache: FileIconCache): Promise<FileIconsResult> => {
   const missingRequests = GetMissingIconRequests.getMissingIconRequests(dirents, fileIconCache)
   const newIcons = await RequestFileIcons.requestFileIcons(missingRequests)
   const newFileIconCache = UpdateIconCache.updateIconCache(fileIconCache, missingRequests, newIcons)
