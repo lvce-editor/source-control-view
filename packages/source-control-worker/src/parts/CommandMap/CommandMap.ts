@@ -1,5 +1,5 @@
-import * as HandleButtonClick from '../HandleButtonClick/HandleButtonClick.ts'
 import * as GetCommandIds from '../GetCommandIds/GetCommandIds.ts'
+import * as HandleButtonClick from '../HandleButtonClick/HandleButtonClick.ts'
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
