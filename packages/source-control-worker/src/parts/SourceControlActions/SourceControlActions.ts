@@ -27,7 +27,7 @@ const ensureActions = async (): Promise<void> => {
   }
 }
 
-export const getSourceControlActions = async (providerId: any, groupId: string, type: number) => {
+export const getSourceControlActions = async (providerId: any, groupId: string, type: number): Promise<readonly any[]> => {
   Assert.string(groupId)
   await ensureActions()
   const contextId = getContextId(groupId, type)
