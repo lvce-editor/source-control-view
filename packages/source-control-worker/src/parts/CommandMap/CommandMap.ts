@@ -1,4 +1,5 @@
 import * as HandleButtonClick from '../HandleButtonClick/HandleButtonClick.ts'
+import * as GetCommandIds from '../GetCommandIds/GetCommandIds.ts'
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
@@ -11,4 +12,5 @@ export const commandMap = {
   'SourceControl.handleButtonClick': WrapCommand.wrapCommand(HandleButtonClick.handleButtonClick),
   'SourceControl.loadControl': LoadContent.loadContent,
   'SourceControl.terminate': Terminate.terminate,
+  'SourceControl.getCommandIds': GetCommandIds.getCommandIds,
 }
