@@ -6,7 +6,7 @@ import { RendererWorker } from '../src/parts/RpcId/RpcId.ts'
 import * as RpcRegistry from '../src/parts/RpcRegistry/RpcRegistry.ts'
 
 test('handleContextMenu', async () => {
-  const mockRpc = await MockRpc.create({
+  const mockRpc = MockRpc.create({
     commandMap: {},
     invoke: (method: string) => {
       if (method === 'ContextMenu.show') {
