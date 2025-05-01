@@ -9,8 +9,22 @@ import { getLabelClassName } from '../GetLabelClassName/GetLabelClassName.ts'
 import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
+const chevron: VirtualDomNode = {
+  type: VirtualDomElements.Div,
+  className: ClassNames.Chevron,
+  childCount: 1,
+}
+
+const getIconsDom = (icon: string, fileIcon: string): readonly VirtualDomNode[] => {
+  if (icon === ClassNames.ChevronRight) {
+    return [chevron, GetIconVirtualDom.getIconVirtualDom(icon)]
+  }
+
+  return [GetFileIconVirtualDom.getFileIconVirtualDom(fileIcon)]
+}
+
 export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] => {
-  const { posInSet, setSize, icon, file, label, decorationIcon, decorationIconTitle, decorationStrikeThrough, detail, buttons } = item
+  const { posInSet, setSize, icon, file, label, decorationIcon, decorationIconTitle, decorationStrikeThrough, detail, buttons, fileIcon } = item
   const labelClassName = getLabelClassName(decorationStrikeThrough)
   const dom: VirtualDomNode[] = []
   dom.push(
@@ -25,16 +39,7 @@ export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] =>
       paddingLeft: '1rem',
       paddingRight: '12px',
     },
-    ...(icon === ClassNames.ChevronRight
-      ? [
-          {
-            type: VirtualDomElements.Div,
-            className: ClassNames.Chevron,
-            childCount: 1,
-          },
-          GetIconVirtualDom.getIconVirtualDom(icon),
-        ]
-      : [GetFileIconVirtualDom.getFileIconVirtualDom(icon)]),
+    ...getIconsDom(icon, fileIcon),
   )
   const labelDom = {
     type: VirtualDomElements.Div,
