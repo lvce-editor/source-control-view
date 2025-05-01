@@ -1,7 +1,7 @@
 import * as Character from '../Character/Character.ts'
 import * as FileSystemProtocol from '../FileSystemProtocol/FileSystemProtocol.ts'
 
-const RE_PROTOCOL = /^([a-z\-]+):\/\//
+const RE_PROTOCOL = /^([a-z-]+):\/\//
 
 export const getProtocol = (uri: string): string => {
   if (!uri) {
