@@ -1,6 +1,7 @@
 import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
+import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
 import { getGroups } from '../GetGroups/GetGroups.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
@@ -24,7 +25,7 @@ const getNewButtons = async (displayItems: readonly DisplayItem[], providerId: s
 }
 
 export const loadContent = async (state: SourceControlState): Promise<SourceControlState> => {
-  const { itemHeight, height, minimumSliderSize, workspacePath } = state
+  const { itemHeight, height, minimumSliderSize, workspacePath, fileIconCache } = state
   const root = workspacePath
   const scheme = GetProtocol.getProtocol(root)
   const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root)
@@ -40,6 +41,8 @@ export const loadContent = async (state: SourceControlState): Promise<SourceCont
   const numberOfVisible = GetNumberOfVisibleItems.getNumberOfVisibleItems(listHeight, itemHeight)
   const maxLineY = Math.min(numberOfVisible, total)
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
+  const { icons, newFileIconCache } = await GetFileIcons.getFileIcons(items, fileIconCache)
+
   return {
     ...state,
     allGroups,
@@ -53,5 +56,7 @@ export const loadContent = async (state: SourceControlState): Promise<SourceCont
     maxLineY,
     scrollBarHeight,
     finalDeltaY,
+    icons,
+    fileIconCache: newFileIconCache,
   }
 }
