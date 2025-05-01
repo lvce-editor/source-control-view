@@ -1,6 +1,6 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import * as GetSourceControlDom from '../GetSourceControlVirtualDom/GetSourceControlVirtualDom.ts'
-import * as GetVisibleSourceControlItems from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.js'
+import * as GetVisibleSourceControlItems from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 
 export const renderItems = (oldState: SourceControlState, newState: SourceControlState): any => {
   const visible = GetVisibleSourceControlItems.getVisibleSourceControlItems(newState.items, newState.minLineY, newState.maxLineY, newState.buttons, newState.buttonIndex)
