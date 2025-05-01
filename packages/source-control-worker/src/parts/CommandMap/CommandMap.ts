@@ -18,7 +18,7 @@ export const commandMap = {
   'SourceControl.renderActions2': RenderActions2.renderActions,
   'SourceControl.diff2': Diff2.diff2,
   'SourceControl.handleButtonClick': WrapCommand.wrapCommand(HandleButtonClick.handleButtonClick),
-  'SourceControl.loadControl': LoadContent.loadContent,
+  'SourceControl.loadContent': LoadContent.loadContent,
   'SourceControl.terminate': Terminate.terminate,
   'SourceControl.getCommandIds': GetCommandIds.getCommandIds,
   'SourceControl.render2': Render2.render2,
