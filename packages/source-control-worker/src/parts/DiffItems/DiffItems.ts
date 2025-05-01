@@ -1,5 +1,5 @@
+import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import * as DiffType from '../DiffType/DiffType.ts'
-import { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 
 export const diffType = DiffType.RenderItems
 
