@@ -13,6 +13,7 @@ test('getBadgeVirtualDom', () => {
     {
       type: VirtualDomElements.Text,
       text: '5',
+      childCount: 0,
     },
   ])
 })
@@ -28,6 +29,7 @@ test('getBadgeVirtualDom with zero count', () => {
     {
       type: VirtualDomElements.Text,
       text: '0',
+      childCount: 0,
     },
   ])
 })
@@ -43,6 +45,7 @@ test('getBadgeVirtualDom with empty className', () => {
     {
       type: VirtualDomElements.Text,
       text: '5',
+      childCount: 0,
     },
   ])
 })
