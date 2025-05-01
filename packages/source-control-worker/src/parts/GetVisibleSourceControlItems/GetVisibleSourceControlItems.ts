@@ -10,15 +10,15 @@ export const getVisibleSourceControlItems = (
   buttonIndex: number,
   icons: readonly string[],
 ): readonly VisibleItem[] => {
-  const visible = []
+  const visible: VisibleItem[] = []
   for (let i = minLineY; i < maxLineY; i++) {
     const item = items[i]
     const itemButtons = i === buttonIndex ? buttons : EmptySourceControlButtons.emptySourceControlButtons
-    const icon = icons[i - minLineY]
+    const fileIcon = icons[i - minLineY]
     visible.push({
       ...item,
       buttons: itemButtons,
-      icon,
+      fileIcon,
     })
   }
   return visible

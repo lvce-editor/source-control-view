@@ -1,5 +1,6 @@
+import { DisplayItem } from '../DisplayItem/DisplayItem.ts'
 import { getPath } from '../GetPath/GetPath.ts'
 
-export const getPaths = (items: readonly any[]): readonly string[] => {
+export const getPaths = (items: readonly DisplayItem[]): readonly string[] => {
   return items.map(getPath)
 }
