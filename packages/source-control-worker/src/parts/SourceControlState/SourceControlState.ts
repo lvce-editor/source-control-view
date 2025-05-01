@@ -17,4 +17,5 @@ export interface SourceControlState {
   readonly providerId: string
   readonly buttonIndex: number
   readonly workspacePath: string
+  readonly inputValue: string
 }
