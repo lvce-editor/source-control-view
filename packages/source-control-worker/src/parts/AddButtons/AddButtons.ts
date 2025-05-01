@@ -3,7 +3,7 @@ import * as EmptySourceControlButtons from '../EmptySourceControlButtons/EmptySo
 import * as GetIconVirtualDom from '../GetIconVirtualDom/GetIconVirtualDom.ts'
 import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts'
 
-export const addButtons = (dom: any[], buttons: any[]): void => {
+export const addButtons = (dom: any[], buttons: readonly any[]): void => {
   if (buttons === EmptySourceControlButtons.emptySourceControlButtons) {
     return
   }
