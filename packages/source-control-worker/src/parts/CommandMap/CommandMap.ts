@@ -5,6 +5,7 @@ import * as HandleButtonClick from '../HandleButtonClick/HandleButtonClick.ts'
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
+import * as Render2 from '../Render2/Render2.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
 import * as WrapCommand from '../SourceControlStates/SourceControlStates.ts'
 import * as Terminate from '../Terminate/Terminate.ts'
@@ -17,6 +18,7 @@ export const commandMap = {
   'SourceControl.loadControl': LoadContent.loadContent,
   'SourceControl.terminate': Terminate.terminate,
   'SourceControl.getCommandIds': GetCommandIds.getCommandIds,
+  'SourceControl.render2': Render2.render2,
   'SourceControl.saveState': SaveState.saveState,
   'SourceControl.create2': Create2.create2,
 }
