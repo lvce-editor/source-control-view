@@ -1,3 +1,5 @@
-export const getPath = (item: any): string => {
-  return item.path
+import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
+
+export const getPath = (item: DisplayItem): string => {
+  return item.file
 }
