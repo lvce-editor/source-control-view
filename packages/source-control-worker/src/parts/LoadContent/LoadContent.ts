@@ -1,3 +1,4 @@
+import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
@@ -10,7 +11,7 @@ import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 import * as SourceControlActions from '../SourceControlActions/SourceControlActions.ts'
 
-const getNewButtons = async (displayItems: readonly any[], providerId: string, buttonIndex: number): Promise<readonly any[]> => {
+const getNewButtons = async (displayItems: readonly DisplayItem[], providerId: string, buttonIndex: number): Promise<readonly any[]> => {
   if (buttonIndex === -1) {
     return []
   }
