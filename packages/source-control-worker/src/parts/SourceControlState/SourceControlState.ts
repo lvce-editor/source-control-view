@@ -19,4 +19,17 @@ export interface SourceControlState {
   readonly scrollBarHeight: number
   readonly splitButtonEnabled: boolean
   readonly workspacePath: string
+  readonly x: number
+  readonly y: number
+  readonly width: number
+  readonly deltaY: number
+  readonly minLineY: number
+  readonly fileIconCache: any
+  readonly icons: readonly string[]
+  readonly handleOffset: number
+  readonly scrollBarActive: boolean
+  readonly merge: readonly any[]
+  readonly index: readonly any[]
+  readonly untracked: readonly any[]
+  readonly workingTree: readonly any[]
 }
