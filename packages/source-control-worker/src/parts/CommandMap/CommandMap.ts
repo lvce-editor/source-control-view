@@ -19,7 +19,7 @@ export const commandMap = {
   'SourceControl.getCommandIds': GetCommandIds.getCommandIds,
   'SourceControl.handleButtonClick': WrapCommand.wrapCommand(HandleButtonClick.handleButtonClick),
   'SourceControl.handleContextMenu': WrapCommand.wrapCommand(HandleContextMenu.handleContextMenu),
-  'SourceControl.loadContent': LoadContent.loadContent,
+  'SourceControl.loadContent': WrapCommand.wrapCommand(LoadContent.loadContent),
   'SourceControl.render2': Render2.render2,
   'SourceControl.renderActions2': RenderActions2.renderActions,
   'SourceControl.renderEventListeners': RenderEventListeners.renderEventListeners,
