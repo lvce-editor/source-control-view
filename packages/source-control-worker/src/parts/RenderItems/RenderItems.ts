@@ -3,7 +3,14 @@ import * as GetSourceControlDom from '../GetSourceControlVirtualDom/GetSourceCon
 import * as GetVisibleSourceControlItems from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 
 export const renderItems = (oldState: SourceControlState, newState: SourceControlState): any => {
-  const visible = GetVisibleSourceControlItems.getVisibleSourceControlItems(newState.items, newState.minLineY, newState.maxLineY, newState.buttons, newState.buttonIndex)
+  const visible = GetVisibleSourceControlItems.getVisibleSourceControlItems(
+    newState.items,
+    newState.minLineY,
+    newState.maxLineY,
+    newState.buttons,
+    newState.buttonIndex,
+    newState.icons,
+  )
   const dom = GetSourceControlDom.getSourceControlVirtualDom(visible, newState.splitButtonEnabled)
   return ['Viewlet.setDom2', dom]
 }
