@@ -1,9 +1,10 @@
+import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
 import * as DirentType from '../DirentType/DirentType.ts'
 import * as IconTheme from '../IconTheme/IconTheme.ts'
 import * as Workspace from '../Workspace/Workspace.ts'
 
-const getDisplayItemsGroup = (group: any, isExpanded: boolean): any => {
-  const displayItems = []
+const getDisplayItemsGroup = (group: any, isExpanded: boolean): readonly DisplayItem[] => {
+  const displayItems: DisplayItem[] = []
   const { id, label, items } = group
   if (!items) {
     throw new Error('Source control group is missing an items property')
@@ -52,7 +53,7 @@ const getDisplayItemsGroup = (group: any, isExpanded: boolean): any => {
   return displayItems
 }
 
-export const getDisplayItems = (allGroups: readonly any[], isExpanded: boolean): readonly any[] => {
+export const getDisplayItems = (allGroups: readonly any[], isExpanded: boolean): readonly DisplayItem[] => {
   const displayItems = []
   for (const group of allGroups) {
     const groupDisplayItems = getDisplayItemsGroup(group, isExpanded)
