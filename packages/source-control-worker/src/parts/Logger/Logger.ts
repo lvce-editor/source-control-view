@@ -1,5 +1,5 @@
 export const info = (...args: readonly any[]): void => {
-  // eslint-disable-next-line no-console`
+  // eslint-disable-next-line no-console
   console.info(...args)
 }
 
