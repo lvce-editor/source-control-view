@@ -12,6 +12,7 @@ import * as SourceControlActions from '../SourceControlActions/SourceControlActi
 const getGroups = async (enabledProviderIds: readonly string[]): Promise<any> => {
   const allGroups = []
   for (const providerId of enabledProviderIds) {
+    // @ts-ignore
     const groups = await SourceControl.getGroups(providerId)
     allGroups.push(...groups)
   }
