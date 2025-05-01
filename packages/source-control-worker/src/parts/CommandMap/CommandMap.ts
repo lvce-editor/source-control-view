@@ -11,6 +11,7 @@ import * as RenderEventListeners from '../RenderEventListeners/RenderEventListen
 import * as SaveState from '../SaveState/SaveState.ts'
 import * as WrapCommand from '../SourceControlStates/SourceControlStates.ts'
 import * as Terminate from '../Terminate/Terminate.ts'
+import * as UpdateIcons from '../UpdateIcons/UpdateIcons.ts'
 
 export const commandMap = {
   'Initialize.initialize': Initialize.initialize,
@@ -25,4 +26,5 @@ export const commandMap = {
   'SourceControl.renderEventListeners': RenderEventListeners.renderEventListeners,
   'SourceControl.saveState': SaveState.saveState,
   'SourceControl.terminate': Terminate.terminate,
+  'SourceControl.updateIcons': WrapCommand.wrapCommand(UpdateIcons.updateIcons),
 }
