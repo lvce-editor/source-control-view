@@ -1,21 +1,22 @@
 export interface SourceControlState {
-  readonly id: number
-  readonly itemHeight: number
-  readonly height: number
-  readonly minimumSliderSize: number
   readonly allGroups: readonly any[]
-  readonly gitRoot: string
-  readonly items: readonly any[]
-  readonly enabledProviderIds: readonly string[]
-  readonly isExpanded: boolean
-  readonly buttons: readonly any[]
-  readonly root: string
-  readonly maxLineY: number
-  readonly scrollBarHeight: number
-  readonly finalDeltaY: number
-  readonly splitButtonEnabled: boolean
-  readonly providerId: string
   readonly buttonIndex: number
-  readonly workspacePath: string
+  readonly buttons: readonly any[]
+  readonly displayItems: readonly any[]
+  readonly enabledProviderIds: readonly string[]
+  readonly finalDeltaY: number
+  readonly gitRoot: string
+  readonly height: number
+  readonly id: number
   readonly inputValue: string
+  readonly isExpanded: boolean
+  readonly itemHeight: number
+  readonly items: readonly any[]
+  readonly maxLineY: number
+  readonly minimumSliderSize: number
+  readonly providerId: string
+  readonly root: string
+  readonly scrollBarHeight: number
+  readonly splitButtonEnabled: boolean
+  readonly workspacePath: string
 }
