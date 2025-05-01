@@ -1,9 +1,10 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
+import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as GetSourceControlItemsVirtualDom from '../GetSourceControlItemsVirtualDom/GetSourceControlItemsVirtualDom.ts'
 import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts'
 
-export const getSourceControlVirtualDom = (items: readonly any[], splitButtonEnabled: boolean): readonly VirtualDomNode[] => {
+export const getSourceControlVirtualDom = (items: readonly VisibleItem[], splitButtonEnabled: boolean): readonly VirtualDomNode[] => {
   const dom = [
     {
       type: VirtualDomElements.Div,
