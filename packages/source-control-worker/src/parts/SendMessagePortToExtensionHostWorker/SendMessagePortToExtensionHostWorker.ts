@@ -1,4 +1,4 @@
-import * as ParentRpc from '../Rpc/Rpc.ts'
+import * as ParentRpc from '../ParentRpc/ParentRpc.ts'
 import * as RpcId from '../RpcId/RpcId.ts'
 
 export const sendMessagePortToExtensionHostWorker = async (port: MessagePort): Promise<void> => {
