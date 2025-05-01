@@ -1,6 +1,7 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
+import { getGroups } from '../GetGroups/GetGroups.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
 import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
 import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
@@ -8,19 +9,6 @@ import * as Preferences from '../Preferences/Preferences.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 import * as SourceControlActions from '../SourceControlActions/SourceControlActions.ts'
-
-const getGroups = async (enabledProviderIds: readonly string[]): Promise<any> => {
-  const allGroups = []
-  for (const providerId of enabledProviderIds) {
-    // @ts-ignore
-    const groups = await SourceControl.getGroups(providerId)
-    allGroups.push(...groups)
-  }
-  return {
-    allGroups,
-    gitRoot: '',
-  }
-}
 
 const getNewButtons = async (displayItems: readonly any[], providerId: string, buttonIndex: number): Promise<readonly any[]> => {
   if (buttonIndex === -1) {
