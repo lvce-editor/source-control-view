@@ -8,5 +8,31 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       params: ['handleWheel', 'event.deltaMode', 'event.deltaY'],
       passive: true,
     },
+    {
+      name: DomEventListenersFunctions.HandleFocus,
+      params: ['handleFocus'],
+    },
+    {
+      name: DomEventListenersFunctions.HandleClickAt,
+      params: ['handleClickAt', 'event.clientX', 'event.clientY'],
+    },
+    {
+      name: DomEventListenersFunctions.HandleMouseOver,
+      params: ['handleMouseOver', 'event.clientX', 'event.clientY'],
+    },
+    {
+      name: DomEventListenersFunctions.HandleInput,
+      params: ['handleInput', 'event.target.value'],
+    },
+    {
+      name: DomEventListenersFunctions.HandleContextMenu,
+      params: ['handleContextMenu', 'event.button', 'event.clientX', 'event.clientY'],
+      preventDefault: true,
+    },
+    {
+      name: DomEventListenersFunctions.HandleWheel,
+      params: ['handleWheel', 'event.deltaMode', 'event.deltaY'],
+      passive: true,
+    },
   ]
 }
