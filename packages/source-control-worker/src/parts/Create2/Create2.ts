@@ -1,7 +1,7 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import * as SourceControlStates from '../SourceControlStates/SourceControlStates.ts'
 
-export const create2 = (id: number, uri: string, x: number, y: number, width: number, height: number, args: any): void => {
+export const create2 = (id: number, uri: string, x: number, y: number, width: number, height: number, workspacePath: string): void => {
   const state: SourceControlState = {
     id,
     root: '',
@@ -35,7 +35,7 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     gitRoot: '',
     itemHeight: 20,
     minimumSliderSize: 20,
-    workspacePath: '',
+    workspacePath,
   }
   SourceControlStates.set(id, state, state)
 }
