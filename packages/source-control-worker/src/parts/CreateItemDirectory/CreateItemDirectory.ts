@@ -1,4 +1,5 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
+import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 import { addButtons } from '../AddButtons/AddButtons.ts'
 import * as AriaRoles from '../AriaRoles/AriaRoles.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
@@ -9,10 +10,10 @@ import * as TreeItemPadding from '../TreeItemPadding/TreeItemPadding.ts'
 import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
-export const createItemDirectory = (item: any): readonly VirtualDomNode[] => {
+export const createItemDirectory = (item: VisibleItem): readonly VirtualDomNode[] => {
   const { posInSet, setSize, icon, label, badgeCount, decorationStrikeThrough, type, buttons } = item
   const labelClassName = getLabelClassName(decorationStrikeThrough)
-  const dom = [
+  const dom: VirtualDomNode[] = [
     {
       type: VirtualDomElements.Div,
       className: ClassNames.TreeItem,
