@@ -1,9 +1,10 @@
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 
 export const getLabelClassName = (decorationStrikeThrough: boolean): string => {
-  let className = ClassNames.Label + ' Grow'
+  let className = MergeClassNames.mergeClassNames(ClassNames.Label, ClassNames.Grow)
   if (decorationStrikeThrough) {
-    className += ` ${ClassNames.StrikeThrough}`
+    className = MergeClassNames.mergeClassNames(className, ClassNames.StrikeThrough)
   }
   return className
 }
