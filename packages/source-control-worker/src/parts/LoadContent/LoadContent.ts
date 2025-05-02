@@ -12,14 +12,14 @@ import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 
 export const loadContent = async (state: SourceControlState): Promise<SourceControlState> => {
-  const { itemHeight, height, minimumSliderSize, workspacePath, fileIconCache } = state
+  const { itemHeight, height, minimumSliderSize, workspacePath, fileIconCache, providerId, buttonIndex, actionsCache } = state
   const root = workspacePath
   const scheme = GetProtocol.getProtocol(root)
   const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root)
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds)
   const isExpanded = true
   const items = getDisplayItems(allGroups, isExpanded)
-  const buttons = await getNewButtons(items, state.providerId, state.buttonIndex)
+  const buttons = await getNewButtons(items, providerId, buttonIndex, actionsCache)
   const splitButtonEnabled = Preferences.get('sourceControl.splitButtonEnabled')
   const total = items.length
   const contentHeight = total * itemHeight

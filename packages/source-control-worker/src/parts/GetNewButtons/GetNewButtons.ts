@@ -1,8 +1,14 @@
 import type { ActionButton } from '../ActionButton/ActionButton.ts'
+import type { ActionsCache } from '../ActionsCache/ActionsCache.ts'
 import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
 import * as SourceControlActions from '../SourceControlActions/SourceControlActions.ts'
 
-export const getNewButtons = async (displayItems: readonly DisplayItem[], providerId: string, buttonIndex: number): Promise<readonly ActionButton[]> => {
+export const getNewButtons = async (
+  displayItems: readonly DisplayItem[],
+  providerId: string,
+  buttonIndex: number,
+  actionsCache: ActionsCache,
+): Promise<readonly ActionButton[]> => {
   if (buttonIndex === -1) {
     return []
   }
