@@ -36,6 +36,7 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     minimumSliderSize: 20,
     workspacePath,
     headerHeight: 40, // TODO
+    actionsCache: Object.create(null),
   }
   SourceControlStates.set(id, state, state)
 }

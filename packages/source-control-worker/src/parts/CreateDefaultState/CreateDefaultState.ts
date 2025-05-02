@@ -34,4 +34,5 @@ export const createDefaultState = (): SourceControlState => ({
   x: 0,
   y: 0,
   headerHeight: 40,
+  actionsCache: Object.create(null),
 })
