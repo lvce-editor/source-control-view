@@ -1,3 +1,4 @@
+import type { ActionButton } from '../ActionButton/ActionButton.ts'
 import * as Assert from '../Assert/Assert.ts'
 import * as DirentType from '../DirentType/DirentType.ts'
 import * as ExtensionMeta from '../ExtensionMeta/ExtensionMeta.ts'
@@ -27,7 +28,7 @@ const ensureActions = async (): Promise<void> => {
   }
 }
 
-export const getSourceControlActions = async (providerId: any, groupId: string, type: number): Promise<readonly any[]> => {
+export const getSourceControlActions = async (providerId: any, groupId: string, type: number): Promise<readonly ActionButton[]> => {
   Assert.string(groupId)
   await ensureActions()
   const contextId = getContextId(groupId, type)
