@@ -6,6 +6,7 @@ import * as DirentType from '../DirentType/DirentType.ts'
 import * as GetBadgeVirtualDom from '../GetBadgeVirtualDom/GetBadgeVirtualDom.ts'
 import { getButtonsVirtualDom } from '../GetButtonsVirtualDom/GetButtonsVirtualDom.ts'
 import { getLabelClassName } from '../GetLabelClassName/GetLabelClassName.ts'
+import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 import * as TreeItemPadding from '../TreeItemPadding/TreeItemPadding.ts'
 import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
@@ -29,7 +30,7 @@ export const createItemDirectory = (item: VisibleItem): readonly VirtualDomNode[
     },
     {
       type: VirtualDomElements.Div,
-      className: `${ClassNames.Chevron} MaskIcon${icon}`,
+      className: MergeClassNames.mergeClassNames(ClassNames.Chevron, `MaskIcon${icon}`),
       childCount: 0,
     },
     {
