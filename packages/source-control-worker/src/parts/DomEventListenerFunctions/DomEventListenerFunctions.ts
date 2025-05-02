@@ -1,7 +1,6 @@
 export const HandleAudioError = 'handleAudioError'
 export const HandleBlur = 'handleBlur'
 export const HandleClearFilterClick = 'handleClearFilterClick'
-export const HandleClick = 'handleClick'
 export const HandleClickAt = 'handleClickAt'
 export const HandleClickBackward = 'handleClickBackward'
 export const HandleClickClose = 'handleClickClose'
