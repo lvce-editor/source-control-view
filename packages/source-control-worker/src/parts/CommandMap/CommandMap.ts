@@ -10,6 +10,7 @@ import * as Render2 from '../Render2/Render2.ts'
 import * as RenderActions2 from '../RenderActions2/RenderActions2.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
+import * as SelectIndex from '../SelectIndex/SelectIndex.ts'
 import * as WrapCommand from '../SourceControlStates/SourceControlStates.ts'
 import * as Terminate from '../Terminate/Terminate.ts'
 import * as UpdateIcons from '../UpdateIcons/UpdateIcons.ts'
@@ -20,6 +21,7 @@ export const commandMap = {
   'SourceControl.diff2': Diff2.diff2,
   'SourceControl.getCommandIds': GetCommandIds.getCommandIds,
   'SourceControl.handleButtonClick': WrapCommand.wrapCommand(HandleButtonClick.handleButtonClick),
+  'SourceControl.selectIndex': WrapCommand.wrapCommand(SelectIndex.selectIndex),
   'SourceControl.handleClickAt': WrapCommand.wrapCommand(HandleClickAt.handleClickAt),
   'SourceControl.handleContextMenu': WrapCommand.wrapCommand(HandleContextMenu.handleContextMenu),
   'SourceControl.loadContent': WrapCommand.wrapCommand(LoadContent.loadContent),

@@ -9,6 +9,7 @@ export const commandIds: readonly string[] = [
   'focusPrevious',
   'handleClick',
   'handleClickAt',
+  'selectIndex',
   'handleIconThemeChange',
   'handleWheel',
 ]
