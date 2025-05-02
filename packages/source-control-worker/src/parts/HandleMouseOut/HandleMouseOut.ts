@@ -1,4 +1,4 @@
-import { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 
 export const handleMouseOut = (state: SourceControlState, index: number): SourceControlState => {
   if (index === -1) {
