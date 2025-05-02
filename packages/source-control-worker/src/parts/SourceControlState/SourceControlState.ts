@@ -1,5 +1,7 @@
 import type { ActionButton } from '../ActionButton/ActionButton.ts'
+import type { ActionsCache } from '../ActionsCache/ActionsCache.ts'
 import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
+import type { FileIconCache } from '../FileIconCache/FileIconCache.ts'
 import type { Group } from '../Group/Group.ts'
 
 export interface SourceControlState {
@@ -8,7 +10,7 @@ export interface SourceControlState {
   readonly buttons: readonly ActionButton[]
   readonly deltaY: number
   readonly enabledProviderIds: readonly string[]
-  readonly fileIconCache: any
+  readonly fileIconCache: FileIconCache
   readonly finalDeltaY: number
   readonly gitRoot: string
   readonly handleOffset: number
@@ -36,4 +38,5 @@ export interface SourceControlState {
   readonly x: number
   readonly y: number
   readonly headerHeight: number
+  readonly actionsCache: ActionsCache
 }
