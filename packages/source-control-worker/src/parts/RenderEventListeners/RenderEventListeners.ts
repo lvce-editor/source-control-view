@@ -17,6 +17,10 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       params: ['handleClickAt', 'event.clientX', 'event.clientY'],
     },
     {
+      name: DomEventListenersFunctions.HandleMouseOverAt,
+      params: ['handleMouseOverAt', 'event.clientX', 'event.clientY'],
+    },
+    {
       name: DomEventListenersFunctions.HandleMouseOver,
       params: ['handleMouseOver', 'event.clientX', 'event.clientY'],
     },

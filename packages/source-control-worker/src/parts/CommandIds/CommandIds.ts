@@ -14,4 +14,5 @@ export const commandIds: readonly string[] = [
   'handleMouseOver',
   'handleWheel',
   'selectIndex',
+  'handleMouseOverAt',
 ]
