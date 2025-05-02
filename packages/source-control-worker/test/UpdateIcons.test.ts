@@ -24,8 +24,11 @@ test('updateIcons - should update icons for visible items', async () => {
   const state: SourceControlState = {
     ...defaultState,
     items: [
+      // @ts-ignore
       { name: 'file1.ts', type: 1, path: '/test/file1.ts', depth: 1, selected: false },
+      // @ts-ignore
       { name: 'file2.ts', type: 1, path: '/test/file2.ts', depth: 1, selected: false },
+      // @ts-ignore
       { name: 'file3.ts', type: 1, path: '/test/file3.ts', depth: 1, selected: false },
     ],
     minLineY: 0,

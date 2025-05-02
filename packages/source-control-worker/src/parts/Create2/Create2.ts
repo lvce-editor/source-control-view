@@ -24,7 +24,6 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     untracked: [],
     workingTree: [],
     inputValue: '',
-    displayItems: [],
     buttonIndex: -1,
     enabledProviderIds: [],
     isExpanded: true,

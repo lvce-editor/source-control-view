@@ -7,7 +7,7 @@ export const handleClickDirectoryExpanded = async (state: SourceControlState, it
   const displayItems = getDisplayItems(allGroups, isExpanded)
   return {
     ...state,
-    displayItems,
+    items: displayItems,
     isExpanded,
   }
 }
