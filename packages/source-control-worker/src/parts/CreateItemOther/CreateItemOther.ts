@@ -29,7 +29,7 @@ export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] =>
   const dom: VirtualDomNode[] = []
   const hasButtons = buttons.length
   const buttonsDom = getButtonsVirtualDom(buttons)
-
+  console.log({ hasButtons })
   dom.push(
     {
       type: VirtualDomElements.Div,
@@ -38,7 +38,7 @@ export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] =>
       ariaPosInSet: posInSet,
       ariaSetSize: setSize,
       title: file,
-      childCount: 3 + hasButtons ? 1 : 0,
+      childCount: 3 + (hasButtons ? 1 : 0),
       paddingLeft: '1rem',
       paddingRight: '12px',
     },

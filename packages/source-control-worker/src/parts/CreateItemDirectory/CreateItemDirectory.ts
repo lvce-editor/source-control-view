@@ -23,7 +23,7 @@ export const createItemDirectory = (item: VisibleItem): readonly VirtualDomNode[
       ariaExpanded: type === DirentType.DirectoryExpanded,
       ariaPosInSet: posInSet,
       ariaSetSize: setSize,
-      childCount: 3 + hasButtons ? 1 : 0,
+      childCount: 3 + (hasButtons ? 1 : 0),
       paddingLeft: TreeItemPadding.PaddingLeft,
       paddingRight: TreeItemPadding.PaddingRight,
     },
