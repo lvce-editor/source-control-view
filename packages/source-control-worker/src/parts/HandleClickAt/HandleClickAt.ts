@@ -1,9 +1,8 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import { getIndex } from '../GetIndex/GetIndex.ts'
 import * as SelectIndex from '../SelectIndex/SelectIndex.ts'
 
 export const handleClickAt = async (state: SourceControlState, eventX: number, eventY: number): Promise<SourceControlState> => {
-  const { headerHeight, y, itemHeight } = state
-  const relativeY = eventY - y - headerHeight
-  const index = Math.floor(relativeY / itemHeight)
+  const index = getIndex(state, eventX, eventY)
   return SelectIndex.selectIndex(state, index)
 }
