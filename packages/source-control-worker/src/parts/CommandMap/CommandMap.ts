@@ -2,6 +2,7 @@ import * as Create2 from '../Create2/Create2.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import * as GetCommandIds from '../GetCommandIds/GetCommandIds.ts'
 import * as HandleButtonClick from '../HandleButtonClick/HandleButtonClick.ts'
+import * as HandleClickAt from '../HandleClickAt/HandleClickAt.ts'
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
@@ -19,6 +20,7 @@ export const commandMap = {
   'SourceControl.diff2': Diff2.diff2,
   'SourceControl.getCommandIds': GetCommandIds.getCommandIds,
   'SourceControl.handleButtonClick': WrapCommand.wrapCommand(HandleButtonClick.handleButtonClick),
+  'SourceControl.handleClickAt': WrapCommand.wrapCommand(HandleClickAt.handleClickAt),
   'SourceControl.handleContextMenu': WrapCommand.wrapCommand(HandleContextMenu.handleContextMenu),
   'SourceControl.loadContent': WrapCommand.wrapCommand(LoadContent.loadContent),
   'SourceControl.render2': Render2.render2,
