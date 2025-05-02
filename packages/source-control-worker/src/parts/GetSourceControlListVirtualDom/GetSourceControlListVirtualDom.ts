@@ -15,7 +15,7 @@ export const getSourceControlListVirtualDom = (items: readonly VisibleItem[]): r
       childCount: items.length,
       onClick: DomEventListenerFunctions.HandleClickAt,
       onPointerOver: DomEventListenerFunctions.HandleMouseOverAt,
-      onPointerOut: DomEventListenerFunctions.HandleMouseOut,
+      onPointerOut: DomEventListenerFunctions.HandleMouseOutAt,
     },
     ...items.flatMap(GetSourceControlItemVirtualDom.getSourceControlItemVirtualDom),
   ]
