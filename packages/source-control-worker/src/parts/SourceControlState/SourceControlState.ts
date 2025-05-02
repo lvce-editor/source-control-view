@@ -1,10 +1,11 @@
+import type { ActionButton } from '../ActionButton/ActionButton.ts'
 import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
 import type { Group } from '../Group/Group.ts'
 
 export interface SourceControlState {
   readonly allGroups: readonly Group[]
   readonly buttonIndex: number
-  readonly buttons: readonly any[]
+  readonly buttons: readonly ActionButton[]
   readonly deltaY: number
   readonly enabledProviderIds: readonly string[]
   readonly fileIconCache: any

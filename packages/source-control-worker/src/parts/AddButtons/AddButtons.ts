@@ -1,9 +1,10 @@
+import type { ActionButton } from '../ActionButton/ActionButton.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as EmptySourceControlButtons from '../EmptySourceControlButtons/EmptySourceControlButton.ts'
 import * as GetIconVirtualDom from '../GetIconVirtualDom/GetIconVirtualDom.ts'
 import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts'
 
-export const addButtons = (dom: any[], buttons: readonly any[]): void => {
+export const addButtons = (dom: any[], buttons: readonly ActionButton[]): void => {
   if (buttons === EmptySourceControlButtons.emptySourceControlButtons) {
     return
   }
