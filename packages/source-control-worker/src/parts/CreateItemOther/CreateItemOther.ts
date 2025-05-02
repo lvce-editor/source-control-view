@@ -29,7 +29,6 @@ export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] =>
   const dom: VirtualDomNode[] = []
   const hasButtons = buttons.length
   const buttonsDom = getButtonsVirtualDom(buttons)
-  console.log({ hasButtons })
   dom.push(
     {
       type: VirtualDomElements.Div,
