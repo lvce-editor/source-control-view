@@ -1,9 +1,10 @@
 import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
+import type { Group } from '../Group/Group.ts'
 import * as DirentType from '../DirentType/DirentType.ts'
 import * as IconTheme from '../IconTheme/IconTheme.ts'
 import * as Workspace from '../Workspace/Workspace.ts'
 
-export const getDisplayItemsGroup = (group: any, isExpanded: boolean): readonly DisplayItem[] => {
+export const getDisplayItemsGroup = (group: Group, isExpanded: boolean): readonly DisplayItem[] => {
   const displayItems: DisplayItem[] = []
   const { id, label, items } = group
   if (!items) {
