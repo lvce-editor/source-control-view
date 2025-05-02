@@ -18,5 +18,6 @@ test('saveState', () => {
     minLineY: 0,
     maxLineY: 100,
     deltaY: 0,
+    isExpanded: false,
   })
 })
