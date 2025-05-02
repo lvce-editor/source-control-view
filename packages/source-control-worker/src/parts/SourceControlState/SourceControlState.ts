@@ -6,7 +6,6 @@ export interface SourceControlState {
   readonly buttonIndex: number
   readonly buttons: readonly any[]
   readonly deltaY: number
-  readonly displayItems: readonly DisplayItem[]
   readonly enabledProviderIds: readonly string[]
   readonly fileIconCache: any
   readonly finalDeltaY: number
@@ -19,7 +18,7 @@ export interface SourceControlState {
   readonly inputValue: string
   readonly isExpanded: boolean
   readonly itemHeight: number
-  readonly items: readonly any[]
+  readonly items: readonly DisplayItem[]
   readonly maxLineY: number
   readonly merge: readonly any[]
   readonly minimumSliderSize: number

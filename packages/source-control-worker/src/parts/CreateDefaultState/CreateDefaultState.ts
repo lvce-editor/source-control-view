@@ -5,7 +5,6 @@ export const createDefaultState = (): SourceControlState => ({
   buttonIndex: 0,
   buttons: [],
   deltaY: 0,
-  displayItems: [],
   enabledProviderIds: [],
   fileIconCache: {},
   finalDeltaY: 0,
