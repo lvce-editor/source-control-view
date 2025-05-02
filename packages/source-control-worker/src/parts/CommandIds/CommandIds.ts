@@ -2,6 +2,7 @@ export const commandIds: readonly string[] = [
   'acceptInput',
   'focus',
   'focusFirst',
+  'handleFocus',
   'focusIndex',
   'focusLast',
   'focusNext',

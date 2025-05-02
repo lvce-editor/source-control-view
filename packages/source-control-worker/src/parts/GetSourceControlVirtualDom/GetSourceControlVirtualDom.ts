@@ -15,7 +15,6 @@ export const getSourceControlVirtualDom = (items: readonly VisibleItem[], splitB
       type: VirtualDomElements.Div,
       className: MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.SourceControl),
       tabIndex: 0,
-      onClick: DomEventListenerFunctions.HandleClick,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onMouseOver: DomEventListenerFunctions.HandleMouseOver,
       onMouseOut: DomEventListenerFunctions.HandleMouseOut,
