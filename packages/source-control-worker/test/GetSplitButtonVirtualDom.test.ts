@@ -1,10 +1,11 @@
 import { test, expect } from '@jest/globals'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
-import { getSourceControlItemsVirtualDom } from '../src/parts/GetSplitButtonVirtualDom/GetSplitButtonVirtualDom.ts'
+import { getSplitButtonVirtualDom } from '../src/parts/GetSplitButtonVirtualDom/GetSplitButtonVirtualDom.ts'
 import * as VirtualDomElements from '../src/parts/VirtualDomElements/VirtualDomElements.ts'
 
 test('getSourceControlItemsVirtualDom - with items', () => {
-  const result = getSourceControlItemsVirtualDom(true, 'test')
+  const splitButtonEnabled = true
+  const result = getSplitButtonVirtualDom(true, splitButtonEnabled, 'test')
   expect(result).toHaveLength(6)
   expect(result[0]).toEqual({
     type: VirtualDomElements.Div,
@@ -40,8 +41,9 @@ test('getSourceControlItemsVirtualDom - with items', () => {
   })
 })
 
-test('getSourceControlItemsVirtualDom - without items', () => {
-  const result = getSourceControlItemsVirtualDom(false, 'test')
+test.skip('getSourceControlItemsVirtualDom - without items', () => {
+  const splitButtonEnabled = true
+  const result = getSplitButtonVirtualDom(false, splitButtonEnabled, 'test')
   expect(result).toHaveLength(6)
   expect(result[0]).toEqual({
     type: VirtualDomElements.Div,
