@@ -14,6 +14,8 @@ export const getSourceControlListVirtualDom = (items: readonly VisibleItem[]): r
       role: AriaRoles.Tree,
       childCount: items.length,
       onClick: DomEventListenerFunctions.HandleClickAt,
+      onMouseOver: DomEventListenerFunctions.HandleMouseOverAt,
+      onMouseOut: DomEventListenerFunctions.HandleMouseOut,
     },
     ...items.flatMap(GetSourceControlItemVirtualDom.getSourceControlItemVirtualDom),
   ]
