@@ -5,9 +5,11 @@ export const handleClickDirectory = async (state: SourceControlState, item: any)
   const { allGroups } = state
   const isExpanded = true
   const displayItems = getDisplayItems(allGroups, isExpanded)
+  const newMaxLineY = displayItems.length
   return {
     ...state,
     items: displayItems,
     isExpanded,
+    maxLineY: newMaxLineY,
   }
 }
