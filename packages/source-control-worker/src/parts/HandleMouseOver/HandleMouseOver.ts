@@ -1,5 +1,5 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
-import * as SourceControlActions from '../SourceControlActions/SourceControlActions.js'
+import * as SourceControlActions from '../SourceControlActions/SourceControlActions.ts'
 
 export const handleMouseOver = async (state: SourceControlState, index: number): Promise<SourceControlState> => {
   const { items, providerId, buttonIndex } = state
