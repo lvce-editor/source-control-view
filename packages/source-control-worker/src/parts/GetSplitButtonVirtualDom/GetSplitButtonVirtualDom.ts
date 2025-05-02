@@ -3,9 +3,11 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
-export const getSourceControlItemsVirtualDom = (hasItems: boolean, buttonText: string): readonly VirtualDomNode[] => {
-  const dom = []
-  dom.push(
+export const getSplitButtonVirtualDom = (hasItems: boolean, splitButtonEnabled: boolean, buttonText: string): readonly VirtualDomNode[] => {
+  if (!splitButtonEnabled || !hasItems) {
+    return []
+  }
+  return [
     {
       type: VirtualDomElements.Div,
       className: `${ClassNames.SplitButton} ${hasItems ? '' : ClassNames.SplitButtonDisabled}`,
@@ -34,7 +36,5 @@ export const getSourceControlItemsVirtualDom = (hasItems: boolean, buttonText: s
       className: `${ClassNames.MaskIcon} ${ClassNames.MaskIconChevronDown}`,
       childCount: 0,
     },
-  )
-
-  return dom
+  ]
 }

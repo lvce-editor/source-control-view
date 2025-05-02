@@ -7,13 +7,10 @@ import * as GetSplitButtonVirtualDom from '../GetSplitButtonVirtualDom/GetSplitB
 import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts'
 
 export const getSourceControlItemsVirtualDom = (items: readonly any[], splitButtonEnabled: boolean): readonly VirtualDomNode[] => {
-  const dom = []
-  dom.push(...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom())
-  if (splitButtonEnabled) {
-    const hasItems = items.length > 0
-    dom.push(...GetSplitButtonVirtualDom.getSourceControlItemsVirtualDom(hasItems, 'Commit'))
-  }
-  dom.push(
+  const hasItems = items.length > 0
+  return [
+    ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(),
+    ...GetSplitButtonVirtualDom.getSplitButtonVirtualDom(hasItems, splitButtonEnabled, 'Commit'),
     {
       type: VirtualDomElements.Div,
       className: ClassNames.SourceControlItems,
@@ -21,6 +18,5 @@ export const getSourceControlItemsVirtualDom = (items: readonly any[], splitButt
       childCount: items.length,
     },
     ...items.flatMap(GetSourceControlItemVirtualDom.getSourceControlItemVirtualDom),
-  )
-  return dom
+  ]
 }
