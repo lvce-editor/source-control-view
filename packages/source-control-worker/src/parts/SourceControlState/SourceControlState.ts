@@ -1,7 +1,8 @@
 import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
+import type { Group } from '../Group/Group.ts'
 
 export interface SourceControlState {
-  readonly allGroups: readonly any[]
+  readonly allGroups: readonly Group[]
   readonly buttonIndex: number
   readonly buttons: readonly any[]
   readonly deltaY: number
