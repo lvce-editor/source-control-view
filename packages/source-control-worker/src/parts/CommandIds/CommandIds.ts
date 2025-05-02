@@ -1,9 +1,7 @@
 export const commandIds: readonly string[] = [
   'acceptInput',
-  'handleMouseOut',
   'focus',
   'focusFirst',
-  'handleFocus',
   'focusIndex',
   'focusLast',
   'focusNext',
@@ -11,9 +9,12 @@ export const commandIds: readonly string[] = [
   'focusPrevious',
   'handleClick',
   'handleClickAt',
+  'handleFocus',
   'handleIconThemeChange',
+  'handleMouseOut',
+  'handleMouseOutAt',
   'handleMouseOver',
+  'handleMouseOverAt',
   'handleWheel',
   'selectIndex',
-  'handleMouseOverAt',
 ]
