@@ -9,6 +9,7 @@ import * as LoadContent from '../LoadContent/LoadContent.ts'
 import * as Render2 from '../Render2/Render2.ts'
 import * as RenderActions2 from '../RenderActions2/RenderActions2.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
+import * as HandleFocus from '../HandleFocus/HandleFocus.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
 import * as SelectIndex from '../SelectIndex/SelectIndex.ts'
 import * as WrapCommand from '../SourceControlStates/SourceControlStates.ts'
@@ -25,6 +26,7 @@ export const commandMap = {
   'SourceControl.handleClickAt': WrapCommand.wrapCommand(HandleClickAt.handleClickAt),
   'SourceControl.handleContextMenu': WrapCommand.wrapCommand(HandleContextMenu.handleContextMenu),
   'SourceControl.loadContent': WrapCommand.wrapCommand(LoadContent.loadContent),
+  'SourceControl.handleFocus': WrapCommand.wrapCommand(HandleFocus.handleFocus),
   'SourceControl.render2': Render2.render2,
   'SourceControl.renderActions2': RenderActions2.renderActions,
   'SourceControl.renderEventListeners': RenderEventListeners.renderEventListeners,
