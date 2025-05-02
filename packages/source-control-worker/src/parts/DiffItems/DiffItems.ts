@@ -6,7 +6,7 @@ export const diffType = DiffType.RenderItems
 export const isEqual = (oldState: SourceControlState, newState: SourceControlState): boolean => {
   return (
     oldState.allGroups === newState.allGroups &&
-    oldState.displayItems === newState.displayItems &&
+    oldState.items === newState.items &&
     oldState.items === newState.items &&
     oldState.minLineY === newState.minLineY &&
     oldState.maxLineY === newState.maxLineY &&
