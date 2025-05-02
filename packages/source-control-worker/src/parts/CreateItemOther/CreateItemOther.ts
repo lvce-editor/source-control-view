@@ -1,8 +1,8 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
+import { addButtons } from '../AddButtons/AddButtons.ts'
 import * as AriaRoles from '../AriaRoles/AriaRoles.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
-import { getButtonsVirtualDom } from '../GetButtonsVirtualDom/GetButtonsVirtualDom.ts'
 import * as GetFileIconVirtualDom from '../GetFileIconVirtualDom/GetFileIconVirtualDom.ts'
 import * as GetIconVirtualDom from '../GetIconVirtualDom/GetIconVirtualDom.ts'
 import { getLabelClassName } from '../GetLabelClassName/GetLabelClassName.ts'
@@ -27,9 +27,6 @@ export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] =>
   const { posInSet, setSize, icon, file, label, decorationIcon, decorationIconTitle, decorationStrikeThrough, detail, buttons, fileIcon } = item
   const labelClassName = getLabelClassName(decorationStrikeThrough)
   const dom: VirtualDomNode[] = []
-  const hasButtons = buttons.length
-  const buttonsDom = getButtonsVirtualDom(buttons)
-
   dom.push(
     {
       type: VirtualDomElements.Div,
@@ -38,7 +35,7 @@ export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] =>
       ariaPosInSet: posInSet,
       ariaSetSize: setSize,
       title: file,
-      childCount: 3 + hasButtons ? 1 : 0,
+      childCount: 3,
       paddingLeft: '1rem',
       paddingRight: '12px',
     },
@@ -62,7 +59,7 @@ export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] =>
       text(detail),
     )
   }
-  dom.push(...buttonsDom)
+  addButtons(dom, buttons)
   dom.push({
     type: VirtualDomElements.Img,
     className: ClassNames.DecorationIcon,
