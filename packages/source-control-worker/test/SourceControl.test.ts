@@ -1,8 +1,17 @@
-import { expect, jest, test } from '@jest/globals'
+import { beforeAll, expect, jest, test } from '@jest/globals'
 import { MockRpc } from '@lvce-editor/rpc'
 import * as ExtensionHost from '../src/parts/ExtensionHost/ExtensionHost.ts'
 import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 import * as SourceControl from '../src/parts/SourceControl/SourceControl.ts'
+
+beforeAll(() => {
+  ParentRpc.set(
+    MockRpc.create({
+      commandMap: {},
+      invoke() {},
+    }),
+  )
+})
 
 test('state should be initialized with default values', () => {
   expect(SourceControl.state).toEqual({
@@ -12,12 +21,6 @@ test('state should be initialized with default values', () => {
 })
 
 test('acceptInput should call ExtensionHostSourceControl.acceptInput', async () => {
-  ParentRpc.set(
-    MockRpc.create({
-      commandMap: {},
-      invoke() {},
-    }),
-  )
   const mockInvoke = jest.fn((method: string) => {
     if (method === 'ExtensionHostSourceControl.acceptInput') {
       return Promise.resolve()
@@ -34,11 +37,11 @@ test('acceptInput should call ExtensionHostSourceControl.acceptInput', async () 
   expect(mockInvoke).toHaveBeenCalledWith('ExtensionHostSourceControl.acceptInput', 'test-provider', 'test-input')
 })
 
-test.skip('getChangedFiles should call ExtensionHostSourceControl.getChangedFiles', async () => {
+test('getChangedFiles should call ExtensionHostSourceControl.getChangedFiles', async () => {
   const mockRpc = MockRpc.create({
     commandMap: {},
     invoke: (method: string) => {
-      if (method === 'ExtensionHostSourceControl.getChangedFiles') {
+      if (method === 'ExtensionHost.sourceControlGetChangedFiles') {
         return Promise.resolve([])
       }
       throw new Error(`unexpected method ${method}`)
@@ -50,7 +53,7 @@ test.skip('getChangedFiles should call ExtensionHostSourceControl.getChangedFile
   expect(result).toEqual([])
 })
 
-test.skip('getFileBefore should call ExtensionHostSourceControl.getFileBefore', async () => {
+test('getFileBefore should call ExtensionHostSourceControl.getFileBefore', async () => {
   const mockRpc = MockRpc.create({
     commandMap: {},
     invoke: (method: string) => {
@@ -66,7 +69,7 @@ test.skip('getFileBefore should call ExtensionHostSourceControl.getFileBefore', 
   expect(result).toEqual({})
 })
 
-test.skip('add should call ExtensionHostSourceControl.add', async () => {
+test('add should call ExtensionHostSourceControl.add', async () => {
   const mockRpc = MockRpc.create({
     commandMap: {},
     invoke: (method: string) => {
@@ -81,7 +84,7 @@ test.skip('add should call ExtensionHostSourceControl.add', async () => {
   await SourceControl.add('test-file')
 })
 
-test.skip('discard should call ExtensionHostSourceControl.discard', async () => {
+test('discard should call ExtensionHostSourceControl.discard', async () => {
   const mockRpc = MockRpc.create({
     commandMap: {},
     invoke: (method: string) => {
@@ -96,7 +99,7 @@ test.skip('discard should call ExtensionHostSourceControl.discard', async () => 
   await SourceControl.discard('test-file')
 })
 
-test.skip('getEnabledProviderIds should call ExtensionHostSourceControl.getEnabledProviderIds', async () => {
+test('getEnabledProviderIds should call ExtensionHostSourceControl.getEnabledProviderIds', async () => {
   const mockRpc = MockRpc.create({
     commandMap: {},
     invoke: (method: string) => {
@@ -112,7 +115,7 @@ test.skip('getEnabledProviderIds should call ExtensionHostSourceControl.getEnabl
   expect(result).toEqual(['test-provider'])
 })
 
-test.skip('getGroups should call ExtensionHostSourceControl.getGroups', async () => {
+test('getGroups should call ExtensionHostSourceControl.getGroups', async () => {
   const mockRpc = MockRpc.create({
     commandMap: {},
     invoke: (method: string) => {
