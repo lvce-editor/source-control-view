@@ -1,6 +1,17 @@
 import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
 import type { FileIconCache } from '../FileIconCache/FileIconCache.ts'
 import type { IconRequest } from '../IconRequest/IconRequest.ts'
+import * as DirentType from '../DirentType/DirentType.ts'
+
+const getIconType = (direntType: number): number => {
+  switch (direntType) {
+    case DirentType.Directory:
+    case DirentType.DirectoryExpanded:
+      return 2
+    default:
+      return 1
+  }
+}
 
 export const getMissingIconRequests = (dirents: readonly DisplayItem[], fileIconCache: FileIconCache): readonly IconRequest[] => {
   const missingRequests: IconRequest[] = []
@@ -8,9 +19,8 @@ export const getMissingIconRequests = (dirents: readonly DisplayItem[], fileIcon
   for (const dirent of dirents) {
     if (!(dirent.file in fileIconCache)) {
       missingRequests.push({
-        type: dirent.type,
+        type: getIconType(dirent.type),
         name: dirent.label,
-        path: dirent.file,
       })
     }
   }
