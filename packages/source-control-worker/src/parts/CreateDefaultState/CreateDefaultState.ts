@@ -1,17 +1,16 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 
 export const createDefaultState = (): SourceControlState => ({
+  actionsCache: Object.create(null),
   allGroups: [],
-  buttonIndex: 0,
-  buttons: [],
   deltaY: 0,
   enabledProviderIds: [],
   fileIconCache: {},
   finalDeltaY: 0,
   gitRoot: '',
   handleOffset: 0,
+  headerHeight: 40,
   height: 100,
-  icons: [],
   id: 1,
   index: [],
   inputValue: '',
@@ -28,11 +27,10 @@ export const createDefaultState = (): SourceControlState => ({
   scrollBarHeight: 0,
   splitButtonEnabled: false,
   untracked: [],
+  visibleItems: [],
   width: 100,
   workingTree: [],
   workspacePath: '',
   x: 0,
   y: 0,
-  headerHeight: 40,
-  actionsCache: Object.create(null),
 })
