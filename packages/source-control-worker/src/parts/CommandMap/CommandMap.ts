@@ -17,6 +17,7 @@ import * as RenderActions2 from '../RenderActions2/RenderActions2.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
 import * as SelectIndex from '../SelectIndex/SelectIndex.ts'
+import * as SetDeltaY from '../SetDeltaY/SetDeltaY.ts'
 import * as WrapCommand from '../SourceControlStates/SourceControlStates.ts'
 import * as Terminate from '../Terminate/Terminate.ts'
 import * as UpdateIcons from '../UpdateIcons/UpdateIcons.ts'
@@ -34,6 +35,7 @@ export const commandMap = {
   'SourceControl.handleMouseOutAt': WrapCommand.wrapCommand(HandleMouseOutAt.handleMouseOutAt),
   'SourceControl.handleMouseOver': WrapCommand.wrapCommand(HandleMouseOver.handleMouseOver),
   'SourceControl.handleMouseOverAt': WrapCommand.wrapCommand(HandleMouseOverAt.handleMouseOverAt),
+  'SourceControl.setDeltaY': WrapCommand.wrapCommand(SetDeltaY.setDeltaY),
   'SourceControl.handleWheel': WrapCommand.wrapCommand(HandleWheel.handleWheel),
   'SourceControl.loadContent': WrapCommand.wrapCommand(LoadContent.loadContent),
   'SourceControl.render2': Render2.render2,
