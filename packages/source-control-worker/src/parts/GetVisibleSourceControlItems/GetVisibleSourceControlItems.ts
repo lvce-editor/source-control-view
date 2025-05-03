@@ -17,7 +17,7 @@ export const getVisibleSourceControlItems = (
     const item = items[i]
     const contextId = getContextId(item.groupId, item.type)
     const buttons = actionsCache[contextId] || EmptySourceControlButtons.emptySourceControlButtons
-    const fileIcon = fileIconCache[item.file] || ''
+    const fileIcon = fileIconCache[item.label] || ''
     visible.push({
       ...item,
       buttons,
