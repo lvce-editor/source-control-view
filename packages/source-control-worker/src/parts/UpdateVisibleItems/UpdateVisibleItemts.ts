@@ -20,6 +20,7 @@ export const updateVisibleItems = async (state: SourceControlState, isExpanded: 
   const slicedItems = displayItems.slice(minLineY, maxLineY)
   const newFileIconCache = await GetFileIcons.getFileIcons(slicedItems, fileIconCache)
   const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
+  console.log({ actionsCache, visibleItems })
   return {
     ...state,
     items: displayItems,
