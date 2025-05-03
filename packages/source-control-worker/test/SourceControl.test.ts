@@ -1,6 +1,7 @@
-import { expect, test } from '@jest/globals'
+import { expect, jest, test } from '@jest/globals'
 import { MockRpc } from '@lvce-editor/rpc'
 import * as ExtensionHost from '../src/parts/ExtensionHost/ExtensionHost.ts'
+import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 import * as SourceControl from '../src/parts/SourceControl/SourceControl.ts'
 
 test('state should be initialized with default values', () => {
@@ -10,20 +11,27 @@ test('state should be initialized with default values', () => {
   })
 })
 
-test.skip('acceptInput should call ExtensionHostSourceControl.acceptInput', async () => {
+test('acceptInput should call ExtensionHostSourceControl.acceptInput', async () => {
+  ParentRpc.set(
+    MockRpc.create({
+      commandMap: {},
+      invoke() {},
+    }),
+  )
+  const mockInvoke = jest.fn((method: string) => {
+    if (method === 'ExtensionHostSourceControl.acceptInput') {
+      return Promise.resolve()
+    }
+    throw new Error(`unexpected method ${method}`)
+  })
   const mockRpc = MockRpc.create({
     commandMap: {},
-    invoke: (method: string) => {
-      if (method === 'ExtensionHostSourceControl.acceptInput') {
-        return Promise.resolve()
-      }
-      throw new Error(`unexpected method ${method}`)
-    },
+    invoke: mockInvoke,
   })
   ExtensionHost.set(mockRpc)
   await SourceControl.acceptInput('test-provider', 'test-input')
-  expect(mockRpc.invoke).toHaveBeenCalledTimes(1)
-  expect(mockRpc.invoke).toHaveBeenCalledWith({})
+  expect(mockInvoke).toHaveBeenCalledTimes(1)
+  expect(mockInvoke).toHaveBeenCalledWith('ExtensionHostSourceControl.acceptInput', 'test-provider', 'test-input')
 })
 
 test.skip('getChangedFiles should call ExtensionHostSourceControl.getChangedFiles', async () => {
