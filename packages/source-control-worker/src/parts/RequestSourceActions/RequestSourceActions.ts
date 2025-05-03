@@ -7,7 +7,7 @@ export const requestSourceActions = async (): Promise<ActionsCache> => {
   for (const extension of extensions) {
     if (extension && extension['source-control-actions']) {
       for (const [key, value] of Object.entries(extension['source-control-actions'])) {
-        newCache.cache[key] = value
+        newCache[key] = value
       }
     }
   }
