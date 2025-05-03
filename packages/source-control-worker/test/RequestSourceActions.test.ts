@@ -1,7 +1,6 @@
 import { expect, jest, test } from '@jest/globals'
 import { MockRpc } from '@lvce-editor/rpc'
 import * as ExtensionHost from '../src/parts/ExtensionHost/ExtensionHost.ts'
-import * as ExtensionMeta from '../src/parts/ExtensionMeta/ExtensionMeta.ts'
 import { requestSourceActions } from '../src/parts/RequestSourceActions/RequestSourceActions.ts'
 
 test('requestSourceActions', async () => {
