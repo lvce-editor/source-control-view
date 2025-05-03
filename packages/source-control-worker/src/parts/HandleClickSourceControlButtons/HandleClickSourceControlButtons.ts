@@ -1,5 +1,5 @@
-import * as ExtensionHostCommand from '../ExtensionHostCommand/ExtensionHostCommand.ts'
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import * as ExtensionHostCommand from '../ExtensionHostCommand/ExtensionHostCommand.ts'
 
 export const handleClickSourceControlButtons = async (state: SourceControlState, index: number, name: string): Promise<SourceControlState> => {
   const { visibleItems } = state
