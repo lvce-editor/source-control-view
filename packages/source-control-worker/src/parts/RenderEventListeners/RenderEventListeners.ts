@@ -14,7 +14,7 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     },
     {
       name: DomEventListenersFunctions.HandleClickAt,
-      params: ['handleClickAt', 'event.clientX', 'event.clientY'],
+      params: ['handleClickAt', 'event.clientX', 'event.clientY', 'event.target.name'],
     },
     {
       name: DomEventListenersFunctions.HandleMouseOverAt,
@@ -41,10 +41,6 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       name: DomEventListenersFunctions.HandleWheel,
       params: ['handleWheel', 'event.deltaMode', 'event.deltaY'],
       passive: true,
-    },
-    {
-      name: DomEventListenersFunctions.HandleClickSourceControlButtons,
-      params: ['handleClickSourceControlButtons', 'event.clientX', 'event.clientY', 'event.target.name'],
     },
   ]
 }
