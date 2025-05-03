@@ -20,7 +20,7 @@ export const loadContent = async (state: SourceControlState): Promise<SourceCont
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds)
   const isExpanded = true
   const displayItems = getDisplayItems(allGroups, isExpanded)
-  const cache = await requestSourceActions()
+  const actionsCache = await requestSourceActions()
   const splitButtonEnabled = Preferences.get('sourceControl.splitButtonEnabled')
   const total = displayItems.length
   const contentHeight = total * itemHeight
@@ -31,7 +31,7 @@ export const loadContent = async (state: SourceControlState): Promise<SourceCont
   const maxLineY = Math.min(numberOfVisible, total)
   const slicedItems = displayItems.slice(minLineY, maxLineY)
   const newFileIconCache = await GetFileIcons.getFileIcons(slicedItems, fileIconCache)
-  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, cache, newFileIconCache)
+  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   return {
     ...state,
@@ -47,5 +47,6 @@ export const loadContent = async (state: SourceControlState): Promise<SourceCont
     scrollBarHeight,
     finalDeltaY,
     fileIconCache: newFileIconCache,
+    actionsCache,
   }
 }
