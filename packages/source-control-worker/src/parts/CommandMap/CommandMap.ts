@@ -13,6 +13,7 @@ import * as HandleMouseOverAt from '../HandleMouseOverAt/HandleMouseOverAt.ts'
 import * as HandleWheel from '../HandleWheel/HandleWheel.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
+import * as Refresh from '../Refresh/Refresh.ts'
 import * as Render2 from '../Render2/Render2.ts'
 import * as RenderActions2 from '../RenderActions2/RenderActions2.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
@@ -33,6 +34,7 @@ export const commandMap = {
   'SourceControl.handleContextMenu': WrapCommand.wrapCommand(HandleContextMenu.handleContextMenu),
   'SourceControl.handleFocus': WrapCommand.wrapCommand(HandleFocus.handleFocus),
   'SourceControl.handleMouseOut': WrapCommand.wrapCommand(HandleMouseOut.handleMouseOut),
+  'SourceControl.refresh': WrapCommand.wrapCommand(Refresh.refresh),
   'SourceControl.handleMouseOutAt': WrapCommand.wrapCommand(HandleMouseOutAt.handleMouseOutAt),
   'SourceControl.handleMouseOver': WrapCommand.wrapCommand(HandleMouseOver.handleMouseOver),
   'SourceControl.handleMouseOverAt': WrapCommand.wrapCommand(HandleMouseOverAt.handleMouseOverAt),
