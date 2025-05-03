@@ -1,11 +1,11 @@
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import * as ExtensionHostCommand from '../ExtensionHostCommand/ExtensionHostCommand.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
+import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 
 export const handleButtonClick = async (state: SourceControlState, clickedIndex: number): Promise<SourceControlState> => {
-  const { buttonIndex, buttons, items } = state
-  const button = buttons[clickedIndex]
-  const item = items[buttonIndex]
+  const { visibleItems } = state
+  const item = visibleItems[clickedIndex]
+  const button = item.buttons[clickedIndex]
   if (!button) {
     return state
   }
