@@ -1,5 +1,6 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import * as ExtensionHostCommand from '../ExtensionHostCommand/ExtensionHostCommand.ts'
+import { refresh } from '../Refresh/Refresh.ts'
 
 export const handleClickSourceControlButtons = async (state: SourceControlState, index: number, name: string): Promise<SourceControlState> => {
   const { visibleItems } = state
@@ -13,5 +14,6 @@ export const handleClickSourceControlButtons = async (state: SourceControlState,
   }
   const file = item.file
   await ExtensionHostCommand.executeCommand(button.command, file)
-  return state
+  const newState = await refresh(state)
+  return newState
 }
