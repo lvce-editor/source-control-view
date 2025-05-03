@@ -3,6 +3,7 @@ import * as Diff2 from '../Diff2/Diff2.ts'
 import * as GetCommandIds from '../GetCommandIds/GetCommandIds.ts'
 import * as HandleButtonClick from '../HandleButtonClick/HandleButtonClick.ts'
 import * as HandleClickAt from '../HandleClickAt/HandleClickAt.ts'
+import * as HandleClickSourceControlButtons from '../HandleClickSourceControlButtons/HandleClickSourceControlButtons.ts'
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandleFocus from '../HandleFocus/HandleFocus.ts'
 import * as HandleMouseOut from '../HandleMouseOut/HandleMouseOut.ts'
@@ -45,4 +46,5 @@ export const commandMap = {
   'SourceControl.selectIndex': WrapCommand.wrapCommand(SelectIndex.selectIndex),
   'SourceControl.terminate': Terminate.terminate,
   'SourceControl.updateIcons': WrapCommand.wrapCommand(UpdateIcons.updateIcons),
+  'SourceControl.handleClickSourceControlButtons': WrapCommand.wrapCommand(HandleClickSourceControlButtons.handleClickSourceControlButtons),
 }

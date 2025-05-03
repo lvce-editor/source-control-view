@@ -7,6 +7,7 @@ export const commandIds: readonly string[] = [
   'focusNext',
   'focusNone',
   'focusPrevious',
+  'handleClickSourceControlButtons',
   'handleClick',
   'handleClickAt',
   'handleFocus',
