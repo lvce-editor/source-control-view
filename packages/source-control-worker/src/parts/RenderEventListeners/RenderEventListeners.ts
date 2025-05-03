@@ -42,5 +42,9 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       params: ['handleWheel', 'event.deltaMode', 'event.deltaY'],
       passive: true,
     },
+    {
+      name: DomEventListenersFunctions.HandleClickSourceControlButtons,
+      params: ['handleClickSourceControlButtons', 'event.clientX', 'event.clientY', 'event.target.name'],
+    },
   ]
 }
