@@ -13,6 +13,7 @@ export const getButtonVirtualDom = (button: ActionButton): readonly VirtualDomNo
       title: label,
       ariaLabel: label,
       childCount: 1,
+      name: label,
     },
     GetIconVirtualDom.getIconVirtualDom(icon, VirtualDomElements.Span),
   ]
