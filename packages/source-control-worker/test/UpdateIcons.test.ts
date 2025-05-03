@@ -7,7 +7,7 @@ import { RendererWorker } from '../src/parts/RpcId/RpcId.ts'
 import * as UpdateIcons from '../src/parts/UpdateIcons/UpdateIcons.ts'
 
 const invoke = async (method: string, ...params: readonly any[]): Promise<any> => {
-  if (method === 'IconTheme.getFileIcon' || method === 'IconTheme.getFolderIcon') {
+  if (method === 'IconTheme.getFileIcon' || method === 'IconTheme.getFolderIcon' || method === 'IconTheme.getIcons') {
     return ['icon1', 'icon2']
   }
   throw new Error(`Unexpected method: ${method}`)
