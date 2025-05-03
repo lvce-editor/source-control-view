@@ -41,7 +41,6 @@ export const loadContent = async (state: SourceControlState): Promise<SourceCont
     visibleItems,
     enabledProviderIds,
     isExpanded,
-    buttons: [],
     root,
     splitButtonEnabled,
     maxLineY,
