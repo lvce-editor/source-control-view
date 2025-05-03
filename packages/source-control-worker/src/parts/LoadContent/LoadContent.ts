@@ -29,8 +29,7 @@ export const loadContent = async (state: SourceControlState): Promise<SourceCont
   const numberOfVisible = GetNumberOfVisibleItems.getNumberOfVisibleItems(listHeight, itemHeight)
   const minLineY = 0
   const maxLineY = Math.min(numberOfVisible, total)
-  const slicedItems = displayItems.slice(minLineY, maxLineY)
-  const newFileIconCache = await GetFileIcons.getFileIcons(slicedItems, fileIconCache)
+  const newFileIconCache = await GetFileIcons.getFileIcons(displayItems, fileIconCache)
   const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   return {
