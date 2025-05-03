@@ -1,24 +1,26 @@
-import type { ActionButton } from '../ActionButton/ActionButton.ts'
+import type { ActionsCache } from '../ActionsCache/ActionsCache.ts'
 import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
+import type { FileIconCache } from '../FileIconCache/FileIconCache.ts'
 import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 import * as EmptySourceControlButtons from '../EmptySourceControlButtons/EmptySourceControlButton.ts'
+import { getContextId } from '../GetContextId/GetContextId.ts'
 
 export const getVisibleSourceControlItems = (
   items: readonly DisplayItem[],
   minLineY: number,
   maxLineY: number,
-  buttons: readonly ActionButton[],
-  buttonIndex: number,
-  icons: readonly string[],
+  actionsCache: ActionsCache,
+  fileIconCache: FileIconCache,
 ): readonly VisibleItem[] => {
   const visible: VisibleItem[] = []
   for (let i = minLineY; i < maxLineY; i++) {
     const item = items[i]
-    const itemButtons = i === buttonIndex ? buttons : EmptySourceControlButtons.emptySourceControlButtons
-    const fileIcon = icons[i - minLineY]
+    const contextId = getContextId(item.groupId, item.type)
+    const buttons = actionsCache[contextId] || EmptySourceControlButtons.emptySourceControlButtons
+    const fileIcon = fileIconCache[item.file] || ''
     visible.push({
       ...item,
-      buttons: itemButtons,
+      buttons,
       fileIcon,
     })
   }

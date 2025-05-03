@@ -5,8 +5,6 @@ export const handleMouseOut = (state: SourceControlState, index: number): Source
   if (index === -1 || index > items.length) {
     return {
       ...state,
-      buttonIndex: -1,
-      buttons: [],
     }
   }
   return state

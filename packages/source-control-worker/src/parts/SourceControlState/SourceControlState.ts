@@ -1,21 +1,21 @@
-import type { ActionButton } from '../ActionButton/ActionButton.ts'
 import type { ActionsCache } from '../ActionsCache/ActionsCache.ts'
 import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
 import type { FileIconCache } from '../FileIconCache/FileIconCache.ts'
 import type { Group } from '../Group/Group.ts'
+import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 
 export interface SourceControlState {
+  readonly actionsCache: ActionsCache
   readonly allGroups: readonly Group[]
-  readonly buttonIndex: number
-  readonly buttons: readonly ActionButton[]
   readonly deltaY: number
   readonly enabledProviderIds: readonly string[]
+  readonly visibleItems: readonly VisibleItem[]
   readonly fileIconCache: FileIconCache
   readonly finalDeltaY: number
   readonly gitRoot: string
   readonly handleOffset: number
+  readonly headerHeight: number
   readonly height: number
-  readonly icons: readonly string[]
   readonly id: number
   readonly index: readonly any[]
   readonly inputValue: string
@@ -37,6 +37,4 @@ export interface SourceControlState {
   readonly workspacePath: string
   readonly x: number
   readonly y: number
-  readonly headerHeight: number
-  readonly actionsCache: ActionsCache
 }

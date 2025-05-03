@@ -37,7 +37,6 @@ test('updateIcons - should update icons for visible items', async () => {
 
   const result = await UpdateIcons.updateIcons(state)
 
-  expect(result.icons).toHaveLength(2)
   expect(result.fileIconCache).toBeDefined()
   expect(result.items).toEqual(state.items)
   expect(result.minLineY).toBe(state.minLineY)
@@ -56,7 +55,6 @@ test('updateIcons - should handle empty visible items', async () => {
 
   const result = await UpdateIcons.updateIcons(state)
 
-  expect(result.icons).toHaveLength(0)
   expect(result.fileIconCache).toBeDefined()
   expect(result.items).toEqual(state.items)
 })
