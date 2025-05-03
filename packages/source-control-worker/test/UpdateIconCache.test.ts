@@ -13,13 +13,13 @@ test('updateIconCache - empty requests', () => {
 
 test('updateIconCache - new icons', () => {
   const cache: FileIconCache = {
-    '/test/file1.txt': 'icon1',
+    'file1.txt': 'icon1',
   }
   const requests: readonly IconRequest[] = [{ type: DirentType.File, name: 'file2.txt' }]
   const newIcons: readonly string[] = ['icon2']
   expect(UpdateIconCache.updateIconCache(cache, requests, newIcons)).toEqual({
-    '/test/file1.txt': 'icon1',
-    '/test/file2.txt': 'icon2',
+    'file1.txt': 'icon1',
+    'file2.txt': 'icon2',
   })
 })
 
