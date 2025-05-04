@@ -27,7 +27,6 @@ test('refresh should update state with groups and visible items', async () => {
     gitRoot: '',
     items: [],
     visibleItems: [],
-    isExpanded: true,
     maxLineY: 0,
     scrollBarHeight: 0,
     finalDeltaY: 0,

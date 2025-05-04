@@ -9,6 +9,7 @@ import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 import * as Preferences from '../Preferences/Preferences.ts'
 import { requestSourceActions } from '../RequestSourceActions/RequestSourceActions.ts'
+import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedGroups.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 
@@ -18,8 +19,8 @@ export const loadContent = async (state: SourceControlState): Promise<SourceCont
   const scheme = GetProtocol.getProtocol(root)
   const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root)
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds)
-  const isExpanded = true
-  const displayItems = getDisplayItems(allGroups, isExpanded)
+  const expandedGroups = restoreExpandedGroups(allGroups)
+  const displayItems = getDisplayItems(allGroups, expandedGroups)
   const actionsCache = await requestSourceActions()
   const splitButtonEnabled = Preferences.get('sourceControl.splitButtonEnabled')
   const total = displayItems.length
@@ -39,7 +40,6 @@ export const loadContent = async (state: SourceControlState): Promise<SourceCont
     items: displayItems,
     visibleItems,
     enabledProviderIds,
-    isExpanded,
     root,
     splitButtonEnabled,
     maxLineY,

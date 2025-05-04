@@ -4,13 +4,14 @@ import * as DirentType from '../DirentType/DirentType.ts'
 import * as IconTheme from '../IconTheme/IconTheme.ts'
 import * as Workspace from '../Workspace/Workspace.ts'
 
-export const getDisplayItemsGroup = (group: Group, isExpanded: boolean): readonly DisplayItem[] => {
+export const getDisplayItemsGroup = (group: Group, expandedGroups: Record<string, boolean>): readonly DisplayItem[] => {
   const displayItems: DisplayItem[] = []
   const { id, label, items } = group
   if (!items) {
     throw new Error('Source control group is missing an items property')
   }
   const length = items.length
+  const isExpanded = expandedGroups[id] || false
   const type = isExpanded ? DirentType.DirectoryExpanded : DirentType.Directory
   const icon = isExpanded ? 'ChevronDown' : 'ChevronRight'
   if (length > 0) {

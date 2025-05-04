@@ -14,7 +14,7 @@ export const createDefaultState = (): SourceControlState => ({
   id: 1,
   index: [],
   inputValue: '',
-  isExpanded: false,
+  expandedGroups: Object.create(null),
   itemHeight: 20,
   items: [],
   maxLineY: 0,

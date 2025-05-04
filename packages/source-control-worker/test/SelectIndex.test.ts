@@ -40,7 +40,7 @@ test('selectIndex - directory', async () => {
     decorationIconTitle: '',
     decorationStrikeThrough: false,
     badgeCount: 0,
-    groupId: '',
+    groupId: 'test',
   }
 
   const state: SourceControlState = {
@@ -56,7 +56,7 @@ test('selectIndex - directory', async () => {
     enabledProviderIds: ['test'],
   }
   const newState = await selectIndex(state, 0)
-  expect(newState.items[0].type).toBe(DirentType.DirectoryExpanded)
+  expect(newState.expandedGroups['test']).toBe(true)
 })
 
 test('selectIndex - expanded directory', async () => {
@@ -86,7 +86,7 @@ test('selectIndex - expanded directory', async () => {
     decorationIconTitle: '',
     decorationStrikeThrough: false,
     badgeCount: 0,
-    groupId: '',
+    groupId: 'test',
   }
 
   const state: SourceControlState = {
@@ -100,9 +100,10 @@ test('selectIndex - expanded directory', async () => {
       },
     ],
     enabledProviderIds: ['test'],
+    expandedGroups: { test: true },
   }
   const newState = await selectIndex(state, 0)
-  expect(newState.items[0].type).toBe(DirentType.Directory)
+  expect(newState.expandedGroups['test']).toBe(false)
 })
 
 test('selectIndex - file', async () => {
@@ -149,7 +150,7 @@ test('selectIndex - file', async () => {
     decorationIconTitle: '',
     decorationStrikeThrough: false,
     badgeCount: 0,
-    groupId: '',
+    groupId: 'test',
   }
 
   const state: SourceControlState = {
