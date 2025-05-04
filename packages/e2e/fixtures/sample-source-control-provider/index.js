@@ -2,10 +2,25 @@ const id = 'sample-source-control'
 const label = 'Sample Source Control'
 const rootUri = ''
 
+const iconRoot = new URL('./icons/dark', import.meta.url).toString()
+
+const IconType = {
+  Modified: `${iconRoot}/status-modified.svg`,
+  Added: `${iconRoot}/status-added.svg`,
+  Deleted: `${iconRoot}/status-deleted.svg`,
+  Renamed: `${iconRoot}/status-renamed.svg`,
+  Copied: `${iconRoot}/status-copied.svg`,
+  Untracked: `${iconRoot}/status-untracked.svg`,
+  Ignored: `${iconRoot}/status-ignored.svg`,
+  Conflict: `${iconRoot}/status-conflict.svg`,
+}
+
 const toItem = (dirent) => {
   return {
     file: dirent.name,
-    type: 1,
+    icon: IconType.Untracked,
+    iconTitle: '',
+    type: 8,
   }
 }
 
