@@ -1,5 +1,6 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import * as ExtensionHostCommand from '../ExtensionHostCommand/ExtensionHostCommand.ts'
+import * as Logger from '../Logger/Logger.ts'
 import { refresh } from '../Refresh/Refresh.ts'
 
 export const handleClickSourceControlButtons = async (state: SourceControlState, index: number, name: string): Promise<SourceControlState> => {
@@ -8,8 +9,10 @@ export const handleClickSourceControlButtons = async (state: SourceControlState,
   if (!item) {
     return state
   }
-  const button = item.buttons.find((button) => button.label === name)
+  const { buttons } = item
+  const button = buttons.find((button) => button.label === name)
   if (!button) {
+    Logger.warn(`[source-control-worker] Button not found ${name}`)
     return state
   }
   const file = item.file
