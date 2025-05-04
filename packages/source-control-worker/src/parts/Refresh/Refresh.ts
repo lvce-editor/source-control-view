@@ -8,10 +8,9 @@ import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/Ge
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 
 export const refresh = async (state: SourceControlState): Promise<SourceControlState> => {
-  const { itemHeight, height, minimumSliderSize, fileIconCache, enabledProviderIds, splitButtonEnabled, actionsCache } = state
+  const { itemHeight, height, minimumSliderSize, fileIconCache, enabledProviderIds, splitButtonEnabled, actionsCache, expandedGroups } = state
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds)
-  const isExpanded = true
-  const displayItems = getDisplayItems(allGroups, isExpanded)
+  const displayItems = getDisplayItems(allGroups, expandedGroups)
   const total = displayItems.length
   const contentHeight = total * itemHeight
   const listHeight = getListHeight(total, itemHeight, height)
@@ -28,7 +27,6 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     items: displayItems,
     visibleItems,
     enabledProviderIds,
-    isExpanded,
     splitButtonEnabled,
     maxLineY,
     scrollBarHeight,

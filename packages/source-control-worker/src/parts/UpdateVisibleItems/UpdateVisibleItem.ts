@@ -6,27 +6,21 @@ import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOf
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 
-export const updateVisibleItems = async (state: SourceControlState, isExpanded: boolean): Promise<SourceControlState> => {
-  const { allGroups, itemHeight, height, minimumSliderSize, fileIconCache, actionsCache } = state
-  const displayItems = getDisplayItems(allGroups, isExpanded)
-  const newMaxLineY = displayItems.length
+export const updateVisibleItems = async (state: SourceControlState, expandedGroups: Record<string, boolean>): Promise<SourceControlState> => {
+  const { itemHeight, height, actionsCache, fileIconCache, allGroups } = state
+  const displayItems = getDisplayItems(allGroups, expandedGroups)
   const total = displayItems.length
-  const contentHeight = total * itemHeight
   const listHeight = getListHeight(total, itemHeight, height)
-  const scrollBarHeight = ScrollBarFunctions.getScrollBarSize(height, contentHeight, minimumSliderSize)
   const numberOfVisible = GetNumberOfVisibleItems.getNumberOfVisibleItems(listHeight, itemHeight)
   const minLineY = 0
   const maxLineY = Math.min(numberOfVisible, total)
-  const slicedItems = displayItems.slice(minLineY, maxLineY)
-  const newFileIconCache = await GetFileIcons.getFileIcons(slicedItems, fileIconCache)
-  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
+  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, fileIconCache)
   return {
     ...state,
     items: displayItems,
-    isExpanded,
-    maxLineY: newMaxLineY,
-    fileIconCache: newFileIconCache,
     visibleItems,
-    scrollBarHeight,
+    expandedGroups,
+    minLineY,
+    maxLineY,
   }
 }

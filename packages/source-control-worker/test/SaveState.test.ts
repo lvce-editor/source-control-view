@@ -10,6 +10,7 @@ test('saveState', () => {
     ...defaultState,
     root: '/test',
     maxLineY: 100,
+    expandedGroups: { '1': true, '2': false },
   }
   set(uid, state, state)
   const result = saveState(uid)
@@ -18,6 +19,6 @@ test('saveState', () => {
     minLineY: 0,
     maxLineY: 100,
     deltaY: 0,
-    isExpanded: false,
+    expandedGroups: { '1': true, '2': false },
   })
 })

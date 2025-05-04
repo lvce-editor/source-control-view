@@ -16,7 +16,7 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     id,
     index: [],
     inputValue: '',
-    isExpanded: true,
+    expandedGroups: Object.create(null),
     itemHeight: 20,
     items: [],
     maxLineY: 0,

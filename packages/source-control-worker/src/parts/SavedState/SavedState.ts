@@ -3,5 +3,5 @@ export interface SavedState {
   readonly minLineY: number
   readonly maxLineY: number
   readonly deltaY: number
-  readonly isExpanded: boolean
+  readonly expandedGroups: Record<string, boolean>
 }

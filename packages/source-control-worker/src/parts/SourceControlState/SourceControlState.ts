@@ -19,7 +19,7 @@ export interface SourceControlState {
   readonly id: number
   readonly index: readonly any[]
   readonly inputValue: string
-  readonly isExpanded: boolean
+  readonly expandedGroups: Record<string, boolean>
   readonly itemHeight: number
   readonly items: readonly DisplayItem[]
   readonly maxLineY: number

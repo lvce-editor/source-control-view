@@ -2,6 +2,10 @@ import type { SourceControlState } from '../SourceControlState/SourceControlStat
 import { updateVisibleItems } from '../UpdateVisibleItems/UpdateVisibleItem.ts'
 
 export const handleClickDirectory = async (state: SourceControlState, item: any): Promise<SourceControlState> => {
-  const isExpanded = true
-  return updateVisibleItems(state, isExpanded)
+  const { expandedGroups } = state
+  const newExpandedGroups = {
+    ...expandedGroups,
+    [item.groupId]: true,
+  }
+  return updateVisibleItems(state, newExpandedGroups)
 }
