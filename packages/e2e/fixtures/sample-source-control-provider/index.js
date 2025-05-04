@@ -15,7 +15,9 @@ const IconType = {
   Conflict: `${iconRoot}/status-conflict.svg`,
 }
 
-const toItem = (dirent) => {
+const staged = Object.create(null)
+
+const toChangedItem = (dirent) => {
   return {
     file: dirent.name,
     icon: IconType.Untracked,
@@ -24,10 +26,31 @@ const toItem = (dirent) => {
   }
 }
 
+const toStagedItem = (dirent) => {
+  return {
+    file: dirent.name,
+    icon: IconType.Untracked,
+    iconTitle: '',
+    type: 8,
+  }
+}
+
+const isStaged = (dirent) => {
+  return dirent.name in staged
+}
+
+const isChanged = (dirent) => {
+  if (isStaged(dirent)) {
+    return false
+  }
+  return true
+}
+
 const getGroups = async () => {
   const root = vscode.getWorkspaceFolder()
   const dirents = await vscode.readDirWithFileTypes(root)
-  const items = dirents.map(toItem)
+  const changed = dirents.filter(isChanged).map(toChangedItem)
+  const staged = dirents.filter(isStaged).map(toStagedItem)
   const groups = [
     {
       id: 'merge',
@@ -37,12 +60,12 @@ const getGroups = async () => {
     {
       id: 'index',
       label: 'Staged Changes',
-      items: [],
+      items: staged,
     },
     {
       id: 'working-tree',
       label: 'Changes',
-      items: items,
+      items: changed,
     },
     {
       id: 'untracked',
@@ -59,7 +82,9 @@ const getChangedFiles = () => {
   }
 }
 
-const stage = (path) => {}
+const stage = (path) => {
+  staged[path] = true
+}
 
 const unstage = (path) => {}
 
