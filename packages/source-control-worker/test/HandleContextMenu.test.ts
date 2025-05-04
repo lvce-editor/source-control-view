@@ -2,8 +2,7 @@ import { expect, test } from '@jest/globals'
 import { MockRpc } from '@lvce-editor/rpc'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleContextMenu } from '../src/parts/HandleContextMenu/HandleContextMenu.ts'
-import { RendererWorker } from '../src/parts/RpcId/RpcId.ts'
-import * as RpcRegistry from '../src/parts/RpcRegistry/RpcRegistry.ts'
+import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 
 test('handleContextMenu', async () => {
   const mockRpc = MockRpc.create({
@@ -15,7 +14,7 @@ test('handleContextMenu', async () => {
       throw new Error(`unexpected method ${method}`)
     },
   })
-  RpcRegistry.set(RendererWorker, mockRpc)
+  ParentRpc.set(mockRpc)
 
   const state = createDefaultState()
   const button = 2
