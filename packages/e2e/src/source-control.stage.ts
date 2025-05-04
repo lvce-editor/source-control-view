@@ -14,7 +14,7 @@ export const test: Test = async ({ Locator, expect, QuickPick, Command, SideBar,
   // act
   await Command.execute('Source Control.handleClickSourceControlButtons', 1, `Stage`)
 
-  // // assert
+  //  assert
   const sourceControlView = Locator('.Viewlet.SourceControl')
   await expect(sourceControlView).toBeVisible()
   const treeItems = Locator('.SourceControlItems .TreeItem')
