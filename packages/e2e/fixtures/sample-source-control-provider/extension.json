@@ -1,0 +1,58 @@
+{
+  "id": "builtin.sample-source-control-provider",
+  "name": "Sample Source Control Provider",
+  "description": "Sample Source Control Provider",
+  "browser": "index.js",
+  "activation": ["onStartupFinished", "onSourceControl", "onSourceControl:", "onSourceControl:file", "onStatusBarItem"],
+  "commands": [],
+  "source-control-actions": {
+    "index": [
+      {
+        "command": "sampleSourceControl.unstageAll",
+        "label": "Unstage All",
+        "icon": "Remove"
+      }
+    ],
+    "index-item": [
+      {
+        "command": "sampleSourceControl.openFile",
+        "label": "Open File",
+        "icon": "GoToFile"
+      },
+      {
+        "command": "sampleSourceControl.unstage",
+        "label": "Unstage Changes",
+        "icon": "Remove"
+      }
+    ],
+    "working-tree": [
+      {
+        "command": "sampleSourceControl.cleanAll",
+        "label": "Discard All",
+        "icon": "Discard"
+      },
+      {
+        "command": "sampleSourceControl.stageAll",
+        "label": "Stage All",
+        "icon": "Add"
+      }
+    ],
+    "working-tree-item": [
+      {
+        "command": "sampleSourceControl.openFile",
+        "label": "Open File",
+        "icon": "GoToFile"
+      },
+      {
+        "command": "sampleSourceControl.discard",
+        "label": "Discard",
+        "icon": "Discard"
+      },
+      {
+        "command": "sampleSourceControl.stage",
+        "label": "Stage",
+        "icon": "Add"
+      }
+    ]
+  }
+}
