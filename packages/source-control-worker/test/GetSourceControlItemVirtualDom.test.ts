@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals'
-import { getSourceControlItemVirtualDom } from '../src/parts/GetSourceControlItemVirtualDom/GetSourceControlItemVirtualDom.ts'
+import type { VisibleItem } from '../src/parts/VisibleItem/VisibleItem.ts'
 import * as DirentType from '../src/parts/DirentType/DirentType.ts'
-import { VisibleItem } from '../src/parts/VisibleItem/VisibleItem.ts'
+import { getSourceControlItemVirtualDom } from '../src/parts/GetSourceControlItemVirtualDom/GetSourceControlItemVirtualDom.ts'
 
 test('getSourceControlItemVirtualDom - directory', () => {
   const item: VisibleItem = {
