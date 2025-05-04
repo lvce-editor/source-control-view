@@ -1,4 +1,4 @@
-import { cp } from 'node:fs/promises'
+import { cp, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { root } from './root.js'
@@ -10,29 +10,29 @@ const sharedProcessUrl = pathToFileURL(sharedProcessPath).toString()
 const sharedProcess = await import(sharedProcessUrl)
 
 process.env.PATH_PREFIX = '/source-control-view'
-await sharedProcess.exportStatic({
+const { commitHash } = await sharedProcess.exportStatic({
   root,
   extensionPath: '',
   testPath: 'packages/e2e',
 })
 
-// const rendererWorkerPath = join(root, 'dist', commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js')
+const rendererWorkerPath = join(root, 'dist', commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js')
 
 export const getRemoteUrl = (path) => {
   const url = pathToFileURL(path).toString().slice(8)
   return `/remote/${url}`
 }
 
-// const content = await readFile(rendererWorkerPath, 'utf8')
-// const workerPath = join(root, '.tmp/dist/dist/debugSearchWorkerMain.js')
-// const remoteUrl = getRemoteUrl(workerPath)
+const content = await readFile(rendererWorkerPath, 'utf8')
+const workerPath = join(root, '.tmp/dist/dist/sourceControlWorkerMain.js')
+const remoteUrl = getRemoteUrl(workerPath)
 
-// if (content.includes('// const fileSearchWorkerUrl = ')) {
-//   const occurrence = `// const fileSearchWorkerUrl = \`\${assetDir}/packages/file-search-worker/dist/fileSearchWorkerMain.js\`
-//   const fileSearchWorkerUrl = \`${remoteUrl}\``
-//   const replacement = `const fileSearchWorkerUrl = \`\${assetDir}/packages/file-search-worker/dist/fileSearchWorkerMain.js\``
-//   const newContent = content.replace(occurrence, replacement)
-//   await writeFile(rendererWorkerPath, newContent)
-// }
+if (content.includes('// const sourceControlWorkerUrl = ')) {
+  const occurrence = `// const sourceControlWorkerUrl = \`\${assetDir}/packages/source-control-worker/dist/sourceControlWorkerMain.js\`
+  const sourceControlWorkerUrl = \`${remoteUrl}\``
+  const replacement = `const sourceControlWorkerUrl = \`\${assetDir}/packages/source-control-worker/dist/sourceControlWorkerMain.js\``
+  const newContent = content.replace(occurrence, replacement)
+  await writeFile(rendererWorkerPath, newContent)
+}
 
 await cp(join(root, 'dist'), join(root, '.tmp', 'static'), { recursive: true })
