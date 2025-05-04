@@ -9,9 +9,9 @@ import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 import * as Preferences from '../Preferences/Preferences.ts'
 import { requestSourceActions } from '../RequestSourceActions/RequestSourceActions.ts'
+import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedGroups.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 import * as SourceControl from '../SourceControl/SourceControl.ts'
-import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedGroups.ts'
 
 export const loadContent = async (state: SourceControlState): Promise<SourceControlState> => {
   const { itemHeight, height, minimumSliderSize, workspacePath, fileIconCache } = state
