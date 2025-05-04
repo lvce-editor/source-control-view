@@ -1,11 +1,11 @@
 import { test, expect } from '@jest/globals'
 import { MockRpc } from '@lvce-editor/rpc'
-import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 import * as ExtensionHost from '../src/parts/ExtensionHost/ExtensionHost.ts'
 import { getGroups } from '../src/parts/GetGroups/GetGroups.ts'
+import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 
 test('getGroups - aggregates groups from multiple providers', async () => {
-  const mockRpc = await MockRpc.create({
+  const mockRpc = MockRpc.create({
     commandMap: {},
     invoke: (method: string) => {
       if (method === 'ExtensionHostManagement.activateByEvent') {
@@ -16,7 +16,7 @@ test('getGroups - aggregates groups from multiple providers', async () => {
   })
   ParentRpc.set(mockRpc)
 
-  const mockExtensionHost = await MockRpc.create({
+  const mockExtensionHost = MockRpc.create({
     commandMap: {},
     invoke: (method: string) => {
       if (method === 'ExtensionHostSourceControl.getGroups') {
@@ -35,7 +35,7 @@ test('getGroups - aggregates groups from multiple providers', async () => {
 })
 
 test('getGroups - empty providers', async () => {
-  const mockRpc = await MockRpc.create({
+  const mockRpc = MockRpc.create({
     commandMap: {},
     invoke: (method: string) => {
       if (method === 'ExtensionHostManagement.activateByEvent') {
@@ -46,7 +46,7 @@ test('getGroups - empty providers', async () => {
   })
   ParentRpc.set(mockRpc)
 
-  const mockExtensionHost = await MockRpc.create({
+  const mockExtensionHost = MockRpc.create({
     commandMap: {},
     invoke: (method: string) => {
       if (method === 'ExtensionHostSourceControl.getGroups') {
@@ -65,7 +65,7 @@ test('getGroups - empty providers', async () => {
 })
 
 test('getGroups - single provider', async () => {
-  const mockRpc = await MockRpc.create({
+  const mockRpc = MockRpc.create({
     commandMap: {},
     invoke: (method: string) => {
       if (method === 'ExtensionHostManagement.activateByEvent') {
@@ -76,7 +76,7 @@ test('getGroups - single provider', async () => {
   })
   ParentRpc.set(mockRpc)
 
-  const mockExtensionHost = await MockRpc.create({
+  const mockExtensionHost = MockRpc.create({
     commandMap: {},
     invoke: (method: string) => {
       if (method === 'ExtensionHostSourceControl.getGroups') {
@@ -95,7 +95,7 @@ test('getGroups - single provider', async () => {
 })
 
 test('getGroups - multiple providers', async () => {
-  const mockRpc = await MockRpc.create({
+  const mockRpc = MockRpc.create({
     commandMap: {},
     invoke: (method: string) => {
       if (method === 'ExtensionHostManagement.activateByEvent') {
@@ -106,7 +106,7 @@ test('getGroups - multiple providers', async () => {
   })
   ParentRpc.set(mockRpc)
 
-  const mockExtensionHost = await MockRpc.create({
+  const mockExtensionHost = MockRpc.create({
     commandMap: {},
     invoke: (method: string) => {
       if (method === 'ExtensionHostSourceControl.getGroups') {
