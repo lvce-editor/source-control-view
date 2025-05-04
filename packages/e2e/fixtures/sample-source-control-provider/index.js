@@ -90,6 +90,12 @@ const unstage = (path) => {
   delete staged[path]
 }
 
+const unstageAll = () => {
+  for (const path in staged) {
+    unstage(path)
+  }
+}
+
 const acceptInput = () => {
   // No-op for this sample provider
 }
@@ -131,6 +137,11 @@ export function activate(context) {
   vscode.registerCommand({
     id: 'sampleSourceControl.unstage',
     execute: unstage,
+  })
+  // @ts-ignore
+  vscode.registerCommand({
+    id: 'sampleSourceControl.unstageAll',
+    execute: unstageAll,
   })
 }
 
