@@ -9,7 +9,7 @@ const sharedProcessUrl = pathToFileURL(sharedProcessPath).toString()
 
 const sharedProcess = await import(sharedProcessUrl)
 
-process.env.PATH_PREFIX = '/source-control-worker'
+process.env.PATH_PREFIX = '/source-control-view'
 await sharedProcess.exportStatic({
   root,
   extensionPath: '',
