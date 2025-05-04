@@ -1,4 +1,4 @@
-# source control worker
+# Source Control Worker
 
 Web Worker for the source control functionality in LVCE Editor.
 
