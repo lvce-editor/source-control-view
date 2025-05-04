@@ -17,4 +17,5 @@ test('initialize', async () => {
   await initialize()
   const actual = RpcRegistry.get(RpcId.ExtensionHostWorker)
   expect(actual).toBeDefined()
+  await actual.dispose()
 })
