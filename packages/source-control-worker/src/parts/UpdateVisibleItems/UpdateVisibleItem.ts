@@ -1,8 +1,8 @@
+import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
 import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 
 export const updateVisibleItems = async (state: SourceControlState, expandedGroups: Record<string, boolean>): Promise<SourceControlState> => {
   const { itemHeight, height, actionsCache, fileIconCache, allGroups } = state
