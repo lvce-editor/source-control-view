@@ -13,6 +13,7 @@ process.env.PATH_PREFIX = '/source-control-view'
 await sharedProcess.exportStatic({
   root,
   extensionPath: '',
+  testPath: 'packages/e2e',
 })
 
 // const rendererWorkerPath = join(root, 'dist', commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js')
