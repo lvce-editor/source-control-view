@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'source-control.show-changes'
 
-export const skip = 1
-
 export const test: Test = async ({ Locator, expect, QuickPick, Command, SideBar, FileSystem, Workspace, Extension }) => {
   // arrange
   const uri = new URL('../fixtures/sample-source-control-provider', import.meta.url).toString()
@@ -20,6 +18,6 @@ export const test: Test = async ({ Locator, expect, QuickPick, Command, SideBar,
   await expect(sourceControlView).toBeVisible()
   const treeItems = Locator('.SourceControlItems .TreeItem')
   await expect(treeItems).toHaveCount(2)
-  await expect(treeItems.nth(0)).toHaveText('Changes')
+  await expect(treeItems.nth(0)).toHaveText('Changes1')
   await expect(treeItems.nth(1)).toHaveText('test.css')
 }
