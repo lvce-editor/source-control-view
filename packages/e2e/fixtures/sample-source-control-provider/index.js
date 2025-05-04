@@ -30,15 +30,23 @@ const getGroups = async () => {
   const items = dirents.map(toItem)
   const groups = [
     {
-      id: 'changes',
+      id: 'merge',
+      label: 'Merge',
+      items: [],
+    },
+    {
+      id: 'index',
+      label: 'Staged Changes',
+      items: [],
+    },
+    {
+      id: 'working-tree',
       label: 'Changes',
-      hideWhenEmpty: true,
       items: items,
     },
     {
-      id: 'staged',
-      label: 'Staged Changes',
-      hideWhenEmpty: true,
+      id: 'untracked',
+      label: 'Changes',
       items: [],
     },
   ]
