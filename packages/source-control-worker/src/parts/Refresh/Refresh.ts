@@ -5,11 +5,13 @@ import { getGroups } from '../GetGroups/GetGroups.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
 import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
+import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedGroups.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 
 export const refresh = async (state: SourceControlState): Promise<SourceControlState> => {
-  const { itemHeight, height, minimumSliderSize, fileIconCache, enabledProviderIds, splitButtonEnabled, actionsCache, expandedGroups } = state
+  const { itemHeight, height, minimumSliderSize, fileIconCache, enabledProviderIds, splitButtonEnabled, actionsCache } = state
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds)
+  const expandedGroups = restoreExpandedGroups(allGroups)
   const displayItems = getDisplayItems(allGroups, expandedGroups)
   const total = displayItems.length
   const contentHeight = total * itemHeight
