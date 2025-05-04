@@ -86,7 +86,9 @@ const stage = (path) => {
   staged[path] = true
 }
 
-const unstage = (path) => {}
+const unstage = (path) => {
+  delete staged[path]
+}
 
 const acceptInput = () => {
   // No-op for this sample provider
