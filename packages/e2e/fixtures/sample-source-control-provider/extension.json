@@ -3,7 +3,7 @@
   "name": "Sample Source Control Provider",
   "description": "Sample Source Control Provider",
   "browser": "index.js",
-  "activation": ["onStartupFinished", "onSourceControl", "onSourceControl:", "onSourceControl:file", "onStatusBarItem"],
+  "activation": ["onStartupFinished", "onSourceControl", "onSourceControl:", "onSourceControl:memfs", "onStatusBarItem"],
   "commands": [],
   "source-control-actions": {
     "index": [

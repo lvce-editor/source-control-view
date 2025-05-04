@@ -7,11 +7,18 @@ const groups = [
     id: 'changes',
     label: 'Changes',
     hideWhenEmpty: true,
+    items: [
+      {
+        file: '/test/file.js',
+        status: 1,
+      },
+    ],
   },
   {
     id: 'staged',
     label: 'Staged Changes',
     hideWhenEmpty: true,
+    items: [],
   },
 ]
 
@@ -36,6 +43,10 @@ const getFileBefore = (path) => {
 
 const dispose = () => {}
 
+const isActive = () => {
+  return true
+}
+
 const sampleSourceControlProvider = {
   id,
   label,
@@ -47,6 +58,7 @@ const sampleSourceControlProvider = {
   acceptInput,
   getFileBefore,
   dispose,
+  isActive,
 }
 
 export function activate(context) {
