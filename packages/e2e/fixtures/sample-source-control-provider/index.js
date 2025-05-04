@@ -2,25 +2,33 @@ const id = 'sample-source-control'
 const label = 'Sample Source Control'
 const rootUri = ''
 
-const groups = [
-  {
-    id: 'changes',
-    label: 'Changes',
-    hideWhenEmpty: true,
-    items: [
-      {
-        file: '/test/file.js',
-        status: 1,
-      },
-    ],
-  },
-  {
-    id: 'staged',
-    label: 'Staged Changes',
-    hideWhenEmpty: true,
-    items: [],
-  },
-]
+const toItem = (dirent) => {
+  return {
+    file: dirent.name,
+    type: 1,
+  }
+}
+
+const getGroups = async () => {
+  const root = vscode.getWorkspaceFolder()
+  const dirents = await vscode.readDirWithFileTypes(root)
+  const items = dirents.map(toItem)
+  const groups = [
+    {
+      id: 'changes',
+      label: 'Changes',
+      hideWhenEmpty: true,
+      items: items,
+    },
+    {
+      id: 'staged',
+      label: 'Staged Changes',
+      hideWhenEmpty: true,
+      items: [],
+    },
+  ]
+  return groups
+}
 
 const getChangedFiles = () => {
   if (!rootUri) {
@@ -51,7 +59,7 @@ const sampleSourceControlProvider = {
   id,
   label,
   rootUri,
-  groups,
+  getGroups,
   getChangedFiles,
   stage,
   unstage,
