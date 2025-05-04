@@ -95,6 +95,16 @@ const sampleSourceControlProvider = {
 export function activate(context) {
   // @ts-ignore
   vscode.registerSourceControlProvider(sampleSourceControlProvider)
+  // @ts-ignore
+  vscode.registerCommand({
+    id: 'sampleSourceControl.stage',
+    execute: stage,
+  })
+  // @ts-ignore
+  vscode.registerCommand({
+    id: 'sampleSourceControl.unstage',
+    execute: unstage,
+  })
 }
 
 export function deactivate() {}
