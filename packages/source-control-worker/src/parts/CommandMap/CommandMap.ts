@@ -1,6 +1,7 @@
 import * as Create2 from '../Create2/Create2.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import * as GetCommandIds from '../GetCommandIds/GetCommandIds.ts'
+import * as GetInfo from '../GetInfo/GetInfo.ts'
 import * as HandleButtonClick from '../HandleButtonClick/HandleButtonClick.ts'
 import * as HandleClickAt from '../HandleClickAt/HandleClickAt.ts'
 import * as HandleClickSourceControlButtons from '../HandleClickSourceControlButtons/HandleClickSourceControlButtons.ts'
@@ -49,4 +50,5 @@ export const commandMap = {
   'SourceControl.setDeltaY': WrapCommand.wrapCommand(SetDeltaY.setDeltaY),
   'SourceControl.terminate': Terminate.terminate,
   'SourceControl.updateIcons': WrapCommand.wrapCommand(UpdateIcons.updateIcons),
+  'SourceControl.getInfo': GetInfo.getInfo,
 }
