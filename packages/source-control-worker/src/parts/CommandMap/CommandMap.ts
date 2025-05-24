@@ -10,6 +10,7 @@ import * as HandleMouseOut from '../HandleMouseOut/HandleMouseOut.ts'
 import * as HandleMouseOutAt from '../HandleMouseOutAt/HandleMouseOutAt.ts'
 import * as HandleMouseOver from '../HandleMouseOver/HandleMouseOver.ts'
 import * as HandleMouseOverAt from '../HandleMouseOverAt/HandleMouseOverAt.ts'
+import * as GetInfo from '../GetInfo/GetInfo.ts'
 import * as HandleWheel from '../HandleWheel/HandleWheel.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
@@ -49,4 +50,5 @@ export const commandMap = {
   'SourceControl.setDeltaY': WrapCommand.wrapCommand(SetDeltaY.setDeltaY),
   'SourceControl.terminate': Terminate.terminate,
   'SourceControl.updateIcons': WrapCommand.wrapCommand(UpdateIcons.updateIcons),
+  'SourceControl.getInfo': GetInfo.getInfo,
 }
