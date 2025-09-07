@@ -1,5 +1,6 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { AriaRoles } from '@lvce-editor/virtual-dom-worker'
+import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DirentType from '../DirentType/DirentType.ts'
@@ -8,7 +9,6 @@ import { getButtonsVirtualDom } from '../GetButtonsVirtualDom/GetButtonsVirtualD
 import { getLabelClassName } from '../GetLabelClassName/GetLabelClassName.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 import * as TreeItemPadding from '../TreeItemPadding/TreeItemPadding.ts'
-import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 export const createItemDirectory = (item: VisibleItem): readonly VirtualDomNode[] => {

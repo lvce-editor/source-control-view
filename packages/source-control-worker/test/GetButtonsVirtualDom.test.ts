@@ -1,8 +1,8 @@
 import { test, expect } from '@jest/globals'
+import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import * as EmptySourceControlButtons from '../src/parts/EmptySourceControlButtons/EmptySourceControlButton.ts'
 import { getButtonsVirtualDom } from '../src/parts/GetButtonsVirtualDom/GetButtonsVirtualDom.ts'
-import * as VirtualDomElements from '../src/parts/VirtualDomElements/VirtualDomElements.ts'
 
 test('empty buttons', () => {
   const result = getButtonsVirtualDom(EmptySourceControlButtons.emptySourceControlButtons)
