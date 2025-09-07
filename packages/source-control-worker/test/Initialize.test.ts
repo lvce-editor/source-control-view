@@ -4,7 +4,7 @@ import { initialize } from '../src/parts/Initialize/Initialize.ts'
 import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 import * as RpcId from '../src/parts/RpcId/RpcId.ts'
 
-test('initialize', async () => {
+test('initialize', async (): Promise<void> => {
   const commandMap = {
     'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': () => Promise.resolve()
   }

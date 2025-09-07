@@ -3,7 +3,7 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { handleContextMenu } from '../src/parts/HandleContextMenu/HandleContextMenu.ts'
 import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 
-test('handleContextMenu', async () => {
+test('handleContextMenu', async (): Promise<void> => {
   const commandMap = {
     'ContextMenu.show': () => Promise.resolve()
   }

@@ -3,7 +3,7 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import * as ExtensionHost from '../src/parts/ExtensionHost/ExtensionHost.ts'
 import * as Refresh from '../src/parts/Refresh/Refresh.ts'
 
-test('refresh should update state with groups and visible items', async () => {
+test('refresh should update state with groups and visible items', async (): Promise<void> => {
   const commandMap = {
     'ExtensionHostSourceControl.getGroups': () => Promise.resolve({
       allGroups: [],

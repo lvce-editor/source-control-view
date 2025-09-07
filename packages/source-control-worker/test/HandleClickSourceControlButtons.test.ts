@@ -5,12 +5,12 @@ import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefau
 import { handleClickSourceControlButtons } from '../src/parts/HandleClickSourceControlButtons/HandleClickSourceControlButtons.ts'
 
 const commandMap = {
-  'ExtensionHostManagement.activateByEvent': () => Promise.resolve(),
-  'ExtensionHostCommand.executeCommand': () => Promise.resolve(),
-  'FileSystem.readDirWithFileTypes': () => Promise.resolve([])
+  'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
+  'ExtensionHostCommand.executeCommand': (): Promise<void> => Promise.resolve(),
+  'FileSystem.readDirWithFileTypes': (): Promise<never[]> => Promise.resolve([])
 }
 
-test('handleClickSourceControlButtons - valid button click', async () => {
+test('handleClickSourceControlButtons - valid button click', async (): Promise<void> => {
   const rendererMockRpc = RendererWorker.registerMockRpc(commandMap)
   ExtensionHost.registerMockRpc(commandMap)
 
@@ -47,7 +47,7 @@ test('handleClickSourceControlButtons - valid button click', async () => {
   expect(rendererMockRpc.invocations.length).toBeGreaterThan(0)
 })
 
-test('handleClickSourceControlButtons - invalid index', async () => {
+test('handleClickSourceControlButtons - invalid index', async (): Promise<void> => {
   const state = {
     ...CreateDefaultState.createDefaultState(),
     visibleItems: [],
@@ -56,7 +56,7 @@ test('handleClickSourceControlButtons - invalid index', async () => {
   expect(newState).toBe(state)
 })
 
-test('handleClickSourceControlButtons - invalid button name', async () => {
+test('handleClickSourceControlButtons - invalid button name', async (): Promise<void> => {
   const state = {
     ...CreateDefaultState.createDefaultState(),
     visibleItems: [

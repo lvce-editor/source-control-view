@@ -2,7 +2,7 @@ import { test, expect } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { readFile } from '../src/parts/FileSystem/FileSystem.ts'
 
-test('readFile', async () => {
+test('readFile', async (): Promise<void> => {
   const commandMap = {
     'FileSystem.readFile': () => Promise.resolve('test content')
   }

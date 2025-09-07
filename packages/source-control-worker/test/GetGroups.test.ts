@@ -3,7 +3,7 @@ import * as ExtensionHost from '../src/parts/ExtensionHost/ExtensionHost.ts'
 import { getGroups } from '../src/parts/GetGroups/GetGroups.ts'
 import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 
-test('getGroups - aggregates groups from multiple providers', async () => {
+test('getGroups - aggregates groups from multiple providers', async (): Promise<void> => {
   const parentCommandMap = {
     'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
   }
@@ -23,7 +23,7 @@ test('getGroups - aggregates groups from multiple providers', async () => {
   expect(extensionHostMockRpc.invocations.length).toBeGreaterThan(0)
 })
 
-test('getGroups - empty providers', async () => {
+test('getGroups - empty providers', async (): Promise<void> => {
   const parentCommandMap = {
     'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
   }
@@ -43,7 +43,7 @@ test('getGroups - empty providers', async () => {
   expect(extensionHostMockRpc.invocations).toEqual([])
 })
 
-test('getGroups - single provider', async () => {
+test('getGroups - single provider', async (): Promise<void> => {
   const parentCommandMap = {
     'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
   }
@@ -63,7 +63,7 @@ test('getGroups - single provider', async () => {
   expect(extensionHostMockRpc.invocations.length).toBeGreaterThan(0)
 })
 
-test('getGroups - multiple providers', async () => {
+test('getGroups - multiple providers', async (): Promise<void> => {
   const parentCommandMap = {
     'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
   }

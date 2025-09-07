@@ -6,13 +6,13 @@ import * as ExtensionHost from '../src/parts/ExtensionHost/ExtensionHost.ts'
 import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 import { selectIndex } from '../src/parts/SelectIndex/SelectIndex.ts'
 
-test('selectIndex - invalid index', async () => {
+test('selectIndex - invalid index', async (): Promise<void> => {
   const state = createDefaultState()
   const newState = await selectIndex(state, -1)
   expect(newState).toBe(state)
 })
 
-test('selectIndex - directory', async () => {
+test('selectIndex - directory', async (): Promise<void> => {
   const commandMap = {
     'FileSystem.readDirWithFileTypes': () => Promise.resolve([]),
     'IconTheme.getIcons': () => Promise.resolve([])
@@ -50,7 +50,7 @@ test('selectIndex - directory', async () => {
   expect(newState.expandedGroups['test']).toBe(true)
 })
 
-test('selectIndex - expanded directory', async () => {
+test('selectIndex - expanded directory', async (): Promise<void> => {
   const commandMap = {
     'FileSystem.readDirWithFileTypes': () => Promise.resolve([]),
     'IconTheme.getIcons': () => Promise.resolve([])
@@ -89,7 +89,7 @@ test('selectIndex - expanded directory', async () => {
   expect(newState.expandedGroups['test']).toBe(false)
 })
 
-test('selectIndex - file', async () => {
+test('selectIndex - file', async (): Promise<void> => {
   const parentCommandMap = {
     'ExtensionHostManagement.activateByEvent': () => Promise.resolve(),
     'FileSystem.readFile': () => Promise.resolve(''),
