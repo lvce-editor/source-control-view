@@ -1,16 +1,12 @@
-import { expect, jest, test } from '@jest/globals'
-import { MockRpc } from '@lvce-editor/rpc'
+import { expect, test } from '@jest/globals'
 import { openUri } from '../src/parts/OpenUri/OpenUri.ts'
-import { set } from '../src/parts/ParentRpc/ParentRpc.ts'
+import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 
-test('openUri', async () => {
-  const mockInvoke = jest.fn()
-  const mockRpc = MockRpc.create({
-    commandMap: {},
-    invoke: mockInvoke,
-  })
-  set(mockRpc)
+test('openUri', async (): Promise<void> => {
+  const commandMap = {
+    'Main.openUri': (): Promise<void> => Promise.resolve(),
+  }
+  const mockRpc = ParentRpc.registerMockRpc(commandMap)
   await openUri('test-uri')
-  expect(mockInvoke).toHaveBeenCalledTimes(1)
-  expect(mockInvoke).toHaveBeenCalledWith('Main.openUri', 'test-uri')
+  expect(mockRpc.invocations).toEqual([['Main.openUri', 'test-uri']])
 })

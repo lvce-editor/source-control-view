@@ -1,5 +1,5 @@
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { RendererWorker, type MockRpc } from '@lvce-editor/rpc-registry'
 
-const { invoke, invokeAndTransfer, set } = RendererWorker
+const { invoke, invokeAndTransfer, set, registerMockRpc } = RendererWorker
 
-export { invoke, invokeAndTransfer, set }
+export { invoke, invokeAndTransfer, set, registerMockRpc, type MockRpc }

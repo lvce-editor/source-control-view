@@ -1,3 +1,3 @@
-export const get=(key:string):boolean =>{
+export const get = (key: string): boolean => {
   return false
 }

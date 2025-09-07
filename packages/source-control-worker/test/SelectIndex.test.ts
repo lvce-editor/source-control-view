@@ -1,5 +1,4 @@
 import { expect, test } from '@jest/globals'
-import { MockRpc } from '@lvce-editor/rpc'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as DirentType from '../src/parts/DirentType/DirentType.ts'
@@ -7,26 +6,18 @@ import * as ExtensionHost from '../src/parts/ExtensionHost/ExtensionHost.ts'
 import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 import { selectIndex } from '../src/parts/SelectIndex/SelectIndex.ts'
 
-test('selectIndex - invalid index', async () => {
+test('selectIndex - invalid index', async (): Promise<void> => {
   const state = createDefaultState()
   const newState = await selectIndex(state, -1)
   expect(newState).toBe(state)
 })
 
-test('selectIndex - directory', async () => {
-  const mockRpc = MockRpc.create({
-    commandMap: {},
-    invoke: (method: string) => {
-      if (method === 'FileSystem.readDirWithFileTypes') {
-        return Promise.resolve([])
-      }
-      if (method === 'IconTheme.getIcons') {
-        return Promise.resolve([])
-      }
-      throw new Error(`unexpected method ${method}`)
-    },
-  })
-  ParentRpc.set(mockRpc)
+test('selectIndex - directory', async (): Promise<void> => {
+  const commandMap = {
+    'FileSystem.readDirWithFileTypes': (): Promise<never[]> => Promise.resolve([]),
+    'IconTheme.getIcons': (): Promise<never[]> => Promise.resolve([]),
+  }
+  ParentRpc.registerMockRpc(commandMap)
 
   const testItem = {
     type: DirentType.Directory,
@@ -59,20 +50,12 @@ test('selectIndex - directory', async () => {
   expect(newState.expandedGroups['test']).toBe(true)
 })
 
-test('selectIndex - expanded directory', async () => {
-  const mockRpc = MockRpc.create({
-    commandMap: {},
-    invoke: (method: string) => {
-      if (method === 'FileSystem.readDirWithFileTypes') {
-        return Promise.resolve([])
-      }
-      if (method === 'IconTheme.getIcons') {
-        return Promise.resolve([])
-      }
-      throw new Error(`unexpected method ${method}`)
-    },
-  })
-  ParentRpc.set(mockRpc)
+test('selectIndex - expanded directory', async (): Promise<void> => {
+  const commandMap = {
+    'FileSystem.readDirWithFileTypes': (): Promise<never[]> => Promise.resolve([]),
+    'IconTheme.getIcons': (): Promise<never[]> => Promise.resolve([]),
+  }
+  ParentRpc.registerMockRpc(commandMap)
 
   const testItem = {
     type: DirentType.DirectoryExpanded,
@@ -106,37 +89,19 @@ test('selectIndex - expanded directory', async () => {
   expect(newState.expandedGroups['test']).toBe(false)
 })
 
-test('selectIndex - file', async () => {
-  const mockRpc = MockRpc.create({
-    commandMap: {},
-    invoke: (method: string) => {
-      if (method === 'ExtensionHostManagement.activateByEvent') {
-        return Promise.resolve()
-      }
-      if (method === 'FileSystem.readFile') {
-        return Promise.resolve('')
-      }
-      if (method === 'IconTheme.getIcons') {
-        return Promise.resolve([])
-      }
-      if (method === 'Main.openUri') {
-        return Promise.resolve()
-      }
-      throw new Error(`unexpected method ${method}`)
-    },
-  })
-  ParentRpc.set(mockRpc)
+test('selectIndex - file', async (): Promise<void> => {
+  const parentCommandMap = {
+    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
+    'FileSystem.readFile': (): Promise<string> => Promise.resolve(''),
+    'IconTheme.getIcons': (): Promise<never[]> => Promise.resolve([]),
+    'Main.openUri': (): Promise<void> => Promise.resolve(),
+  }
+  ParentRpc.registerMockRpc(parentCommandMap)
 
-  const mockExtensionHost = MockRpc.create({
-    commandMap: {},
-    invoke: (method: string) => {
-      if (method === 'ExtensionHostSourceControl.getFileBefore') {
-        return Promise.resolve('')
-      }
-      throw new Error(`unexpected method ${method}`)
-    },
-  })
-  ExtensionHost.set(mockExtensionHost)
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.getFileBefore': (): Promise<string> => Promise.resolve(''),
+  }
+  ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const testItem = {
     type: DirentType.File,

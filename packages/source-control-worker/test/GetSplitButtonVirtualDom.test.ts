@@ -41,9 +41,9 @@ test('getSourceControlItemsVirtualDom - with items', () => {
   })
 })
 
-test.skip('getSourceControlItemsVirtualDom - without items', () => {
+test.skip('getSourceControlItemsVirtualDom - without items', (): void => {
   const splitButtonEnabled = true
-  const result = getSplitButtonVirtualDom(false, splitButtonEnabled, 'test')
+  const result = getSplitButtonVirtualDom(true, splitButtonEnabled, 'test')
   expect(result).toHaveLength(6)
   expect(result[0]).toEqual({
     type: VirtualDomElements.Div,
