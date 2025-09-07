@@ -71,7 +71,6 @@ const getGroups = async () => {
   const dirents = await vscode.readDirWithFileTypes(root)
   const changed = dirents.filter(isChanged).map((item) => toChangedItem(item, root))
   const staged = dirents.filter(isStaged).map((item) => toStagedItem(item, root))
-  console.log({ renamedFilesMap, changed, staged })
   const groups = [
     {
       id: 'merge',
