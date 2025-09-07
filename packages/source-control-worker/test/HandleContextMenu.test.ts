@@ -17,6 +17,6 @@ test('handleContextMenu', async () => {
   const newState = await handleContextMenu(state, button, x, y)
   expect(newState).toBe(state)
   expect(mockRpc.invocations).toEqual([
-    { method: 'ContextMenu.show', params: [button, x, y] }
+    ['ContextMenu.show', button, x, y]
   ])
 })
