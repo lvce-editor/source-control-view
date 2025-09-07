@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'source-control.unstage'
 
-export const test: Test = async ({ Locator, expect, QuickPick, Command, SideBar, FileSystem, Workspace, Extension }) => {
+export const test: Test = async ({ SourceControl, Locator, expect, QuickPick, Command, SideBar, FileSystem, Workspace, Extension }) => {
   // arrange
   const uri = new URL('../fixtures/sample-source-control-provider', import.meta.url).toString()
   await Extension.addWebExtension(uri)
@@ -10,10 +10,10 @@ export const test: Test = async ({ Locator, expect, QuickPick, Command, SideBar,
   await FileSystem.writeFile(`${tmpDir}/test.css`, `abc`)
   await Workspace.setPath(tmpDir)
   await SideBar.open('Source Control')
-  await Command.execute('Source Control.handleClickSourceControlButtons', 1, `Stage`)
+  await SourceControl.handleClickSourceControlButtons(1, `Stage`)
 
   // act
-  await Command.execute('Source Control.handleClickSourceControlButtons', 1, `Unstage Changes`)
+  await SourceControl.handleClickSourceControlButtons(1, `Unstage Changes`)
 
   //  assert
   const sourceControlView = Locator('.Viewlet.SourceControl')
