@@ -3,6 +3,7 @@ import * as DirentType from '../DirentType/DirentType.ts'
 import { handleClickDirectory } from '../HandleClickDirectory/HandleClickDirectory.ts'
 import { handleClickDirectoryExpanded } from '../HandleClickDirectoryExpanded/HandleClickDirectoryExpanded.ts'
 import { handleClickFile } from '../HandleClickFile/HandleClickFile.ts'
+import * as Logger from '../Logger/Logger.ts'
 
 export const selectIndex = async (state: SourceControlState, index: number): Promise<SourceControlState> => {
   const { items } = state
@@ -18,7 +19,7 @@ export const selectIndex = async (state: SourceControlState, index: number): Pro
     case DirentType.File:
       return handleClickFile(state, item)
     default:
-      console.warn(`unknown item type: ${item.type}`)
+      Logger.warn(`unknown item type: ${item.type}`)
       return state
   }
 }
