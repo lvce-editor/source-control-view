@@ -13,11 +13,11 @@ export const test: Test = async ({ Command, Locator, expect, SideBar, FileSystem
   await SideBar.open('Source Control')
 
   // act
-  await Command.execute('Source Control.handleInput', '\n', 2)
+  await Command.execute('Source Control.handleInput', 'abc\ndef\n', 2)
 
   // assert
   const input = Locator(`.SourceControl .InputBox`)
   await expect(input).toBeVisible()
-  await expect(input).toHaveValue('\n')
+  await expect(input).toHaveValue('abc\ndef\n')
   await expect(input).toHaveCSS('height', '60px')
 }
