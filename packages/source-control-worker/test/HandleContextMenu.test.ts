@@ -1,20 +1,13 @@
 import { expect, test } from '@jest/globals'
-import { MockRpc } from '@lvce-editor/rpc'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleContextMenu } from '../src/parts/HandleContextMenu/HandleContextMenu.ts'
 import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 
 test('handleContextMenu', async () => {
-  const mockRpc = MockRpc.create({
-    commandMap: {},
-    invoke: (method: string) => {
-      if (method === 'ContextMenu.show') {
-        return Promise.resolve()
-      }
-      throw new Error(`unexpected method ${method}`)
-    },
-  })
-  ParentRpc.set(mockRpc)
+  const commandMap = {
+    'ContextMenu.show': () => Promise.resolve()
+  }
+  const mockRpc = ParentRpc.registerMockRpc(commandMap)
 
   const state = createDefaultState()
   const button = 2
@@ -23,4 +16,7 @@ test('handleContextMenu', async () => {
 
   const newState = await handleContextMenu(state, button, x, y)
   expect(newState).toBe(state)
+  expect(mockRpc.invocations).toEqual([
+    { method: 'ContextMenu.show', params: [button, x, y] }
+  ])
 })

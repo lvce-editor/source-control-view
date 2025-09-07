@@ -1,5 +1,4 @@
 import { expect, test } from '@jest/globals'
-import { MockRpc } from '@lvce-editor/rpc'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as DirentType from '../src/parts/DirentType/DirentType.ts'
@@ -14,19 +13,11 @@ test('selectIndex - invalid index', async () => {
 })
 
 test('selectIndex - directory', async () => {
-  const mockRpc = MockRpc.create({
-    commandMap: {},
-    invoke: (method: string) => {
-      if (method === 'FileSystem.readDirWithFileTypes') {
-        return Promise.resolve([])
-      }
-      if (method === 'IconTheme.getIcons') {
-        return Promise.resolve([])
-      }
-      throw new Error(`unexpected method ${method}`)
-    },
-  })
-  ParentRpc.set(mockRpc)
+  const commandMap = {
+    'FileSystem.readDirWithFileTypes': () => Promise.resolve([]),
+    'IconTheme.getIcons': () => Promise.resolve([])
+  }
+  const mockRpc = ParentRpc.registerMockRpc(commandMap)
 
   const testItem = {
     type: DirentType.Directory,
@@ -57,22 +48,15 @@ test('selectIndex - directory', async () => {
   }
   const newState = await selectIndex(state, 0)
   expect(newState.expandedGroups['test']).toBe(true)
+  expect(mockRpc.invocations.length).toBeGreaterThan(0)
 })
 
 test('selectIndex - expanded directory', async () => {
-  const mockRpc = MockRpc.create({
-    commandMap: {},
-    invoke: (method: string) => {
-      if (method === 'FileSystem.readDirWithFileTypes') {
-        return Promise.resolve([])
-      }
-      if (method === 'IconTheme.getIcons') {
-        return Promise.resolve([])
-      }
-      throw new Error(`unexpected method ${method}`)
-    },
-  })
-  ParentRpc.set(mockRpc)
+  const commandMap = {
+    'FileSystem.readDirWithFileTypes': () => Promise.resolve([]),
+    'IconTheme.getIcons': () => Promise.resolve([])
+  }
+  const mockRpc = ParentRpc.registerMockRpc(commandMap)
 
   const testItem = {
     type: DirentType.DirectoryExpanded,
@@ -104,39 +88,22 @@ test('selectIndex - expanded directory', async () => {
   }
   const newState = await selectIndex(state, 0)
   expect(newState.expandedGroups['test']).toBe(false)
+  expect(mockRpc.invocations.length).toBeGreaterThan(0)
 })
 
 test('selectIndex - file', async () => {
-  const mockRpc = MockRpc.create({
-    commandMap: {},
-    invoke: (method: string) => {
-      if (method === 'ExtensionHostManagement.activateByEvent') {
-        return Promise.resolve()
-      }
-      if (method === 'FileSystem.readFile') {
-        return Promise.resolve('')
-      }
-      if (method === 'IconTheme.getIcons') {
-        return Promise.resolve([])
-      }
-      if (method === 'Main.openUri') {
-        return Promise.resolve()
-      }
-      throw new Error(`unexpected method ${method}`)
-    },
-  })
-  ParentRpc.set(mockRpc)
+  const parentCommandMap = {
+    'ExtensionHostManagement.activateByEvent': () => Promise.resolve(),
+    'FileSystem.readFile': () => Promise.resolve(''),
+    'IconTheme.getIcons': () => Promise.resolve([]),
+    'Main.openUri': () => Promise.resolve()
+  }
+  const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
 
-  const mockExtensionHost = MockRpc.create({
-    commandMap: {},
-    invoke: (method: string) => {
-      if (method === 'ExtensionHostSourceControl.getFileBefore') {
-        return Promise.resolve('')
-      }
-      throw new Error(`unexpected method ${method}`)
-    },
-  })
-  ExtensionHost.set(mockExtensionHost)
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.getFileBefore': () => Promise.resolve('')
+  }
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const testItem = {
     type: DirentType.File,
@@ -168,4 +135,6 @@ test('selectIndex - file', async () => {
   }
   const newState = await selectIndex(state, 0)
   expect(newState.items[0].type).toBe(DirentType.File)
+  expect(parentMockRpc.invocations.length).toBeGreaterThan(0)
+  expect(extensionHostMockRpc.invocations.length).toBeGreaterThan(0)
 })
