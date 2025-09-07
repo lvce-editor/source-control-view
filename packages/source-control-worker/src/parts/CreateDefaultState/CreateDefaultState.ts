@@ -35,4 +35,5 @@ export const createDefaultState = (): SourceControlState => ({
   y: 0,
   inputPlaceholder: '',
   inputSource: 0,
+  maxInputLines: 5,
 })
