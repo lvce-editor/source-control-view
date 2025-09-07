@@ -36,6 +36,7 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     x,
     y,
     inputPlaceholder: '',
+    inputSource: 0,
   }
   SourceControlStates.set(id, state, state)
 }

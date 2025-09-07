@@ -34,4 +34,5 @@ export const createDefaultState = (): SourceControlState => ({
   x: 0,
   y: 0,
   inputPlaceholder: '',
+  inputSource: 0,
 })

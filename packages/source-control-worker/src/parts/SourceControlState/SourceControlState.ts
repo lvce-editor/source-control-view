@@ -36,6 +36,7 @@ export interface SourceControlState {
   readonly width: number
   readonly workingTree: readonly any[]
   readonly workspacePath: string
+  readonly inputSource: number
   readonly x: number
   readonly y: number
 }
