@@ -8,14 +8,14 @@ beforeAll(() => {
   ParentRpc.registerMockRpc(commandMap)
 })
 
-test('state should be initialized with default values', () => {
+test('state should be initialized with default values', (): void => {
   expect(SourceControl.state).toEqual({
     enabledProviders: [],
     initialized: false,
   })
 })
 
-test('acceptInput should call ExtensionHostSourceControl.acceptInput', async () => {
+test('acceptInput should call ExtensionHostSourceControl.acceptInput', async (): Promise<void> => {
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.acceptInput': () => Promise.resolve()
   }
@@ -31,7 +31,7 @@ test('acceptInput should call ExtensionHostSourceControl.acceptInput', async () 
   ])
 })
 
-test('getChangedFiles should call ExtensionHostSourceControl.getChangedFiles', async () => {
+test('getChangedFiles should call ExtensionHostSourceControl.getChangedFiles', async (): Promise<void> => {
   const extensionHostCommandMap = {
     'ExtensionHost.sourceControlGetChangedFiles': () => Promise.resolve([])
   }
@@ -49,7 +49,7 @@ test('getChangedFiles should call ExtensionHostSourceControl.getChangedFiles', a
   ])
 })
 
-test('getFileBefore should call ExtensionHostSourceControl.getFileBefore', async () => {
+test('getFileBefore should call ExtensionHostSourceControl.getFileBefore', async (): Promise<void> => {
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.getFileBefore': () => Promise.resolve({})
   }
@@ -67,7 +67,7 @@ test('getFileBefore should call ExtensionHostSourceControl.getFileBefore', async
   ])
 })
 
-test('add should call ExtensionHostSourceControl.add', async () => {
+test('add should call ExtensionHostSourceControl.add', async (): Promise<void> => {
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.add': () => Promise.resolve()
   }
@@ -84,7 +84,7 @@ test('add should call ExtensionHostSourceControl.add', async () => {
   ])
 })
 
-test('discard should call ExtensionHostSourceControl.discard', async () => {
+test('discard should call ExtensionHostSourceControl.discard', async (): Promise<void> => {
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.discard': () => Promise.resolve()
   }
@@ -101,7 +101,7 @@ test('discard should call ExtensionHostSourceControl.discard', async () => {
   ])
 })
 
-test('getEnabledProviderIds should call ExtensionHostSourceControl.getEnabledProviderIds', async () => {
+test('getEnabledProviderIds should call ExtensionHostSourceControl.getEnabledProviderIds', async (): Promise<void> => {
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.getEnabledProviderIds': () => Promise.resolve(['test-provider'])
   }
@@ -119,7 +119,7 @@ test('getEnabledProviderIds should call ExtensionHostSourceControl.getEnabledPro
   ])
 })
 
-test('getGroups should call ExtensionHostSourceControl.getGroups', async () => {
+test('getGroups should call ExtensionHostSourceControl.getGroups', async (): Promise<void> => {
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.getGroups': () => Promise.resolve([])
   }

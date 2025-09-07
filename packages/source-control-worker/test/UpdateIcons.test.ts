@@ -5,12 +5,12 @@ import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefau
 import * as UpdateIcons from '../src/parts/UpdateIcons/UpdateIcons.ts'
 
 const commandMap = {
-  'IconTheme.getFileIcon': () => Promise.resolve(['icon1', 'icon2']),
-  'IconTheme.getFolderIcon': () => Promise.resolve(['icon1', 'icon2']),
-  'IconTheme.getIcons': () => Promise.resolve(['icon1', 'icon2'])
+  'IconTheme.getFileIcon': (): Promise<string[]> => Promise.resolve(['icon1', 'icon2']),
+  'IconTheme.getFolderIcon': (): Promise<string[]> => Promise.resolve(['icon1', 'icon2']),
+  'IconTheme.getIcons': (): Promise<string[]> => Promise.resolve(['icon1', 'icon2'])
 }
 
-test('updateIcons - should update icons for visible items', async () => {
+test('updateIcons - should update icons for visible items', async (): Promise<void> => {
   const mockRpc = RendererWorker.registerMockRpc(commandMap)
   const defaultState = CreateDefaultState.createDefaultState()
   const state: SourceControlState = {
@@ -36,7 +36,7 @@ test('updateIcons - should update icons for visible items', async () => {
   expect(mockRpc.invocations.length).toBeGreaterThan(0)
 })
 
-test('updateIcons - should handle empty visible items', async () => {
+test('updateIcons - should handle empty visible items', async (): Promise<void> => {
   const mockRpc = RendererWorker.registerMockRpc(commandMap)
   const defaultState = CreateDefaultState.createDefaultState()
   const state: SourceControlState = {

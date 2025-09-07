@@ -3,7 +3,7 @@ import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { SourceControlWorker } from '../src/parts/RpcId/RpcId.js'
 import { sendMessagePortToExtensionHostWorker } from '../src/parts/SendMessagePortToExtensionHostWorker/SendMessagePortToExtensionHostWorker.js'
 
-test('sendMessagePortToExtensionHostWorker', async () => {
+test('sendMessagePortToExtensionHostWorker', async (): Promise<void> => {
   const commandMap = {
     'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': () => Promise.resolve()
   }
