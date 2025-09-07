@@ -1,6 +1,5 @@
 import * as Create2 from '../Create2/Create2.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
-import * as GetCommandIds from '../GetCommandIds/GetCommandIds.ts'
 import * as GetInfo from '../GetInfo/GetInfo.ts'
 import * as HandleButtonClick from '../HandleButtonClick/HandleButtonClick.ts'
 import * as HandleClickAt from '../HandleClickAt/HandleClickAt.ts'
@@ -29,7 +28,7 @@ export const commandMap = {
   'Initialize.initialize': Initialize.initialize,
   'SourceControl.create2': Create2.create2,
   'SourceControl.diff2': Diff2.diff2,
-  'SourceControl.getCommandIds': GetCommandIds.getCommandIds,
+  'SourceControl.getCommandIds': WrapCommand.getCommandIds,
   'SourceControl.handleButtonClick': WrapCommand.wrapCommand(HandleButtonClick.handleButtonClick),
   'SourceControl.handleClickAt': WrapCommand.wrapCommand(HandleClickAt.handleClickAt),
   'SourceControl.handleClickSourceControlButtons': WrapCommand.wrapCommand(HandleClickSourceControlButtons.handleClickSourceControlButtons),
