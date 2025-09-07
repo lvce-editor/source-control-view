@@ -10,10 +10,12 @@ export const getTextHeight = async (
   lineHeight: number,
 ): Promise<number> => {
   try {
+    // TODO line height could also be like 1.5
+    const lineHeightPx = `${lineHeight}px`
     // @ts-ignore
-    const height = await RendererWorker.invoke(`MeasureTextHeight.measureTextBlockHeight`, input, fontFamily, fontSize, lineHeight, width)
+    const height = await RendererWorker.invoke(`MeasureTextHeight.measureTextBlockHeight`, input, fontFamily, fontSize, lineHeightPx, width)
     return height
-  } catch {
+  } catch (error) {
     // fallback
     const lines = input.split('\n')
     const lineCount = lines.length
