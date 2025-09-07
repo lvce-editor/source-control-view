@@ -1,6 +1,6 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
+import { AriaRoles } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
-import * as AriaRoles from '../AriaRoles/AriaRoles.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DirentType from '../DirentType/DirentType.ts'
 import * as GetBadgeVirtualDom from '../GetBadgeVirtualDom/GetBadgeVirtualDom.ts'
