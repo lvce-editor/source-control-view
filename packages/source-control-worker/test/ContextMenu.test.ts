@@ -9,6 +9,6 @@ test('show', async () => {
   const mockRpc = RendererWorker.registerMockRpc(commandMap)
   await show(1, 2, 3, 'test')
   expect(mockRpc.invocations).toEqual([
-    ['ContextMenu.show', 1, 2, 3, 'test']
+    { method: 'ContextMenu.show', params: [1, 2, 3, 'test'] }
   ])
 })

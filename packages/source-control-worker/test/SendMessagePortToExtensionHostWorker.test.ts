@@ -13,6 +13,6 @@ test('sendMessagePortToExtensionHostWorker', async () => {
   await sendMessagePortToExtensionHostWorker(port)
 
   expect(mockRpc.invocations).toEqual([
-    ['SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, 'HandleMessagePort.handleMessagePort2', SourceControlWorker]
+    { method: 'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', params: [port, 'HandleMessagePort.handleMessagePort2', SourceControlWorker] }
   ])
 })

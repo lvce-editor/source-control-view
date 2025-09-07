@@ -22,7 +22,7 @@ test('acceptInput should call ExtensionHostSourceControl.acceptInput', async () 
   const mockRpc = ExtensionHost.registerMockRpc(commandMap)
   await SourceControl.acceptInput('test-provider', 'test-input')
   expect(mockRpc.invocations).toEqual([
-    { method: 'ExtensionHostSourceControl.acceptInput', params: ['test-provider', 'test-input'] }
+    ['ExtensionHostSourceControl.acceptInput', 'test-provider', 'test-input']
   ])
 })
 
@@ -35,7 +35,7 @@ test('getChangedFiles should call ExtensionHostSourceControl.getChangedFiles', a
   const result = await SourceControl.getChangedFiles('test-provider')
   expect(result).toEqual([])
   expect(mockRpc.invocations).toEqual([
-    { method: 'ExtensionHost.sourceControlGetChangedFiles', params: ['test-provider'] }
+    ['ExtensionHost.sourceControlGetChangedFiles', 'test-provider']
   ])
 })
 
@@ -48,7 +48,7 @@ test('getFileBefore should call ExtensionHostSourceControl.getFileBefore', async
   const result = await SourceControl.getFileBefore('test-provider', 'test-file')
   expect(result).toEqual({})
   expect(mockRpc.invocations).toEqual([
-    { method: 'ExtensionHostSourceControl.getFileBefore', params: ['test-provider', 'test-file'] }
+    ['ExtensionHostSourceControl.getFileBefore', 'test-provider', 'test-file']
   ])
 })
 
@@ -60,7 +60,7 @@ test('add should call ExtensionHostSourceControl.add', async () => {
 
   await SourceControl.add('test-file')
   expect(mockRpc.invocations).toEqual([
-    { method: 'ExtensionHostSourceControl.add', params: ['test-file'] }
+    ['ExtensionHostSourceControl.add', 'test-file']
   ])
 })
 
@@ -72,7 +72,7 @@ test('discard should call ExtensionHostSourceControl.discard', async () => {
 
   await SourceControl.discard('test-file')
   expect(mockRpc.invocations).toEqual([
-    { method: 'ExtensionHostSourceControl.discard', params: ['test-file'] }
+    ['ExtensionHostSourceControl.discard', 'test-file']
   ])
 })
 
@@ -85,7 +85,7 @@ test('getEnabledProviderIds should call ExtensionHostSourceControl.getEnabledPro
   const result = await SourceControl.getEnabledProviderIds('test-scheme', 'test-root')
   expect(result).toEqual(['test-provider'])
   expect(mockRpc.invocations).toEqual([
-    { method: 'ExtensionHostSourceControl.getEnabledProviderIds', params: ['test-scheme', 'test-root'] }
+    ['ExtensionHostSourceControl.getEnabledProviderIds', 'test-scheme', 'test-root']
   ])
 })
 
@@ -98,6 +98,6 @@ test('getGroups should call ExtensionHostSourceControl.getGroups', async () => {
   const result = await SourceControl.getGroups('test-provider', 'test-root')
   expect(result).toEqual([])
   expect(mockRpc.invocations).toEqual([
-    { method: 'ExtensionHostSourceControl.getGroups', params: ['test-provider', 'test-root'] }
+    ['ExtensionHostSourceControl.getGroups', 'test-provider', 'test-root']
   ])
 })
