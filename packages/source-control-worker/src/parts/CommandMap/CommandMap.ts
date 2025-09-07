@@ -7,6 +7,7 @@ import * as HandleClickAt from '../HandleClickAt/HandleClickAt.ts'
 import * as HandleClickSourceControlButtons from '../HandleClickSourceControlButtons/HandleClickSourceControlButtons.ts'
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandleFocus from '../HandleFocus/HandleFocus.ts'
+import { handleInput } from '../HandleInput/HandleInput.ts'
 import * as HandleMouseOut from '../HandleMouseOut/HandleMouseOut.ts'
 import * as HandleMouseOutAt from '../HandleMouseOutAt/HandleMouseOutAt.ts'
 import * as HandleMouseOver from '../HandleMouseOver/HandleMouseOver.ts'
@@ -31,6 +32,7 @@ export const commandMap = {
   'SourceControl.getCommandIds': WrapCommand.getCommandIds,
   'SourceControl.handleButtonClick': WrapCommand.wrapCommand(HandleButtonClick.handleButtonClick),
   'SourceControl.handleClickAt': WrapCommand.wrapCommand(HandleClickAt.handleClickAt),
+  'SourceControl.handleInput': WrapCommand.wrapCommand(handleInput),
   'SourceControl.handleClickSourceControlButtons': WrapCommand.wrapCommand(HandleClickSourceControlButtons.handleClickSourceControlButtons),
   'SourceControl.handleContextMenu': WrapCommand.wrapCommand(HandleContextMenu.handleContextMenu),
   'SourceControl.handleFocus': WrapCommand.wrapCommand(HandleFocus.handleFocus),
