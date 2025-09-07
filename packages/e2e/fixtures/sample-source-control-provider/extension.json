@@ -3,8 +3,13 @@
   "name": "Sample Source Control Provider",
   "description": "Sample Source Control Provider",
   "browser": "index.js",
-  "activation": ["onStartupFinished", "onSourceControl", "onSourceControl:", "onSourceControl:memfs", "onStatusBarItem"],
-  "commands": [],
+  "activation": ["onStartupFinished", "onSourceControl", "onSourceControl:", "onSourceControl:memfs", "onStatusBarItem", "onCommand:sampleSourceControl.rename"],
+  "commands": [
+    {
+      "id": "sampleSourceControl.rename",
+      "label": "Rename Uri"
+    }
+  ],
   "source-control-actions": {
     "index": [
       {

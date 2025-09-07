@@ -17,6 +17,8 @@ const IconType = {
 
 const staged = Object.create(null)
 
+const renamedFilesMap = Object.create(null)
+
 const toChangedItem = (dirent) => {
   return {
     file: dirent.name,
@@ -125,6 +127,11 @@ const sampleSourceControlProvider = {
   isActive,
 }
 
+const rename = (oldUri, newUri) => {
+  // TODO
+  renamedFilesMap[oldUri] = newUri
+}
+
 export function activate(context) {
   // @ts-ignore
   vscode.registerSourceControlProvider(sampleSourceControlProvider)
@@ -142,6 +149,11 @@ export function activate(context) {
   vscode.registerCommand({
     id: 'sampleSourceControl.unstageAll',
     execute: unstageAll,
+  })
+  // @ts-ignore
+  vscode.registerCommand({
+    id: 'sampleSourceControl.rename',
+    execute: rename,
   })
 }
 
