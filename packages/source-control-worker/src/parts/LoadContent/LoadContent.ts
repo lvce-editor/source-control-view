@@ -12,6 +12,7 @@ import { requestSourceActions } from '../RequestSourceActions/RequestSourceActio
 import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedGroups.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 import * as SourceControl from '../SourceControl/SourceControl.ts'
+import * as SourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
 export const loadContent = async (state: SourceControlState): Promise<SourceControlState> => {
   const { itemHeight, height, minimumSliderSize, workspacePath, fileIconCache } = state
@@ -33,19 +34,21 @@ export const loadContent = async (state: SourceControlState): Promise<SourceCont
   const newFileIconCache = await GetFileIcons.getFileIcons(displayItems, fileIconCache)
   const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
+  const inputPlaceholder = SourceControlStrings.messageEnterToCommitOnMaster()
   return {
     ...state,
-    allGroups,
-    gitRoot,
-    items: displayItems,
-    visibleItems,
-    enabledProviderIds,
-    root,
-    splitButtonEnabled,
-    maxLineY,
-    scrollBarHeight,
-    finalDeltaY,
-    fileIconCache: newFileIconCache,
     actionsCache,
+    allGroups,
+    enabledProviderIds,
+    fileIconCache: newFileIconCache,
+    finalDeltaY,
+    gitRoot,
+    inputPlaceholder,
+    items: displayItems,
+    maxLineY,
+    root,
+    scrollBarHeight,
+    splitButtonEnabled,
+    visibleItems,
   }
 }
