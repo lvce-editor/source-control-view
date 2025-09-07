@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
-import { SourceControlWorker } from '../src/parts/RpcId/RpcId.js'
+import { RpcId } from '@lvce-editor/rpc-registry'
 import { sendMessagePortToExtensionHostWorker } from '../src/parts/SendMessagePortToExtensionHostWorker/SendMessagePortToExtensionHostWorker.js'
 
 test('sendMessagePortToExtensionHostWorker', async (): Promise<void> => {
@@ -13,6 +13,6 @@ test('sendMessagePortToExtensionHostWorker', async (): Promise<void> => {
   await sendMessagePortToExtensionHostWorker(port)
 
   expect(mockRpc.invocations).toEqual([
-    ['SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, 'HandleMessagePort.handleMessagePort2', SourceControlWorker],
+    ['SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, 'HandleMessagePort.handleMessagePort2', RpcId.SourceControlWorker],
   ])
 })
