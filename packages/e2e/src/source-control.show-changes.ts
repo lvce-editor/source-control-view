@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'source-control.show-changes'
 
-export const test: Test = async ({ Locator, expect, QuickPick, Command, SideBar, FileSystem, Workspace, Extension }) => {
+export const test: Test = async ({ Locator, expect, SideBar, FileSystem, Workspace, Extension }) => {
   // arrange
   const uri = new URL('../fixtures/sample-source-control-provider', import.meta.url).toString()
   await Extension.addWebExtension(uri)
