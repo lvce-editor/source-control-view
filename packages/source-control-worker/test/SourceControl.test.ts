@@ -16,95 +16,123 @@ test('state should be initialized with default values', () => {
 })
 
 test('acceptInput should call ExtensionHostSourceControl.acceptInput', async () => {
-  const commandMap = {
-    'ExtensionHostSourceControl.acceptInput': () => Promise.resolve(),
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.acceptInput': () => Promise.resolve()
+  }
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+  
+  const parentCommandMap = {
     'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
   }
-  const mockRpc = ExtensionHost.registerMockRpc(commandMap)
+  const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
   await SourceControl.acceptInput('test-provider', 'test-input')
-  expect(mockRpc.invocations).toEqual([
+  expect(extensionHostMockRpc.invocations).toEqual([
     ['ExtensionHostSourceControl.acceptInput', 'test-provider', 'test-input']
   ])
 })
 
 test('getChangedFiles should call ExtensionHostSourceControl.getChangedFiles', async () => {
-  const commandMap = {
-    'ExtensionHost.sourceControlGetChangedFiles': () => Promise.resolve([]),
+  const extensionHostCommandMap = {
+    'ExtensionHost.sourceControlGetChangedFiles': () => Promise.resolve([])
+  }
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+  
+  const parentCommandMap = {
     'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
   }
-  const mockRpc = ExtensionHost.registerMockRpc(commandMap)
+  const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
 
   const result = await SourceControl.getChangedFiles('test-provider')
   expect(result).toEqual([])
-  expect(mockRpc.invocations).toEqual([
+  expect(extensionHostMockRpc.invocations).toEqual([
     ['ExtensionHost.sourceControlGetChangedFiles', 'test-provider']
   ])
 })
 
 test('getFileBefore should call ExtensionHostSourceControl.getFileBefore', async () => {
-  const commandMap = {
-    'ExtensionHostSourceControl.getFileBefore': () => Promise.resolve({}),
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.getFileBefore': () => Promise.resolve({})
+  }
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+  
+  const parentCommandMap = {
     'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
   }
-  const mockRpc = ExtensionHost.registerMockRpc(commandMap)
+  const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
 
   const result = await SourceControl.getFileBefore('test-provider', 'test-file')
   expect(result).toEqual({})
-  expect(mockRpc.invocations).toEqual([
+  expect(extensionHostMockRpc.invocations).toEqual([
     ['ExtensionHostSourceControl.getFileBefore', 'test-provider', 'test-file']
   ])
 })
 
 test('add should call ExtensionHostSourceControl.add', async () => {
-  const commandMap = {
-    'ExtensionHostSourceControl.add': () => Promise.resolve(),
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.add': () => Promise.resolve()
+  }
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+  
+  const parentCommandMap = {
     'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
   }
-  const mockRpc = ExtensionHost.registerMockRpc(commandMap)
+  const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
 
   await SourceControl.add('test-file')
-  expect(mockRpc.invocations).toEqual([
+  expect(extensionHostMockRpc.invocations).toEqual([
     ['ExtensionHostSourceControl.add', 'test-file']
   ])
 })
 
 test('discard should call ExtensionHostSourceControl.discard', async () => {
-  const commandMap = {
-    'ExtensionHostSourceControl.discard': () => Promise.resolve(),
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.discard': () => Promise.resolve()
+  }
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+  
+  const parentCommandMap = {
     'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
   }
-  const mockRpc = ExtensionHost.registerMockRpc(commandMap)
+  const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
 
   await SourceControl.discard('test-file')
-  expect(mockRpc.invocations).toEqual([
+  expect(extensionHostMockRpc.invocations).toEqual([
     ['ExtensionHostSourceControl.discard', 'test-file']
   ])
 })
 
 test('getEnabledProviderIds should call ExtensionHostSourceControl.getEnabledProviderIds', async () => {
-  const commandMap = {
-    'ExtensionHostSourceControl.getEnabledProviderIds': () => Promise.resolve(['test-provider']),
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.getEnabledProviderIds': () => Promise.resolve(['test-provider'])
+  }
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+  
+  const parentCommandMap = {
     'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
   }
-  const mockRpc = ExtensionHost.registerMockRpc(commandMap)
+  const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
 
   const result = await SourceControl.getEnabledProviderIds('test-scheme', 'test-root')
   expect(result).toEqual(['test-provider'])
-  expect(mockRpc.invocations).toEqual([
+  expect(extensionHostMockRpc.invocations).toEqual([
     ['ExtensionHostSourceControl.getEnabledProviderIds', 'test-scheme', 'test-root']
   ])
 })
 
 test('getGroups should call ExtensionHostSourceControl.getGroups', async () => {
-  const commandMap = {
-    'ExtensionHostSourceControl.getGroups': () => Promise.resolve([]),
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.getGroups': () => Promise.resolve([])
+  }
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+  
+  const parentCommandMap = {
     'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
   }
-  const mockRpc = ExtensionHost.registerMockRpc(commandMap)
+  const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
 
   const result = await SourceControl.getGroups('test-provider', 'test-root')
   expect(result).toEqual([])
-  expect(mockRpc.invocations).toEqual([
+  expect(extensionHostMockRpc.invocations).toEqual([
     ['ExtensionHostSourceControl.getGroups', 'test-provider', 'test-root']
   ])
 })

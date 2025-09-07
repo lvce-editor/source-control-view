@@ -30,6 +30,6 @@ test('requestSourceActions', async () => {
     action3: 'value3',
   })
   expect(mockRpc.invocations).toEqual([
-    ['ExtensionHostSourceControl.requestSourceActions']
+    ['Extensions.getExtensions']
   ])
 })
