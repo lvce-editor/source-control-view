@@ -1,3 +1,4 @@
+import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Create2 from '../Create2/Create2.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import * as GetInfo from '../GetInfo/GetInfo.ts'
@@ -21,7 +22,6 @@ import * as SaveState from '../SaveState/SaveState.ts'
 import * as SelectIndex from '../SelectIndex/SelectIndex.ts'
 import * as SetDeltaY from '../SetDeltaY/SetDeltaY.ts'
 import * as WrapCommand from '../SourceControlStates/SourceControlStates.ts'
-import * as Terminate from '../Terminate/Terminate.ts'
 import * as UpdateIcons from '../UpdateIcons/UpdateIcons.ts'
 
 export const commandMap = {
@@ -47,7 +47,7 @@ export const commandMap = {
   'SourceControl.saveState': SaveState.saveState,
   'SourceControl.selectIndex': WrapCommand.wrapCommand(SelectIndex.selectIndex),
   'SourceControl.setDeltaY': WrapCommand.wrapCommand(SetDeltaY.setDeltaY),
-  'SourceControl.terminate': Terminate.terminate,
+  'SourceControl.terminate': terminate,
   'SourceControl.updateIcons': WrapCommand.wrapCommand(UpdateIcons.updateIcons),
   'SourceControl.getInfo': GetInfo.getInfo,
 }
