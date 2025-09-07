@@ -1,15 +1,39 @@
-import { expect, test } from '@jest/globals'
+import { test, expect } from '@jest/globals'
 import * as DiffType from '../src/parts/DiffType/DiffType.ts'
-import { getRenderer } from '../src/parts/GetRenderer/GetRenderer.ts'
+import * as GetRenderer from '../src/parts/GetRenderer/GetRenderer.ts'
+import * as RenderCss from '../src/parts/RenderCss/RenderCss.ts'
 import * as RenderItems from '../src/parts/RenderItems/RenderItems.ts'
+import * as RenderValue from '../src/parts/RenderValue/RenderValue.ts'
 
-test('getRenderer - RenderItems', () => {
-  const renderer = getRenderer(DiffType.RenderItems)
-  expect(renderer).toBe(RenderItems.renderItems)
+test('getRenderer - returns RenderItems.renderItems for DiffType.RenderItems', () => {
+  const result = GetRenderer.getRenderer(DiffType.RenderItems)
+  expect(result).toBe(RenderItems.renderItems)
 })
 
-test('getRenderer - unknown diff type', () => {
+test('getRenderer - returns RenderValue.renderValue for DiffType.RenderValue', () => {
+  const result = GetRenderer.getRenderer(DiffType.RenderValue)
+  expect(result).toBe(RenderValue.renderValue)
+})
+
+test('getRenderer - returns RenderCss.renderCss for DiffType.RenderCss', () => {
+  const result = GetRenderer.getRenderer(DiffType.RenderCss)
+  expect(result).toBe(RenderCss.renderCss)
+})
+
+test('getRenderer - throws error for unknown diff type', () => {
   expect(() => {
-    getRenderer(999)
+    GetRenderer.getRenderer(999)
+  }).toThrow('unknown renderer')
+})
+
+test('getRenderer - throws error for negative diff type', () => {
+  expect(() => {
+    GetRenderer.getRenderer(-1)
+  }).toThrow('unknown renderer')
+})
+
+test('getRenderer - throws error for zero diff type', () => {
+  expect(() => {
+    GetRenderer.getRenderer(0)
   }).toThrow('unknown renderer')
 })
