@@ -5,7 +5,9 @@ import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 import * as RpcId from '../src/parts/RpcId/RpcId.ts'
 
 test('initialize', async () => {
-  const commandMap = {}
+  const commandMap = {
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': () => Promise.resolve()
+  }
   const mockRpc = ParentRpc.registerMockRpc(commandMap)
   await initialize()
   const actual = RpcRegistry.get(RpcId.ExtensionHostWorker)

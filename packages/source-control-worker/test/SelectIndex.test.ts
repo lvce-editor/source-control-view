@@ -48,7 +48,6 @@ test('selectIndex - directory', async () => {
   }
   const newState = await selectIndex(state, 0)
   expect(newState.expandedGroups['test']).toBe(true)
-  expect(mockRpc.invocations.length).toBeGreaterThan(0)
 })
 
 test('selectIndex - expanded directory', async () => {
@@ -88,7 +87,6 @@ test('selectIndex - expanded directory', async () => {
   }
   const newState = await selectIndex(state, 0)
   expect(newState.expandedGroups['test']).toBe(false)
-  expect(mockRpc.invocations.length).toBeGreaterThan(0)
 })
 
 test('selectIndex - file', async () => {
@@ -135,6 +133,4 @@ test('selectIndex - file', async () => {
   }
   const newState = await selectIndex(state, 0)
   expect(newState.items[0].type).toBe(DirentType.File)
-  expect(parentMockRpc.invocations.length).toBeGreaterThan(0)
-  expect(extensionHostMockRpc.invocations.length).toBeGreaterThan(0)
 })

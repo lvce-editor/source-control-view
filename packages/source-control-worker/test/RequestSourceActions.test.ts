@@ -17,7 +17,8 @@ test('requestSourceActions', async () => {
     },
   ]
   const commandMap = {
-    'ExtensionHostSourceControl.requestSourceActions': () => Promise.resolve(mockExtensions)
+    'ExtensionHostSourceControl.requestSourceActions': () => Promise.resolve(mockExtensions),
+    'Extensions.getExtensions': () => Promise.resolve(mockExtensions)
   }
   const mockRpc = ExtensionHost.registerMockRpc(commandMap)
 
