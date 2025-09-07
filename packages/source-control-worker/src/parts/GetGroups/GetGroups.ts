@@ -7,6 +7,7 @@ export const getGroups = async (enabledProviderIds: readonly string[]): Promise<
     const groups = await SourceControl.getGroups(providerId)
     allGroups.push(...groups)
   }
+  console.log({ allGroups, enabledProviderIds })
   return {
     allGroups,
     gitRoot: '',

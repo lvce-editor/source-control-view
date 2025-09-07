@@ -18,6 +18,7 @@ export const loadContent = async (state: SourceControlState): Promise<SourceCont
   const root = workspacePath
   const scheme = GetProtocol.getProtocol(root)
   const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root)
+  console.log({ scheme, root, enabledProviderIds })
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds)
   const expandedGroups = restoreExpandedGroups(allGroups)
   const displayItems = getDisplayItems(allGroups, expandedGroups)

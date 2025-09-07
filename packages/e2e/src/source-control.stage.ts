@@ -1,8 +1,8 @@
-import type { Test } from '@lvce-editor/test-with-playwright'
+import { type Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'source-control.stage'
 
-export const test: Test = async ({ Locator, expect, QuickPick, Command, SideBar, FileSystem, Workspace, Extension }) => {
+export const test: Test = async ({ SourceControl, Locator, expect, QuickPick, Command, SideBar, FileSystem, Workspace, Extension }) => {
   // arrange
   const uri = new URL('../fixtures/sample-source-control-provider', import.meta.url).toString()
   await Extension.addWebExtension(uri)
@@ -12,7 +12,7 @@ export const test: Test = async ({ Locator, expect, QuickPick, Command, SideBar,
   await SideBar.open('Source Control')
 
   // act
-  await Command.execute('Source Control.handleClickSourceControlButtons', 1, `Stage`)
+  await SourceControl.handleClickSourceControlButtons(1, `Stage`)
 
   //  assert
   const sourceControlView = Locator('.Viewlet.SourceControl')
