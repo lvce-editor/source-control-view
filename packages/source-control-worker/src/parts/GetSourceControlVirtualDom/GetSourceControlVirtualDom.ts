@@ -8,7 +8,7 @@ import * as GetSourceControlListVirtualDom from '../GetSourceControlListVirtualD
 import * as GetSplitButtonVirtualDom from '../GetSplitButtonVirtualDom/GetSplitButtonVirtualDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 
-export const getSourceControlVirtualDom = (items: readonly VisibleItem[], splitButtonEnabled: boolean): readonly VirtualDomNode[] => {
+export const getSourceControlVirtualDom = (items: readonly VisibleItem[], splitButtonEnabled: boolean, inputPlaceholder: string): readonly VirtualDomNode[] => {
   const hasItems = items.length > 0
   const dom = [
     {
@@ -21,7 +21,7 @@ export const getSourceControlVirtualDom = (items: readonly VisibleItem[], splitB
       onWheel: DomEventListenerFunctions.HandleWheel,
       childCount: splitButtonEnabled ? 3 : 2,
     },
-    ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(),
+    ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder),
     ...GetSplitButtonVirtualDom.getSplitButtonVirtualDom(hasItems, splitButtonEnabled, 'Commit'),
     ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items),
   ]
