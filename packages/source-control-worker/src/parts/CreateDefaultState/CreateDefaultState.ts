@@ -41,4 +41,5 @@ export const createDefaultState = (): SourceControlState => ({
   inputFontSize: 15,
   inputFontWeight: 400,
   inputLetterSpacing: 0.5,
+  inputLineHeight: 14.95,
 })
