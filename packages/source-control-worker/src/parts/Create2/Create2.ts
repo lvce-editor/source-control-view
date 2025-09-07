@@ -37,6 +37,7 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     y,
     inputPlaceholder: '',
     inputSource: 0,
+    maxInputLines: 5,
   }
   SourceControlStates.set(id, state, state)
 }

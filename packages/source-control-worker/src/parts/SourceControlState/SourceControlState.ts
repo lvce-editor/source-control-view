@@ -39,4 +39,5 @@ export interface SourceControlState {
   readonly inputSource: number
   readonly x: number
   readonly y: number
+  readonly maxInputLines: number
 }
