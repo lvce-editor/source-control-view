@@ -3,9 +3,8 @@ import type { SourceControlState } from '../SourceControlState/SourceControlStat
 import { getInputHeight } from '../GetInputHeight/GetInputHeight.ts'
 
 export const handleInput = async (state: SourceControlState, value: string, inputSource = InputSource.User): Promise<SourceControlState> => {
-  const { width, inputFontFamily, inputFontSize, inputFontWeight, inputLetterSpacing } = state
-  const lineHeight = 30
-  const inputBoxHeight = await getInputHeight(value, width, inputFontFamily, inputFontWeight, inputFontSize, inputLetterSpacing, lineHeight)
+  const { width, inputFontFamily, inputFontSize, inputFontWeight, inputLetterSpacing, inputLineHeight } = state
+  const inputBoxHeight = await getInputHeight(value, width, inputFontFamily, inputFontWeight, inputFontSize, inputLetterSpacing, inputLineHeight)
   return {
     ...state,
     inputValue: value,

@@ -39,10 +39,11 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     inputPlaceholder: '',
     inputSource: 0,
     maxInputLines: 5,
-    inputFontFamily: '"Fira Code"',
-    inputFontSize: 15,
+    inputFontFamily: 'system-ui, Ubuntu, "Droid Sans", sans-serif',
+    inputFontSize: 13,
     inputFontWeight: 400,
-    inputLetterSpacing: 0.5,
+    inputLetterSpacing: 0,
+    inputLineHeight: 14.95,
   }
   SourceControlStates.set(id, state, state)
 }
