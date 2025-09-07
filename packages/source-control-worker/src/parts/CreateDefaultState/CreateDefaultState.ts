@@ -33,4 +33,5 @@ export const createDefaultState = (): SourceControlState => ({
   workspacePath: '',
   x: 0,
   y: 0,
+  inputPlaceholder: '',
 })

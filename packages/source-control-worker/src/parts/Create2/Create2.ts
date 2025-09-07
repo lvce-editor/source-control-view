@@ -35,6 +35,7 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     workspacePath,
     x,
     y,
+    inputPlaceholder: '',
   }
   SourceControlStates.set(id, state, state)
 }

@@ -9,7 +9,7 @@ export interface SourceControlState {
   readonly allGroups: readonly Group[]
   readonly deltaY: number
   readonly enabledProviderIds: readonly string[]
-  readonly visibleItems: readonly VisibleItem[]
+  readonly expandedGroups: Record<string, boolean>
   readonly fileIconCache: FileIconCache
   readonly finalDeltaY: number
   readonly gitRoot: string
@@ -18,8 +18,8 @@ export interface SourceControlState {
   readonly height: number
   readonly id: number
   readonly index: readonly any[]
+  readonly inputPlaceholder: string
   readonly inputValue: string
-  readonly expandedGroups: Record<string, boolean>
   readonly itemHeight: number
   readonly items: readonly DisplayItem[]
   readonly maxLineY: number
@@ -32,6 +32,7 @@ export interface SourceControlState {
   readonly scrollBarHeight: number
   readonly splitButtonEnabled: boolean
   readonly untracked: readonly any[]
+  readonly visibleItems: readonly VisibleItem[]
   readonly width: number
   readonly workingTree: readonly any[]
   readonly workspacePath: string
