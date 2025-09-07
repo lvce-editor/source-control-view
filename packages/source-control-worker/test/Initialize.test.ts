@@ -8,7 +8,7 @@ test('initialize', async () => {
   const commandMap = {
     'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': () => Promise.resolve()
   }
-  const mockRpc = ParentRpc.registerMockRpc(commandMap)
+  ParentRpc.registerMockRpc(commandMap)
   await initialize()
   const actual = RpcRegistry.get(RpcId.ExtensionHostWorker)
   expect(actual).toBeDefined()

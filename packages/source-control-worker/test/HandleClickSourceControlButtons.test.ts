@@ -12,7 +12,7 @@ const commandMap = {
 
 test('handleClickSourceControlButtons - valid button click', async () => {
   const rendererMockRpc = RendererWorker.registerMockRpc(commandMap)
-  const extensionHostMockRpc = ExtensionHost.registerMockRpc(commandMap)
+  ExtensionHost.registerMockRpc(commandMap)
 
   const state = {
     ...CreateDefaultState.createDefaultState(),

@@ -17,7 +17,7 @@ test('selectIndex - directory', async () => {
     'FileSystem.readDirWithFileTypes': () => Promise.resolve([]),
     'IconTheme.getIcons': () => Promise.resolve([])
   }
-  const mockRpc = ParentRpc.registerMockRpc(commandMap)
+  ParentRpc.registerMockRpc(commandMap)
 
   const testItem = {
     type: DirentType.Directory,
@@ -55,7 +55,7 @@ test('selectIndex - expanded directory', async () => {
     'FileSystem.readDirWithFileTypes': () => Promise.resolve([]),
     'IconTheme.getIcons': () => Promise.resolve([])
   }
-  const mockRpc = ParentRpc.registerMockRpc(commandMap)
+  ParentRpc.registerMockRpc(commandMap)
 
   const testItem = {
     type: DirentType.DirectoryExpanded,
@@ -96,12 +96,12 @@ test('selectIndex - file', async () => {
     'IconTheme.getIcons': () => Promise.resolve([]),
     'Main.openUri': () => Promise.resolve()
   }
-  const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
+  ParentRpc.registerMockRpc(parentCommandMap)
 
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.getFileBefore': () => Promise.resolve('')
   }
-  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+  ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const testItem = {
     type: DirentType.File,
