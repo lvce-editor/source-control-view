@@ -19,7 +19,16 @@ const staged = Object.create(null)
 
 const renamedFilesMap = Object.create(null)
 
-const toChangedItem = (dirent) => {
+const toChangedItem = (dirent, root) => {
+  const absoluteUri = `${root}/${dirent.name}`
+  if (absoluteUri in renamedFilesMap) {
+    return {
+      file: dirent.name,
+      icon: IconType.Renamed,
+      iconTitle: '',
+      type: 8,
+    }
+  }
   return {
     file: dirent.name,
     icon: IconType.Untracked,
@@ -28,7 +37,16 @@ const toChangedItem = (dirent) => {
   }
 }
 
-const toStagedItem = (dirent) => {
+const toStagedItem = (dirent, root) => {
+  const absoluteUri = `${root}/${dirent.name}`
+  if (absoluteUri in renamedFilesMap) {
+    return {
+      file: dirent.name,
+      icon: IconType.Renamed,
+      iconTitle: '',
+      type: 8,
+    }
+  }
   return {
     file: dirent.name,
     icon: IconType.Untracked,
@@ -51,8 +69,8 @@ const isChanged = (dirent) => {
 const getGroups = async () => {
   const root = vscode.getWorkspaceFolder()
   const dirents = await vscode.readDirWithFileTypes(root)
-  const changed = dirents.filter(isChanged).map(toChangedItem)
-  const staged = dirents.filter(isStaged).map(toStagedItem)
+  const changed = dirents.filter(isChanged).map((item) => toChangedItem(item, root))
+  const staged = dirents.filter(isStaged).map((item) => toStagedItem(item, root))
   const groups = [
     {
       id: 'merge',
@@ -128,8 +146,7 @@ const sampleSourceControlProvider = {
 }
 
 const rename = (oldUri, newUri) => {
-  // TODO
-  renamedFilesMap[oldUri] = newUri
+  renamedFilesMap[newUri] = oldUri
 }
 
 export function activate(context) {
