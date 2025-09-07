@@ -5,7 +5,7 @@ import { sendMessagePortToExtensionHostWorker } from '../src/parts/SendMessagePo
 
 test('sendMessagePortToExtensionHostWorker', async (): Promise<void> => {
   const commandMap = {
-    'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': () => Promise.resolve()
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': (): Promise<void> => Promise.resolve()
   }
   const mockRpc = RendererWorker.registerMockRpc(commandMap)
 

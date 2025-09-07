@@ -17,12 +17,12 @@ test('state should be initialized with default values', (): void => {
 
 test('acceptInput should call ExtensionHostSourceControl.acceptInput', async (): Promise<void> => {
   const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.acceptInput': () => Promise.resolve()
+    'ExtensionHostSourceControl.acceptInput': (): Promise<void> => Promise.resolve()
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
+    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve()
   }
   ParentRpc.registerMockRpc(parentCommandMap)
   await SourceControl.acceptInput('test-provider', 'test-input')
@@ -33,12 +33,12 @@ test('acceptInput should call ExtensionHostSourceControl.acceptInput', async ():
 
 test('getChangedFiles should call ExtensionHostSourceControl.getChangedFiles', async (): Promise<void> => {
   const extensionHostCommandMap = {
-    'ExtensionHost.sourceControlGetChangedFiles': () => Promise.resolve([])
+    'ExtensionHost.sourceControlGetChangedFiles': (): Promise<never[]> => Promise.resolve([])
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
+    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve()
   }
   ParentRpc.registerMockRpc(parentCommandMap)
 
@@ -51,12 +51,12 @@ test('getChangedFiles should call ExtensionHostSourceControl.getChangedFiles', a
 
 test('getFileBefore should call ExtensionHostSourceControl.getFileBefore', async (): Promise<void> => {
   const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.getFileBefore': () => Promise.resolve({})
+    'ExtensionHostSourceControl.getFileBefore': (): Promise<Record<string, never>> => Promise.resolve({})
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
+    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve()
   }
   ParentRpc.registerMockRpc(parentCommandMap)
 
@@ -69,12 +69,12 @@ test('getFileBefore should call ExtensionHostSourceControl.getFileBefore', async
 
 test('add should call ExtensionHostSourceControl.add', async (): Promise<void> => {
   const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.add': () => Promise.resolve()
+    'ExtensionHostSourceControl.add': (): Promise<void> => Promise.resolve()
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
+    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve()
   }
   ParentRpc.registerMockRpc(parentCommandMap)
 
@@ -86,12 +86,12 @@ test('add should call ExtensionHostSourceControl.add', async (): Promise<void> =
 
 test('discard should call ExtensionHostSourceControl.discard', async (): Promise<void> => {
   const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.discard': () => Promise.resolve()
+    'ExtensionHostSourceControl.discard': (): Promise<void> => Promise.resolve()
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
+    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve()
   }
   ParentRpc.registerMockRpc(parentCommandMap)
 
@@ -103,12 +103,12 @@ test('discard should call ExtensionHostSourceControl.discard', async (): Promise
 
 test('getEnabledProviderIds should call ExtensionHostSourceControl.getEnabledProviderIds', async (): Promise<void> => {
   const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.getEnabledProviderIds': () => Promise.resolve(['test-provider'])
+    'ExtensionHostSourceControl.getEnabledProviderIds': (): Promise<string[]> => Promise.resolve(['test-provider'])
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
+    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve()
   }
   ParentRpc.registerMockRpc(parentCommandMap)
 
@@ -121,12 +121,12 @@ test('getEnabledProviderIds should call ExtensionHostSourceControl.getEnabledPro
 
 test('getGroups should call ExtensionHostSourceControl.getGroups', async (): Promise<void> => {
   const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.getGroups': () => Promise.resolve([])
+    'ExtensionHostSourceControl.getGroups': (): Promise<never[]> => Promise.resolve([])
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': () => Promise.resolve()
+    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve()
   }
   ParentRpc.registerMockRpc(parentCommandMap)
 

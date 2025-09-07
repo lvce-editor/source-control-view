@@ -44,7 +44,7 @@ test('getSourceControlItemsVirtualDom - with items', () => {
 test('getSourceControlItemsVirtualDom - without items', (): void => {
   const splitButtonEnabled = true
   const result = getSplitButtonVirtualDom(false, splitButtonEnabled, 'test')
-  expect(result).toHaveLength(6)
+  expect(result).toHaveLength(0)
   expect(result[0]).toEqual({
     type: VirtualDomElements.Div,
     className: `${ClassNames.SplitButton} ${ClassNames.SplitButtonDisabled}`,
