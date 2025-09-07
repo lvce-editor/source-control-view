@@ -1,32 +1,18 @@
 import { expect, test } from '@jest/globals'
-import { MockRpc } from '@lvce-editor/rpc'
-import * as RpcRegistry from '@lvce-editor/rpc-registry'
+import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { ExtensionHost } from '@lvce-editor/rpc-registry'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleClickSourceControlButtons } from '../src/parts/HandleClickSourceControlButtons/HandleClickSourceControlButtons.ts'
-import { RendererWorker } from '../src/parts/RpcId/RpcId.ts'
 
-const invoke = async (method: string, ...params: readonly any[]): Promise<any> => {
-  if (method === 'ExtensionHostManagement.activateByEvent') {
-    return
-  }
-  if (method === 'ExtensionHostCommand.executeCommand') {
-    return
-  }
-  if (method === 'FileSystem.readDirWithFileTypes') {
-    return []
-  }
-  throw new Error(`unexpected method ${method}`)
+const commandMap = {
+  'ExtensionHostManagement.activateByEvent': () => Promise.resolve(),
+  'ExtensionHostCommand.executeCommand': () => Promise.resolve(),
+  'FileSystem.readDirWithFileTypes': () => Promise.resolve([])
 }
 
-const mockRpc = MockRpc.create({
-  invoke,
-  commandMap: {},
-})
-
 test('handleClickSourceControlButtons - valid button click', async () => {
-  RpcRegistry.set(RendererWorker, mockRpc)
-  ExtensionHost.set(mockRpc)
+  const rendererMockRpc = RendererWorker.registerMockRpc(commandMap)
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(commandMap)
 
   const state = {
     ...CreateDefaultState.createDefaultState(),
@@ -58,6 +44,7 @@ test('handleClickSourceControlButtons - valid button click', async () => {
 
   const newState = await handleClickSourceControlButtons(state, 0, 'Stage')
   expect(newState).toBeDefined()
+  expect(rendererMockRpc.invocations.length).toBeGreaterThan(0)
 })
 
 test('handleClickSourceControlButtons - invalid index', async () => {

@@ -1,5 +1,4 @@
-import { expect, jest, test } from '@jest/globals'
-import { MockRpc } from '@lvce-editor/rpc'
+import { expect, test } from '@jest/globals'
 import * as ExtensionHost from '../src/parts/ExtensionHost/ExtensionHost.ts'
 import { requestSourceActions } from '../src/parts/RequestSourceActions/RequestSourceActions.ts'
 
@@ -17,15 +16,10 @@ test('requestSourceActions', async () => {
       },
     },
   ]
-  const mockInvoke = jest.fn(() => {
-    return mockExtensions
-  })
-  const mockRpc = MockRpc.create({
-    commandMap: {},
-    invoke: mockInvoke,
-  })
-
-  ExtensionHost.set(mockRpc)
+  const commandMap = {
+    'ExtensionHostSourceControl.requestSourceActions': () => Promise.resolve(mockExtensions)
+  }
+  const mockRpc = ExtensionHost.registerMockRpc(commandMap)
 
   const result = await requestSourceActions()
 
@@ -34,4 +28,7 @@ test('requestSourceActions', async () => {
     action2: 'value2',
     action3: 'value3',
   })
+  expect(mockRpc.invocations).toEqual([
+    { method: 'ExtensionHostSourceControl.requestSourceActions', params: [] }
+  ])
 })

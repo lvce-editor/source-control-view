@@ -1,25 +1,17 @@
 import { expect, test } from '@jest/globals'
-import { MockRpc } from '@lvce-editor/rpc'
-import * as RpcRegistry from '@lvce-editor/rpc-registry'
+import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
-import { RendererWorker } from '../src/parts/RpcId/RpcId.ts'
 import * as UpdateIcons from '../src/parts/UpdateIcons/UpdateIcons.ts'
 
-const invoke = async (method: string, ...params: readonly any[]): Promise<any> => {
-  if (method === 'IconTheme.getFileIcon' || method === 'IconTheme.getFolderIcon' || method === 'IconTheme.getIcons') {
-    return ['icon1', 'icon2']
-  }
-  throw new Error(`Unexpected method: ${method}`)
+const commandMap = {
+  'IconTheme.getFileIcon': () => Promise.resolve(['icon1', 'icon2']),
+  'IconTheme.getFolderIcon': () => Promise.resolve(['icon1', 'icon2']),
+  'IconTheme.getIcons': () => Promise.resolve(['icon1', 'icon2'])
 }
 
-const mockRpc = MockRpc.create({
-  invoke,
-  commandMap: {},
-})
-
 test('updateIcons - should update icons for visible items', async () => {
-  RpcRegistry.set(RendererWorker, mockRpc)
+  const mockRpc = RendererWorker.registerMockRpc(commandMap)
   const defaultState = CreateDefaultState.createDefaultState()
   const state: SourceControlState = {
     ...defaultState,
@@ -41,10 +33,11 @@ test('updateIcons - should update icons for visible items', async () => {
   expect(result.items).toEqual(state.items)
   expect(result.minLineY).toBe(state.minLineY)
   expect(result.maxLineY).toBe(state.maxLineY)
+  expect(mockRpc.invocations.length).toBeGreaterThan(0)
 })
 
 test('updateIcons - should handle empty visible items', async () => {
-  RpcRegistry.set(RendererWorker, mockRpc)
+  const mockRpc = RendererWorker.registerMockRpc(commandMap)
   const defaultState = CreateDefaultState.createDefaultState()
   const state: SourceControlState = {
     ...defaultState,
@@ -57,4 +50,5 @@ test('updateIcons - should handle empty visible items', async () => {
 
   expect(result.fileIconCache).toBeDefined()
   expect(result.items).toEqual(state.items)
+  expect(mockRpc.invocations).toEqual([])
 })

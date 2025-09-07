@@ -1,15 +1,14 @@
-import { jest, test } from '@jest/globals'
-import { MockRpc } from '@lvce-editor/rpc'
-import * as RpcRegistry from '@lvce-editor/rpc-registry'
+import { test, expect } from '@jest/globals'
+import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { show } from '../src/parts/ContextMenu/ContextMenu.ts'
-import { RendererWorker } from '../src/parts/RpcId/RpcId.ts'
 
 test('show', async () => {
-  const invoke = jest.fn()
-  const mockRpc = MockRpc.create({
-    commandMap: {},
-    invoke,
-  })
-  RpcRegistry.set(RendererWorker, mockRpc)
+  const commandMap = {
+    'ContextMenu.show': () => Promise.resolve()
+  }
+  const mockRpc = RendererWorker.registerMockRpc(commandMap)
   await show(1, 2, 3, 'test')
+  expect(mockRpc.invocations).toEqual([
+    { method: 'ContextMenu.show', params: [1, 2, 3, 'test'] }
+  ])
 })
