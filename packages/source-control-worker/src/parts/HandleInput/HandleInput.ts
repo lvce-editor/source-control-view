@@ -5,5 +5,6 @@ export const handleInput = async (state: SourceControlState, value: string, inpu
   return {
     ...state,
     inputValue: value,
+    inputSource,
   }
 }
