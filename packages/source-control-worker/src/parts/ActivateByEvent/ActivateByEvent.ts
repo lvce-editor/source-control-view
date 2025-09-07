@@ -1,5 +1,5 @@
-import * as Rpc from '../ParentRpc/ParentRpc.ts'
+import { RendererWorker } from '@lvce-editor/rpc-registry'
 
 export const activateByEvent = (event: string): Promise<void> => {
-  return Rpc.invoke('ExtensionHostManagement.activateByEvent', event)
+  return RendererWorker.activateByEvent(event)
 }
