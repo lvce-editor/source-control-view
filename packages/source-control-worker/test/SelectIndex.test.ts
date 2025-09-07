@@ -15,7 +15,7 @@ test('selectIndex - invalid index', async (): Promise<void> => {
 test('selectIndex - directory', async (): Promise<void> => {
   const commandMap = {
     'FileSystem.readDirWithFileTypes': (): Promise<never[]> => Promise.resolve([]),
-    'IconTheme.getIcons': (): Promise<never[]> => Promise.resolve([])
+    'IconTheme.getIcons': (): Promise<never[]> => Promise.resolve([]),
   }
   ParentRpc.registerMockRpc(commandMap)
 
@@ -53,7 +53,7 @@ test('selectIndex - directory', async (): Promise<void> => {
 test('selectIndex - expanded directory', async (): Promise<void> => {
   const commandMap = {
     'FileSystem.readDirWithFileTypes': (): Promise<never[]> => Promise.resolve([]),
-    'IconTheme.getIcons': (): Promise<never[]> => Promise.resolve([])
+    'IconTheme.getIcons': (): Promise<never[]> => Promise.resolve([]),
   }
   ParentRpc.registerMockRpc(commandMap)
 
@@ -94,12 +94,12 @@ test('selectIndex - file', async (): Promise<void> => {
     'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
     'FileSystem.readFile': (): Promise<string> => Promise.resolve(''),
     'IconTheme.getIcons': (): Promise<never[]> => Promise.resolve([]),
-    'Main.openUri': (): Promise<void> => Promise.resolve()
+    'Main.openUri': (): Promise<void> => Promise.resolve(),
   }
   ParentRpc.registerMockRpc(parentCommandMap)
 
   const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.getFileBefore': (): Promise<string> => Promise.resolve('')
+    'ExtensionHostSourceControl.getFileBefore': (): Promise<string> => Promise.resolve(''),
   }
   ExtensionHost.registerMockRpc(extensionHostCommandMap)
 

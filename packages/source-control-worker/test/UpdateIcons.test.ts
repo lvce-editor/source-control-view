@@ -7,7 +7,7 @@ import * as UpdateIcons from '../src/parts/UpdateIcons/UpdateIcons.ts'
 const commandMap = {
   'IconTheme.getFileIcon': (): Promise<string[]> => Promise.resolve(['icon1', 'icon2']),
   'IconTheme.getFolderIcon': (): Promise<string[]> => Promise.resolve(['icon1', 'icon2']),
-  'IconTheme.getIcons': (): Promise<string[]> => Promise.resolve(['icon1', 'icon2'])
+  'IconTheme.getIcons': (): Promise<string[]> => Promise.resolve(['icon1', 'icon2']),
 }
 
 test('updateIcons - should update icons for visible items', async (): Promise<void> => {

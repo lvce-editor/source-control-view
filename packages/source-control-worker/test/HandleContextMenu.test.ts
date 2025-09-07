@@ -5,7 +5,7 @@ import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 
 test('handleContextMenu', async (): Promise<void> => {
   const commandMap = {
-    'ContextMenu.show': (): Promise<void> => Promise.resolve()
+    'ContextMenu.show': (): Promise<void> => Promise.resolve(),
   }
   const mockRpc = ParentRpc.registerMockRpc(commandMap)
 
@@ -16,7 +16,5 @@ test('handleContextMenu', async (): Promise<void> => {
 
   const newState = await handleContextMenu(state, button, x, y)
   expect(newState).toBe(state)
-  expect(mockRpc.invocations).toEqual([
-    ['ContextMenu.show', 100, 200, 22]
-  ])
+  expect(mockRpc.invocations).toEqual([['ContextMenu.show', 100, 200, 22]])
 })

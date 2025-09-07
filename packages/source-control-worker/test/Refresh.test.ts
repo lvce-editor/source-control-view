@@ -5,10 +5,11 @@ import * as Refresh from '../src/parts/Refresh/Refresh.ts'
 
 test('refresh should update state with groups and visible items', async (): Promise<void> => {
   const commandMap = {
-    'ExtensionHostSourceControl.getGroups': (): Promise<{ allGroups: never[]; gitRoot: string }> => Promise.resolve({
-      allGroups: [],
-      gitRoot: '/test',
-    })
+    'ExtensionHostSourceControl.getGroups': (): Promise<{ allGroups: never[]; gitRoot: string }> =>
+      Promise.resolve({
+        allGroups: [],
+        gitRoot: '/test',
+      }),
   }
   const mockRpc = ExtensionHost.registerMockRpc(commandMap)
 

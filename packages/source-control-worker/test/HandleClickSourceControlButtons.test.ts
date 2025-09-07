@@ -7,7 +7,7 @@ import { handleClickSourceControlButtons } from '../src/parts/HandleClickSourceC
 const commandMap = {
   'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
   'ExtensionHostCommand.executeCommand': (): Promise<void> => Promise.resolve(),
-  'FileSystem.readDirWithFileTypes': (): Promise<never[]> => Promise.resolve([])
+  'FileSystem.readDirWithFileTypes': (): Promise<never[]> => Promise.resolve([]),
 }
 
 test('handleClickSourceControlButtons - valid button click', async (): Promise<void> => {
