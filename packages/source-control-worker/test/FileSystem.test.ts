@@ -10,6 +10,6 @@ test('readFile', async () => {
   const content = await readFile('test.txt')
   expect(content).toBe('test content')
   expect(mockRpc.invocations).toEqual([
-    { method: 'FileSystem.readFile', params: ['test.txt'] }
+    ['FileSystem.readFile', 'test.txt']
   ])
 })
