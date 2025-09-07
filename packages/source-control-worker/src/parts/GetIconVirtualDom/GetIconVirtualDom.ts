@@ -1,6 +1,6 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { AriaRoles } from '@lvce-editor/virtual-dom-worker'
-import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts'
+import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 
 export const getIconVirtualDom = (icon: string, type = VirtualDomElements.Div): VirtualDomNode => {
   return {
