@@ -26,6 +26,7 @@ export const createDefaultState = (): SourceControlState => ({
   scrollBarActive: false,
   scrollBarHeight: 0,
   splitButtonEnabled: false,
+  inputBoxHeight: 30,
   untracked: [],
   visibleItems: [],
   width: 100,

@@ -22,6 +22,7 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     maxLineY: 0,
     merge: [],
     minimumSliderSize: 20,
+    inputBoxHeight: 30,
     minLineY: 0,
     providerId: '',
     root: '',
