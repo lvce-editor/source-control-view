@@ -39,7 +39,7 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     inputPlaceholder: '',
     inputSource: 0,
     maxInputLines: 5,
-    inputFontFamily: '',
+    inputFontFamily: '"Fira Code"',
     inputFontSize: 15,
     inputFontWeight: 400,
     inputLetterSpacing: 0.5,
