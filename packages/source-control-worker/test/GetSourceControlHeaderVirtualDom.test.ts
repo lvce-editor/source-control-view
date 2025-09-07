@@ -7,7 +7,8 @@ import * as InputName from '../src/parts/InputName/InputName.ts'
 import * as ViewletSourceControlStrings from '../src/parts/SourceControlStrings/SourceControlStrings.ts'
 
 test('getSourceControlHeaderVirtualDom', () => {
-  const result = GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom()
+  const inputPlaceholder = 'Test placeholder'
+  const result = GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder)
   expect(result).toEqual([
     {
       type: VirtualDomElements.Div,
@@ -15,8 +16,8 @@ test('getSourceControlHeaderVirtualDom', () => {
       childCount: 1,
     },
     {
-      type: VirtualDomElements.Input,
-      className: ClassNames.InputBox,
+      type: VirtualDomElements.TextArea,
+      className: 'InputBox MultilineInputBox',
       ariaLabel: ViewletSourceControlStrings.sourceControlInput(),
       autocapitalize: 'off',
       autocorrect: 'off',
@@ -24,7 +25,7 @@ test('getSourceControlHeaderVirtualDom', () => {
       name: InputName.SourceControlInput,
       onFocus: DomEventListenerFunctions.HandleFocus,
       onInput: DomEventListenerFunctions.HandleInput,
-      placeholder: ViewletSourceControlStrings.messageEnterToCommitOnMaster(),
+      placeholder: inputPlaceholder,
       spellcheck: false,
     },
   ])
