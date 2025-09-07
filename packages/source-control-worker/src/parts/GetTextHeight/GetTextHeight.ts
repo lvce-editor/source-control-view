@@ -15,7 +15,7 @@ export const getTextHeight = async (
     // @ts-ignore
     const height = await RendererWorker.invoke(`MeasureTextHeight.measureTextBlockHeight`, input, fontFamily, fontSize, lineHeightPx, width)
     return height
-  } catch (error) {
+  } catch {
     // fallback
     const lines = input.split('\n')
     const lineCount = lines.length
