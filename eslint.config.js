@@ -9,6 +9,7 @@ export default [
       'prefer-destructuring': 'off',
       '@typescript-eslint/prefer-readonly-parameter-types': 'off',
       'no-restricted-syntax': 'off',
+      'jest/no-restricted-jest-methods': 'off',
     },
   },
 ]
