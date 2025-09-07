@@ -1,3 +1,4 @@
+import { EventExpression } from '@lvce-editor/constants'
 import type { DomEventListener } from '../DomEventListener/DomEventListener.ts'
 import * as DomEventListenersFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 
@@ -5,7 +6,7 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
   return [
     {
       name: DomEventListenersFunctions.HandleWheel,
-      params: ['handleWheel', 'event.deltaMode', 'event.deltaY'],
+      params: ['handleWheel', EventExpression.DeltaMode, EventExpression.DeltaY],
       passive: true,
     },
     {
@@ -14,32 +15,32 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     },
     {
       name: DomEventListenersFunctions.HandleClickAt,
-      params: ['handleClickAt', 'event.clientX', 'event.clientY', 'event.target.name'],
+      params: ['handleClickAt', EventExpression.ClientX, EventExpression.ClientY, EventExpression.TargetName],
     },
     {
       name: DomEventListenersFunctions.HandleMouseOverAt,
-      params: ['handleMouseOverAt', 'event.clientX', 'event.clientY'],
+      params: ['handleMouseOverAt', EventExpression.ClientX, EventExpression.ClientY],
     },
     {
       name: DomEventListenersFunctions.HandleMouseOver,
-      params: ['handleMouseOver', 'event.clientX', 'event.clientY'],
+      params: ['handleMouseOver', EventExpression.ClientX, EventExpression.ClientY],
     },
     {
       name: DomEventListenersFunctions.HandleMouseOutAt,
-      params: ['handleMouseOutAt', 'event.clientX', 'event.clientY'],
+      params: ['handleMouseOutAt', EventExpression.ClientX, EventExpression.ClientY],
     },
     {
       name: DomEventListenersFunctions.HandleInput,
-      params: ['handleInput', 'event.target.value'],
+      params: ['handleInput', EventExpression.TargetValue],
     },
     {
       name: DomEventListenersFunctions.HandleContextMenu,
-      params: ['handleContextMenu', 'event.button', 'event.clientX', 'event.clientY'],
+      params: ['handleContextMenu', EventExpression.Button, EventExpression.ClientX, EventExpression.ClientY],
       preventDefault: true,
     },
     {
       name: DomEventListenersFunctions.HandleWheel,
-      params: ['handleWheel', 'event.deltaMode', 'event.deltaY'],
+      params: ['handleWheel', EventExpression.DeltaMode, EventExpression.DeltaY],
       passive: true,
     },
   ]
