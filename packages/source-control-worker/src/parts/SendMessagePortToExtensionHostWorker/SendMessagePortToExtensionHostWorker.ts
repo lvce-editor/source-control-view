@@ -1,7 +1,5 @@
-import { RpcId } from '@lvce-editor/rpc-registry'
-import * as ParentRpc from '../ParentRpc/ParentRpc.ts'
+import { RendererWorker, RpcId } from '@lvce-editor/rpc-registry'
 
 export const sendMessagePortToExtensionHostWorker = async (port: MessagePort): Promise<void> => {
-  const command = 'HandleMessagePort.handleMessagePort2'
-  await ParentRpc.invokeAndTransfer('SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, command, RpcId.SourceControlWorker)
+  await RendererWorker.sendMessagePortToExtensionHostWorker(port, RpcId.SourceControlWorker)
 }
