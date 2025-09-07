@@ -5,6 +5,7 @@ export const getInputHeight = async (input: string, width: number): Promise<numb
   const fontWeight = 400
   const fontSize = 20
   const letterSpacing = 0.5
-  const height = await getTextHeight(input, width, fontFamily, fontSize, fontWeight, letterSpacing)
+  const lineHeight = 30
+  const height = await getTextHeight(input, width, fontFamily, fontSize, fontWeight, letterSpacing, lineHeight)
   return height
 }
