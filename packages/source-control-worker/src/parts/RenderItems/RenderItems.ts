@@ -3,7 +3,7 @@ import type { SourceControlState } from '../SourceControlState/SourceControlStat
 import * as GetSourceControlDom from '../GetSourceControlVirtualDom/GetSourceControlVirtualDom.ts'
 
 export const renderItems = (oldState: SourceControlState, newState: SourceControlState): any => {
-  const visible = newState.visibleItems
-  const dom = GetSourceControlDom.getSourceControlVirtualDom(visible, newState.splitButtonEnabled)
+  const { visibleItems, splitButtonEnabled, inputPlaceholder } = newState
+  const dom = GetSourceControlDom.getSourceControlVirtualDom(visibleItems, splitButtonEnabled, inputPlaceholder)
   return [ViewletCommand.SetDom2, dom]
 }
