@@ -15,6 +15,7 @@ export interface SourceControlState {
   readonly gitRoot: string
   readonly handleOffset: number
   readonly headerHeight: number
+  readonly inputBoxHeight: number
   readonly height: number
   readonly id: number
   readonly index: readonly any[]
