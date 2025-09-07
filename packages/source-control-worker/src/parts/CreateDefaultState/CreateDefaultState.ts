@@ -37,4 +37,8 @@ export const createDefaultState = (): SourceControlState => ({
   inputPlaceholder: '',
   inputSource: 0,
   maxInputLines: 5,
+  inputFontFamily: '',
+  inputFontSize: 15,
+  inputFontWeight: 400,
+  inputLetterSpacing: 0.5,
 })
