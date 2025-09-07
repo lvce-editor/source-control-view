@@ -4,7 +4,7 @@ import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 export const getSplitButtonVirtualDom = (hasItems: boolean, splitButtonEnabled: boolean, buttonText: string): readonly VirtualDomNode[] => {
-  if (!splitButtonEnabled) {
+  if (!splitButtonEnabled || !hasItems) {
     return []
   }
   return [
