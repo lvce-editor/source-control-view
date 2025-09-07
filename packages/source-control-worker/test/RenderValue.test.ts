@@ -12,15 +12,10 @@ test('renderValue - returns correct command with state values', () => {
     id: 1,
     inputValue: 'test input value',
   }
-  
+
   const result = RenderValue.renderValue(oldState, newState)
-  
-  expect(result).toEqual([
-    ViewletCommand.SetValueByName,
-    1,
-    InputName.SourceControlInput,
-    'test input value',
-  ])
+
+  expect(result).toEqual([ViewletCommand.SetValueByName, 1, InputName.SourceControlInput, 'test input value'])
 })
 
 test('renderValue - uses different input values', () => {
@@ -30,15 +25,10 @@ test('renderValue - uses different input values', () => {
     id: 2,
     inputValue: 'different value',
   }
-  
+
   const result = RenderValue.renderValue(oldState, newState)
-  
-  expect(result).toEqual([
-    ViewletCommand.SetValueByName,
-    2,
-    InputName.SourceControlInput,
-    'different value',
-  ])
+
+  expect(result).toEqual([ViewletCommand.SetValueByName, 2, InputName.SourceControlInput, 'different value'])
 })
 
 test('renderValue - handles empty input value', () => {
@@ -48,13 +38,8 @@ test('renderValue - handles empty input value', () => {
     id: 3,
     inputValue: '',
   }
-  
+
   const result = RenderValue.renderValue(oldState, newState)
-  
-  expect(result).toEqual([
-    ViewletCommand.SetValueByName,
-    3,
-    InputName.SourceControlInput,
-    '',
-  ])
+
+  expect(result).toEqual([ViewletCommand.SetValueByName, 3, InputName.SourceControlInput, ''])
 })

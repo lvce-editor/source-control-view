@@ -11,9 +11,9 @@ test('renderCss - returns correct command with CSS', () => {
     id: 1,
     inputBoxHeight: 30,
   }
-  
+
   const result = RenderCss.renderCss(oldState, newState)
-  
+
   expect(result).toEqual([
     ViewletCommand.SetCss,
     1,
@@ -31,9 +31,9 @@ test('renderCss - handles different input box heights', () => {
     id: 2,
     inputBoxHeight: 50,
   }
-  
+
   const result = RenderCss.renderCss(oldState, newState)
-  
+
   expect(result).toEqual([
     ViewletCommand.SetCss,
     2,
@@ -51,9 +51,9 @@ test('renderCss - handles zero height', () => {
     id: 3,
     inputBoxHeight: 0,
   }
-  
+
   const result = RenderCss.renderCss(oldState, newState)
-  
+
   expect(result).toEqual([
     ViewletCommand.SetCss,
     3,
@@ -71,9 +71,9 @@ test('renderCss - handles large height values', () => {
     id: 4,
     inputBoxHeight: 200,
   }
-  
+
   const result = RenderCss.renderCss(oldState, newState)
-  
+
   expect(result).toEqual([
     ViewletCommand.SetCss,
     4,

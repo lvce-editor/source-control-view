@@ -16,11 +16,7 @@ test('renderItems - returns correct command structure', () => {
 
   const result = RenderItems.renderItems(oldState, newState)
 
-  expect(result).toEqual([
-    ViewletCommand.SetDom2,
-    1,
-    expect.any(Object),
-  ])
+  expect(result).toEqual([ViewletCommand.SetDom2, 1, expect.any(Object)])
 })
 
 test('renderItems - handles different state values', () => {
@@ -28,33 +24,31 @@ test('renderItems - handles different state values', () => {
   const newState: SourceControlState = {
     ...createDefaultState(),
     id: 2,
-    visibleItems: [{
-      file: 'test.txt',
-      label: 'Test Item',
-      detail: 'test detail',
-      posInSet: 1,
-      setSize: 1,
-      icon: 'file-icon',
-      decorationIcon: '',
-      decorationIconTitle: '',
-      decorationStrikeThrough: false,
-      type: 1,
-      badgeCount: 0,
-      groupId: 'test-group',
-      buttons: [],
-      fileIcon: 'file-icon'
-    }],
+    visibleItems: [
+      {
+        file: 'test.txt',
+        label: 'Test Item',
+        detail: 'test detail',
+        posInSet: 1,
+        setSize: 1,
+        icon: 'file-icon',
+        decorationIcon: '',
+        decorationIconTitle: '',
+        decorationStrikeThrough: false,
+        type: 1,
+        badgeCount: 0,
+        groupId: 'test-group',
+        buttons: [],
+        fileIcon: 'file-icon',
+      },
+    ],
     splitButtonEnabled: false,
     inputPlaceholder: 'different placeholder',
   }
 
   const result = RenderItems.renderItems(oldState, newState)
 
-  expect(result).toEqual([
-    ViewletCommand.SetDom2,
-    2,
-    expect.any(Object),
-  ])
+  expect(result).toEqual([ViewletCommand.SetDom2, 2, expect.any(Object)])
 })
 
 test('renderItems - handles empty placeholder', () => {
@@ -77,7 +71,7 @@ test('renderItems - handles empty placeholder', () => {
         badgeCount: 0,
         groupId: 'test-group',
         buttons: [],
-        fileIcon: 'file-icon'
+        fileIcon: 'file-icon',
       },
       {
         file: 'test2.txt',
@@ -93,8 +87,8 @@ test('renderItems - handles empty placeholder', () => {
         badgeCount: 0,
         groupId: 'test-group',
         buttons: [],
-        fileIcon: 'file-icon'
-      }
+        fileIcon: 'file-icon',
+      },
     ],
     splitButtonEnabled: true,
     inputPlaceholder: '',
@@ -102,9 +96,5 @@ test('renderItems - handles empty placeholder', () => {
 
   const result = RenderItems.renderItems(oldState, newState)
 
-  expect(result).toEqual([
-    ViewletCommand.SetDom2,
-    3,
-    expect.any(Object),
-  ])
+  expect(result).toEqual([ViewletCommand.SetDom2, 3, expect.any(Object)])
 })

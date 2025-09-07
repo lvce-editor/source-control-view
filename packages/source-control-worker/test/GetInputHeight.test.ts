@@ -8,15 +8,7 @@ test('getInputHeight - returns height from RPC call when successful', async () =
   }
   const mockRpc = RendererWorker.registerMockRpc(commandMap)
 
-  const result = await GetInputHeight.getInputHeight(
-    'test input',
-    200,
-    'Arial',
-    400,
-    14,
-    0,
-    30
-  )
+  const result = await GetInputHeight.getInputHeight('test input', 200, 'Arial', 400, 14, 0, 30)
 
   expect(result).toBe(60)
   expect(mockRpc.invocations).toEqual([['MeasureTextHeight.measureTextBlockHeight', 'test input', 'Arial', 14, '30px', 200]])
@@ -28,15 +20,7 @@ test('getInputHeight - passes through all parameters correctly', async () => {
   }
   const mockRpc = RendererWorker.registerMockRpc(commandMap)
 
-  const result = await GetInputHeight.getInputHeight(
-    'multiline\ninput',
-    300,
-    'Monaco',
-    600,
-    16,
-    1,
-    25
-  )
+  const result = await GetInputHeight.getInputHeight('multiline\ninput', 300, 'Monaco', 600, 16, 1, 25)
 
   expect(result).toBe(45)
   expect(mockRpc.invocations).toEqual([['MeasureTextHeight.measureTextBlockHeight', 'multiline\ninput', 'Monaco', 16, '25px', 300]])
@@ -48,15 +32,7 @@ test('getInputHeight - handles different input values', async () => {
   }
   RendererWorker.registerMockRpc(commandMap)
 
-  const result = await GetInputHeight.getInputHeight(
-    '',
-    100,
-    'Courier',
-    300,
-    12,
-    2,
-    20
-  )
+  const result = await GetInputHeight.getInputHeight('', 100, 'Courier', 300, 12, 2, 20)
 
   expect(result).toBe(30)
 })
@@ -74,7 +50,7 @@ test('getInputHeight - handles large height values', async () => {
     500,
     18,
     0,
-    40
+    40,
   )
 
   expect(result).toBe(200)
@@ -86,15 +62,7 @@ test('getInputHeight - handles zero height', async () => {
   }
   RendererWorker.registerMockRpc(commandMap)
 
-  const result = await GetInputHeight.getInputHeight(
-    'test',
-    200,
-    'Arial',
-    400,
-    14,
-    0,
-    30
-  )
+  const result = await GetInputHeight.getInputHeight('test', 200, 'Arial', 400, 14, 0, 30)
 
   expect(result).toBe(0)
 })
