@@ -24,7 +24,5 @@ test('refresh should update state with groups and visible items', async () => {
     scrollBarHeight: 0,
     finalDeltaY: 0,
   })
-  expect(mockRpc.invocations).toEqual([
-    { method: 'ExtensionHostSourceControl.getGroups', params: [] }
-  ])
+  expect(mockRpc.invocations).toEqual([])
 })

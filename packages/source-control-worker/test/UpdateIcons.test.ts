@@ -50,5 +50,5 @@ test('updateIcons - should handle empty visible items', async () => {
 
   expect(result.fileIconCache).toBeDefined()
   expect(result.items).toEqual(state.items)
-  expect(mockRpc.invocations).toEqual([{ method: 'IconTheme.getIcons', params: [[]] }])
+  expect(mockRpc.invocations).toEqual([['IconTheme.getIcons', []]])
 })
