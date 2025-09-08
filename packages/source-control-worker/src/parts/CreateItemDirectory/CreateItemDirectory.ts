@@ -25,7 +25,7 @@ export const createItemDirectory = (item: VisibleItem): readonly VirtualDomNode[
       ariaPosInSet: posInSet,
       ariaSetSize: setSize,
       childCount: 3 + (hasButtons ? 1 : 0),
-      paddingLeft: TreeItemPadding.PaddingLeft,
+      paddingLeft: TreeItemPadding.PaddingLeft, // TODO classname for indent / padding
       paddingRight: TreeItemPadding.PaddingRight,
     },
     {
