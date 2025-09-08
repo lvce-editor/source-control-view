@@ -46,4 +46,5 @@ export interface SourceControlState {
   readonly inputFontWeight: number
   readonly inputLetterSpacing: number
   readonly inputLineHeight: number
+  readonly inputBoxMaxHeight: number
 }
