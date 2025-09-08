@@ -9,12 +9,12 @@ test('getSourceControlItemsVirtualDom - with items', () => {
   expect(result).toHaveLength(6)
   expect(result[0]).toEqual({
     type: VirtualDomElements.Div,
-    className: ClassNames.SplitButton + ' ',
+    className: ClassNames.SplitButton,
     childCount: 3,
   })
   expect(result[1]).toEqual({
     type: VirtualDomElements.Div,
-    className: ClassNames.SplitButtonContent + ' ',
+    className: ClassNames.SplitButtonContent,
     childCount: 1,
     tabIndex: 0,
   })
@@ -30,7 +30,7 @@ test('getSourceControlItemsVirtualDom - with items', () => {
   })
   expect(result[4]).toEqual({
     type: VirtualDomElements.Div,
-    className: ClassNames.SplitButtonDropDown + ' ',
+    className: ClassNames.SplitButtonDropDown,
     childCount: 1,
     tabIndex: 0,
   })
