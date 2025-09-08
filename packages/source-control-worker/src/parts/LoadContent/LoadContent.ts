@@ -3,6 +3,7 @@ import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
 import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
 import { getGroups } from '../GetGroups/GetGroups.ts'
+import { getInputHeight } from '../GetInputHeight/GetInputHeight.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
 import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
 import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
@@ -16,7 +17,19 @@ import * as SourceControl from '../SourceControl/SourceControl.ts'
 import * as SourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
 export const loadContent = async (state: SourceControlState, savedState: unknown): Promise<SourceControlState> => {
-  const { itemHeight, height, minimumSliderSize, workspacePath, fileIconCache } = state
+  const {
+    itemHeight,
+    height,
+    minimumSliderSize,
+    workspacePath,
+    fileIconCache,
+    width,
+    inputFontFamily,
+    inputFontSize,
+    inputFontWeight,
+    inputLetterSpacing,
+    inputLineHeight,
+  } = state
   const root = workspacePath
   const scheme = GetProtocol.getProtocol(root)
   const { inputValue } = restoreState(savedState)
@@ -37,6 +50,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
   const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inputPlaceholder = SourceControlStrings.messageEnterToCommitOnMaster()
+  const inputBoxHeight = await getInputHeight(inputValue, width, inputFontFamily, inputFontSize, inputFontWeight, inputLetterSpacing, inputLineHeight)
   return {
     ...state,
     actionsCache,
@@ -45,6 +59,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
     fileIconCache: newFileIconCache,
     finalDeltaY,
     gitRoot,
+    inputBoxHeight,
     inputPlaceholder,
     inputValue,
     items: displayItems,
