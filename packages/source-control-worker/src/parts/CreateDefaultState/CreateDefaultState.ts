@@ -43,4 +43,5 @@ export const createDefaultState = (): SourceControlState => ({
   inputLetterSpacing: 0.5,
   inputLineHeight: 14.95,
   inputBoxMaxHeight: 214,
+  history: [],
 })
