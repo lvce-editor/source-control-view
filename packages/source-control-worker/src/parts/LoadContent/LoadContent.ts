@@ -10,14 +10,16 @@ import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/Ge
 import * as Preferences from '../Preferences/Preferences.ts'
 import { requestSourceActions } from '../RequestSourceActions/RequestSourceActions.ts'
 import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedGroups.ts'
+import { restoreState } from '../RestoreState/RestoreState.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 import * as SourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
-export const loadContent = async (state: SourceControlState): Promise<SourceControlState> => {
+export const loadContent = async (state: SourceControlState, savedState: unknown): Promise<SourceControlState> => {
   const { itemHeight, height, minimumSliderSize, workspacePath, fileIconCache } = state
   const root = workspacePath
   const scheme = GetProtocol.getProtocol(root)
+  const { inputValue } = restoreState(savedState)
   const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root)
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds)
   const expandedGroups = restoreExpandedGroups(allGroups)
@@ -44,6 +46,7 @@ export const loadContent = async (state: SourceControlState): Promise<SourceCont
     finalDeltaY,
     gitRoot,
     inputPlaceholder,
+    inputValue,
     items: displayItems,
     maxLineY,
     root,

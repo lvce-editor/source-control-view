@@ -11,7 +11,7 @@ export const acceptInput = async (state: SourceControlState): Promise<SourceCont
   }
   const providerId = enabledProviderIds[0]
   await SourceControl.acceptInput(providerId, inputValue)
-  const newState = await loadContent(state)
+  const newState = await loadContent(state, {})
   return {
     ...newState,
     inputValue: '',
