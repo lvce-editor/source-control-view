@@ -44,4 +44,5 @@ export const createDefaultState = (): SourceControlState => ({
   inputLineHeight: 14.95,
   inputBoxMaxHeight: 214,
   history: [],
+  viewMode: 1,
 })
