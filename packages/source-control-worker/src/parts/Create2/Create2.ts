@@ -43,7 +43,7 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     inputFontSize: 13,
     inputFontWeight: 400,
     inputLetterSpacing: 0,
-    inputLineHeight: 14.95,
+    inputLineHeight: 20,
     inputBoxMaxHeight: 214,
     history: [],
   }

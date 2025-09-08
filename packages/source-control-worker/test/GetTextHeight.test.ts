@@ -11,7 +11,7 @@ test('getTextHeight - returns height from RPC call when successful', async () =>
   const result = await GetTextHeight.getTextHeight('test input', 200, 'Arial', 14, 400, 0, 30)
 
   expect(result).toBe(60)
-  expect(mockRpc.invocations).toEqual([['MeasureTextHeight.measureTextBlockHeight', 'test input', 'Arial', 14, '30px', 200]])
+  expect(mockRpc.invocations).toEqual([['MeasureTextHeight.measureTextBlockHeight', '\ntest input', 'Arial', 14, '30px', 200]])
 })
 
 test('getTextHeight - falls back to line count calculation when RPC fails', async () => {
@@ -74,5 +74,5 @@ test('getTextHeight - calls RPC with correct parameters', async () => {
 
   await GetTextHeight.getTextHeight('test input', 200, 'Arial', 14, 400, 0, 30)
 
-  expect(mockRpc.invocations).toEqual([['MeasureTextHeight.measureTextBlockHeight', 'test input', 'Arial', 14, '30px', 200]])
+  expect(mockRpc.invocations).toEqual([['MeasureTextHeight.measureTextBlockHeight', '\ntest input', 'Arial', 14, '30px', 200]])
 })
