@@ -20,5 +20,6 @@ test('saveState', () => {
     maxLineY: 100,
     deltaY: 0,
     expandedGroups: { '1': true, '2': false },
+    inputValue: '',
   })
 })
