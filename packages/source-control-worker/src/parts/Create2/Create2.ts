@@ -46,6 +46,7 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     inputLineHeight: 20,
     inputBoxMaxHeight: 214,
     history: [],
+    viewMode: 1,
   }
   SourceControlStates.set(id, state, state)
 }

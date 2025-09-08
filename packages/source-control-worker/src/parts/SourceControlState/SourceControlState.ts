@@ -2,6 +2,7 @@ import type { ActionsCache } from '../ActionsCache/ActionsCache.ts'
 import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
 import type { FileIconCache } from '../FileIconCache/FileIconCache.ts'
 import type { Group } from '../Group/Group.ts'
+import type { ViewMode } from '../ViewMode/ViewMode.ts'
 import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 
 export interface SourceControlState {
@@ -48,4 +49,5 @@ export interface SourceControlState {
   readonly inputLineHeight: number
   readonly inputBoxMaxHeight: number
   readonly history: readonly string[]
+  readonly viewMode: ViewMode
 }
