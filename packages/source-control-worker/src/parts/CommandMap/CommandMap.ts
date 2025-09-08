@@ -24,6 +24,8 @@ import * as SelectIndex from '../SelectIndex/SelectIndex.ts'
 import * as SetDeltaY from '../SetDeltaY/SetDeltaY.ts'
 import * as WrapCommand from '../SourceControlStates/SourceControlStates.ts'
 import * as UpdateIcons from '../UpdateIcons/UpdateIcons.ts'
+import * as ViewAsList from '../ViewAsList/ViewAsList.ts'
+import * as ViewAsTree from '../ViewAsTree/ViewAsTree.ts'
 
 export const commandMap = {
   'Initialize.initialize': Initialize.initialize,
@@ -53,4 +55,6 @@ export const commandMap = {
   'SourceControl.setDeltaY': WrapCommand.wrapCommand(SetDeltaY.setDeltaY),
   'SourceControl.terminate': terminate,
   'SourceControl.updateIcons': WrapCommand.wrapCommand(UpdateIcons.updateIcons),
+  'SourceControl.viewAsList': WrapCommand.wrapCommand(ViewAsList.viewAsList),
+  'SourceControl.viewAsTree': WrapCommand.wrapCommand(ViewAsTree.viewAsTree),
 }
