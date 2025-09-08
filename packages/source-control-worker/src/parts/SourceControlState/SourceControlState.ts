@@ -47,4 +47,5 @@ export interface SourceControlState {
   readonly inputLetterSpacing: number
   readonly inputLineHeight: number
   readonly inputBoxMaxHeight: number
+  readonly history: readonly string[]
 }
