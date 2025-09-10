@@ -34,10 +34,15 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
   const scheme = GetProtocol.getProtocol(root)
   const { inputValue } = restoreState(savedState)
   const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root)
+
+  const iconDefinitions = await SourceControl.getIconDefinitions(enabledProviderIds)
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds)
+
   const expandedGroups = restoreExpandedGroups(allGroups)
-  const displayItems = getDisplayItems(allGroups, expandedGroups)
+  const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
   const actionsCache = await requestSourceActions()
+
+  // TODO make preferences async and more functional
   const splitButtonEnabled = Preferences.get('sourceControl.splitButtonEnabled')
   const total = displayItems.length
   const contentHeight = total * itemHeight
