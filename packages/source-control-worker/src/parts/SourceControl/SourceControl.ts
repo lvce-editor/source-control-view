@@ -43,3 +43,14 @@ export const getEnabledProviderIds = (scheme: string, root: string): Promise<rea
 export const getGroups = (providerId: string, root: string): Promise<any> => {
   return ExtensionHostSourceControl.getGroups(providerId, root)
 }
+
+export const getIconDefinitions = async (providerIds: readonly string[]): Promise<readonly string[]> => {
+  try {
+    if (providerIds.length === 0) {
+      return []
+    }
+    return await ExtensionHostSourceControl.getIconDefinitions(providerIds[0])
+  } catch {
+    return []
+  }
+}
