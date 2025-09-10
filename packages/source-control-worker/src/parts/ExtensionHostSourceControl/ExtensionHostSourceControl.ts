@@ -1,4 +1,5 @@
 import * as ExecuteProvider from '../ExecuteProvider/ExecuteProvider.ts'
+import * as ExtensionHost from '../ExtensionHost/ExtensionHost.ts'
 import * as ExtensionHostCommandType from '../ExtensionHostCommandType/ExtensionHostCommandType.ts'
 
 export const acceptInput = async (providerId: string, text: string): Promise<void> => {
@@ -62,4 +63,10 @@ export const getEnabledProviderIds = (scheme: string, root: string): Promise<rea
     params: [scheme, root],
     // noProviderFoundMessage: 'No source control provider found',
   })
+}
+
+export const getIconDefinitions = async (providerId: string): Promise<readonly string[]> => {
+  // @ts-ignore
+  const result = await ExtensionHost.invoke('ExtensionHostSourceControl.getIconDefinitions', providerId)
+  return result
 }
