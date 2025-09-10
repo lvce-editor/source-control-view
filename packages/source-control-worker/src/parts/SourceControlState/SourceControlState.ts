@@ -50,4 +50,5 @@ export interface SourceControlState {
   readonly inputBoxMaxHeight: number
   readonly history: readonly string[]
   readonly viewMode: ViewMode
+  readonly iconDefinitions: readonly string[]
 }
