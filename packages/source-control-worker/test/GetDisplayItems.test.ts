@@ -17,7 +17,7 @@ test('getDisplayItems - collapsed', () => {
     },
   ]
   const expandedGroups = {}
-  const actual = getDisplayItems(groups, expandedGroups)
+  const actual = getDisplayItems(groups, expandedGroups, [])
   expect(actual).toHaveLength(1)
   expect(actual[0]).toEqual({
     file: '',
@@ -51,7 +51,7 @@ test('getDisplayItems - expanded', () => {
     },
   ]
   const expandedGroups = { '1': true }
-  const actual = getDisplayItems(groups, expandedGroups)
+  const actual = getDisplayItems(groups, expandedGroups, [])
   expect(actual).toHaveLength(2)
   expect(actual[0]).toEqual({
     file: '',
@@ -111,7 +111,7 @@ test('getDisplayItems - multiple groups with different expansion states', () => 
     },
   ]
   const expandedGroups = { '1': true, '2': false }
-  const actual = getDisplayItems(groups, expandedGroups)
+  const actual = getDisplayItems(groups, expandedGroups, [])
   expect(actual).toHaveLength(3)
   expect(actual[0]).toEqual({
     file: '',
