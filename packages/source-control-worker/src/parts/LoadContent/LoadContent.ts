@@ -41,7 +41,6 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
   const expandedGroups = restoreExpandedGroups(allGroups)
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
 
-  console.log({ displayItems })
   const actionsCache = await requestSourceActions()
 
   // TODO make preferences async and more functional
