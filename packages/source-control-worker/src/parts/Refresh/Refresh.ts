@@ -9,10 +9,10 @@ import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedG
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 
 export const refresh = async (state: SourceControlState): Promise<SourceControlState> => {
-  const { itemHeight, height, minimumSliderSize, fileIconCache, enabledProviderIds, splitButtonEnabled, actionsCache } = state
+  const { itemHeight, height, minimumSliderSize, fileIconCache, enabledProviderIds, splitButtonEnabled, actionsCache, iconDefinitions } = state
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds)
   const expandedGroups = restoreExpandedGroups(allGroups)
-  const displayItems = getDisplayItems(allGroups, expandedGroups)
+  const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
   const total = displayItems.length
   const contentHeight = total * itemHeight
   const listHeight = getListHeight(total, itemHeight, height)
