@@ -2,7 +2,7 @@ import { type Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'source-control.handle-input'
 
-export const test: Test = async ({ Command, Locator, expect, SideBar, FileSystem, Workspace, Extension }) => {
+export const test: Test = async ({ SourceControl, Locator, expect, SideBar, FileSystem, Workspace, Extension }) => {
   // arrange
   const uri = new URL('../fixtures/sample-source-control-provider', import.meta.url).toString()
   await Extension.addWebExtension(uri)
@@ -11,7 +11,7 @@ export const test: Test = async ({ Command, Locator, expect, SideBar, FileSystem
   await SideBar.open('Source Control')
 
   // act
-  await Command.execute('Source Control.handleInput', 'abc', 2)
+  await SourceControl.handleInput('abc')
 
   // assert
   const input = Locator(`.SourceControl .InputBox`)
