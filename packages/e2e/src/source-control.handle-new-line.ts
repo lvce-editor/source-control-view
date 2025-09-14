@@ -4,7 +4,7 @@ export const name = 'source-control.handle-new-line'
 
 export const skip = 1
 
-export const test: Test = async ({ Command, Locator, expect, SideBar, FileSystem, Workspace, Extension }) => {
+export const test: Test = async ({ SourceControl, Locator, expect, SideBar, FileSystem, Workspace, Extension }) => {
   // arrange
   const uri = new URL('../fixtures/sample-source-control-provider', import.meta.url).toString()
   await Extension.addWebExtension(uri)
@@ -13,7 +13,7 @@ export const test: Test = async ({ Command, Locator, expect, SideBar, FileSystem
   await SideBar.open('Source Control')
 
   // act
-  await Command.execute('Source Control.handleInput', 'abc\ndef\n', 2)
+  await SourceControl.handleInput('abc\ndef\n')
 
   // assert
   const input = Locator(`.SourceControl .InputBox`)
