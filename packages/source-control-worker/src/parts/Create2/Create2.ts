@@ -48,6 +48,7 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     history: [],
     viewMode: 1,
     iconDefinitions: [],
+    decorationIcons: [],
   }
   SourceControlStates.set(id, state, state)
 }
