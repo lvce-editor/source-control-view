@@ -1,4 +1,4 @@
-export const getActualDecorationIcon = (iconDefinitions: any, icon: string | number): string => {
+export const getActualDecorationIcon = (iconDefinitions: readonly string[], icon: string | number): string => {
   if (typeof icon === 'number') {
     const value = iconDefinitions[icon]
     if (!value) {
