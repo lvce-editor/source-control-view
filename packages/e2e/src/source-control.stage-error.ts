@@ -1,6 +1,5 @@
 import { type Test } from '@lvce-editor/test-with-playwright'
 
-
 export const name = 'source-control.stage-error'
 
 export const skip = 1
