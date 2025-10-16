@@ -4,6 +4,13 @@ import * as DirentType from '../DirentType/DirentType.ts'
 import * as IconTheme from '../IconTheme/IconTheme.ts'
 import * as Workspace from '../Workspace/Workspace.ts'
 
+const getActualDecorationIcon = (iconDefinitions: any, icon: string | number): string => {
+  if (typeof icon === 'number') {
+    return iconDefinitions[icon]
+  }
+  return icon
+}
+
 export const getDisplayItemsGroup = (group: Group, expandedGroups: Record<string, boolean>, iconDefinitions: readonly string[]): readonly DisplayItem[] => {
   const displayItems: DisplayItem[] = []
   const { id, label, items } = group
@@ -36,10 +43,7 @@ export const getDisplayItemsGroup = (group: Group, expandedGroups: Record<string
       const { file, icon, iconTitle, strikeThrough } = item
       const baseName = Workspace.pathBaseName(file)
       const folderName = file.slice(0, -baseName.length - 1)
-      let actualDecorationIcon = icon
-      if (typeof icon === 'number') {
-        actualDecorationIcon = iconDefinitions[icon]
-      }
+      const actualDecorationIcon = getActualDecorationIcon(iconDefinitions, icon)
       displayItems.push({
         file,
         label: baseName,
