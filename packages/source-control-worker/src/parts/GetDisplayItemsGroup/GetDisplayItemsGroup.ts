@@ -3,13 +3,7 @@ import type { Group } from '../Group/Group.ts'
 import * as DirentType from '../DirentType/DirentType.ts'
 import * as IconTheme from '../IconTheme/IconTheme.ts'
 import * as Workspace from '../Workspace/Workspace.ts'
-
-const getActualDecorationIcon = (iconDefinitions: any, icon: string | number): string => {
-  if (typeof icon === 'number') {
-    return iconDefinitions[icon]
-  }
-  return icon
-}
+import { getActualDecorationIcon } from '../GetActualDecorationIcon/GetActualDecorationIcon.ts'
 
 export const getDisplayItemsGroup = (group: Group, expandedGroups: Record<string, boolean>, iconDefinitions: readonly string[]): readonly DisplayItem[] => {
   const displayItems: DisplayItem[] = []
