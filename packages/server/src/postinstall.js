@@ -31,7 +31,7 @@ const remoteUrl = getRemoteUrl(fileSearchWorkerPath)
 if (!content.includes('// const sourceControlWorkerUrl = ')) {
   const occurrence = `const sourceControlWorkerUrl = \`\${assetDir}/packages/source-control-worker/dist/sourceControlWorkerMain.js\``
   const replacement = `// const sourceControlWorkerUrl = \`\${assetDir}/packages/source-control-worker/dist/sourceControlWorkerMain.js\`
-  const sourceControlWorkerUrl = \`${remoteUrl}\``
+const sourceControlWorkerUrl = \`${remoteUrl}\``
 
   const newContent = content.replace(occurrence, replacement)
   await writeFile(rendererWorkerMainPath, newContent)
