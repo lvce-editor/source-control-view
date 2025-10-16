@@ -8,6 +8,7 @@ import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 export interface SourceControlState {
   readonly actionsCache: ActionsCache
   readonly allGroups: readonly Group[]
+  readonly decorationIcons: readonly string[]
   readonly deltaY: number
   readonly enabledProviderIds: readonly string[]
   readonly expandedGroups: Record<string, boolean>
@@ -16,9 +17,9 @@ export interface SourceControlState {
   readonly gitRoot: string
   readonly handleOffset: number
   readonly headerHeight: number
-  readonly inputBoxHeight: number
   readonly height: number
   readonly id: number
+  readonly inputBoxHeight: number
   readonly index: readonly any[]
   readonly inputPlaceholder: string
   readonly inputValue: string

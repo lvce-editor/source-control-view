@@ -46,4 +46,5 @@ export const createDefaultState = (): SourceControlState => ({
   history: [],
   viewMode: 1,
   iconDefinitions: [],
+  decorationIcons: [],
 })

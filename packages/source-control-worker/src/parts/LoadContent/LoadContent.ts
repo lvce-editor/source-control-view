@@ -61,6 +61,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
     ...state,
     actionsCache,
     allGroups,
+    decorationIcons: iconDefinitions,
     enabledProviderIds,
     fileIconCache: newFileIconCache,
     finalDeltaY,
