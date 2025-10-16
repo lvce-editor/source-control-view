@@ -2,17 +2,15 @@ const id = 'sample-source-control'
 const label = 'Sample Source Control'
 const rootUri = ''
 
-const iconRoot = new URL('./icons/dark', import.meta.url).toString()
-
 const IconType = {
-  Modified: `${iconRoot}/status-modified.svg`,
-  Added: `${iconRoot}/status-added.svg`,
-  Deleted: `${iconRoot}/status-deleted.svg`,
-  Renamed: `${iconRoot}/status-renamed.svg`,
-  Copied: `${iconRoot}/status-copied.svg`,
-  Untracked: `${iconRoot}/status-untracked.svg`,
-  Ignored: `${iconRoot}/status-ignored.svg`,
-  Conflict: `${iconRoot}/status-conflict.svg`,
+  Modified: 0,
+  Added: 1,
+  Deleted: 2,
+  Renamed: 3,
+  Copied: 4,
+  Untracked: 5,
+  Ignored: 6,
+  Conflict: 7,
 }
 
 const staged = Object.create(null)
