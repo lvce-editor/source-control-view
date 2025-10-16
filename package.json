@@ -6,10 +6,10 @@
   "type": "module",
   "main": "",
   "scripts": {
-    "build": "node packages/build/src/build.js",
-    "build:static": "node packages/build/src/build-static.js",
+    "build": "node packages/build/src/build.ts",
+    "build:static": "node packages/build/src/build-static.ts",
     "build:watch": "./packages/build/node_modules/.bin/esbuild --format=esm --bundle --external:node:buffer --external:electron --external:ws --external:node:worker_threads --watch packages/source-control-worker/src/sourceControlWorkerMain.ts --outfile=.tmp/dist/dist/sourceControlWorkerMain.js",
-    "dev": "node packages/build/src/dev.js",
+    "dev": "node packages/build/src/dev.ts",
     "format": "prettier --write .",
     "postinstall": "lerna bootstrap --ci",
     "lint": "eslint . && prettier --check .",
@@ -24,10 +24,10 @@
   },
   "devDependencies": {
     "@lerna/legacy-package-management": "^8.2.4",
-    "@lvce-editor/eslint-config": "^1.62.0",
-    "eslint": "9.35.0",
+    "@lvce-editor/eslint-config": "^1.68.0",
+    "eslint": "9.37.0",
     "lerna": "^8.2.3",
     "prettier": "^3.6.2",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   }
 }

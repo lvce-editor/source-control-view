@@ -1,7 +1,7 @@
 import { cp, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { root } from './root.js'
+import { root } from './root.ts'
 
 const sharedProcessPath = join(root, 'packages', 'server', 'node_modules', '@lvce-editor', 'shared-process', 'index.js')
 
@@ -18,7 +18,7 @@ const { commitHash } = await sharedProcess.exportStatic({
 
 const rendererWorkerPath = join(root, 'dist', commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js')
 
-export const getRemoteUrl = (path) => {
+export const getRemoteUrl = (path: string): string => {
   const url = pathToFileURL(path).toString().slice(8)
   return `/remote/${url}`
 }
@@ -29,7 +29,7 @@ const remoteUrl = getRemoteUrl(workerPath)
 
 if (content.includes('// const sourceControlWorkerUrl = ')) {
   const occurrence = `// const sourceControlWorkerUrl = \`\${assetDir}/packages/source-control-worker/dist/sourceControlWorkerMain.js\`
-  const sourceControlWorkerUrl = \`${remoteUrl}\``
+const sourceControlWorkerUrl = \`${remoteUrl}\``
   const replacement = `const sourceControlWorkerUrl = \`\${assetDir}/packages/source-control-worker/dist/sourceControlWorkerMain.js\``
   const newContent = content.replace(occurrence, replacement)
   await writeFile(rendererWorkerPath, newContent)
