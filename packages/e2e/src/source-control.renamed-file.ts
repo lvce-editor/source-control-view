@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'source-control.renamed-file'
 
-export const test: Test = async ({ SourceControl, Locator, expect, Command, SideBar, FileSystem, Workspace, Extension }) => {
+export const test: Test = async ({ SourceControl, Locator, expect, Command, FileSystem, Workspace, Extension }) => {
   // arrange
   const uri = new URL('../fixtures/sample-source-control-provider', import.meta.url).toString()
   await Extension.addWebExtension(uri)
@@ -10,7 +10,7 @@ export const test: Test = async ({ SourceControl, Locator, expect, Command, Side
   await FileSystem.writeFile(`${tmpDir}/test-renamed.css`, `abc`)
   await Command.execute('ExtensionHost.executeCommand', `sampleSourceControl.rename`, `${tmpDir}/test.css`, `${tmpDir}/test-renamed.css`)
   await Workspace.setPath(tmpDir)
-  await SideBar.open('Source Control')
+  await SourceControl.show()
 
   // act
   await SourceControl.handleClickSourceControlButtons(1, 'Stage')
