@@ -17,7 +17,7 @@ export const getSourceControlVirtualDom = (items: readonly VisibleItem[], splitB
       tabIndex: 0,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onMouseOver: DomEventListenerFunctions.HandleMouseOver,
-      onMouseOut: DomEventListenerFunctions.HandleMouseOut,
+      // onMouseOut: DomEventListenerFunctions.HandleMouseOut,
       onWheel: DomEventListenerFunctions.HandleWheel,
       childCount: splitButtonEnabled ? 3 : 2,
     },
