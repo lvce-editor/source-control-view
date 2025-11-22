@@ -23,7 +23,7 @@ import * as RenderEventListeners from '../RenderEventListeners/RenderEventListen
 import * as SaveState from '../SaveState/SaveState.ts'
 import * as SelectIndex from '../SelectIndex/SelectIndex.ts'
 import * as SetDeltaY from '../SetDeltaY/SetDeltaY.ts'
-import { getFileDecorations } from '../SourceControl/SourceControl.ts'
+import { getEnabledProviderIds, getFileDecorations } from '../SourceControl/SourceControl.ts'
 import * as WrapCommand from '../SourceControlStates/SourceControlStates.ts'
 import * as UpdateIcons from '../UpdateIcons/UpdateIcons.ts'
 import * as ViewAsList from '../ViewAsList/ViewAsList.ts'
@@ -32,9 +32,9 @@ import * as ViewAsTree from '../ViewAsTree/ViewAsTree.ts'
 export const commandMap = {
   'Initialize.initialize': Initialize.initialize,
   'SourceControl.create2': Create2.create2,
-  'SourceControl.handleMessagePort': HandleMessagePort.handleMessagePort,
   'SourceControl.diff2': Diff2.diff2,
   'SourceControl.getCommandIds': WrapCommand.getCommandIds,
+  'SourceControl.getEnabledProviderIds': getEnabledProviderIds,
   'SourceControl.getFileDecorations': getFileDecorations,
   'SourceControl.getInfo': GetInfo.getInfo,
   'SourceControl.handleButtonClick': WrapCommand.wrapCommand(HandleButtonClick.handleButtonClick),
@@ -43,6 +43,7 @@ export const commandMap = {
   'SourceControl.handleContextMenu': WrapCommand.wrapCommand(HandleContextMenu.handleContextMenu),
   'SourceControl.handleFocus': WrapCommand.wrapCommand(HandleFocus.handleFocus),
   'SourceControl.handleInput': WrapCommand.wrapCommand(handleInput),
+  'SourceControl.handleMessagePort': HandleMessagePort.handleMessagePort,
   'SourceControl.handleMouseOut': WrapCommand.wrapCommand(HandleMouseOut.handleMouseOut),
   'SourceControl.handleMouseOutAt': WrapCommand.wrapCommand(HandleMouseOutAt.handleMouseOutAt),
   'SourceControl.handleMouseOver': WrapCommand.wrapCommand(HandleMouseOver.handleMouseOver),
