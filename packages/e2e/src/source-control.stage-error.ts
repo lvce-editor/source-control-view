@@ -4,14 +4,14 @@ export const name = 'source-control.stage-error'
 
 export const skip = 1
 
-export const test: Test = async ({ SourceControl, Locator, expect, SideBar, FileSystem, Workspace, Extension }) => {
+export const test: Test = async ({ SourceControl, Locator, expect, FileSystem, Workspace, Extension }) => {
   // arrange
   const uri = new URL('../fixtures/sample-source-control-provider-stage-error', import.meta.url).toString()
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.css`, `abc`)
   await Workspace.setPath(tmpDir)
-  await SideBar.open('Source Control')
+  await SourceControl.show()
 
   // act
   await SourceControl.handleClickSourceControlButtons(1, `Stage`)
