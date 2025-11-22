@@ -16,6 +16,10 @@ export const getChangedFiles = (providerId: string): Promise<readonly any[]> => 
   return ExtensionHostSourceControl.getChangedFiles(providerId)
 }
 
+export const getFileDecorations = (providerId: string, uris: readonly string[]): Promise<readonly any[]> => {
+  return ExtensionHostSourceControl.getFileDecorations(providerId, uris)
+}
+
 export const getFileBefore = (providerId: string, file: string): Promise<any> => {
   return ExtensionHostSourceControl.getFileBefore(providerId, file)
 }

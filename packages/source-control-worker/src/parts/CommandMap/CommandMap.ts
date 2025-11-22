@@ -22,6 +22,7 @@ import * as RenderEventListeners from '../RenderEventListeners/RenderEventListen
 import * as SaveState from '../SaveState/SaveState.ts'
 import * as SelectIndex from '../SelectIndex/SelectIndex.ts'
 import * as SetDeltaY from '../SetDeltaY/SetDeltaY.ts'
+import { getFileDecorations } from '../SourceControl/SourceControl.ts'
 import * as WrapCommand from '../SourceControlStates/SourceControlStates.ts'
 import * as UpdateIcons from '../UpdateIcons/UpdateIcons.ts'
 import * as ViewAsList from '../ViewAsList/ViewAsList.ts'
@@ -32,6 +33,7 @@ export const commandMap = {
   'SourceControl.create2': Create2.create2,
   'SourceControl.diff2': Diff2.diff2,
   'SourceControl.getCommandIds': WrapCommand.getCommandIds,
+  'SourceControl.getFileDecorations': getFileDecorations,
   'SourceControl.getInfo': GetInfo.getInfo,
   'SourceControl.handleButtonClick': WrapCommand.wrapCommand(HandleButtonClick.handleButtonClick),
   'SourceControl.handleClickAt': WrapCommand.wrapCommand(HandleClickAt.handleClickAt),
