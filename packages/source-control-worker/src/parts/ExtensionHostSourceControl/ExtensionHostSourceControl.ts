@@ -19,6 +19,13 @@ export const getChangedFiles = (providerId: string): Promise<readonly any[]> => 
     // noProviderFoundMessage: 'No source control provider found',
   })
 }
+export const getFileDecorations = (providerId: string, uris: readonly string[]): Promise<readonly any[]> => {
+  return ExecuteProvider.executeProvider({
+    event: 'none',
+    method: ExtensionHostCommandType.SourceControlGetFileDecorations,
+    params: [providerId, uris],
+  })
+}
 
 export const getFileBefore = (providerId: string, path: string): Promise<any> => {
   return ExecuteProvider.executeProvider({
