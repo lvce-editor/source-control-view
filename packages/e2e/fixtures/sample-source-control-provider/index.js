@@ -1,4 +1,4 @@
-const id = 'sample-source-control'
+const id = 'sample-source-control-provider' // TODO name it just sample-source-control-provider
 const label = 'Sample Source Control'
 const rootUri = ''
 
