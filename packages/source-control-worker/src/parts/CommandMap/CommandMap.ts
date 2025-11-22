@@ -8,6 +8,7 @@ import * as HandleClickSourceControlButtons from '../HandleClickSourceControlBut
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandleFocus from '../HandleFocus/HandleFocus.ts'
 import { handleInput } from '../HandleInput/HandleInput.ts'
+import * as HandleMessagePort from '../HandleMessagePort/HandleMessagePort.ts'
 import * as HandleMouseOut from '../HandleMouseOut/HandleMouseOut.ts'
 import * as HandleMouseOutAt from '../HandleMouseOutAt/HandleMouseOutAt.ts'
 import * as HandleMouseOver from '../HandleMouseOver/HandleMouseOver.ts'
@@ -31,6 +32,7 @@ import * as ViewAsTree from '../ViewAsTree/ViewAsTree.ts'
 export const commandMap = {
   'Initialize.initialize': Initialize.initialize,
   'SourceControl.create2': Create2.create2,
+  'SourceControl.handleMessagePort': HandleMessagePort.handleMessagePort,
   'SourceControl.diff2': Diff2.diff2,
   'SourceControl.getCommandIds': WrapCommand.getCommandIds,
   'SourceControl.getFileDecorations': getFileDecorations,
