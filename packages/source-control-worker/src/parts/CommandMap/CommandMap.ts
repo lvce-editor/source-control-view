@@ -3,6 +3,7 @@ import * as Create2 from '../Create2/Create2.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import * as GetInfo from '../GetInfo/GetInfo.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
+import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
 import * as HandleButtonClick from '../HandleButtonClick/HandleButtonClick.ts'
 import * as HandleClickAt from '../HandleClickAt/HandleClickAt.ts'
 import * as HandleClickSourceControlButtons from '../HandleClickSourceControlButtons/HandleClickSourceControlButtons.ts'
@@ -35,6 +36,7 @@ export const commandMap = {
   'SourceControl.create2': Create2.create2,
   'SourceControl.diff2': Diff2.diff2,
   'SourceControl.getCommandIds': WrapCommand.getCommandIds,
+  'SourceControl.getMenuIds': getMenuIds,
   'SourceControl.getEnabledProviderIds': getEnabledProviderIds,
   'SourceControl.getFileDecorations': getFileDecorations,
   'SourceControl.getInfo': GetInfo.getInfo,
