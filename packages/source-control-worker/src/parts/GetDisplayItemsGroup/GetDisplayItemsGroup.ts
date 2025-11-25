@@ -1,6 +1,6 @@
+import { DirentType } from '@lvce-editor/constants'
 import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
 import type { Group } from '../Group/Group.ts'
-import * as DirentType from '../DirentType/DirentType.ts'
 import { getActualDecorationIcon } from '../GetActualDecorationIcon/GetActualDecorationIcon.ts'
 import * as IconTheme from '../IconTheme/IconTheme.ts'
 import * as Workspace from '../Workspace/Workspace.ts'

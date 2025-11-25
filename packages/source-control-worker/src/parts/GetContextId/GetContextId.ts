@@ -1,4 +1,4 @@
-import * as DirentType from '../DirentType/DirentType.ts'
+import { DirentType } from '@lvce-editor/constants'
 
 export const getContextId = (groupId: string, type: number): string => {
   if (type === DirentType.File) {
