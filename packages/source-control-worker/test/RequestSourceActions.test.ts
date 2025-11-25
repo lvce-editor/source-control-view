@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import * as ExtensionHost from '../src/parts/ExtensionHost/ExtensionHost.ts'
+import { ExtensionHost } from '@lvce-editor/rpc-registry'
 import { requestSourceActions } from '../src/parts/RequestSourceActions/RequestSourceActions.ts'
 
 test('requestSourceActions', async () => {

@@ -1,5 +1,5 @@
 import { beforeAll, expect, test } from '@jest/globals'
-import * as ExtensionHost from '../src/parts/ExtensionHost/ExtensionHost.ts'
+import { ExtensionHost } from '@lvce-editor/rpc-registry'
 import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 import * as SourceControl from '../src/parts/SourceControl/SourceControl.ts'
 
