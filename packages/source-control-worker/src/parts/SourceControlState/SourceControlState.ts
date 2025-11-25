@@ -11,7 +11,7 @@ export interface SourceControlState {
   readonly decorationIcons: readonly string[]
   readonly deltaY: number
   readonly enabledProviderIds: readonly string[]
-  readonly expandedGroups: Record<string, boolean>
+  readonly expandedGroups: Readonly<Record<string, boolean>>
   readonly fileIconCache: FileIconCache
   readonly finalDeltaY: number
   readonly gitRoot: string
