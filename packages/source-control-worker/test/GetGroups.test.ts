@@ -1,7 +1,7 @@
 import { test, expect } from '@jest/globals'
+import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import * as ExtensionHost from '../src/parts/ExtensionHost/ExtensionHost.ts'
 import { getGroups } from '../src/parts/GetGroups/GetGroups.ts'
-import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 
 test('getGroups - aggregates groups from multiple providers', async (): Promise<void> => {
   const parentCommandMap = {

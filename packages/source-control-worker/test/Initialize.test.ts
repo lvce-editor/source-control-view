@@ -1,8 +1,8 @@
 import { test, expect } from '@jest/globals'
 import * as RpcRegistry from '@lvce-editor/rpc-registry'
 import { RpcId } from '@lvce-editor/rpc-registry'
+import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import { initialize } from '../src/parts/Initialize/Initialize.ts'
-import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 
 test('initialize', async (): Promise<void> => {
   const commandMap = {

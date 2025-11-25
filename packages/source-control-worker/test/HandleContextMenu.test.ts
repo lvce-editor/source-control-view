@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals'
+import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleContextMenu } from '../src/parts/HandleContextMenu/HandleContextMenu.ts'
-import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
 
 test('handleContextMenu', async (): Promise<void> => {
   const commandMap = {
