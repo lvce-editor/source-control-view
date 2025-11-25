@@ -1,5 +1,5 @@
+import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
-import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import * as GetActionsVirtualDom from '../GetActionsVirtualDom/GetActionsVirtualDom.ts'
 
 export const renderActions = (state: SourceControlState): readonly VirtualDomNode[] => {
