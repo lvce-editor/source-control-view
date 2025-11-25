@@ -1,6 +1,7 @@
 import { expect, test } from '@jest/globals'
 import { ExtensionHost } from '@lvce-editor/rpc-registry'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
+import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
 
@@ -16,7 +17,7 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
 
-  const state = createDefaultState()
+  const state: SourceControlState = createDefaultState()
   const result = await loadContent(state, {})
 
   expect(result).toBeDefined()
@@ -41,7 +42,7 @@ test('loadContent - with saved state inputValue', async (): Promise<void> => {
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
 
-  const state = createDefaultState()
+  const state: SourceControlState = createDefaultState()
   const savedState = {
     inputValue: 'test commit message',
   }
@@ -65,7 +66,7 @@ test('loadContent - with enabled providers', async (): Promise<void> => {
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
 
-  const state = {
+  const state: SourceControlState = {
     ...createDefaultState(),
     workspacePath: '/test/workspace',
   }
@@ -105,7 +106,7 @@ test('loadContent - with groups', async (): Promise<void> => {
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
 
-  const state = {
+  const state: SourceControlState = {
     ...createDefaultState(),
     workspacePath: '/test/workspace',
   }
@@ -137,7 +138,7 @@ test('loadContent - with source control actions', async (): Promise<void> => {
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
 
-  const state = createDefaultState()
+  const state: SourceControlState = createDefaultState()
   const result = await loadContent(state, {})
 
   expect(result.actionsCache).toEqual({
@@ -181,7 +182,7 @@ test('loadContent - calculates scroll bar and visible items correctly', async ()
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
 
-  const state = {
+  const state: SourceControlState = {
     ...createDefaultState(),
     workspacePath: '/test/workspace',
     height: 200,

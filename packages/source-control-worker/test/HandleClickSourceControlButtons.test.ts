@@ -1,6 +1,7 @@
 import { expect, jest, test } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { ExtensionHost } from '@lvce-editor/rpc-registry'
+import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleClickSourceControlButtons } from '../src/parts/HandleClickSourceControlButtons/HandleClickSourceControlButtons.ts'
 
@@ -14,7 +15,7 @@ test('handleClickSourceControlButtons - valid button click', async (): Promise<v
   const rendererMockRpc = RendererWorker.registerMockRpc(commandMap)
   ExtensionHost.registerMockRpc(commandMap)
 
-  const state = {
+  const state: SourceControlState = {
     ...CreateDefaultState.createDefaultState(),
     visibleItems: [
       {
@@ -48,7 +49,7 @@ test('handleClickSourceControlButtons - valid button click', async (): Promise<v
 })
 
 test('handleClickSourceControlButtons - invalid index', async (): Promise<void> => {
-  const state = {
+  const state: SourceControlState = {
     ...CreateDefaultState.createDefaultState(),
     visibleItems: [],
   }
@@ -58,7 +59,7 @@ test('handleClickSourceControlButtons - invalid index', async (): Promise<void> 
 
 test('handleClickSourceControlButtons - invalid button name', async (): Promise<void> => {
   const consoleWarnSpy = jest.spyOn((globalThis as any).console, 'warn').mockImplementation(() => {})
-  const state = {
+  const state: SourceControlState = {
     ...CreateDefaultState.createDefaultState(),
     visibleItems: [
       {

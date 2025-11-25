@@ -1,4 +1,5 @@
 import { expect, test } from '@jest/globals'
+import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { getInfo } from '../src/parts/GetInfo/GetInfo.ts'
 import { set } from '../src/parts/SourceControlStates/SourceControlStates.ts'
@@ -18,7 +19,7 @@ test('getInfo - returns allGroups from state', (): void => {
       items: [],
     },
   ]
-  const state = {
+  const state: SourceControlState = {
     ...defaultState,
     allGroups: groups,
   }
@@ -30,7 +31,7 @@ test('getInfo - returns allGroups from state', (): void => {
 test('getInfo - returns empty array when no groups', (): void => {
   const uid = 2
   const defaultState = createDefaultState()
-  const state = {
+  const state: SourceControlState = {
     ...defaultState,
     allGroups: [],
   }
@@ -54,7 +55,7 @@ test('getInfo - returns groups with items', (): void => {
       ],
     },
   ]
-  const state = {
+  const state: SourceControlState = {
     ...defaultState,
     allGroups: groups,
   }

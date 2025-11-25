@@ -1,9 +1,10 @@
 import { expect, test } from '@jest/globals'
+import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { getIndex } from '../src/parts/GetIndex/GetIndex.ts'
 
 test('getIndex - first item', () => {
-  const state = {
+  const state: SourceControlState = {
     ...createDefaultState(),
     headerHeight: 50,
     y: 100,
@@ -16,7 +17,7 @@ test('getIndex - first item', () => {
 })
 
 test('getIndex - second item', () => {
-  const state = {
+  const state: SourceControlState = {
     ...createDefaultState(),
     headerHeight: 50,
     y: 100,
@@ -29,7 +30,7 @@ test('getIndex - second item', () => {
 })
 
 test('getIndex - negative y', () => {
-  const state = {
+  const state: SourceControlState = {
     ...createDefaultState(),
     headerHeight: 50,
     y: 100,
@@ -42,7 +43,7 @@ test('getIndex - negative y', () => {
 })
 
 test('getIndex - different header height', () => {
-  const state = {
+  const state: SourceControlState = {
     ...createDefaultState(),
     headerHeight: 100,
     y: 100,

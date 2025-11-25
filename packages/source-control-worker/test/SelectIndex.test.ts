@@ -6,7 +6,7 @@ import * as DirentType from '../src/parts/DirentType/DirentType.ts'
 import { selectIndex } from '../src/parts/SelectIndex/SelectIndex.ts'
 
 test('selectIndex - invalid index', async (): Promise<void> => {
-  const state = createDefaultState()
+  const state: SourceControlState = createDefaultState()
   const newState = await selectIndex(state, -1)
   expect(newState).toBe(state)
 })
