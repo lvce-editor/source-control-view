@@ -10,7 +10,7 @@ export const getActionButtonVirtualDom = (action: any): readonly VirtualDomNode[
       type: VirtualDomElements.Button,
       className: ClassNames.IconButton,
       title: id,
-      'data-command': command,
+      'data-command': command, // TODO remove this
       childCount: 1,
     },
     GetIconVirtualDom.getIconVirtualDom(icon),
