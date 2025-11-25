@@ -3,11 +3,11 @@ import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import { getBadgeVirtualDom } from '../src/parts/GetBadgeVirtualDom/GetBadgeVirtualDom.ts'
 
 test('getBadgeVirtualDom', () => {
-  const result = getBadgeVirtualDom('test-class', 5)
+  const result = getBadgeVirtualDom(5)
   expect(result).toEqual([
     {
       type: VirtualDomElements.Div,
-      className: 'Badge test-class',
+      className: 'Badge SourceControlBadge',
       childCount: 1,
     },
     {
@@ -19,11 +19,11 @@ test('getBadgeVirtualDom', () => {
 })
 
 test('getBadgeVirtualDom with zero count', () => {
-  const result = getBadgeVirtualDom('test-class', 0)
+  const result = getBadgeVirtualDom(0)
   expect(result).toEqual([
     {
       type: VirtualDomElements.Div,
-      className: 'Badge test-class',
+      className: 'Badge SourceControlBadge',
       childCount: 1,
     },
     {
@@ -35,11 +35,11 @@ test('getBadgeVirtualDom with zero count', () => {
 })
 
 test('getBadgeVirtualDom with empty className', () => {
-  const result = getBadgeVirtualDom('', 5)
+  const result = getBadgeVirtualDom(5)
   expect(result).toEqual([
     {
       type: VirtualDomElements.Div,
-      className: 'Badge ',
+      className: 'Badge SourceControlBadge',
       childCount: 1,
     },
     {
