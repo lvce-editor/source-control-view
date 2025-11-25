@@ -1,5 +1,5 @@
+import { DirentType } from '@lvce-editor/constants'
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
-import * as DirentType from '../DirentType/DirentType.ts'
 import { handleClickDirectory } from '../HandleClickDirectory/HandleClickDirectory.ts'
 import { handleClickDirectoryExpanded } from '../HandleClickDirectoryExpanded/HandleClickDirectoryExpanded.ts'
 import { handleClickFile } from '../HandleClickFile/HandleClickFile.ts'

@@ -1,7 +1,7 @@
+import { DirentType } from '@lvce-editor/constants'
 import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
 import type { FileIconCache } from '../FileIconCache/FileIconCache.ts'
 import type { IconRequest } from '../IconRequest/IconRequest.ts'
-import * as DirentType from '../DirentType/DirentType.ts'
 
 const getIconType = (direntType: number): number => {
   switch (direntType) {
