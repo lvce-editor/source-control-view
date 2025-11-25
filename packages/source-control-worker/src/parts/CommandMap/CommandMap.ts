@@ -38,7 +38,7 @@ export const commandMap = {
   'SourceControl.getEnabledProviderIds': getEnabledProviderIds,
   'SourceControl.getFileDecorations': getFileDecorations,
   'SourceControl.getInfo': GetInfo.getInfo,
-  'SourceControl.getMenuEntries2': getMenuEntries2,
+  'SourceControl.getMenuEntries2': WrapCommand.wrapGetter(getMenuEntries2),
   'SourceControl.handleButtonClick': WrapCommand.wrapCommand(HandleButtonClick.handleButtonClick),
   'SourceControl.handleClickAt': WrapCommand.wrapCommand(HandleClickAt.handleClickAt),
   'SourceControl.handleClickSourceControlButtons': WrapCommand.wrapCommand(HandleClickSourceControlButtons.handleClickSourceControlButtons),
