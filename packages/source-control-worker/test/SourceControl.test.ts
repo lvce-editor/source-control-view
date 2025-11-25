@@ -122,3 +122,47 @@ test('getGroups should call ExtensionHostSourceControl.getGroups', async (): Pro
   expect(result).toEqual([])
   expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHostSourceControl.getGroups', 'test-provider', 'test-root']])
 })
+
+test('getFileDecorations should call ExtensionHostSourceControl.getFileDecorations', async (): Promise<void> => {
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.getFileDecorations': async (): Promise<never[]> => [],
+  }
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+
+  const parentCommandMap = {
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+  }
+  ParentRpc.registerMockRpc(parentCommandMap)
+
+  const result = await SourceControl.getFileDecorations('test-provider', ['test-uri'])
+  expect(result).toEqual([])
+  expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHostSourceControl.getFileDecorations', 'test-provider', ['test-uri']]])
+})
+
+test('getIconDefinitions should return empty array when providerIds is empty', async (): Promise<void> => {
+  const result = await SourceControl.getIconDefinitions([])
+  expect(result).toEqual([])
+})
+
+test('getIconDefinitions should call ExtensionHostSourceControl.getIconDefinitions with first providerId', async (): Promise<void> => {
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<string[]> => ['icon1', 'icon2'],
+  }
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+
+  const result = await SourceControl.getIconDefinitions(['provider1', 'provider2'])
+  expect(result).toEqual(['icon1', 'icon2'])
+  expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHostSourceControl.getIconDefinitions', 'provider1']])
+})
+
+test('getIconDefinitions should return empty array on error', async (): Promise<void> => {
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<string[]> => {
+      throw new Error('test error')
+    },
+  }
+  ExtensionHost.registerMockRpc(extensionHostCommandMap)
+
+  const result = await SourceControl.getIconDefinitions(['provider1'])
+  expect(result).toEqual([])
+})
