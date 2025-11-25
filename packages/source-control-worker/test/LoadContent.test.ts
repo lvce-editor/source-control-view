@@ -11,6 +11,7 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
     'Extensions.getExtensions': (): Promise<readonly any[]> => Promise.resolve([]),
     'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(30),
     'IconTheme.getIcons': (): Promise<readonly string[]> => Promise.resolve([]),
+    'Preferences.get': (): Promise<any> => Promise.resolve(false),
   }
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
@@ -35,6 +36,7 @@ test('loadContent - with saved state inputValue', async (): Promise<void> => {
     'Extensions.getExtensions': (): Promise<readonly any[]> => Promise.resolve([]),
     'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(45),
     'IconTheme.getIcons': (): Promise<readonly string[]> => Promise.resolve([]),
+    'Preferences.get': (): Promise<any> => Promise.resolve(false),
   }
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
@@ -58,6 +60,7 @@ test('loadContent - with enabled providers', async (): Promise<void> => {
     'Extensions.getExtensions': (): Promise<readonly any[]> => Promise.resolve([]),
     'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(30),
     'IconTheme.getIcons': (): Promise<readonly string[]> => Promise.resolve([]),
+    'Preferences.get': (): Promise<any> => Promise.resolve(false),
   }
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
@@ -97,6 +100,7 @@ test('loadContent - with groups', async (): Promise<void> => {
     'Extensions.getExtensions': (): Promise<readonly any[]> => Promise.resolve([]),
     'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(30),
     'IconTheme.getIcons': (): Promise<readonly string[]> => Promise.resolve([]),
+    'Preferences.get': (): Promise<any> => Promise.resolve(false),
   }
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
@@ -128,6 +132,7 @@ test('loadContent - with source control actions', async (): Promise<void> => {
     'Extensions.getExtensions': (): Promise<readonly any[]> => Promise.resolve(mockExtensions),
     'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(30),
     'IconTheme.getIcons': (): Promise<readonly string[]> => Promise.resolve([]),
+    'Preferences.get': (): Promise<any> => Promise.resolve(false),
   }
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
@@ -171,6 +176,7 @@ test('loadContent - calculates scroll bar and visible items correctly', async ()
     'Extensions.getExtensions': (): Promise<readonly any[]> => Promise.resolve([]),
     'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(30),
     'IconTheme.getIcons': (): Promise<readonly string[]> => Promise.resolve(['icon1', 'icon2']),
+    'Preferences.get': (): Promise<any> => Promise.resolve(false),
   }
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)

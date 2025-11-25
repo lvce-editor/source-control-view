@@ -44,7 +44,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
   const actionsCache = await requestSourceActions()
 
   // TODO make preferences async and more functional
-  const splitButtonEnabled = Preferences.get('sourceControl.splitButtonEnabled')
+  const splitButtonEnabled = await Preferences.get('sourceControl.splitButtonEnabled')
   const total = displayItems.length
   const contentHeight = total * itemHeight
   const listHeight = getListHeight(total, itemHeight, height)
