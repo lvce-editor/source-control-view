@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import * as DirentType from '../src/parts/DirentType/DirentType.ts'
+import { DirentType } from '@lvce-editor/constants'
 import { getVisibleSourceControlItems } from '../src/parts/GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 
 test('getVisibleSourceControlItems - empty items', () => {

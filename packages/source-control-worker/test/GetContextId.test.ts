@@ -1,5 +1,5 @@
 import { test, expect } from '@jest/globals'
-import * as DirentType from '../src/parts/DirentType/DirentType.ts'
+import { DirentType } from '@lvce-editor/constants'
 import { getContextId } from '../src/parts/GetContextId/GetContextId.ts'
 
 test('file type', () => {

@@ -1,9 +1,9 @@
 import { test, expect } from '@jest/globals'
+import { DirentType } from '@lvce-editor/constants'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleItem } from '../src/parts/VisibleItem/VisibleItem.ts'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { createItemDirectory } from '../src/parts/CreateItemDirectory/CreateItemDirectory.ts'
-import * as DirentType from '../src/parts/DirentType/DirentType.ts'
 import * as TreeItemPadding from '../src/parts/TreeItemPadding/TreeItemPadding.ts'
 
 test('createItemDirectory - basic directory', () => {

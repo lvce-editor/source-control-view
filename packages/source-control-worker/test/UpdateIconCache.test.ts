@@ -1,7 +1,7 @@
 import { test, expect } from '@jest/globals'
+import { DirentType } from '@lvce-editor/constants'
 import type { FileIconCache } from '../src/parts/FileIconCache/FileIconCache.ts'
 import type { IconRequest } from '../src/parts/IconRequest/IconRequest.ts'
-import * as DirentType from '../src/parts/DirentType/DirentType.ts'
 import * as UpdateIconCache from '../src/parts/UpdateIconCache/UpdateIconCache.ts'
 
 test('updateIconCache - empty requests', () => {

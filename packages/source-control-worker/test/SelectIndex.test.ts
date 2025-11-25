@@ -1,8 +1,8 @@
 import { expect, test } from '@jest/globals'
+import { DirentType } from '@lvce-editor/constants'
 import { ExtensionHost, RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
-import * as DirentType from '../src/parts/DirentType/DirentType.ts'
 import { selectIndex } from '../src/parts/SelectIndex/SelectIndex.ts'
 
 test('selectIndex - invalid index', async (): Promise<void> => {

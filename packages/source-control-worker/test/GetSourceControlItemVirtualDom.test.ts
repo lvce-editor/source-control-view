@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
+import { DirentType } from '@lvce-editor/constants'
 import type { VisibleItem } from '../src/parts/VisibleItem/VisibleItem.ts'
-import * as DirentType from '../src/parts/DirentType/DirentType.ts'
 import { getSourceControlItemVirtualDom } from '../src/parts/GetSourceControlItemVirtualDom/GetSourceControlItemVirtualDom.ts'
 
 test('getSourceControlItemVirtualDom - directory', () => {
