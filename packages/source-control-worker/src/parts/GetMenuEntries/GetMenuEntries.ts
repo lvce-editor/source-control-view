@@ -1,8 +1,5 @@
-import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletSourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
-
-export const id = MenuEntryId.SourceControl
 
 export const getMenuEntries = (): readonly any[] => {
   return [
