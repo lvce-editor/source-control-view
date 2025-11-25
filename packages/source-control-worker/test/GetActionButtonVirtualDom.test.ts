@@ -1,13 +1,15 @@
 import { test, expect } from '@jest/globals'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import type { ActionButton } from '../src/parts/ActionButton/ActionButton.ts'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import * as GetActionButtonVirtualDom from '../src/parts/GetActionButtonVirtualDom/GetActionButtonVirtualDom.ts'
 
 test('getActionButtonVirtualDom', () => {
-  const action = {
+  const action: ActionButton = {
     id: 'test-action',
     icon: 'test-icon',
     command: 'test-command',
+    label: '',
   }
   const result = GetActionButtonVirtualDom.getActionButtonVirtualDom(action)
   expect(result).toHaveLength(2)
