@@ -15,7 +15,7 @@ export const handleClickSourceControlButtons = async (state: SourceControlState,
     Logger.warn(`[source-control-worker] Button not found ${name}`)
     return state
   }
-  const file = item.file
+  const { file } = item
   await ExtensionHostCommand.executeCommand(button.command, file)
   const newState = await refresh(state)
   return newState
