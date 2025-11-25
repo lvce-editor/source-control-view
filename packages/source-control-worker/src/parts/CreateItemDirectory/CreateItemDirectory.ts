@@ -1,7 +1,6 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { DirentType } from '@lvce-editor/constants'
-import { AriaRoles } from '@lvce-editor/virtual-dom-worker'
-import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { AriaRoles, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as GetBadgeVirtualDom from '../GetBadgeVirtualDom/GetBadgeVirtualDom.ts'
@@ -40,6 +39,6 @@ export const createItemDirectory = (item: VisibleItem): readonly VirtualDomNode[
     },
     text(label),
     ...buttonsDom,
-    ...GetBadgeVirtualDom.getBadgeVirtualDom(ClassNames.SourceControlBadge, badgeCount),
+    ...GetBadgeVirtualDom.getBadgeVirtualDom(badgeCount),
   ]
 }
