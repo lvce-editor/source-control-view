@@ -1,7 +1,5 @@
-import { test, expect } from '@jest/globals'
-import { ExtensionHost } from '@lvce-editor/rpc-registry'
-import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
-import * as ExtensionHost from '../src/parts/ExtensionHost/ExtensionHost.ts'
+import { expect, test } from '@jest/globals'
+import { ExtensionHost, RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import { getGroups } from '../src/parts/GetGroups/GetGroups.ts'
 
 test('getGroups - aggregates groups from multiple providers', async (): Promise<void> => {
