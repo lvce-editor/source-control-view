@@ -1,4 +1,4 @@
-import { expect, test } from '@jest/globals'
+import { expect, jest, test } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { ExtensionHost } from '@lvce-editor/rpc-registry'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
@@ -57,6 +57,7 @@ test('handleClickSourceControlButtons - invalid index', async (): Promise<void> 
 })
 
 test('handleClickSourceControlButtons - invalid button name', async (): Promise<void> => {
+  const consoleWarnSpy = jest.spyOn((globalThis as any).console, 'warn').mockImplementation(() => {})
   const state = {
     ...CreateDefaultState.createDefaultState(),
     visibleItems: [
@@ -87,4 +88,6 @@ test('handleClickSourceControlButtons - invalid button name', async (): Promise<
 
   const newState = await handleClickSourceControlButtons(state, 0, 'InvalidButton')
   expect(newState).toBe(state)
+  expect(consoleWarnSpy).toHaveBeenCalledWith('[source-control-worker] Button not found InvalidButton')
+  consoleWarnSpy.mockRestore()
 })
