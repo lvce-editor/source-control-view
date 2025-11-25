@@ -1,6 +1,6 @@
+import { DirentType } from '@lvce-editor/constants'
 import type { ActionButton } from '../ActionButton/ActionButton.ts'
 import * as Assert from '../Assert/Assert.ts'
-import * as DirentType from '../DirentType/DirentType.ts'
 import { requestSourceActions } from '../RequestSourceActions/RequestSourceActions.ts'
 
 export const state = {
