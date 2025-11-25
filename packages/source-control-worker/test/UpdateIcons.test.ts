@@ -5,9 +5,9 @@ import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefau
 import * as UpdateIcons from '../src/parts/UpdateIcons/UpdateIcons.ts'
 
 const commandMap = {
-  'IconTheme.getFileIcon': (): Promise<string[]> => Promise.resolve(['icon1', 'icon2']),
-  'IconTheme.getFolderIcon': (): Promise<string[]> => Promise.resolve(['icon1', 'icon2']),
-  'IconTheme.getIcons': (): Promise<string[]> => Promise.resolve(['icon1', 'icon2']),
+  'IconTheme.getFileIcon': async (): Promise<string[]> => ['icon1', 'icon2'],
+  'IconTheme.getFolderIcon': async (): Promise<string[]> => ['icon1', 'icon2'],
+  'IconTheme.getIcons': async (): Promise<string[]> => ['icon1', 'icon2'],
 }
 
 test('updateIcons - should update icons for visible items', async (): Promise<void> => {

@@ -4,7 +4,7 @@ import * as GetTextHeight from '../src/parts/GetTextHeight/GetTextHeight.ts'
 
 test('getTextHeight - returns height from RPC call when successful', async () => {
   const commandMap = {
-    'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(60),
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 60,
   }
   const mockRpc = RendererWorker.registerMockRpc(commandMap)
 
@@ -68,7 +68,7 @@ test('getTextHeight - handles multiline input with different line heights', asyn
 
 test('getTextHeight - calls RPC with correct parameters', async () => {
   const commandMap = {
-    'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(50),
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 50,
   }
   const mockRpc = RendererWorker.registerMockRpc(commandMap)
 

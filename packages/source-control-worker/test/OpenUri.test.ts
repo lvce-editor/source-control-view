@@ -4,7 +4,7 @@ import { openUri } from '../src/parts/OpenUri/OpenUri.ts'
 
 test('openUri', async (): Promise<void> => {
   const commandMap = {
-    'Main.openUri': (): Promise<void> => Promise.resolve(),
+    'Main.openUri': async (): Promise<void> => {},
   }
   const mockRpc = ParentRpc.registerMockRpc(commandMap)
   await openUri('test-uri')

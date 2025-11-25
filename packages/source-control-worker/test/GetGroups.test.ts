@@ -4,12 +4,12 @@ import { getGroups } from '../src/parts/GetGroups/GetGroups.ts'
 
 test('getGroups - aggregates groups from multiple providers', async (): Promise<void> => {
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
   }
   const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
 
   const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.getGroups': (): Promise<Array<{ id: string }>> => Promise.resolve([{ id: 'group1' }, { id: 'group2' }]),
+    'ExtensionHostSourceControl.getGroups': async (): Promise<Array<{ id: string }>> => [{ id: 'group1' }, { id: 'group2' }],
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
@@ -24,12 +24,12 @@ test('getGroups - aggregates groups from multiple providers', async (): Promise<
 
 test('getGroups - empty providers', async (): Promise<void> => {
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
   }
   const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
 
   const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.getGroups': (): Promise<never[]> => Promise.resolve([]),
+    'ExtensionHostSourceControl.getGroups': async (): Promise<never[]> => [],
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
@@ -44,12 +44,12 @@ test('getGroups - empty providers', async (): Promise<void> => {
 
 test('getGroups - single provider', async (): Promise<void> => {
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
   }
   const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
 
   const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.getGroups': (): Promise<never[]> => Promise.resolve([]),
+    'ExtensionHostSourceControl.getGroups': async (): Promise<never[]> => [],
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
@@ -64,12 +64,12 @@ test('getGroups - single provider', async (): Promise<void> => {
 
 test('getGroups - multiple providers', async (): Promise<void> => {
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
   }
   const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
 
   const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.getGroups': (): Promise<never[]> => Promise.resolve([]),
+    'ExtensionHostSourceControl.getGroups': async (): Promise<never[]> => [],
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 

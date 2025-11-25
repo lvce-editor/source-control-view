@@ -6,7 +6,7 @@ import { initialize } from '../src/parts/Initialize/Initialize.ts'
 
 test('initialize', async (): Promise<void> => {
   const commandMap = {
-    'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': (): Promise<void> => Promise.resolve(),
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': async (): Promise<void> => {},
   }
   ParentRpc.registerMockRpc(commandMap)
   await initialize()

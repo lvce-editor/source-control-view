@@ -7,12 +7,12 @@ import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
 
 test('loadContent - basic with empty state', async (): Promise<void> => {
   const commandMap = {
-    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
-    'ExtensionHostSourceControl.getEnabledProviderIds': (): Promise<readonly string[]> => Promise.resolve([]),
-    'Extensions.getExtensions': (): Promise<readonly any[]> => Promise.resolve([]),
-    'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(30),
-    'IconTheme.getIcons': (): Promise<readonly string[]> => Promise.resolve([]),
-    'Preferences.get': (): Promise<any> => Promise.resolve(false),
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
+    'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
@@ -32,12 +32,12 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
 
 test('loadContent - with saved state inputValue', async (): Promise<void> => {
   const commandMap = {
-    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
-    'ExtensionHostSourceControl.getEnabledProviderIds': (): Promise<readonly string[]> => Promise.resolve([]),
-    'Extensions.getExtensions': (): Promise<readonly any[]> => Promise.resolve([]),
-    'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(45),
-    'IconTheme.getIcons': (): Promise<readonly string[]> => Promise.resolve([]),
-    'Preferences.get': (): Promise<any> => Promise.resolve(false),
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
+    'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 45,
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
@@ -54,14 +54,14 @@ test('loadContent - with saved state inputValue', async (): Promise<void> => {
 
 test('loadContent - with enabled providers', async (): Promise<void> => {
   const commandMap = {
-    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
-    'ExtensionHostSourceControl.getEnabledProviderIds': (): Promise<readonly string[]> => Promise.resolve(['git']),
-    'ExtensionHostSourceControl.getIconDefinitions': (): Promise<readonly string[]> => Promise.resolve(['icon1', 'icon2']),
-    'ExtensionHostSourceControl.getGroups': (): Promise<readonly any[]> => Promise.resolve([]),
-    'Extensions.getExtensions': (): Promise<readonly any[]> => Promise.resolve([]),
-    'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(30),
-    'IconTheme.getIcons': (): Promise<readonly string[]> => Promise.resolve([]),
-    'Preferences.get': (): Promise<any> => Promise.resolve(false),
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
+    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => ['icon1', 'icon2'],
+    'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [],
+    'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
@@ -94,14 +94,14 @@ test('loadContent - with groups', async (): Promise<void> => {
   ]
 
   const commandMap = {
-    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
-    'ExtensionHostSourceControl.getEnabledProviderIds': (): Promise<readonly string[]> => Promise.resolve(['git']),
-    'ExtensionHostSourceControl.getIconDefinitions': (): Promise<readonly string[]> => Promise.resolve([]),
-    'ExtensionHostSourceControl.getGroups': (): Promise<readonly any[]> => Promise.resolve(mockGroups),
-    'Extensions.getExtensions': (): Promise<readonly any[]> => Promise.resolve([]),
-    'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(30),
-    'IconTheme.getIcons': (): Promise<readonly string[]> => Promise.resolve([]),
-    'Preferences.get': (): Promise<any> => Promise.resolve(false),
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
+    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => [],
+    'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => mockGroups,
+    'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
@@ -128,12 +128,12 @@ test('loadContent - with source control actions', async (): Promise<void> => {
   ]
 
   const commandMap = {
-    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
-    'ExtensionHostSourceControl.getEnabledProviderIds': (): Promise<readonly string[]> => Promise.resolve([]),
-    'Extensions.getExtensions': (): Promise<readonly any[]> => Promise.resolve(mockExtensions),
-    'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(30),
-    'IconTheme.getIcons': (): Promise<readonly string[]> => Promise.resolve([]),
-    'Preferences.get': (): Promise<any> => Promise.resolve(false),
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
+    'Extensions.getExtensions': async (): Promise<readonly any[]> => mockExtensions,
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
@@ -170,14 +170,14 @@ test('loadContent - calculates scroll bar and visible items correctly', async ()
   ]
 
   const commandMap = {
-    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
-    'ExtensionHostSourceControl.getEnabledProviderIds': (): Promise<readonly string[]> => Promise.resolve(['git']),
-    'ExtensionHostSourceControl.getIconDefinitions': (): Promise<readonly string[]> => Promise.resolve([]),
-    'ExtensionHostSourceControl.getGroups': (): Promise<readonly any[]> => Promise.resolve(mockGroups),
-    'Extensions.getExtensions': (): Promise<readonly any[]> => Promise.resolve([]),
-    'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(30),
-    'IconTheme.getIcons': (): Promise<readonly string[]> => Promise.resolve(['icon1', 'icon2']),
-    'Preferences.get': (): Promise<any> => Promise.resolve(false),
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
+    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => [],
+    'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => mockGroups,
+    'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => ['icon1', 'icon2'],
+    'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)

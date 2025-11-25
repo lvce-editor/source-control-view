@@ -4,7 +4,7 @@ import * as GetInputHeight from '../src/parts/GetInputHeight/GetInputHeight.ts'
 
 test('getInputHeight - returns height from RPC call when successful', async () => {
   const commandMap = {
-    'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(60),
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 60,
   }
   const mockRpc = RendererWorker.registerMockRpc(commandMap)
 
@@ -16,7 +16,7 @@ test('getInputHeight - returns height from RPC call when successful', async () =
 
 test('getInputHeight - passes through all parameters correctly', async () => {
   const commandMap = {
-    'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(45),
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 45,
   }
   const mockRpc = RendererWorker.registerMockRpc(commandMap)
 
@@ -28,7 +28,7 @@ test('getInputHeight - passes through all parameters correctly', async () => {
 
 test('getInputHeight - handles different input values', async () => {
   const commandMap = {
-    'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(30),
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   RendererWorker.registerMockRpc(commandMap)
 
@@ -39,7 +39,7 @@ test('getInputHeight - handles different input values', async () => {
 
 test('getInputHeight - handles large height values', async () => {
   const commandMap = {
-    'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(200),
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 200,
   }
   RendererWorker.registerMockRpc(commandMap)
 
@@ -58,7 +58,7 @@ test('getInputHeight - handles large height values', async () => {
 
 test('getInputHeight - handles zero height', async () => {
   const commandMap = {
-    'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(0),
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 0,
   }
   RendererWorker.registerMockRpc(commandMap)
 
