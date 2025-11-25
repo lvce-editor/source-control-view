@@ -4,7 +4,7 @@ import { readFile } from '../src/parts/FileSystem/FileSystem.ts'
 
 test('readFile', async (): Promise<void> => {
   const commandMap = {
-    'FileSystem.readFile': (): Promise<string> => Promise.resolve('test content'),
+    'FileSystem.readFile': async (): Promise<string> => 'test content',
   }
   const mockRpc = RendererWorker.registerMockRpc(commandMap)
   const content = await readFile('test.txt')

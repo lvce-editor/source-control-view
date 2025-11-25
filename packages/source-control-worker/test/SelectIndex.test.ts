@@ -13,8 +13,8 @@ test('selectIndex - invalid index', async (): Promise<void> => {
 
 test('selectIndex - directory', async (): Promise<void> => {
   const commandMap = {
-    'FileSystem.readDirWithFileTypes': (): Promise<never[]> => Promise.resolve([]),
-    'IconTheme.getIcons': (): Promise<never[]> => Promise.resolve([]),
+    'FileSystem.readDirWithFileTypes': async (): Promise<never[]> => [],
+    'IconTheme.getIcons': async (): Promise<never[]> => [],
   }
   ParentRpc.registerMockRpc(commandMap)
 
@@ -51,8 +51,8 @@ test('selectIndex - directory', async (): Promise<void> => {
 
 test('selectIndex - expanded directory', async (): Promise<void> => {
   const commandMap = {
-    'FileSystem.readDirWithFileTypes': (): Promise<never[]> => Promise.resolve([]),
-    'IconTheme.getIcons': (): Promise<never[]> => Promise.resolve([]),
+    'FileSystem.readDirWithFileTypes': async (): Promise<never[]> => [],
+    'IconTheme.getIcons': async (): Promise<never[]> => [],
   }
   ParentRpc.registerMockRpc(commandMap)
 
@@ -90,15 +90,15 @@ test('selectIndex - expanded directory', async (): Promise<void> => {
 
 test('selectIndex - file', async (): Promise<void> => {
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
-    'FileSystem.readFile': (): Promise<string> => Promise.resolve(''),
-    'IconTheme.getIcons': (): Promise<never[]> => Promise.resolve([]),
-    'Main.openUri': (): Promise<void> => Promise.resolve(),
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'FileSystem.readFile': async (): Promise<string> => '',
+    'IconTheme.getIcons': async (): Promise<never[]> => [],
+    'Main.openUri': async (): Promise<void> => {},
   }
   ParentRpc.registerMockRpc(parentCommandMap)
 
   const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.getFileBefore': (): Promise<string> => Promise.resolve(''),
+    'ExtensionHostSourceControl.getFileBefore': async (): Promise<string> => '',
   }
   ExtensionHost.registerMockRpc(extensionHostCommandMap)
 

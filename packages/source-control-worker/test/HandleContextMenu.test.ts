@@ -6,7 +6,7 @@ import { handleContextMenu } from '../src/parts/HandleContextMenu/HandleContextM
 
 test('handleContextMenu', async (): Promise<void> => {
   const commandMap = {
-    'ContextMenu.show': (): Promise<void> => Promise.resolve(),
+    'ContextMenu.show': async (): Promise<void> => {},
   }
   const mockRpc = ParentRpc.registerMockRpc(commandMap)
 

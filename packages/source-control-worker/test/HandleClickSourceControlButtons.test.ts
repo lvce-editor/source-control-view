@@ -6,9 +6,9 @@ import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefau
 import { handleClickSourceControlButtons } from '../src/parts/HandleClickSourceControlButtons/HandleClickSourceControlButtons.ts'
 
 const commandMap = {
-  'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
-  'ExtensionHostCommand.executeCommand': (): Promise<void> => Promise.resolve(),
-  'FileSystem.readDirWithFileTypes': (): Promise<never[]> => Promise.resolve([]),
+  'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+  'ExtensionHostCommand.executeCommand': async (): Promise<void> => {},
+  'FileSystem.readDirWithFileTypes': async (): Promise<never[]> => [],
 }
 
 test('handleClickSourceControlButtons - valid button click', async (): Promise<void> => {

@@ -7,23 +7,22 @@ import { handleButtonClick } from '../src/parts/HandleButtonClick/HandleButtonCl
 
 test('handleButtonClick - valid button click', async (): Promise<void> => {
   const extensionHostCommandMap = {
-    'ExtensionHostCommand.executeCommand': (): Promise<void> => Promise.resolve(),
-    'ExtensionHostSourceControl.getEnabledProviderIds': (): Promise<never[]> => Promise.resolve([]),
-    'ExtensionHostSourceControl.getIconDefinitions': (): Promise<never[]> => Promise.resolve([]),
-    'ExtensionHostSourceControl.getGroups': (): Promise<{ allGroups: never[]; gitRoot: string }> =>
-      Promise.resolve({
-        allGroups: [],
-        gitRoot: '',
-      }),
-    'Extensions.getExtensions': (): Promise<never[]> => Promise.resolve([]),
+    'ExtensionHostCommand.executeCommand': async (): Promise<void> => {},
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<never[]> => [],
+    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<never[]> => [],
+    'ExtensionHostSourceControl.getGroups': async (): Promise<{ allGroups: never[]; gitRoot: string }> => ({
+      allGroups: [],
+      gitRoot: '',
+    }),
+    'Extensions.getExtensions': async (): Promise<never[]> => [],
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const rendererCommandMap = {
-    'ExtensionHostManagement.activateByEvent': (): Promise<void> => Promise.resolve(),
-    'IconTheme.getIcons': (): Promise<never[]> => Promise.resolve([]),
-    'MeasureTextHeight.measureTextBlockHeight': (): Promise<number> => Promise.resolve(30),
-    'Preferences.get': (): Promise<any> => Promise.resolve(false),
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'IconTheme.getIcons': async (): Promise<never[]> => [],
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
+    'Preferences.get': async (): Promise<any> => false,
   }
   const rendererMockRpc = RendererWorker.registerMockRpc(rendererCommandMap)
 

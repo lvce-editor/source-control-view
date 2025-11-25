@@ -4,7 +4,7 @@ import { get } from '../src/parts/Preferences/Preferences.ts'
 
 test('get', async (): Promise<void> => {
   const commandMap = {
-    'Preferences.get': (): Promise<any> => Promise.resolve(false),
+    'Preferences.get': async (): Promise<any> => false,
   }
   RendererWorker.registerMockRpc(commandMap)
   const result = await get('test')
