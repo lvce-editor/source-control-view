@@ -1,3 +1,3 @@
-export const getFileIcon = ({ name }: { name: string }): string => {
+export const getFileIcon = ({ name }: { readonly name: string }): string => {
   return ''
 }
