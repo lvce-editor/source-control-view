@@ -1,6 +1,7 @@
 import { expect, test } from '@jest/globals'
 import { ExtensionHost } from '@lvce-editor/rpc-registry'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
+import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleButtonClick } from '../src/parts/HandleButtonClick/HandleButtonClick.ts'
 
@@ -26,7 +27,7 @@ test('handleButtonClick - valid button click', async (): Promise<void> => {
   }
   const rendererMockRpc = RendererWorker.registerMockRpc(rendererCommandMap)
 
-  const state = {
+  const state: SourceControlState = {
     ...createDefaultState(),
     visibleItems: [
       {
@@ -61,7 +62,7 @@ test('handleButtonClick - valid button click', async (): Promise<void> => {
 })
 
 test('handleButtonClick - invalid index', async (): Promise<void> => {
-  const state = {
+  const state: SourceControlState = {
     ...createDefaultState(),
     visibleItems: [],
   }
@@ -69,7 +70,7 @@ test('handleButtonClick - invalid index', async (): Promise<void> => {
 })
 
 test('handleButtonClick - invalid button index', async (): Promise<void> => {
-  const state = {
+  const state: SourceControlState = {
     ...createDefaultState(),
     visibleItems: [
       {

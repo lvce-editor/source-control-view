@@ -1,13 +1,14 @@
 import { expect, test } from '@jest/globals'
+import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { isEqual } from '../src/parts/DiffCss/DiffCss.ts'
 
 test('isEqual - same inputBoxHeight', () => {
-  const oldState = {
+  const oldState: SourceControlState = {
     ...createDefaultState(),
     inputBoxHeight: 30,
   }
-  const newState = {
+  const newState: SourceControlState = {
     ...createDefaultState(),
     inputBoxHeight: 30,
   }
@@ -15,11 +16,11 @@ test('isEqual - same inputBoxHeight', () => {
 })
 
 test('isEqual - different inputBoxHeight', () => {
-  const oldState = {
+  const oldState: SourceControlState = {
     ...createDefaultState(),
     inputBoxHeight: 30,
   }
-  const newState = {
+  const newState: SourceControlState = {
     ...createDefaultState(),
     inputBoxHeight: 50,
   }
@@ -27,11 +28,11 @@ test('isEqual - different inputBoxHeight', () => {
 })
 
 test('isEqual - zero values', () => {
-  const oldState = {
+  const oldState: SourceControlState = {
     ...createDefaultState(),
     inputBoxHeight: 0,
   }
-  const newState = {
+  const newState: SourceControlState = {
     ...createDefaultState(),
     inputBoxHeight: 0,
   }
