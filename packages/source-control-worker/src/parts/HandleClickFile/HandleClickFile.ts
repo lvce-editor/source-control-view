@@ -10,6 +10,8 @@ export const handleClickFile = async (state: SourceControlState, item: any): Pro
   const absolutePath = `${root}/${item.file}`
   // TODO handle error
   const [fileBefore] = await Promise.all([SourceControl.getFileBefore(providerId, item.file), FileSystem.readFile(absolutePath)])
+
+  // TODO diff editor should determine width by itself
   await openDiffEditor(fileBefore, absolutePath, Bounds.get().width)
   return state
 }
