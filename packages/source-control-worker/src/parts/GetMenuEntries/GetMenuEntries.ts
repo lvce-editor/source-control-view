@@ -1,5 +1,5 @@
+import { MenuItemFlags } from '@lvce-editor/constants'
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
-import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletSourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
 export const getMenuEntries = (): readonly MenuEntry[] => {
