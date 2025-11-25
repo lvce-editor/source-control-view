@@ -6,6 +6,7 @@ test('handleMessagePort - creates PlainMessagePortRpc with valid port', async ()
   const { port1 } = new MessageChannel()
   await handleMessagePort(port1)
   expect(port1).toBeDefined()
+  port1.close()
 })
 
 test('handleMessagePort - handles port correctly', async (): Promise<void> => {
@@ -14,4 +15,6 @@ test('handleMessagePort - handles port correctly', async (): Promise<void> => {
   await handleMessagePort(port1)
   expect(port1).toBeDefined()
   expect(port2).toBeDefined()
+  port1.close()
+  port2.close()
 })
