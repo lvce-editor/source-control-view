@@ -9,8 +9,3 @@ export const get = (): any => {
     height: state.height,
   }
 }
-
-export const set = (width: number, height: number): void => {
-  state.width = width
-  state.height = height
-}
