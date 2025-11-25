@@ -2,6 +2,7 @@ import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Create2 from '../Create2/Create2.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import * as GetInfo from '../GetInfo/GetInfo.ts'
+import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import * as HandleButtonClick from '../HandleButtonClick/HandleButtonClick.ts'
 import * as HandleClickAt from '../HandleClickAt/HandleClickAt.ts'
 import * as HandleClickSourceControlButtons from '../HandleClickSourceControlButtons/HandleClickSourceControlButtons.ts'
@@ -37,6 +38,7 @@ export const commandMap = {
   'SourceControl.getEnabledProviderIds': getEnabledProviderIds,
   'SourceControl.getFileDecorations': getFileDecorations,
   'SourceControl.getInfo': GetInfo.getInfo,
+  'SourceControl.getMenuEntries2': getMenuEntries2,
   'SourceControl.handleButtonClick': WrapCommand.wrapCommand(HandleButtonClick.handleButtonClick),
   'SourceControl.handleClickAt': WrapCommand.wrapCommand(HandleClickAt.handleClickAt),
   'SourceControl.handleClickSourceControlButtons': WrapCommand.wrapCommand(HandleClickSourceControlButtons.handleClickSourceControlButtons),
