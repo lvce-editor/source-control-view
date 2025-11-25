@@ -1,5 +1,5 @@
+import { ExtensionHost } from '@lvce-editor/rpc-registry'
 import * as ExecuteProvider from '../ExecuteProvider/ExecuteProvider.ts'
-import * as ExtensionHost from '../ExtensionHost/ExtensionHost.ts'
 import * as ExtensionHostCommandType from '../ExtensionHostCommandType/ExtensionHostCommandType.ts'
 
 export const acceptInput = async (providerId: string, text: string): Promise<void> => {

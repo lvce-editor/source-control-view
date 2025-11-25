@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
+import { ExtensionHost } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
-import * as ExtensionHost from '../src/parts/ExtensionHost/ExtensionHost.ts'
 import * as Refresh from '../src/parts/Refresh/Refresh.ts'
 
 test('refresh should update state with groups and visible items', async (): Promise<void> => {

@@ -1,6 +1,6 @@
 import { beforeAll, expect, test } from '@jest/globals'
+import { ExtensionHost } from '@lvce-editor/rpc-registry'
 import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
-import * as ExtensionHost from '../src/parts/ExtensionHost/ExtensionHost.ts'
 import * as SourceControl from '../src/parts/SourceControl/SourceControl.ts'
 
 beforeAll(() => {
