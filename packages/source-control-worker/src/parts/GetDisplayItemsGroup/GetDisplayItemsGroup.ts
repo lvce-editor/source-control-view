@@ -5,13 +5,13 @@ import { getActualDecorationIcon } from '../GetActualDecorationIcon/GetActualDec
 import * as IconTheme from '../IconTheme/IconTheme.ts'
 import * as Workspace from '../Workspace/Workspace.ts'
 
-export const getDisplayItemsGroup = (group: Group, expandedGroups: Record<string, boolean>, iconDefinitions: readonly string[]): readonly DisplayItem[] => {
+export const getDisplayItemsGroup = (group: Group, expandedGroups: Readonly<Record<string, boolean>>, iconDefinitions: readonly string[]): readonly DisplayItem[] => {
   const displayItems: DisplayItem[] = []
   const { id, label, items } = group
   if (!items) {
     throw new Error('Source control group is missing an items property')
   }
-  const length = items.length
+  const { length } = items
   const isExpanded = expandedGroups[id] || false
   const type = isExpanded ? DirentType.DirectoryExpanded : DirentType.Directory
   const icon = isExpanded ? 'ChevronDown' : 'ChevronRight'
