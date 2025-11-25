@@ -1,4 +1,5 @@
 import { expect, test } from '@jest/globals'
+import { MenuEntryId } from '@lvce-editor/constants'
 import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
@@ -6,7 +7,7 @@ import { handleContextMenu } from '../src/parts/HandleContextMenu/HandleContextM
 
 test('handleContextMenu', async (): Promise<void> => {
   const commandMap = {
-    'ContextMenu.show': async (): Promise<void> => {},
+    'ContextMenu.show2': async (): Promise<void> => {},
   }
   const mockRpc = ParentRpc.registerMockRpc(commandMap)
 
@@ -17,5 +18,16 @@ test('handleContextMenu', async (): Promise<void> => {
 
   const newState = await handleContextMenu(state, button, x, y)
   expect(newState).toBe(state)
-  expect(mockRpc.invocations).toEqual([['ContextMenu.show', 100, 200, 22]])
+  expect(mockRpc.invocations).toEqual([
+    [
+      'ContextMenu.show2',
+      state.id,
+      MenuEntryId.SourceControl,
+      x,
+      y,
+      {
+        menuId: MenuEntryId.SourceControl,
+      },
+    ],
+  ])
 })

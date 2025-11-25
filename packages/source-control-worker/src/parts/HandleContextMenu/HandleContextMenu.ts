@@ -3,6 +3,9 @@ import type { SourceControlState } from '../SourceControlState/SourceControlStat
 import * as ContextMenu from '../ContextMenu/ContextMenu.ts'
 
 export const handleContextMenu = async (state: SourceControlState, button: number, x: number, y: number): Promise<SourceControlState> => {
-  await ContextMenu.show(x, y, MenuEntryId.SourceControl)
+  const { id } = state
+  await ContextMenu.show2(id, MenuEntryId.SourceControl, x, y, {
+    menuId: MenuEntryId.SourceControl,
+  })
   return state
 }
