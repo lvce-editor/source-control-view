@@ -1,5 +1,6 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
+import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
 import { getGroups } from '../GetGroups/GetGroups.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
@@ -20,19 +21,21 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
   const numberOfVisible = GetNumberOfVisibleItems.getNumberOfVisibleItems(listHeight, itemHeight)
   const minLineY = 0
   const maxLineY = Math.min(numberOfVisible, total)
-  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, fileIconCache)
+  const newFileIconCache = await GetFileIcons.getFileIcons(displayItems, fileIconCache)
+  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   return {
     ...state,
+    actionsCache,
     allGroups,
+    enabledProviderIds,
+    fileIconCache: newFileIconCache,
+    finalDeltaY,
     gitRoot,
     items: displayItems,
-    visibleItems,
-    enabledProviderIds,
-    splitButtonEnabled,
     maxLineY,
     scrollBarHeight,
-    finalDeltaY,
-    actionsCache,
+    splitButtonEnabled,
+    visibleItems,
   }
 }
