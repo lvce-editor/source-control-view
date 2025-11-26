@@ -36,6 +36,7 @@ export const commandMap = {
   'SourceControl.create2': Create2.create2,
   'SourceControl.diff2': Diff2.diff2,
   'SourceControl.getCommandIds': WrapCommand.getCommandIds,
+  'SourceControl.handleWorkspaceRefresh': WrapCommand.wrapCommand(HandleContextMenu.handleWorkspaceRefresh),
   'SourceControl.getMenuIds': getMenuIds,
   'SourceControl.getEnabledProviderIds': getEnabledProviderIds,
   'SourceControl.getFileDecorations': getFileDecorations,
