@@ -4,7 +4,7 @@ export const name = 'source-control.placeholder'
 
 export const test: Test = async ({ Locator, expect, SourceControl, FileSystem, Workspace, Extension }) => {
   // arrange
-  const uri = new URL('../fixtures/sample-source-control-provider', import.meta.url).toString()
+  const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
   await Workspace.setPath(tmpDir)
