@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'source-control.context-menu'
 
-export const skip = 1
-
 export const test: Test = async ({ Command, Locator, expect, SourceControl, FileSystem, Workspace, Extension }) => {
   // arrange
   const uri = new URL('../fixtures/sample-source-control-provider', import.meta.url).toString()
