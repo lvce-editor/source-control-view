@@ -16,6 +16,7 @@ import * as HandleMouseOutAt from '../HandleMouseOutAt/HandleMouseOutAt.ts'
 import * as HandleMouseOver from '../HandleMouseOver/HandleMouseOver.ts'
 import * as HandleMouseOverAt from '../HandleMouseOverAt/HandleMouseOverAt.ts'
 import * as HandleWheel from '../HandleWheel/HandleWheel.ts'
+import { handleWorkspaceRefresh } from '../HandleWorkspaceRefresh/HandleWorkspaceRefresh.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
 import * as Refresh from '../Refresh/Refresh.ts'
@@ -36,6 +37,7 @@ export const commandMap = {
   'SourceControl.create2': Create2.create2,
   'SourceControl.diff2': Diff2.diff2,
   'SourceControl.getCommandIds': WrapCommand.getCommandIds,
+  'SourceControl.handleWorkspaceRefresh': WrapCommand.wrapCommand(handleWorkspaceRefresh),
   'SourceControl.getMenuIds': getMenuIds,
   'SourceControl.getEnabledProviderIds': getEnabledProviderIds,
   'SourceControl.getFileDecorations': getFileDecorations,
