@@ -4,7 +4,7 @@ export const name = 'source-control.context-menu'
 
 export const test: Test = async ({ Command, Locator, expect, SourceControl, FileSystem, Workspace, Extension }) => {
   // arrange
-  const uri = new URL('../fixtures/sample-source-control-provider', import.meta.url).toString()
+  const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.css`, `abc`)

@@ -6,7 +6,7 @@ export const skip = 1
 
 export const test: Test = async ({ SourceControl, Locator, expect, FileSystem, Workspace, Extension }) => {
   // arrange
-  const uri = new URL('../fixtures/sample-source-control-provider', import.meta.url).toString()
+  const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
   await Workspace.setPath(tmpDir)
