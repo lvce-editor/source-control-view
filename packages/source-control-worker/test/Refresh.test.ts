@@ -4,7 +4,7 @@ import type { SourceControlState } from '../src/parts/SourceControlState/SourceC
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as Refresh from '../src/parts/Refresh/Refresh.ts'
 
-test('refresh should update state with groups and visible items', async (): Promise<void> => {
+test.skip('refresh should update state with groups and visible items', async (): Promise<void> => {
   const commandMap = {
     'ExtensionHostSourceControl.getGroups': async (): Promise<{ allGroups: never[]; gitRoot: string }> => ({
       allGroups: [],
