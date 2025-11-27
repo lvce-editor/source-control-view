@@ -10,7 +10,10 @@ export const getTextHeight = async (
   lineHeight: number,
 ): Promise<number> => {
   try {
-    const actualInput = '\n' + input
+    if (!input) {
+      return lineHeight
+    }
+    const actualInput = input
     // TODO line height could also be like 1.5
     const lineHeightPx = `${lineHeight}px`
     // @ts-ignore
