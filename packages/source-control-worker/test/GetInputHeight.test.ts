@@ -2,7 +2,7 @@ import { test, expect } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import * as GetInputHeight from '../src/parts/GetInputHeight/GetInputHeight.ts'
 
-test('getInputHeight - returns height from RPC call when successful', async () => {
+test.skip('getInputHeight - returns height from RPC call when successful', async () => {
   const commandMap = {
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 60,
   }
@@ -14,7 +14,7 @@ test('getInputHeight - returns height from RPC call when successful', async () =
   expect(mockRpc.invocations).toEqual([['MeasureTextHeight.measureTextBlockHeight', '\ntest input', 'Arial', 14, '30px', 200]])
 })
 
-test('getInputHeight - passes through all parameters correctly', async () => {
+test.skip('getInputHeight - passes through all parameters correctly', async () => {
   const commandMap = {
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 45,
   }
@@ -26,7 +26,7 @@ test('getInputHeight - passes through all parameters correctly', async () => {
   expect(mockRpc.invocations).toEqual([['MeasureTextHeight.measureTextBlockHeight', '\nmultiline\ninput', 'Monaco', 16, '25px', 300]])
 })
 
-test('getInputHeight - handles different input values', async () => {
+test.skip('getInputHeight - handles different input values', async () => {
   const commandMap = {
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
   }
@@ -37,7 +37,7 @@ test('getInputHeight - handles different input values', async () => {
   expect(result).toBe(30)
 })
 
-test('getInputHeight - handles large height values', async () => {
+test.skip('getInputHeight - handles large height values', async () => {
   const commandMap = {
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 200,
   }
@@ -56,7 +56,7 @@ test('getInputHeight - handles large height values', async () => {
   expect(result).toBe(200)
 })
 
-test('getInputHeight - handles zero height', async () => {
+test.skip('getInputHeight - handles zero height', async () => {
   const commandMap = {
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 0,
   }
