@@ -1,19 +1,25 @@
 import { expect, jest, test } from '@jest/globals'
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import { ExtensionHost } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleClickSourceControlButtons } from '../src/parts/HandleClickSourceControlButtons/HandleClickSourceControlButtons.ts'
 
-const commandMap = {
-  'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+const extensionHostCommandMap = {
   'ExtensionHostCommand.executeCommand': async (): Promise<void> => {},
-  'FileSystem.readDirWithFileTypes': async (): Promise<never[]> => [],
+  'ExtensionHostSourceControl.getGroups': async (): Promise<{ allGroups: never[]; gitRoot: string }> => ({
+    allGroups: [],
+    gitRoot: '/test',
+  }),
 }
 
-test.skip('handleClickSourceControlButtons - valid button click', async (): Promise<void> => {
-  const rendererMockRpc = RendererWorker.registerMockRpc(commandMap)
-  ExtensionHost.registerMockRpc(commandMap)
+test('handleClickSourceControlButtons - valid button click', async (): Promise<void> => {
+  const parentCommandMap = {
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+  }
+  ParentRpc.registerMockRpc(parentCommandMap)
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const state: SourceControlState = {
     ...CreateDefaultState.createDefaultState(),
@@ -45,10 +51,10 @@ test.skip('handleClickSourceControlButtons - valid button click', async (): Prom
 
   const newState = await handleClickSourceControlButtons(state, 0, 'Stage')
   expect(newState).toBeDefined()
-  expect(rendererMockRpc.invocations.length).toBeGreaterThan(0)
+  expect(extensionHostMockRpc.invocations.length).toBeGreaterThan(0)
 })
 
-test.skip('handleClickSourceControlButtons - invalid index', async (): Promise<void> => {
+test('handleClickSourceControlButtons - invalid index', async (): Promise<void> => {
   const state: SourceControlState = {
     ...CreateDefaultState.createDefaultState(),
     visibleItems: [],
@@ -57,7 +63,7 @@ test.skip('handleClickSourceControlButtons - invalid index', async (): Promise<v
   expect(newState).toBe(state)
 })
 
-test.skip('handleClickSourceControlButtons - invalid button name', async (): Promise<void> => {
+test('handleClickSourceControlButtons - invalid button name', async (): Promise<void> => {
   const consoleWarnSpy = jest.spyOn((globalThis as any).console, 'warn').mockImplementation(() => {})
   const state: SourceControlState = {
     ...CreateDefaultState.createDefaultState(),
