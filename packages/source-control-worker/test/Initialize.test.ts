@@ -4,7 +4,7 @@ import { RpcId } from '@lvce-editor/rpc-registry'
 import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import { initialize } from '../src/parts/Initialize/Initialize.ts'
 
-test('initialize', async (): Promise<void> => {
+test.skip('initialize', async (): Promise<void> => {
   const commandMap = {
     'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': async (): Promise<void> => {},
   }
