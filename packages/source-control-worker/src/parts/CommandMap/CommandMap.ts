@@ -1,4 +1,5 @@
 import { terminate } from '@lvce-editor/viewlet-registry'
+import { acceptInput } from '../AcceptInput/AcceptInput.ts'
 import * as Create2 from '../Create2/Create2.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import * as GetInfo from '../GetInfo/GetInfo.ts'
@@ -36,6 +37,7 @@ import * as ViewAsTree from '../ViewAsTree/ViewAsTree.ts'
 
 export const commandMap = {
   'Initialize.initialize': Initialize.initialize,
+  'SourceControl.acceptInput': WrapCommand.wrapCommand(acceptInput),
   'SourceControl.create2': Create2.create2,
   'SourceControl.diff2': Diff2.diff2,
   'SourceControl.getCommandIds': WrapCommand.getCommandIds,
@@ -51,6 +53,7 @@ export const commandMap = {
   'SourceControl.handleContextMenu': WrapCommand.wrapCommand(HandleContextMenu.handleContextMenu),
   'SourceControl.handleFocus': WrapCommand.wrapCommand(HandleFocus.handleInputFocus),
   'SourceControl.handleInput': WrapCommand.wrapCommand(handleInput),
+  'SourceControl.handleInputBlur': WrapCommand.wrapCommand(handleInputBlur),
   'SourceControl.handleMessagePort': HandleMessagePort.handleMessagePort,
   'SourceControl.handleMouseOut': WrapCommand.wrapCommand(HandleMouseOut.handleMouseOut),
   'SourceControl.handleMouseOutAt': WrapCommand.wrapCommand(HandleMouseOutAt.handleMouseOutAt),
@@ -71,5 +74,4 @@ export const commandMap = {
   'SourceControl.updateIcons': WrapCommand.wrapCommand(UpdateIcons.updateIcons),
   'SourceControl.viewAsList': WrapCommand.wrapCommand(ViewAsList.viewAsList),
   'SourceControl.viewAsTree': WrapCommand.wrapCommand(ViewAsTree.viewAsTree),
-  'SourceControl.handleInputBlur': WrapCommand.wrapCommand(handleInputBlur),
 }
