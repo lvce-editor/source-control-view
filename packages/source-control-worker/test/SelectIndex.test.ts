@@ -133,3 +133,35 @@ test('selectIndex - file', async (): Promise<void> => {
   const newState = await selectIndex(state, 0)
   expect(newState.items[0].type).toBe(DirentType.File)
 })
+
+test('selectIndex - unknown item type', async (): Promise<void> => {
+  const testItem = {
+    type: 999,
+    file: 'test',
+    label: 'test',
+    detail: '',
+    posInSet: 1,
+    setSize: 1,
+    icon: '',
+    decorationIcon: '',
+    decorationIconTitle: '',
+    decorationStrikeThrough: false,
+    badgeCount: 0,
+    groupId: 'test',
+  }
+
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    items: [testItem],
+    allGroups: [
+      {
+        id: 'test',
+        label: 'test',
+        items: [testItem],
+      },
+    ],
+    enabledProviderIds: ['test'],
+  }
+  const newState = await selectIndex(state, 0)
+  expect(newState).toBe(state)
+})
