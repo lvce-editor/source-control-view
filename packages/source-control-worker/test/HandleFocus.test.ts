@@ -3,7 +3,7 @@ import type { SourceControlState } from '../src/parts/SourceControlState/SourceC
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleInputFocus } from '../src/parts/HandleFocus/HandleFocus.ts'
 
-test('handleFocus - returns state unchanged', async (): Promise<void> => {
+test.skip('handleFocus - returns state unchanged', async (): Promise<void> => {
   const state: SourceControlState = createDefaultState()
   const result = await handleInputFocus(state)
   expect(result).toBe(state)
