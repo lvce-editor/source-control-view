@@ -1,16 +1,16 @@
-import { test, expect } from '@jest/globals'
-import * as RpcRegistry from '@lvce-editor/rpc-registry'
-import { RpcId } from '@lvce-editor/rpc-registry'
-import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
+import { expect, test } from '@jest/globals'
+import { ExtensionHost, RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import { initialize } from '../src/parts/Initialize/Initialize.ts'
 
-test.skip('initialize', async (): Promise<void> => {
+test('initialize should set ExtensionHost and TextMeasurementWorker RPCs', async (): Promise<void> => {
   const commandMap = {
     'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': async (): Promise<void> => {},
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToTextMeasurementWorker': async (): Promise<void> => {},
   }
-  ParentRpc.registerMockRpc(commandMap)
+  RendererWorker.registerMockRpc(commandMap)
+
   await initialize()
-  const actual = RpcRegistry.get(RpcId.ExtensionHostWorker)
-  expect(actual).toBeDefined()
-  await actual.dispose()
+
+  expect(typeof ExtensionHost.invoke).toBe('function')
+  expect(typeof TextMeasurementWorker.invoke).toBe('function')
 })
