@@ -1,5 +1,5 @@
 import { WebWorkerRpcClient } from '@lvce-editor/rpc'
-import { RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
+import { RendererWorker } from '@lvce-editor/rpc-registry'
 import * as CommandMap from '../CommandMap/CommandMap.ts'
 import { registerCommands } from '../SourceControlStates/SourceControlStates.ts'
 
