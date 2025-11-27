@@ -47,4 +47,5 @@ export const createDefaultState = (): SourceControlState => ({
   viewMode: 1,
   iconDefinitions: [],
   decorationIcons: [],
+  focus: 0,
 })

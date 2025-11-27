@@ -14,17 +14,28 @@ export interface SourceControlState {
   readonly expandedGroups: Readonly<Record<string, boolean>>
   readonly fileIconCache: FileIconCache
   readonly finalDeltaY: number
+  readonly focus: number
   readonly gitRoot: string
   readonly handleOffset: number
   readonly headerHeight: number
   readonly height: number
+  readonly history: readonly string[]
+  readonly iconDefinitions: readonly string[]
   readonly id: number
-  readonly inputBoxHeight: number
   readonly index: readonly any[]
+  readonly inputBoxHeight: number
+  readonly inputBoxMaxHeight: number
+  readonly inputFontFamily: string
+  readonly inputFontSize: number
+  readonly inputFontWeight: number
+  readonly inputLetterSpacing: number
+  readonly inputLineHeight: number
   readonly inputPlaceholder: string
+  readonly inputSource: number
   readonly inputValue: string
   readonly itemHeight: number
   readonly items: readonly DisplayItem[]
+  readonly maxInputLines: number
   readonly maxLineY: number
   readonly merge: readonly any[]
   readonly minimumSliderSize: number
@@ -35,21 +46,11 @@ export interface SourceControlState {
   readonly scrollBarHeight: number
   readonly splitButtonEnabled: boolean
   readonly untracked: readonly any[]
+  readonly viewMode: ViewMode
   readonly visibleItems: readonly VisibleItem[]
   readonly width: number
   readonly workingTree: readonly any[]
   readonly workspacePath: string
-  readonly inputSource: number
   readonly x: number
   readonly y: number
-  readonly maxInputLines: number
-  readonly inputFontFamily: string
-  readonly inputFontSize: number
-  readonly inputFontWeight: number
-  readonly inputLetterSpacing: number
-  readonly inputLineHeight: number
-  readonly inputBoxMaxHeight: number
-  readonly history: readonly string[]
-  readonly viewMode: ViewMode
-  readonly iconDefinitions: readonly string[]
 }
