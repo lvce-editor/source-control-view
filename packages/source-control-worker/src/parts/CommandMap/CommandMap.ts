@@ -48,7 +48,7 @@ export const commandMap = {
   'SourceControl.handleClickAt': WrapCommand.wrapCommand(HandleClickAt.handleClickAt),
   'SourceControl.handleClickSourceControlButtons': WrapCommand.wrapCommand(HandleClickSourceControlButtons.handleClickSourceControlButtons),
   'SourceControl.handleContextMenu': WrapCommand.wrapCommand(HandleContextMenu.handleContextMenu),
-  'SourceControl.handleFocus': WrapCommand.wrapCommand(HandleFocus.handleFocus),
+  'SourceControl.handleFocus': WrapCommand.wrapCommand(HandleFocus.handleInputFocus),
   'SourceControl.handleInput': WrapCommand.wrapCommand(handleInput),
   'SourceControl.handleMessagePort': HandleMessagePort.handleMessagePort,
   'SourceControl.handleMouseOut': WrapCommand.wrapCommand(HandleMouseOut.handleMouseOut),
