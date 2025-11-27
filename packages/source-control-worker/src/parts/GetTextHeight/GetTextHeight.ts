@@ -13,7 +13,7 @@ export const getTextHeight = async (
     if (!input) {
       return lineHeight
     }
-    const actualInput = '\n' + input
+    const actualInput = input
     // TODO line height could also be like 1.5
     const lineHeightPx = `${lineHeight}px`
     // @ts-ignore
