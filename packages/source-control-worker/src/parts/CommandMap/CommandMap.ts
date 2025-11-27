@@ -51,6 +51,7 @@ export const commandMap = {
   'SourceControl.handleContextMenu': WrapCommand.wrapCommand(HandleContextMenu.handleContextMenu),
   'SourceControl.handleFocus': WrapCommand.wrapCommand(HandleFocus.handleInputFocus),
   'SourceControl.handleInput': WrapCommand.wrapCommand(handleInput),
+  'SourceControl.handleInputBlur': WrapCommand.wrapCommand(handleInputBlur),
   'SourceControl.handleMessagePort': HandleMessagePort.handleMessagePort,
   'SourceControl.handleMouseOut': WrapCommand.wrapCommand(HandleMouseOut.handleMouseOut),
   'SourceControl.handleMouseOutAt': WrapCommand.wrapCommand(HandleMouseOutAt.handleMouseOutAt),
@@ -71,5 +72,4 @@ export const commandMap = {
   'SourceControl.updateIcons': WrapCommand.wrapCommand(UpdateIcons.updateIcons),
   'SourceControl.viewAsList': WrapCommand.wrapCommand(ViewAsList.viewAsList),
   'SourceControl.viewAsTree': WrapCommand.wrapCommand(ViewAsTree.viewAsTree),
-  'SourceControl.handleInputBlur': WrapCommand.wrapCommand(handleInputBlur),
 }
