@@ -1,10 +1,15 @@
 import { expect, test } from '@jest/globals'
-import { ExtensionHost } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as Refresh from '../src/parts/Refresh/Refresh.ts'
 
-test.skip('refresh should update state with groups and visible items', async (): Promise<void> => {
+test('refresh should update state with groups and visible items', async (): Promise<void> => {
+  const parentCommandMap = {
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+  }
+  ParentRpc.registerMockRpc(parentCommandMap)
+
   const commandMap = {
     'ExtensionHostSourceControl.getGroups': async (): Promise<{ allGroups: never[]; gitRoot: string }> => ({
       allGroups: [],
