@@ -76,3 +76,21 @@ test.skip('getTextHeight - calls RPC with correct parameters', async () => {
 
   expect(mockRpc.invocations).toEqual([['MeasureTextHeight.measureTextBlockHeight', '\ntest input', 'Arial', 14, '30px', 200]])
 })
+
+test('getTextHeight - returns height from RPC call (line 21)', async (): Promise<void> => {
+  const commandMap = {
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 75,
+  }
+  const mockRpc = RendererWorker.registerMockRpc(commandMap)
+
+  const result = await GetTextHeight.getTextHeight('test input', 200, 'Arial', 14, 400, 0, 30)
+
+  expect(result).toBe(75)
+  expect(mockRpc.invocations.length).toBe(1)
+  expect(mockRpc.invocations[0][0]).toBe('MeasureTextHeight.measureTextBlockHeight')
+  expect(mockRpc.invocations[0][1]).toBe('test input')
+  expect(mockRpc.invocations[0][2]).toBe('Arial')
+  expect(mockRpc.invocations[0][3]).toBe(14)
+  expect(mockRpc.invocations[0][4]).toBe('30px')
+  expect(mockRpc.invocations[0][5]).toBe(200)
+})
