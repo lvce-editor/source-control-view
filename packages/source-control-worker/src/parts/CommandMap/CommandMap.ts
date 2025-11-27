@@ -11,6 +11,7 @@ import * as HandleClickSourceControlButtons from '../HandleClickSourceControlBut
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandleFocus from '../HandleFocus/HandleFocus.ts'
 import { handleInput } from '../HandleInput/HandleInput.ts'
+import { handleInputBlur } from '../HandleInputBlur/HandleInputBlur.ts'
 import * as HandleMessagePort from '../HandleMessagePort/HandleMessagePort.ts'
 import * as HandleMouseOut from '../HandleMouseOut/HandleMouseOut.ts'
 import * as HandleMouseOutAt from '../HandleMouseOutAt/HandleMouseOutAt.ts'
@@ -70,4 +71,5 @@ export const commandMap = {
   'SourceControl.updateIcons': WrapCommand.wrapCommand(UpdateIcons.updateIcons),
   'SourceControl.viewAsList': WrapCommand.wrapCommand(ViewAsList.viewAsList),
   'SourceControl.viewAsTree': WrapCommand.wrapCommand(ViewAsTree.viewAsTree),
+  'SourceControl.handleInputBlur': WrapCommand.wrapCommand(handleInputBlur),
 }
