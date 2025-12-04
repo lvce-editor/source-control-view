@@ -93,6 +93,7 @@ test('isEqual - different visibleItems', () => {
         badgeCount: 0,
         groupId: '',
         fileIcon: '',
+        indent: 16,
         buttons: [],
       },
     ],
