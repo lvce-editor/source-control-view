@@ -40,6 +40,7 @@ test('renderItems - handles different state values', () => {
         groupId: 'test-group',
         buttons: [],
         fileIcon: 'file-icon',
+        indent: 0,
       },
     ],
     splitButtonEnabled: false,
@@ -72,6 +73,7 @@ test('renderItems - handles empty placeholder', () => {
         groupId: 'test-group',
         buttons: [],
         fileIcon: 'file-icon',
+        indent: 0,
       },
       {
         file: 'test2.txt',
@@ -88,6 +90,7 @@ test('renderItems - handles empty placeholder', () => {
         groupId: 'test-group',
         buttons: [],
         fileIcon: 'file-icon',
+        indent: 0,
       },
     ],
     splitButtonEnabled: true,

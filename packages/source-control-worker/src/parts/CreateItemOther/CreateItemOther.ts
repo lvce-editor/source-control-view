@@ -7,6 +7,7 @@ import { getButtonsVirtualDom } from '../GetButtonsVirtualDom/GetButtonsVirtualD
 import * as GetFileIconVirtualDom from '../GetFileIconVirtualDom/GetFileIconVirtualDom.ts'
 import * as GetIconVirtualDom from '../GetIconVirtualDom/GetIconVirtualDom.ts'
 import { getLabelClassName } from '../GetLabelClassName/GetLabelClassName.ts'
+import { getTreeItemClassName } from '../GetTreeItemClassName/GetTreeItemClassName.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 const chevron: VirtualDomNode = {
@@ -24,21 +25,21 @@ const getIconsDom = (icon: string, fileIcon: string): readonly VirtualDomNode[] 
 }
 
 export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] => {
-  const { posInSet, setSize, icon, file, label, decorationIcon, decorationIconTitle, decorationStrikeThrough, detail, buttons, fileIcon } = item
+  const { posInSet, setSize, icon, file, label, decorationIcon, decorationIconTitle, decorationStrikeThrough, detail, buttons, fileIcon, indent } = item
   const labelClassName = getLabelClassName(decorationStrikeThrough)
   const dom: VirtualDomNode[] = []
   const hasButtons = buttons.length
   const buttonsDom = getButtonsVirtualDom(buttons)
+  const treeItemClassName = getTreeItemClassName(indent)
   dom.push(
     {
       type: VirtualDomElements.Div,
-      className: ClassNames.TreeItem,
+      className: treeItemClassName,
       role: AriaRoles.TreeItem,
       ariaPosInSet: posInSet,
       ariaSetSize: setSize,
       title: file,
       childCount: 3 + (hasButtons ? 1 : 0),
-      paddingLeft: '1rem',
       paddingRight: '12px',
     },
     ...getIconsDom(icon, fileIcon),

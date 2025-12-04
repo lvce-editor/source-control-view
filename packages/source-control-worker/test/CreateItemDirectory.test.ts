@@ -2,7 +2,6 @@ import { test, expect } from '@jest/globals'
 import { DirentType } from '@lvce-editor/constants'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleItem } from '../src/parts/VisibleItem/VisibleItem.ts'
-import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { createItemDirectory } from '../src/parts/CreateItemDirectory/CreateItemDirectory.ts'
 import * as TreeItemPadding from '../src/parts/TreeItemPadding/TreeItemPadding.ts'
 
@@ -22,18 +21,18 @@ test('createItemDirectory - basic directory', () => {
     decorationIconTitle: '',
     groupId: 'test',
     fileIcon: 'Directory',
+    indent: 0,
   }
   const result = createItemDirectory(item)
   expect(result).toEqual([
     {
       type: VirtualDomElements.Div,
-      className: ClassNames.TreeItem,
+      className: 'TreeItem Indent-0',
       role: 'treeitem',
       ariaExpanded: false,
       ariaPosInSet: 1,
       ariaSetSize: 2,
       childCount: 3,
-      paddingLeft: TreeItemPadding.PaddingLeft,
       paddingRight: TreeItemPadding.PaddingRight,
     },
     {
@@ -91,6 +90,7 @@ test('createItemDirectory - expanded directory with badge and buttons', () => {
     decorationIconTitle: '',
     groupId: 'test',
     fileIcon: 'Directory',
+    indent: 0,
   }
   const result = createItemDirectory(item)
   expect(result).toEqual([
@@ -99,8 +99,7 @@ test('createItemDirectory - expanded directory with badge and buttons', () => {
       ariaPosInSet: 1,
       ariaSetSize: 2,
       childCount: 4,
-      className: 'TreeItem',
-      paddingLeft: '1rem',
+      className: 'TreeItem Indent-0',
       paddingRight: '12px',
       role: 'treeitem',
       type: 4,

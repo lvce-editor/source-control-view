@@ -4,6 +4,7 @@ import type { FileIconCache } from '../FileIconCache/FileIconCache.ts'
 import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 import * as EmptySourceControlButtons from '../EmptySourceControlButtons/EmptySourceControlButton.ts'
 import { getContextId } from '../GetContextId/GetContextId.ts'
+import * as GetTreeItemIndent from '../GetTreeItemIndent/GetTreeItemIndent.ts'
 
 export const getVisibleSourceControlItems = (
   items: readonly DisplayItem[],
@@ -18,10 +19,12 @@ export const getVisibleSourceControlItems = (
     const contextId = getContextId(item.groupId, item.type)
     const buttons = actionsCache[contextId] || EmptySourceControlButtons.emptySourceControlButtons
     const fileIcon = fileIconCache[item.label] || ''
+    const indent = GetTreeItemIndent.getTreeItemIndent(item.type)
     visible.push({
       ...item,
       buttons,
       fileIcon,
+      indent,
     })
   }
   return visible
