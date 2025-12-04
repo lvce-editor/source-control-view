@@ -1,5 +1,5 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 
-export const getBadgeCount = (state: SourceControlState): number => {
-  return state.badgeCount
+export const getBadgeCount = ({ badgeCount }: SourceControlState): number => {
+  return badgeCount
 }
