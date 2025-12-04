@@ -11,9 +11,9 @@ export const getButtonsVirtualDom = (buttons: readonly ActionButton[]): readonly
   }
   return [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.SourceControlButtons,
       childCount: buttons.length,
+      className: ClassNames.SourceControlButtons,
+      type: VirtualDomElements.Div,
     },
     ...buttons.flatMap(getButtonVirtualDom),
   ]

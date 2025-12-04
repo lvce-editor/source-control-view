@@ -9,13 +9,13 @@ import * as GetSourceControlItemVirtualDom from '../GetSourceControlItemVirtualD
 export const getSourceControlListVirtualDom = (items: readonly VisibleItem[]): readonly VirtualDomNode[] => {
   return [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.SourceControlItems,
-      role: AriaRoles.Tree,
       childCount: items.length,
+      className: ClassNames.SourceControlItems,
       onClick: DomEventListenerFunctions.HandleClickAt,
-      onPointerOver: DomEventListenerFunctions.HandleMouseOverAt,
       onPointerOut: DomEventListenerFunctions.HandleMouseOutAt,
+      onPointerOver: DomEventListenerFunctions.HandleMouseOverAt,
+      role: AriaRoles.Tree,
+      type: VirtualDomElements.Div,
     },
     ...items.flatMap(GetSourceControlItemVirtualDom.getSourceControlItemVirtualDom),
   ]

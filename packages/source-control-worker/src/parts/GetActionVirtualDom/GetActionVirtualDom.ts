@@ -8,9 +8,9 @@ export const getActionVirtualDom = (action: Action): readonly VirtualDomNode[] =
   switch (action.type) {
     case ActionType.Button: {
       const actionButton: ActionButton = {
-        id: action.id,
-        icon: action.icon,
         command: action.command,
+        icon: action.icon,
+        id: action.id,
         label: action.name,
       }
       return GetActionButtonVirtualDom.getActionButtonVirtualDom(actionButton)

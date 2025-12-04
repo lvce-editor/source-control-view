@@ -6,14 +6,14 @@ test('getBadgeVirtualDom', () => {
   const result = getBadgeVirtualDom(5)
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
-      className: 'Badge SourceControlBadge',
       childCount: 1,
+      className: 'Badge SourceControlBadge',
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
-      text: '5',
       childCount: 0,
+      text: '5',
+      type: VirtualDomElements.Text,
     },
   ])
 })
@@ -22,14 +22,14 @@ test('getBadgeVirtualDom with zero count', () => {
   const result = getBadgeVirtualDom(0)
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
-      className: 'Badge SourceControlBadge',
       childCount: 1,
+      className: 'Badge SourceControlBadge',
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
-      text: '0',
       childCount: 0,
+      text: '0',
+      type: VirtualDomElements.Text,
     },
   ])
 })
@@ -38,14 +38,14 @@ test('getBadgeVirtualDom with empty className', () => {
   const result = getBadgeVirtualDom(5)
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
-      className: 'Badge SourceControlBadge',
       childCount: 1,
+      className: 'Badge SourceControlBadge',
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
-      text: '5',
       childCount: 0,
+      text: '5',
+      type: VirtualDomElements.Text,
     },
   ])
 })

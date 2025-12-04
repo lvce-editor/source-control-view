@@ -7,8 +7,8 @@ test('getIndex - first item', () => {
   const state: SourceControlState = {
     ...createDefaultState(),
     headerHeight: 50,
-    y: 100,
     itemHeight: 30,
+    y: 100,
   }
   const eventX = 0
   const eventY = 150
@@ -20,8 +20,8 @@ test('getIndex - second item', () => {
   const state: SourceControlState = {
     ...createDefaultState(),
     headerHeight: 50,
-    y: 100,
     itemHeight: 30,
+    y: 100,
   }
   const eventX = 0
   const eventY = 180
@@ -33,8 +33,8 @@ test('getIndex - negative y', () => {
   const state: SourceControlState = {
     ...createDefaultState(),
     headerHeight: 50,
-    y: 100,
     itemHeight: 30,
+    y: 100,
   }
   const eventX = 0
   const eventY = 50
@@ -46,8 +46,8 @@ test('getIndex - different header height', () => {
   const state: SourceControlState = {
     ...createDefaultState(),
     headerHeight: 100,
-    y: 100,
     itemHeight: 30,
+    y: 100,
   }
   const eventX = 0
   const eventY = 250

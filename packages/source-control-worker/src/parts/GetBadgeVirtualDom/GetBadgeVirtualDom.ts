@@ -5,9 +5,9 @@ import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 const className = mergeClassNames(ClassNames.Badge, ClassNames.SourceControlBadge)
 
 const parentNode: VirtualDomNode = {
-  type: VirtualDomElements.Div,
-  className,
   childCount: 1,
+  className,
+  type: VirtualDomElements.Div,
 }
 
 export const getBadgeVirtualDom = (count: number): readonly VirtualDomNode[] => {

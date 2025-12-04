@@ -20,23 +20,23 @@ test('non-empty buttons', () => {
   const result = getButtonsVirtualDom(buttons)
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
+      childCount: 1,
       className: ClassNames.SourceControlButtons,
-      childCount: 1,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Button,
-      className: ClassNames.SourceControlButton,
-      childCount: 1,
-      title: 'Test',
       ariaLabel: 'Test',
+      childCount: 1,
+      className: ClassNames.SourceControlButton,
       name: 'Test',
+      title: 'Test',
+      type: VirtualDomElements.Button,
     },
     {
-      type: VirtualDomElements.Span,
-      className: 'MaskIcon MaskIcontest-icon',
       childCount: 0,
+      className: 'MaskIcon MaskIcontest-icon',
       role: 'none',
+      type: VirtualDomElements.Span,
     },
   ])
 })

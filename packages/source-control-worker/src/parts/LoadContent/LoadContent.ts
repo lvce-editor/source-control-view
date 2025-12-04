@@ -18,17 +18,17 @@ import * as SourceControlStrings from '../SourceControlStrings/SourceControlStri
 
 export const loadContent = async (state: SourceControlState, savedState: unknown): Promise<SourceControlState> => {
   const {
-    itemHeight,
-    height,
-    minimumSliderSize,
-    workspacePath,
     fileIconCache,
-    width,
+    height,
     inputFontFamily,
     inputFontSize,
     inputFontWeight,
     inputLetterSpacing,
     inputLineHeight,
+    itemHeight,
+    minimumSliderSize,
+    width,
+    workspacePath,
   } = state
   const root = workspacePath
   const scheme = GetProtocol.getProtocol(root)

@@ -7,25 +7,25 @@ import * as ViewletSourceControlStrings from '../SourceControlStrings/SourceCont
 export const getActions = (): readonly Action[] => {
   return [
     {
-      type: ActionType.Button,
+      command: '',
+      icon: MaskIcon.ListFlat,
       id: ViewletSourceControlStrings.viewAsTree(),
       name: InputName.ViewAsTree,
-      icon: MaskIcon.ListFlat,
-      command: '',
+      type: ActionType.Button,
     },
     {
-      type: ActionType.Button,
+      command: '',
+      icon: MaskIcon.Check,
       id: ViewletSourceControlStrings.commitAndPush(),
       name: InputName.CommitAndPush,
-      icon: MaskIcon.Check,
-      command: '',
+      type: ActionType.Button,
     },
     {
-      type: ActionType.Button,
+      command: '',
+      icon: MaskIcon.Refresh,
       id: ViewletSourceControlStrings.refresh(),
       name: InputName.Refresh,
-      icon: MaskIcon.Refresh,
-      command: '',
+      type: ActionType.Button,
     },
   ]
 }

@@ -5,8 +5,8 @@ import type { KeyBinding } from '../KeyBinding/KeyBinding.ts'
 export const getKeyBindings = (): readonly KeyBinding[] => {
   return [
     {
-      key: KeyModifier.CtrlCmd | KeyCode.Enter,
       command: 'Source Control.acceptInput',
+      key: KeyModifier.CtrlCmd | KeyCode.Enter,
       when: WhenExpression.FocusSourceControlInput,
     },
   ]

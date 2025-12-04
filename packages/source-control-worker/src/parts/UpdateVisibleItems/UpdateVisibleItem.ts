@@ -5,7 +5,7 @@ import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOf
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 
 export const updateVisibleItems = async (state: Readonly<SourceControlState>, expandedGroups: Readonly<Record<string, boolean>>): Promise<SourceControlState> => {
-  const { itemHeight, height, actionsCache, fileIconCache, allGroups, iconDefinitions } = state
+  const { actionsCache, allGroups, fileIconCache, height, iconDefinitions, itemHeight } = state
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
   const total = displayItems.length
   const listHeight = getListHeight(total, itemHeight, height)
@@ -15,10 +15,10 @@ export const updateVisibleItems = async (state: Readonly<SourceControlState>, ex
   const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, fileIconCache)
   return {
     ...state,
-    items: displayItems,
-    visibleItems,
     expandedGroups,
-    minLineY,
+    items: displayItems,
     maxLineY,
+    minLineY,
+    visibleItems,
   }
 }

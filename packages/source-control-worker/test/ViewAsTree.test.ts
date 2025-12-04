@@ -14,9 +14,9 @@ test('viewAsTree - sets viewMode to Tree', () => {
 test('viewAsTree - preserves other state properties', () => {
   const state: SourceControlState = {
     ...createDefaultState(),
+    height: 200,
     id: 123,
     width: 300,
-    height: 200,
   }
 
   const result = ViewAsTree.viewAsTree(state)

@@ -7,11 +7,11 @@ import * as HandleInput from '../src/parts/HandleInput/HandleInput.ts'
 test('handleInput - updates state with input value', async () => {
   const state: SourceControlState = {
     ...createDefaultState(),
-    width: 200,
     inputFontFamily: 'Arial',
     inputFontSize: 14,
     inputFontWeight: 400,
     inputLetterSpacing: 0,
+    width: 200,
   }
 
   const result = await HandleInput.handleInput(state, 'test input')
@@ -45,11 +45,11 @@ test('handleInput - preserves other state properties', async () => {
   const state: SourceControlState = {
     ...createDefaultState(),
     id: 123,
-    width: 300,
     inputFontFamily: 'Monaco',
     inputFontSize: 16,
     inputFontWeight: 600,
     inputLetterSpacing: 1,
+    width: 300,
   }
 
   const result = await HandleInput.handleInput(state, 'preserve test')

@@ -6,39 +6,39 @@ import { handleMouseOutAt } from '../src/parts/HandleMouseOutAt/HandleMouseOutAt
 
 test('handleMouseOutAt - with valid coordinates', (): void => {
   const item1: DisplayItem = {
-    file: 'item1',
-    label: 'item1',
+    badgeCount: 0,
+    decorationIcon: '',
+    decorationIconTitle: '',
+    decorationStrikeThrough: false,
     detail: '',
+    file: 'item1',
+    groupId: 'group1',
+    icon: '',
+    label: 'item1',
     posInSet: 1,
     setSize: 2,
-    icon: '',
-    decorationIcon: '',
-    decorationIconTitle: '',
-    decorationStrikeThrough: false,
     type: 0,
-    badgeCount: 0,
-    groupId: 'group1',
   }
   const item2: DisplayItem = {
-    file: 'item2',
-    label: 'item2',
-    detail: '',
-    posInSet: 2,
-    setSize: 2,
-    icon: '',
+    badgeCount: 0,
     decorationIcon: '',
     decorationIconTitle: '',
     decorationStrikeThrough: false,
-    type: 0,
-    badgeCount: 0,
+    detail: '',
+    file: 'item2',
     groupId: 'group1',
+    icon: '',
+    label: 'item2',
+    posInSet: 2,
+    setSize: 2,
+    type: 0,
   }
   const state: SourceControlState = {
     ...createDefaultState(),
-    y: 0,
     headerHeight: 40,
     itemHeight: 20,
     items: [item1, item2],
+    y: 0,
   }
   const eventX = 100
   const eventY = 50
@@ -50,39 +50,39 @@ test('handleMouseOutAt - with valid coordinates', (): void => {
 
 test('handleMouseOutAt - with coordinates outside items area (index -1)', (): void => {
   const item1: DisplayItem = {
-    file: 'item1',
-    label: 'item1',
+    badgeCount: 0,
+    decorationIcon: '',
+    decorationIconTitle: '',
+    decorationStrikeThrough: false,
     detail: '',
+    file: 'item1',
+    groupId: 'group1',
+    icon: '',
+    label: 'item1',
     posInSet: 1,
     setSize: 2,
-    icon: '',
-    decorationIcon: '',
-    decorationIconTitle: '',
-    decorationStrikeThrough: false,
     type: 0,
-    badgeCount: 0,
-    groupId: 'group1',
   }
   const item2: DisplayItem = {
-    file: 'item2',
-    label: 'item2',
-    detail: '',
-    posInSet: 2,
-    setSize: 2,
-    icon: '',
+    badgeCount: 0,
     decorationIcon: '',
     decorationIconTitle: '',
     decorationStrikeThrough: false,
-    type: 0,
-    badgeCount: 0,
+    detail: '',
+    file: 'item2',
     groupId: 'group1',
+    icon: '',
+    label: 'item2',
+    posInSet: 2,
+    setSize: 2,
+    type: 0,
   }
   const state: SourceControlState = {
     ...createDefaultState(),
-    y: 0,
     headerHeight: 40,
     itemHeight: 20,
     items: [item1, item2],
+    y: 0,
   }
   const eventX = 100
   const eventY = 30
@@ -95,25 +95,25 @@ test('handleMouseOutAt - with coordinates outside items area (index -1)', (): vo
 
 test('handleMouseOutAt - with coordinates beyond items length', (): void => {
   const item1: DisplayItem = {
-    file: 'item1',
-    label: 'item1',
-    detail: '',
-    posInSet: 1,
-    setSize: 1,
-    icon: '',
+    badgeCount: 0,
     decorationIcon: '',
     decorationIconTitle: '',
     decorationStrikeThrough: false,
-    type: 0,
-    badgeCount: 0,
+    detail: '',
+    file: 'item1',
     groupId: 'group1',
+    icon: '',
+    label: 'item1',
+    posInSet: 1,
+    setSize: 1,
+    type: 0,
   }
   const state: SourceControlState = {
     ...createDefaultState(),
-    y: 0,
     headerHeight: 40,
     itemHeight: 20,
     items: [item1],
+    y: 0,
   }
   const eventX = 100
   const eventY = 100

@@ -8,10 +8,10 @@ test('getFileIconVirtualDom', () => {
   const icon = 'test-icon.png'
   const result = getFileIconVirtualDom(icon)
   expect(result).toEqual({
-    type: VirtualDomElements.Img,
-    className: ClassNames.FileIcon,
-    src: icon,
-    role: AriaRoles.None,
     childCount: 0,
+    className: ClassNames.FileIcon,
+    role: AriaRoles.None,
+    src: icon,
+    type: VirtualDomElements.Img,
   })
 })

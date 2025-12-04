@@ -17,14 +17,14 @@ test('updateIcons - should update icons for visible items', async (): Promise<vo
     ...defaultState,
     items: [
       // @ts-ignore
-      { name: 'file1.ts', type: 1, path: '/test/file1.ts', depth: 1, selected: false },
+      { depth: 1, name: 'file1.ts', path: '/test/file1.ts', selected: false, type: 1 },
       // @ts-ignore
-      { name: 'file2.ts', type: 1, path: '/test/file2.ts', depth: 1, selected: false },
+      { depth: 1, name: 'file2.ts', path: '/test/file2.ts', selected: false, type: 1 },
       // @ts-ignore
-      { name: 'file3.ts', type: 1, path: '/test/file3.ts', depth: 1, selected: false },
+      { depth: 1, name: 'file3.ts', path: '/test/file3.ts', selected: false, type: 1 },
     ],
-    minLineY: 0,
     maxLineY: 2,
+    minLineY: 0,
   }
 
   const result = await UpdateIcons.updateIcons(state)
@@ -42,8 +42,8 @@ test('updateIcons - should handle empty visible items', async (): Promise<void> 
   const state: SourceControlState = {
     ...defaultState,
     items: [],
-    minLineY: 0,
     maxLineY: 0,
+    minLineY: 0,
   }
 
   const result = await UpdateIcons.updateIcons(state)

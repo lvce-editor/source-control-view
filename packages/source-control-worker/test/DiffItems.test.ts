@@ -13,7 +13,7 @@ test('isEqual - different allGroups', () => {
   const state1: SourceControlState = CreateDefaultState.createDefaultState()
   const state2: SourceControlState = {
     ...CreateDefaultState.createDefaultState(),
-    allGroups: [{ id: '1', label: 'Group 1', items: [] }],
+    allGroups: [{ id: '1', items: [], label: 'Group 1' }],
   }
   const result = isEqual(state1, state2)
   expect(result).toBe(false)
@@ -35,18 +35,18 @@ test('isEqual - different items', () => {
     ...CreateDefaultState.createDefaultState(),
     items: [
       {
-        file: 'test.js',
-        label: 'test.js',
-        detail: '',
-        posInSet: 1,
-        setSize: 1,
-        icon: '',
+        badgeCount: 0,
         decorationIcon: '',
         decorationIconTitle: '',
         decorationStrikeThrough: false,
-        type: 0,
-        badgeCount: 0,
+        detail: '',
+        file: 'test.js',
         groupId: '',
+        icon: '',
+        label: 'test.js',
+        posInSet: 1,
+        setSize: 1,
+        type: 0,
       },
     ],
   }
@@ -80,21 +80,21 @@ test('isEqual - different visibleItems', () => {
     ...CreateDefaultState.createDefaultState(),
     visibleItems: [
       {
-        file: 'test.js',
-        label: 'test.js',
-        detail: '',
-        posInSet: 1,
-        setSize: 1,
-        icon: '',
+        badgeCount: 0,
+        buttons: [],
         decorationIcon: '',
         decorationIconTitle: '',
         decorationStrikeThrough: false,
-        type: 0,
-        badgeCount: 0,
-        groupId: '',
+        detail: '',
+        file: 'test.js',
         fileIcon: '',
+        groupId: '',
+        icon: '',
         indent: 16,
-        buttons: [],
+        label: 'test.js',
+        posInSet: 1,
+        setSize: 1,
+        type: 0,
       },
     ],
   }

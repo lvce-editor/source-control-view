@@ -6,9 +6,9 @@ import { getSourceControlInputDom } from '../GetSourceControlInputVirtualDom/Get
 export const getSourceControlHeaderVirtualDom = (inputPlaceholder: string): readonly VirtualDomNode[] => {
   return [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.SourceControlHeader,
       childCount: 1,
+      className: ClassNames.SourceControlHeader,
+      type: VirtualDomElements.Div,
     },
     ...getSourceControlInputDom(inputPlaceholder),
   ]

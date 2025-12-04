@@ -24,12 +24,12 @@ test('handleWorkspaceRefresh should call refresh and return updated state', asyn
   expect(result).toEqual({
     ...state,
     allGroups: [],
+    finalDeltaY: 0,
     gitRoot: '',
     items: [],
-    visibleItems: [],
     maxLineY: 0,
     scrollBarHeight: 0,
-    finalDeltaY: 0,
+    visibleItems: [],
   })
   expect(mockRpc.invocations).toEqual([])
 })

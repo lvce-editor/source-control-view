@@ -7,33 +7,33 @@ import * as TreeItemPadding from '../src/parts/TreeItemPadding/TreeItemPadding.t
 
 test('createItemDirectory - basic directory', () => {
   const item: VisibleItem = {
-    posInSet: 1,
-    setSize: 2,
-    icon: 'Directory',
-    label: 'test',
     badgeCount: 0,
-    decorationStrikeThrough: false,
-    type: DirentType.Directory,
     buttons: [],
-    file: 'test',
-    detail: '',
     decorationIcon: '',
     decorationIconTitle: '',
-    groupId: 'test',
+    decorationStrikeThrough: false,
+    detail: '',
+    file: 'test',
     fileIcon: 'Directory',
+    groupId: 'test',
+    icon: 'Directory',
     indent: 0,
+    label: 'test',
+    posInSet: 1,
+    setSize: 2,
+    type: DirentType.Directory,
   }
   const result = createItemDirectory(item)
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
-      className: 'TreeItem Indent-0',
-      role: 'treeitem',
       ariaExpanded: false,
       ariaPosInSet: 1,
       ariaSetSize: 2,
       childCount: 3,
+      className: 'TreeItem Indent-0',
       paddingRight: TreeItemPadding.PaddingRight,
+      role: 'treeitem',
+      type: VirtualDomElements.Div,
     },
     {
       childCount: 0,
@@ -70,13 +70,7 @@ test('createItemDirectory - basic directory', () => {
 
 test('createItemDirectory - expanded directory with badge and buttons', () => {
   const item: VisibleItem = {
-    posInSet: 1,
-    setSize: 2,
-    icon: 'Directory',
-    label: 'test',
     badgeCount: 1,
-    decorationStrikeThrough: false,
-    type: DirentType.DirectoryExpanded,
     buttons: [
       {
         command: 'delete',
@@ -84,13 +78,19 @@ test('createItemDirectory - expanded directory with badge and buttons', () => {
         label: 'Delete',
       },
     ],
-    file: 'test',
-    detail: '',
     decorationIcon: '',
     decorationIconTitle: '',
-    groupId: 'test',
+    decorationStrikeThrough: false,
+    detail: '',
+    file: 'test',
     fileIcon: 'Directory',
+    groupId: 'test',
+    icon: 'Directory',
     indent: 0,
+    label: 'test',
+    posInSet: 1,
+    setSize: 2,
+    type: DirentType.DirectoryExpanded,
   }
   const result = createItemDirectory(item)
   expect(result).toEqual([

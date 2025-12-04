@@ -8,8 +8,8 @@ test('renderFocusContext - returns correct command with id and focus', (): void 
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
     ...createDefaultState(),
-    id: 1,
     focus: 5,
+    id: 1,
   }
 
   const result = renderFocusContext(oldState, newState)
@@ -21,8 +21,8 @@ test('renderFocusContext - uses different id and focus values', (): void => {
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
     ...createDefaultState(),
-    id: 2,
     focus: 10,
+    id: 2,
   }
 
   const result = renderFocusContext(oldState, newState)
@@ -34,8 +34,8 @@ test('renderFocusContext - handles zero focus', (): void => {
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
     ...createDefaultState(),
-    id: 3,
     focus: 0,
+    id: 3,
   }
 
   const result = renderFocusContext(oldState, newState)
@@ -47,8 +47,8 @@ test('renderFocusContext - handles negative focus', (): void => {
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
     ...createDefaultState(),
-    id: 4,
     focus: -1,
+    id: 4,
   }
 
   const result = renderFocusContext(oldState, newState)
@@ -60,8 +60,8 @@ test('renderFocusContext - handles large focus values', (): void => {
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
     ...createDefaultState(),
-    id: 5,
     focus: 100,
+    id: 5,
   }
 
   const result = renderFocusContext(oldState, newState)
