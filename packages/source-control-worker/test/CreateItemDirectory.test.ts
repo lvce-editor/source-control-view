@@ -22,18 +22,18 @@ test('createItemDirectory - basic directory', () => {
     decorationIconTitle: '',
     groupId: 'test',
     fileIcon: 'Directory',
+    indent: 0,
   }
   const result = createItemDirectory(item)
   expect(result).toEqual([
     {
       type: VirtualDomElements.Div,
-      className: ClassNames.TreeItem,
+      className: 'TreeItem Indent-0',
       role: 'treeitem',
       ariaExpanded: false,
       ariaPosInSet: 1,
       ariaSetSize: 2,
       childCount: 3,
-      paddingLeft: TreeItemPadding.PaddingLeft,
       paddingRight: TreeItemPadding.PaddingRight,
     },
     {
@@ -91,6 +91,7 @@ test('createItemDirectory - expanded directory with badge and buttons', () => {
     decorationIconTitle: '',
     groupId: 'test',
     fileIcon: 'Directory',
+    indent: 0,
   }
   const result = createItemDirectory(item)
   expect(result).toEqual([
@@ -99,8 +100,7 @@ test('createItemDirectory - expanded directory with badge and buttons', () => {
       ariaPosInSet: 1,
       ariaSetSize: 2,
       childCount: 4,
-      className: 'TreeItem',
-      paddingLeft: '1rem',
+      className: 'TreeItem Indent-0',
       paddingRight: '12px',
       role: 'treeitem',
       type: 4,
