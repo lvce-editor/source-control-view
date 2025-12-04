@@ -2,10 +2,12 @@ import { terminate } from '@lvce-editor/viewlet-registry'
 import { acceptInput } from '../AcceptInput/AcceptInput.ts'
 import * as Create2 from '../Create2/Create2.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
+import { getBadgeCount } from '../GetBadgeCount/GetBadgeCount.ts'
 import * as GetInfo from '../GetInfo/GetInfo.ts'
 import { getKeyBindings } from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
+import * as HandleActionClick from '../HandleActionClick/HandleActionClick.ts'
 import * as HandleButtonClick from '../HandleButtonClick/HandleButtonClick.ts'
 import * as HandleClickAt from '../HandleClickAt/HandleClickAt.ts'
 import * as HandleClickSourceControlButtons from '../HandleClickSourceControlButtons/HandleClickSourceControlButtons.ts'
@@ -40,6 +42,7 @@ export const commandMap = {
   'SourceControl.acceptInput': WrapCommand.wrapCommand(acceptInput),
   'SourceControl.create2': Create2.create2,
   'SourceControl.diff2': Diff2.diff2,
+  'SourceControl.getBadgeCount': WrapCommand.wrapGetter(getBadgeCount),
   'SourceControl.getCommandIds': WrapCommand.getCommandIds,
   'SourceControl.getEnabledProviderIds': getEnabledProviderIds,
   'SourceControl.getFileDecorations': getFileDecorations,
@@ -47,6 +50,7 @@ export const commandMap = {
   'SourceControl.getKeyBindings': getKeyBindings,
   'SourceControl.getMenuEntries2': WrapCommand.wrapGetter(getMenuEntries2),
   'SourceControl.getMenuIds': getMenuIds,
+  'SourceControl.handleActionClick': WrapCommand.wrapCommand(HandleActionClick.handleActionClick),
   'SourceControl.handleButtonClick': WrapCommand.wrapCommand(HandleButtonClick.handleButtonClick),
   'SourceControl.handleClickAt': WrapCommand.wrapCommand(HandleClickAt.handleClickAt),
   'SourceControl.handleClickSourceControlButtons': WrapCommand.wrapCommand(HandleClickSourceControlButtons.handleClickSourceControlButtons),

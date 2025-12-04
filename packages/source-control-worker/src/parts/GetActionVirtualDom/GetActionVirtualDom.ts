@@ -1,11 +1,20 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
+import type { Action } from '../Action/Action.ts'
+import type { ActionButton } from '../ActionButton/ActionButton.ts'
 import * as ActionType from '../ActionType/ActionType.ts'
 import * as GetActionButtonVirtualDom from '../GetActionButtonVirtualDom/GetActionButtonVirtualDom.ts'
 
-export const getActionVirtualDom = (action: any): readonly VirtualDomNode[] => {
+export const getActionVirtualDom = (action: Action): readonly VirtualDomNode[] => {
   switch (action.type) {
-    case ActionType.Button:
-      return GetActionButtonVirtualDom.getActionButtonVirtualDom(action)
+    case ActionType.Button: {
+      const actionButton: ActionButton = {
+        id: action.id,
+        icon: action.icon,
+        command: action.command,
+        label: action.name,
+      }
+      return GetActionButtonVirtualDom.getActionButtonVirtualDom(actionButton)
+    }
     default:
       return []
   }

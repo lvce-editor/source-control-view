@@ -5,7 +5,7 @@ import type { SourceControlState } from '../src/parts/SourceControlState/SourceC
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
 
-test.skip('loadContent - basic with empty state', async (): Promise<void> => {
+test('loadContent - basic with empty state', async (): Promise<void> => {
   const commandMap = {
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
@@ -27,10 +27,11 @@ test.skip('loadContent - basic with empty state', async (): Promise<void> => {
   expect(result.visibleItems).toEqual([])
   expect(result.inputValue).toBe('')
   expect(result.inputPlaceholder).toBeDefined()
-  expect(result.inputBoxHeight).toBe(30)
+  // Empty input returns lineHeight directly without RPC call
+  expect(result.inputBoxHeight).toBe(state.inputLineHeight)
 })
 
-test.skip('loadContent - with saved state inputValue', async (): Promise<void> => {
+test('loadContent - with saved state inputValue', async (): Promise<void> => {
   const commandMap = {
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
@@ -52,7 +53,7 @@ test.skip('loadContent - with saved state inputValue', async (): Promise<void> =
   expect(result.inputBoxHeight).toBe(45)
 })
 
-test.skip('loadContent - with enabled providers', async (): Promise<void> => {
+test('loadContent - with enabled providers', async (): Promise<void> => {
   const commandMap = {
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
@@ -77,7 +78,7 @@ test.skip('loadContent - with enabled providers', async (): Promise<void> => {
   expect(result.decorationIcons).toEqual(['icon1', 'icon2'])
 })
 
-test.skip('loadContent - with groups', async (): Promise<void> => {
+test('loadContent - with groups', async (): Promise<void> => {
   const mockGroups = [
     {
       id: 'group1',
@@ -117,7 +118,7 @@ test.skip('loadContent - with groups', async (): Promise<void> => {
   expect(result.items.length).toBeGreaterThan(0)
 })
 
-test.skip('loadContent - with source control actions', async (): Promise<void> => {
+test('loadContent - with source control actions', async (): Promise<void> => {
   const mockExtensions = [
     {
       'source-control-actions': {
@@ -147,7 +148,7 @@ test.skip('loadContent - with source control actions', async (): Promise<void> =
   })
 })
 
-test.skip('loadContent - calculates scroll bar and visible items correctly', async (): Promise<void> => {
+test('loadContent - calculates scroll bar and visible items correctly', async (): Promise<void> => {
   const mockGroups = [
     {
       id: 'group1',

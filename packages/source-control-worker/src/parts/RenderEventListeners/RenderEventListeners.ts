@@ -43,5 +43,9 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       params: ['handleWheel', EventExpression.DeltaMode, EventExpression.DeltaY],
       passive: true,
     },
+    {
+      name: DomEventListenersFunctions.HandleClickAction,
+      params: ['handleActionClick', EventExpression.TargetName],
+    },
   ]
 }

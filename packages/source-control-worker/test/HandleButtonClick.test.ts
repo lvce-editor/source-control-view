@@ -43,6 +43,7 @@ test('handleButtonClick - valid button click', async (): Promise<void> => {
         badgeCount: 0,
         groupId: '',
         fileIcon: '',
+        indent: 16,
         buttons: [
           {
             label: 'Stage',
@@ -86,6 +87,7 @@ test('handleButtonClick - invalid button index', async (): Promise<void> => {
         badgeCount: 0,
         groupId: '',
         fileIcon: '',
+        indent: 16,
         buttons: [],
       },
     ],

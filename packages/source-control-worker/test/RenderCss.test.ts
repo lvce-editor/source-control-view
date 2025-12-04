@@ -10,6 +10,7 @@ test('renderCss - returns correct command with CSS', () => {
     ...createDefaultState(),
     id: 1,
     inputBoxHeight: 30,
+    visibleItems: [],
   }
 
   const result = RenderCss.renderCss(oldState, newState)
@@ -30,6 +31,7 @@ test('renderCss - handles different input box heights', () => {
     ...createDefaultState(),
     id: 2,
     inputBoxHeight: 50,
+    visibleItems: [],
   }
 
   const result = RenderCss.renderCss(oldState, newState)
@@ -50,6 +52,7 @@ test('renderCss - handles zero height', () => {
     ...createDefaultState(),
     id: 3,
     inputBoxHeight: 0,
+    visibleItems: [],
   }
 
   const result = RenderCss.renderCss(oldState, newState)
@@ -70,6 +73,7 @@ test('renderCss - handles large height values', () => {
     ...createDefaultState(),
     id: 4,
     inputBoxHeight: 200,
+    visibleItems: [],
   }
 
   const result = RenderCss.renderCss(oldState, newState)
@@ -79,6 +83,68 @@ test('renderCss - handles large height values', () => {
     4,
     `:root {
   --SourceControlInputHeight: 200px;
+}
+`,
+  ])
+})
+
+test('renderCss - generates indent CSS rules', () => {
+  const oldState: SourceControlState = createDefaultState()
+  const newState: SourceControlState = {
+    ...createDefaultState(),
+    id: 5,
+    inputBoxHeight: 30,
+    visibleItems: [
+      {
+        type: 1,
+        file: 'test1',
+        label: 'test1',
+        detail: '',
+        posInSet: 1,
+        setSize: 1,
+        icon: '',
+        decorationIcon: '',
+        decorationIconTitle: '',
+        decorationStrikeThrough: false,
+        badgeCount: 0,
+        groupId: 'test',
+        buttons: [],
+        fileIcon: '',
+        indent: 0,
+      },
+      {
+        type: 0,
+        file: 'test2',
+        label: 'test2',
+        detail: '',
+        posInSet: 1,
+        setSize: 1,
+        icon: '',
+        decorationIcon: '',
+        decorationIconTitle: '',
+        decorationStrikeThrough: false,
+        badgeCount: 0,
+        groupId: 'test',
+        buttons: [],
+        fileIcon: '',
+        indent: 16,
+      },
+    ],
+  }
+
+  const result = RenderCss.renderCss(oldState, newState)
+
+  expect(result).toEqual([
+    ViewletCommand.SetCss,
+    5,
+    `:root {
+  --SourceControlInputHeight: 30px;
+}
+.Indent-0 {
+  padding-left: 0px;
+}
+.Indent-16 {
+  padding-left: 16px;
 }
 `,
   ])
