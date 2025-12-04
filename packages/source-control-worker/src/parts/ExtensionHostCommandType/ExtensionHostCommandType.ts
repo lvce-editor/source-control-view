@@ -5,5 +5,5 @@ export const SourceControlDiscard = 'ExtensionHostSourceControl.discard'
 export const SourceControlGetChangedFiles = 'ExtensionHost.sourceControlGetChangedFiles'
 export const SourceControlGetFileDecorations = 'ExtensionHostSourceControl.getFileDecorations'
 export const SourceControlGetEnabledProviderIds = 'ExtensionHostSourceControl.getEnabledProviderIds'
-export const SourceControlGetFileBefore = 'ExtensionHostSourceControl.getFileBefore'
+export const SourceControlGetFileBefore = 'ExtensionHostSourceControl.GetFileBefore' //TODO
 export const SourceControlGetGroups = 'ExtensionHostSourceControl.getGroups'
