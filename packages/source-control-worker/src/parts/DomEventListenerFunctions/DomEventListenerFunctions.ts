@@ -7,3 +7,4 @@ export const HandleMouseOutAt = 6
 export const HandleMouseOver = 7
 export const HandleMouseOverAt = 8
 export const HandleWheel = 9
+export const HandleClickAction = 10
