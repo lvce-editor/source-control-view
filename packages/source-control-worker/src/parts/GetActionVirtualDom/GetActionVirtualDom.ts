@@ -11,7 +11,7 @@ export const getActionVirtualDom = (action: Action): readonly VirtualDomNode[] =
         id: action.id,
         icon: action.icon,
         command: action.command,
-        label: action.id,
+        label: action.name,
       }
       return GetActionButtonVirtualDom.getActionButtonVirtualDom(actionButton)
     }

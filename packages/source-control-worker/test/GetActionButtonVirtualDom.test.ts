@@ -9,7 +9,7 @@ test('getActionButtonVirtualDom', () => {
     id: 'test-action',
     icon: 'test-icon',
     command: 'test-command',
-    label: '',
+    label: 'test-label',
   }
   const result = GetActionButtonVirtualDom.getActionButtonVirtualDom(action)
   expect(result).toHaveLength(2)
@@ -17,7 +17,7 @@ test('getActionButtonVirtualDom', () => {
     type: VirtualDomElements.Button,
     className: ClassNames.IconButton,
     title: 'test-action',
-    'data-command': 'test-command',
+    name: 'test-label',
     childCount: 1,
   })
 })
