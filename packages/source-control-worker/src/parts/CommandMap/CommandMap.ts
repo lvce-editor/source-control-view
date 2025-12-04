@@ -3,6 +3,7 @@ import { acceptInput } from '../AcceptInput/AcceptInput.ts'
 import * as Create2 from '../Create2/Create2.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import * as GetInfo from '../GetInfo/GetInfo.ts'
+import { getBadgeCount } from '../GetBadgeCount/GetBadgeCount.ts'
 import { getKeyBindings } from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
@@ -40,6 +41,7 @@ export const commandMap = {
   'SourceControl.acceptInput': WrapCommand.wrapCommand(acceptInput),
   'SourceControl.create2': Create2.create2,
   'SourceControl.diff2': Diff2.diff2,
+  'SourceControl.getBadgeCount': WrapCommand.wrapGetter(getBadgeCount),
   'SourceControl.getCommandIds': WrapCommand.getCommandIds,
   'SourceControl.getEnabledProviderIds': getEnabledProviderIds,
   'SourceControl.getFileDecorations': getFileDecorations,
