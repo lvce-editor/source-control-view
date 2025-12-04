@@ -18,6 +18,7 @@ test('getSourceControlItemVirtualDom - directory', () => {
     badgeCount: 0,
     groupId: '',
     fileIcon: '',
+    indent: 0,
     buttons: [],
   }
   const result = getSourceControlItemVirtualDom(item)
@@ -39,6 +40,7 @@ test('getSourceControlItemVirtualDom - directory expanded', () => {
     badgeCount: 0,
     groupId: '',
     fileIcon: '',
+    indent: 0,
     buttons: [],
   }
   const result = getSourceControlItemVirtualDom(item)
@@ -60,6 +62,7 @@ test('getSourceControlItemVirtualDom - other', () => {
     badgeCount: 0,
     groupId: '',
     fileIcon: '',
+    indent: 16,
     buttons: [],
   }
   const result = getSourceControlItemVirtualDom(item)
