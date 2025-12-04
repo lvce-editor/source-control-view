@@ -50,6 +50,8 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     iconDefinitions: [],
     decorationIcons: [],
     focus: 0,
+    isVisible: true,
+    badgeCount: 0,
   }
   SourceControlStates.set(id, state, state)
 }
