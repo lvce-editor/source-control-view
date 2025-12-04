@@ -12,13 +12,13 @@ test('getActionButtonVirtualDom', () => {
     label: 'test-label',
   }
   const result = GetActionButtonVirtualDom.getActionButtonVirtualDom(action)
-  expect(result).toHaveLength(3)
+  expect(result).toHaveLength(2)
   expect(result[0]).toEqual({
     type: VirtualDomElements.Button,
     className: ClassNames.IconButton,
     title: 'test-action',
     'data-command': 'test-command',
     name: 'test-label',
-    childCount: 2,
+    childCount: 1,
   })
 })
