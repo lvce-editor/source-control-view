@@ -38,6 +38,7 @@ test('handleClickSourceControlButtons - valid button click', async (): Promise<v
         badgeCount: 0,
         groupId: '',
         fileIcon: '',
+        indent: 16,
         buttons: [
           {
             label: 'Stage',
@@ -82,6 +83,7 @@ test('handleClickSourceControlButtons - invalid button name', async (): Promise<
         badgeCount: 0,
         groupId: '',
         fileIcon: '',
+        indent: 16,
         buttons: [
           {
             label: 'Stage',
