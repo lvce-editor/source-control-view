@@ -14,6 +14,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds)
   const expandedGroups = restoreExpandedGroups(allGroups)
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
+  const badgeCount = allGroups.reduce((sum, group) => sum + group.items.length, 0)
   const total = displayItems.length
   const contentHeight = total * itemHeight
   const listHeight = getListHeight(total, itemHeight, height)
@@ -28,6 +29,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     ...state,
     actionsCache,
     allGroups,
+    badgeCount,
     enabledProviderIds,
     fileIconCache: newFileIconCache,
     finalDeltaY,

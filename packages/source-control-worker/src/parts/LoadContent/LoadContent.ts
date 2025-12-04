@@ -45,6 +45,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
 
   // TODO make preferences async and more functional
   const splitButtonEnabled = await Preferences.get('sourceControl.splitButtonEnabled')
+  const badgeCount = allGroups.reduce((sum, group) => sum + group.items.length, 0)
   const total = displayItems.length
   const contentHeight = total * itemHeight
   const listHeight = getListHeight(total, itemHeight, height)
@@ -61,6 +62,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
     ...state,
     actionsCache,
     allGroups,
+    badgeCount,
     decorationIcons: iconDefinitions,
     enabledProviderIds,
     fileIconCache: newFileIconCache,
