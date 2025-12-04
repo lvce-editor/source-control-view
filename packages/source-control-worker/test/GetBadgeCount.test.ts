@@ -1,6 +1,6 @@
 import { test, expect } from '@jest/globals'
-import { getBadgeCount } from '../src/parts/GetBadgeCount/GetBadgeCount.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import { getBadgeCount } from '../src/parts/GetBadgeCount/GetBadgeCount.ts'
 
 test('getBadgeCount - returns 0 for default state', (): void => {
   const state = createDefaultState()
