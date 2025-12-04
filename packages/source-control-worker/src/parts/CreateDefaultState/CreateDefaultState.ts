@@ -48,4 +48,6 @@ export const createDefaultState = (): SourceControlState => ({
   iconDefinitions: [],
   decorationIcons: [],
   focus: 0,
+  isVisible: true,
+  badgeCount: 0,
 })

@@ -53,4 +53,6 @@ export interface SourceControlState {
   readonly workspacePath: string
   readonly x: number
   readonly y: number
+  readonly isVisible: boolean
+  readonly badgeCount: number
 }
