@@ -17,7 +17,6 @@ test('getActionButtonVirtualDom', () => {
     type: VirtualDomElements.Button,
     className: ClassNames.IconButton,
     title: 'test-action',
-    'data-command': 'test-command',
     name: 'test-label',
     childCount: 1,
   })

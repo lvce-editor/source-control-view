@@ -11,7 +11,6 @@ export const getActionButtonVirtualDom = (action: ActionButton): readonly Virtua
       type: VirtualDomElements.Button,
       className: ClassNames.IconButton,
       title: id,
-      'data-command': command, // TODO remove this
       name: label,
       childCount: 1,
     },
