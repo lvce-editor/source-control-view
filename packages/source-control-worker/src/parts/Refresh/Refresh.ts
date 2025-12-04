@@ -1,4 +1,5 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { Group } from '../Group/Group.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
 import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
@@ -14,7 +15,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds)
   const expandedGroups = restoreExpandedGroups(allGroups)
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
-  const badgeCount = allGroups.reduce((sum, group) => sum + group.items.length, 0)
+  const badgeCount = allGroups.reduce((sum: number, group: Group) => sum + group.items.length, 0)
   const total = displayItems.length
   const contentHeight = total * itemHeight
   const listHeight = getListHeight(total, itemHeight, height)
