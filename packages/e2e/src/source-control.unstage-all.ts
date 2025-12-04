@@ -2,7 +2,7 @@ import { type Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'source-control.unstage-all'
 
-export const test: Test = async ({ SourceControl, Locator, expect, FileSystem, Workspace, Extension }) => {
+export const test: Test = async ({ expect, Extension, FileSystem, Locator, SourceControl, Workspace }) => {
   // arrange
   const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)

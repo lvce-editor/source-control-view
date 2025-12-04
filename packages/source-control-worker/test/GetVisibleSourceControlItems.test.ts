@@ -15,18 +15,18 @@ test('getVisibleSourceControlItems - empty items', () => {
 test('getVisibleSourceControlItems - single item', () => {
   const items = [
     {
-      type: DirentType.File,
-      file: 'test.txt',
-      label: 'test.txt',
-      detail: '',
-      posInSet: 1,
-      setSize: 1,
-      icon: '',
+      badgeCount: 0,
       decorationIcon: '',
       decorationIconTitle: '',
       decorationStrikeThrough: false,
-      badgeCount: 0,
+      detail: '',
+      file: 'test.txt',
       groupId: 'test',
+      icon: '',
+      label: 'test.txt',
+      posInSet: 1,
+      setSize: 1,
+      type: DirentType.File,
     },
   ]
   const minLineY = 0
@@ -35,9 +35,9 @@ test('getVisibleSourceControlItems - single item', () => {
     'test-item': [
       {
         command: 'test.command',
+        icon: 'test',
         id: 'test',
         label: 'Test',
-        icon: 'test',
       },
     ],
   }
@@ -58,32 +58,32 @@ test('getVisibleSourceControlItems - single item', () => {
 test('getVisibleSourceControlItems - multiple items', () => {
   const items = [
     {
-      type: DirentType.File,
-      file: 'test1.txt',
-      label: 'test1.txt',
+      badgeCount: 0,
+      decorationIcon: '',
+      decorationIconTitle: '',
+      decorationStrikeThrough: false,
       detail: '',
+      file: 'test1.txt',
+      groupId: 'test1',
+      icon: '',
+      label: 'test1.txt',
       posInSet: 1,
       setSize: 2,
-      icon: '',
-      decorationIcon: '',
-      decorationIconTitle: '',
-      decorationStrikeThrough: false,
-      badgeCount: 0,
-      groupId: 'test1',
+      type: DirentType.File,
     },
     {
-      type: DirentType.File,
-      file: 'test2.txt',
-      label: 'test2.txt',
-      detail: '',
-      posInSet: 2,
-      setSize: 2,
-      icon: '',
+      badgeCount: 0,
       decorationIcon: '',
       decorationIconTitle: '',
       decorationStrikeThrough: false,
-      badgeCount: 0,
+      detail: '',
+      file: 'test2.txt',
       groupId: 'test2',
+      icon: '',
+      label: 'test2.txt',
+      posInSet: 2,
+      setSize: 2,
+      type: DirentType.File,
     },
   ]
   const minLineY = 0
@@ -92,17 +92,17 @@ test('getVisibleSourceControlItems - multiple items', () => {
     'test1-item': [
       {
         command: 'test1.command',
+        icon: 'test1',
         id: 'test1',
         label: 'Test1',
-        icon: 'test1',
       },
     ],
     'test2-item': [
       {
         command: 'test2.command',
+        icon: 'test2',
         id: 'test2',
         label: 'Test2',
-        icon: 'test2',
       },
     ],
   }

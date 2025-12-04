@@ -20,9 +20,9 @@ test('applyRender - returns single command for RenderItems diff type', (): void 
   const newState: SourceControlState = {
     ...createDefaultState(),
     id: 1,
-    visibleItems: [],
-    splitButtonEnabled: false,
     inputPlaceholder: '',
+    splitButtonEnabled: false,
+    visibleItems: [],
   }
 
   const result = ApplyRender.applyRender(oldState, newState, [DiffType.RenderItems])
@@ -63,8 +63,8 @@ test('applyRender - returns single command for RenderFocusContext diff type', ()
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
     ...createDefaultState(),
-    id: 4,
     focus: 5,
+    id: 4,
   }
 
   const result = ApplyRender.applyRender(oldState, newState, [DiffType.RenderFocusContext])
@@ -77,13 +77,13 @@ test('applyRender - returns multiple commands for multiple diff types', (): void
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
     ...createDefaultState(),
+    focus: 10,
     id: 5,
-    visibleItems: [],
-    splitButtonEnabled: false,
+    inputBoxHeight: 40,
     inputPlaceholder: '',
     inputValue: 'test',
-    inputBoxHeight: 40,
-    focus: 10,
+    splitButtonEnabled: false,
+    visibleItems: [],
   }
 
   const result = ApplyRender.applyRender(oldState, newState, [DiffType.RenderItems, DiffType.RenderValue, DiffType.RenderCss, DiffType.RenderFocusContext])
@@ -99,8 +99,8 @@ test('applyRender - handles duplicate diff types', (): void => {
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
     ...createDefaultState(),
-    id: 6,
     focus: 7,
+    id: 6,
   }
 
   const result = ApplyRender.applyRender(oldState, newState, [DiffType.RenderFocusContext, DiffType.RenderFocusContext])

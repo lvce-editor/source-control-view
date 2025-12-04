@@ -8,6 +8,7 @@ import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 export interface SourceControlState {
   readonly actionsCache: ActionsCache
   readonly allGroups: readonly Group[]
+  readonly badgeCount: number
   readonly decorationIcons: readonly string[]
   readonly deltaY: number
   readonly enabledProviderIds: readonly string[]
@@ -33,6 +34,7 @@ export interface SourceControlState {
   readonly inputPlaceholder: string
   readonly inputSource: number
   readonly inputValue: string
+  readonly isVisible: boolean
   readonly itemHeight: number
   readonly items: readonly DisplayItem[]
   readonly maxInputLines: number
@@ -53,6 +55,4 @@ export interface SourceControlState {
   readonly workspacePath: string
   readonly x: number
   readonly y: number
-  readonly isVisible: boolean
-  readonly badgeCount: number
 }

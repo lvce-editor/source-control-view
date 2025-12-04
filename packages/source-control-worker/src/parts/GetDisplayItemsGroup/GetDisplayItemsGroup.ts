@@ -7,7 +7,7 @@ import * as Workspace from '../Workspace/Workspace.ts'
 
 export const getDisplayItemsGroup = (group: Group, expandedGroups: Readonly<Record<string, boolean>>, iconDefinitions: readonly string[]): readonly DisplayItem[] => {
   const displayItems: DisplayItem[] = []
-  const { id, label, items } = group
+  const { id, items, label } = group
   if (!items) {
     throw new Error('Source control group is missing an items property')
   }
@@ -17,18 +17,18 @@ export const getDisplayItemsGroup = (group: Group, expandedGroups: Readonly<Reco
   const icon = isExpanded ? 'ChevronDown' : 'ChevronRight'
   if (length > 0) {
     displayItems.push({
-      file: '',
-      label,
-      detail: '',
-      posInSet: 1,
-      setSize: 1,
-      icon,
+      badgeCount: length,
       decorationIcon: '',
       decorationIconTitle: '',
       decorationStrikeThrough: false,
-      type,
-      badgeCount: length,
+      detail: '',
+      file: '',
       groupId: id,
+      icon,
+      label,
+      posInSet: 1,
+      setSize: 1,
+      type,
     })
   }
   if (isExpanded) {
@@ -39,18 +39,18 @@ export const getDisplayItemsGroup = (group: Group, expandedGroups: Readonly<Reco
       const folderName = file.slice(0, -baseName.length - 1)
       const actualDecorationIcon = getActualDecorationIcon(iconDefinitions, icon)
       displayItems.push({
-        file,
-        label: baseName,
-        detail: folderName,
-        posInSet: i + 1,
-        setSize: length,
-        icon: IconTheme.getFileIcon({ name: file }),
+        badgeCount: 0,
         decorationIcon: actualDecorationIcon,
         decorationIconTitle: iconTitle,
         decorationStrikeThrough: strikeThrough,
-        type: DirentType.File,
-        badgeCount: 0,
+        detail: folderName,
+        file,
         groupId: id,
+        icon: IconTheme.getFileIcon({ name: file }),
+        label: baseName,
+        posInSet: i + 1,
+        setSize: length,
+        type: DirentType.File,
       })
     }
   }

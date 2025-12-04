@@ -11,22 +11,22 @@ test('getSourceControlHeaderVirtualDom', () => {
   const result = GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder)
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.SourceControlHeader,
       childCount: 1,
+      className: ClassNames.SourceControlHeader,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.TextArea,
-      className: 'InputBox MultilineInputBox',
       ariaLabel: ViewletSourceControlStrings.sourceControlInput(),
       autocapitalize: 'off',
       autocorrect: 'off',
       childCount: 0,
+      className: 'InputBox MultilineInputBox',
       name: InputName.SourceControlInput,
       onFocus: DomEventListenerFunctions.HandleFocus,
       onInput: DomEventListenerFunctions.HandleInput,
       placeholder: inputPlaceholder,
       spellcheck: false,
+      type: VirtualDomElements.TextArea,
     },
   ])
 })

@@ -5,21 +5,21 @@ import { getSourceControlItemVirtualDom } from '../src/parts/GetSourceControlIte
 
 test('getSourceControlItemVirtualDom - directory', () => {
   const item: VisibleItem = {
-    file: 'test',
-    label: 'test',
-    detail: '',
-    posInSet: 1,
-    setSize: 1,
-    icon: '',
+    badgeCount: 0,
+    buttons: [],
     decorationIcon: '',
     decorationIconTitle: '',
     decorationStrikeThrough: false,
-    type: DirentType.Directory,
-    badgeCount: 0,
-    groupId: '',
+    detail: '',
+    file: 'test',
     fileIcon: '',
+    groupId: '',
+    icon: '',
     indent: 0,
-    buttons: [],
+    label: 'test',
+    posInSet: 1,
+    setSize: 1,
+    type: DirentType.Directory,
   }
   const result = getSourceControlItemVirtualDom(item)
   expect(result).toBeDefined()
@@ -27,21 +27,21 @@ test('getSourceControlItemVirtualDom - directory', () => {
 
 test('getSourceControlItemVirtualDom - directory expanded', () => {
   const item: VisibleItem = {
-    file: 'test',
-    label: 'test',
-    detail: '',
-    posInSet: 1,
-    setSize: 1,
-    icon: '',
+    badgeCount: 0,
+    buttons: [],
     decorationIcon: '',
     decorationIconTitle: '',
     decorationStrikeThrough: false,
-    type: DirentType.DirectoryExpanded,
-    badgeCount: 0,
-    groupId: '',
+    detail: '',
+    file: 'test',
     fileIcon: '',
+    groupId: '',
+    icon: '',
     indent: 0,
-    buttons: [],
+    label: 'test',
+    posInSet: 1,
+    setSize: 1,
+    type: DirentType.DirectoryExpanded,
   }
   const result = getSourceControlItemVirtualDom(item)
   expect(result).toBeDefined()
@@ -49,21 +49,21 @@ test('getSourceControlItemVirtualDom - directory expanded', () => {
 
 test('getSourceControlItemVirtualDom - other', () => {
   const item: VisibleItem = {
-    file: 'test.js',
-    label: 'test.js',
-    detail: '',
-    posInSet: 1,
-    setSize: 1,
-    icon: '',
+    badgeCount: 0,
+    buttons: [],
     decorationIcon: '',
     decorationIconTitle: '',
     decorationStrikeThrough: false,
-    type: DirentType.File,
-    badgeCount: 0,
-    groupId: '',
+    detail: '',
+    file: 'test.js',
     fileIcon: '',
+    groupId: '',
+    icon: '',
     indent: 16,
-    buttons: [],
+    label: 'test.js',
+    posInSet: 1,
+    setSize: 1,
+    type: DirentType.File,
   }
   const result = getSourceControlItemVirtualDom(item)
   expect(result).toBeDefined()

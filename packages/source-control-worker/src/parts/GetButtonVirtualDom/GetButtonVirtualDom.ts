@@ -8,12 +8,12 @@ export const getButtonVirtualDom = (button: ActionButton): readonly VirtualDomNo
   const { icon, label } = button
   return [
     {
-      type: VirtualDomElements.Button,
-      className: ClassNames.SourceControlButton,
-      title: label,
       ariaLabel: label,
       childCount: 1,
+      className: ClassNames.SourceControlButton,
       name: label,
+      title: label,
+      type: VirtualDomElements.Button,
     },
     GetIconVirtualDom.getIconVirtualDom(icon, VirtualDomElements.Span),
   ]

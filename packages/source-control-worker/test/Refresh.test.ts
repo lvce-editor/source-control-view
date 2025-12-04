@@ -23,12 +23,12 @@ test('refresh should update state with groups and visible items', async (): Prom
   expect(result).toEqual({
     ...state,
     allGroups: [],
+    finalDeltaY: 0,
     gitRoot: '',
     items: [],
-    visibleItems: [],
     maxLineY: 0,
     scrollBarHeight: 0,
-    finalDeltaY: 0,
+    visibleItems: [],
   })
   expect(mockRpc.invocations).toEqual([])
 })

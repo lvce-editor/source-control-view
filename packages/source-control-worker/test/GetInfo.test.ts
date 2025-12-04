@@ -10,13 +10,13 @@ test('getInfo - returns allGroups from state', (): void => {
   const groups = [
     {
       id: 'group1',
-      label: 'Group 1',
       items: [],
+      label: 'Group 1',
     },
     {
       id: 'group2',
-      label: 'Group 2',
       items: [],
+      label: 'Group 2',
     },
   ]
   const state: SourceControlState = {
@@ -46,13 +46,13 @@ test('getInfo - returns groups with items', (): void => {
   const groups = [
     {
       id: 'group1',
-      label: 'Group 1',
       items: [
         {
           file: 'test.js',
           label: 'test.js',
         },
       ],
+      label: 'Group 1',
     },
   ]
   const state: SourceControlState = {

@@ -6,8 +6,8 @@ import { createItemOther } from '../CreateItemOther/CreateItemOther.ts'
 
 export const getSourceControlItemVirtualDom = (item: VisibleItem): readonly VirtualDomNode[] => {
   switch (item.type) {
-    case DirentType.DirectoryExpanded:
     case DirentType.Directory:
+    case DirentType.DirectoryExpanded:
       return createItemDirectory(item)
     default:
       return createItemOther(item)

@@ -9,18 +9,18 @@ test('saveState', () => {
   const defaultState = createDefaultState()
   const state: SourceControlState = {
     ...defaultState,
-    root: '/test',
-    maxLineY: 100,
     expandedGroups: { '1': true, '2': false },
+    maxLineY: 100,
+    root: '/test',
   }
   set(uid, state, state)
   const result = saveState(uid)
   expect(result).toEqual({
-    root: '/test',
-    minLineY: 0,
-    maxLineY: 100,
     deltaY: 0,
     expandedGroups: { '1': true, '2': false },
     inputValue: '',
+    maxLineY: 100,
+    minLineY: 0,
+    root: '/test',
   })
 })

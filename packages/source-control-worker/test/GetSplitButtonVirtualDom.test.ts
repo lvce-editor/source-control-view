@@ -9,36 +9,36 @@ test('getSourceControlItemsVirtualDom - with items', () => {
   const result = getSplitButtonVirtualDom(true, splitButtonEnabled, 'test')
   expect(result).toHaveLength(6)
   expect(result[0]).toEqual({
-    type: VirtualDomElements.Div,
-    className: ClassNames.SplitButton,
     childCount: 3,
+    className: ClassNames.SplitButton,
+    type: VirtualDomElements.Div,
   })
   expect(result[1]).toEqual({
-    type: VirtualDomElements.Div,
-    className: ClassNames.SplitButtonContent,
     childCount: 1,
+    className: ClassNames.SplitButtonContent,
     tabIndex: 0,
+    type: VirtualDomElements.Div,
   })
   expect(result[2]).toEqual({
-    type: VirtualDomElements.Text,
-    text: 'test',
     childCount: 0,
+    text: 'test',
+    type: VirtualDomElements.Text,
   })
   expect(result[3]).toEqual({
-    type: VirtualDomElements.Div,
-    className: ClassNames.SplitButtonSeparator,
     childCount: 0,
+    className: ClassNames.SplitButtonSeparator,
+    type: VirtualDomElements.Div,
   })
   expect(result[4]).toEqual({
-    type: VirtualDomElements.Div,
-    className: ClassNames.SplitButtonDropDown,
     childCount: 1,
+    className: ClassNames.SplitButtonDropDown,
     tabIndex: 0,
+    type: VirtualDomElements.Div,
   })
   expect(result[5]).toEqual({
-    type: VirtualDomElements.Div,
-    className: `${ClassNames.MaskIcon} ${ClassNames.MaskIconChevronDown}`,
     childCount: 0,
+    className: `${ClassNames.MaskIcon} ${ClassNames.MaskIconChevronDown}`,
+    type: VirtualDomElements.Div,
   })
 })
 
@@ -73,9 +73,9 @@ test('getSplitButtonVirtualDom - verifies SplitButtonSeparator structure (lines 
   const hasItems = true
   const result = getSplitButtonVirtualDom(hasItems, splitButtonEnabled, 'Commit')
   expect(result[3]).toEqual({
-    type: VirtualDomElements.Div,
-    className: ClassNames.SplitButtonSeparator,
     childCount: 0,
+    className: ClassNames.SplitButtonSeparator,
+    type: VirtualDomElements.Div,
   })
 })
 

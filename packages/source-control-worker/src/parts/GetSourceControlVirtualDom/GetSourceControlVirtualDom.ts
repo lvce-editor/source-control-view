@@ -14,14 +14,14 @@ export const getSourceControlVirtualDom = (items: readonly VisibleItem[], splitB
   const hasItems = items.length > 0
   const dom = [
     {
-      type: VirtualDomElements.Div,
+      childCount: splitButtonEnabled ? 3 : 2,
       className: className,
-      tabIndex: 0,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onMouseOver: DomEventListenerFunctions.HandleMouseOver,
       // onMouseOut: DomEventListenerFunctions.HandleMouseOut,
       onWheel: DomEventListenerFunctions.HandleWheel,
-      childCount: splitButtonEnabled ? 3 : 2,
+      tabIndex: 0,
+      type: VirtualDomElements.Div,
     },
     ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder),
     ...GetSplitButtonVirtualDom.getSplitButtonVirtualDom(hasItems, splitButtonEnabled, 'Commit'),

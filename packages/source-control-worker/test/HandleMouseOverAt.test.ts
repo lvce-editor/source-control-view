@@ -6,39 +6,39 @@ import { handleMouseOverAt } from '../src/parts/HandleMouseOverAt/HandleMouseOve
 
 test('handleMouseOverAt - with valid index', async (): Promise<void> => {
   const item1: DisplayItem = {
-    file: 'item1',
-    label: 'Item 1',
+    badgeCount: 0,
+    decorationIcon: '',
+    decorationIconTitle: '',
+    decorationStrikeThrough: false,
     detail: '',
+    file: 'item1',
+    groupId: 'group1',
+    icon: '',
+    label: 'Item 1',
     posInSet: 1,
     setSize: 2,
-    icon: '',
-    decorationIcon: '',
-    decorationIconTitle: '',
-    decorationStrikeThrough: false,
     type: 0,
-    badgeCount: 0,
-    groupId: 'group1',
   }
   const item2: DisplayItem = {
-    file: 'item2',
-    label: 'Item 2',
-    detail: '',
-    posInSet: 2,
-    setSize: 2,
-    icon: '',
+    badgeCount: 0,
     decorationIcon: '',
     decorationIconTitle: '',
     decorationStrikeThrough: false,
-    type: 0,
-    badgeCount: 0,
+    detail: '',
+    file: 'item2',
     groupId: 'group1',
+    icon: '',
+    label: 'Item 2',
+    posInSet: 2,
+    setSize: 2,
+    type: 0,
   }
   const state: SourceControlState = {
     ...createDefaultState(),
-    y: 10,
     headerHeight: 40,
     itemHeight: 20,
     items: [item1, item2],
+    y: 10,
   }
   const eventX = 50
   const eventY = 70
@@ -50,10 +50,10 @@ test('handleMouseOverAt - with valid index', async (): Promise<void> => {
 test('handleMouseOverAt - with invalid index (no item)', async (): Promise<void> => {
   const state: SourceControlState = {
     ...createDefaultState(),
-    y: 10,
     headerHeight: 40,
     itemHeight: 20,
     items: [],
+    y: 10,
   }
   const eventX = 50
   const eventY = 70
@@ -63,25 +63,25 @@ test('handleMouseOverAt - with invalid index (no item)', async (): Promise<void>
 
 test('handleMouseOverAt - with index out of bounds', async (): Promise<void> => {
   const item1: DisplayItem = {
-    file: 'item1',
-    label: 'Item 1',
-    detail: '',
-    posInSet: 1,
-    setSize: 1,
-    icon: '',
+    badgeCount: 0,
     decorationIcon: '',
     decorationIconTitle: '',
     decorationStrikeThrough: false,
-    type: 0,
-    badgeCount: 0,
+    detail: '',
+    file: 'item1',
     groupId: 'group1',
+    icon: '',
+    label: 'Item 1',
+    posInSet: 1,
+    setSize: 1,
+    type: 0,
   }
   const state: SourceControlState = {
     ...createDefaultState(),
-    y: 10,
     headerHeight: 40,
     itemHeight: 20,
     items: [item1],
+    y: 10,
   }
   const eventX = 50
   const eventY = 200
@@ -91,39 +91,39 @@ test('handleMouseOverAt - with index out of bounds', async (): Promise<void> => 
 
 test('handleMouseOverAt - with index at first item', async (): Promise<void> => {
   const item1: DisplayItem = {
-    file: 'item1',
-    label: 'Item 1',
+    badgeCount: 0,
+    decorationIcon: '',
+    decorationIconTitle: '',
+    decorationStrikeThrough: false,
     detail: '',
+    file: 'item1',
+    groupId: 'group1',
+    icon: '',
+    label: 'Item 1',
     posInSet: 1,
     setSize: 2,
-    icon: '',
-    decorationIcon: '',
-    decorationIconTitle: '',
-    decorationStrikeThrough: false,
     type: 0,
-    badgeCount: 0,
-    groupId: 'group1',
   }
   const item2: DisplayItem = {
-    file: 'item2',
-    label: 'Item 2',
-    detail: '',
-    posInSet: 2,
-    setSize: 2,
-    icon: '',
+    badgeCount: 0,
     decorationIcon: '',
     decorationIconTitle: '',
     decorationStrikeThrough: false,
-    type: 0,
-    badgeCount: 0,
+    detail: '',
+    file: 'item2',
     groupId: 'group1',
+    icon: '',
+    label: 'Item 2',
+    posInSet: 2,
+    setSize: 2,
+    type: 0,
   }
   const state: SourceControlState = {
     ...createDefaultState(),
-    y: 0,
     headerHeight: 40,
     itemHeight: 20,
     items: [item1, item2],
+    y: 0,
   }
   const eventX = 50
   const eventY = 50

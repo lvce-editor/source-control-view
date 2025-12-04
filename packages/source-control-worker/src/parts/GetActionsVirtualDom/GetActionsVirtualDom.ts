@@ -9,11 +9,11 @@ import * as GetActionVirtualDom from '../GetActionVirtualDom/GetActionVirtualDom
 export const getActionsVirtualDom = (actions: readonly Action[]): readonly VirtualDomNode[] => {
   return [
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.Actions,
-      role: AriaRoles.ToolBar,
       childCount: actions.length,
+      className: ClassNames.Actions,
       onClick: DomEventListenerFunctions.HandleClickAction,
+      role: AriaRoles.ToolBar,
+      type: VirtualDomElements.Div,
     },
     ...actions.flatMap(GetActionVirtualDom.getActionVirtualDom),
   ]

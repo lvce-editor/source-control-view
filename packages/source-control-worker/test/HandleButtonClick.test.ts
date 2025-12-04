@@ -9,11 +9,11 @@ test('handleButtonClick - valid button click', async (): Promise<void> => {
   const extensionHostCommandMap = {
     'ExtensionHostCommand.executeCommand': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<never[]> => [],
-    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<never[]> => [],
     'ExtensionHostSourceControl.getGroups': async (): Promise<{ allGroups: never[]; gitRoot: string }> => ({
       allGroups: [],
       gitRoot: '',
     }),
+    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<never[]> => [],
     'Extensions.getExtensions': async (): Promise<never[]> => [],
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
@@ -30,27 +30,27 @@ test('handleButtonClick - valid button click', async (): Promise<void> => {
     ...createDefaultState(),
     visibleItems: [
       {
-        file: 'test.js',
-        label: 'test.js',
-        detail: '',
-        posInSet: 1,
-        setSize: 1,
-        icon: '',
+        badgeCount: 0,
+        buttons: [
+          {
+            command: 'git.stage',
+            icon: '',
+            label: 'Stage',
+          },
+        ],
         decorationIcon: '',
         decorationIconTitle: '',
         decorationStrikeThrough: false,
-        type: 0,
-        badgeCount: 0,
-        groupId: '',
+        detail: '',
+        file: 'test.js',
         fileIcon: '',
+        groupId: '',
+        icon: '',
         indent: 16,
-        buttons: [
-          {
-            label: 'Stage',
-            command: 'git.stage',
-            icon: '',
-          },
-        ],
+        label: 'test.js',
+        posInSet: 1,
+        setSize: 1,
+        type: 0,
       },
     ],
   }
@@ -74,21 +74,21 @@ test('handleButtonClick - invalid button index', async (): Promise<void> => {
     ...createDefaultState(),
     visibleItems: [
       {
-        file: 'test.js',
-        label: 'test.js',
-        detail: '',
-        posInSet: 1,
-        setSize: 1,
-        icon: '',
+        badgeCount: 0,
+        buttons: [],
         decorationIcon: '',
         decorationIconTitle: '',
         decorationStrikeThrough: false,
-        type: 0,
-        badgeCount: 0,
-        groupId: '',
+        detail: '',
+        file: 'test.js',
         fileIcon: '',
+        groupId: '',
+        icon: '',
         indent: 16,
-        buttons: [],
+        label: 'test.js',
+        posInSet: 1,
+        setSize: 1,
+        type: 0,
       },
     ],
   }

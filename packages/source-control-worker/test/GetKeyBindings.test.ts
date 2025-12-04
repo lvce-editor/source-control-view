@@ -7,8 +7,8 @@ test('getKeyBindings returns expected key bindings', (): void => {
   const result = getKeyBindings()
   expect(result).toEqual([
     {
-      key: KeyModifier.CtrlCmd | KeyCode.Enter,
       command: 'Source Control.acceptInput',
+      key: KeyModifier.CtrlCmd | KeyCode.Enter,
       when: WhenExpression.FocusSourceControlInput,
     },
   ])
