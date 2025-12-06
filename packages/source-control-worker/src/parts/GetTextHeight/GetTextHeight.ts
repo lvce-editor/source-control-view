@@ -24,7 +24,7 @@ export const getTextHeight = async (
     // fallback
     const lines = input.split('\n')
     const lineCount = lines.length
-    const inputHeight = lineCount * lineHeight
+    const inputHeight = lineCount * lineHeight + inputPadding * 2
     return inputHeight
   }
 }
