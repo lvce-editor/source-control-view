@@ -50,7 +50,7 @@ test('loadContent - with saved state inputValue', async (): Promise<void> => {
   const result = await loadContent(state, savedState)
 
   expect(result.inputValue).toBe('test commit message')
-  expect(result.inputBoxHeight).toBe(45)
+  expect(result.inputBoxHeight).toBe(49) // 45 from RPC + inputPadding * 2 (2 * 2 = 4)
 })
 
 test('loadContent - with enabled providers', async (): Promise<void> => {

@@ -20,7 +20,7 @@ test('getInputHeight - passes through all parameters correctly', async () => {
   }
   const mockRpc = RendererWorker.registerMockRpc(commandMap)
 
-  const result = await GetInputHeight.getInputHeight('multiline\ninput', 300, 'Monaco', 600, 16, 1, 25)
+  const result = await GetInputHeight.getInputHeight('multiline\ninput', 300, 'Monaco', 600, 16, 1, 25, 0)
 
   expect(result).toBe(45)
   expect(mockRpc.invocations).toEqual([['MeasureTextHeight.measureTextBlockHeight', 'multiline\ninput', 'Monaco', 16, '25px', 300]])
@@ -51,6 +51,7 @@ test('getInputHeight - handles large height values', async () => {
     18,
     0,
     40,
+    0,
   )
 
   expect(result).toBe(200)
@@ -62,7 +63,7 @@ test('getInputHeight - handles zero height', async () => {
   }
   RendererWorker.registerMockRpc(commandMap)
 
-  const result = await GetInputHeight.getInputHeight('test', 200, 'Arial', 400, 14, 0, 30)
+  const result = await GetInputHeight.getInputHeight('test', 200, 'Arial', 400, 14, 0, 30, 0)
 
   expect(result).toBe(0)
 })
