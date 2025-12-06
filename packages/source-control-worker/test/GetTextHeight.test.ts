@@ -46,9 +46,9 @@ test('getTextHeight - handles empty input', async () => {
   }
   RendererWorker.registerMockRpc(commandMap)
 
-  const result = await GetTextHeight.getTextHeight('', 200, 'Arial', 14, 400, 0, 30)
+  const result = await GetTextHeight.getTextHeight('', 200, 'Arial', 14, 400, 0, 30, 0)
 
-  expect(result).toBe(30) // empty string returns lineHeight directly without RPC call
+  expect(result).toBe(30) // empty string returns lineHeight + inputPadding * 2
 })
 
 test('getTextHeight - handles multiline input with different line heights', async () => {

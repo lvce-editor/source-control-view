@@ -32,9 +32,9 @@ test('getInputHeight - handles different input values', async () => {
   }
   RendererWorker.registerMockRpc(commandMap)
 
-  const result = await GetInputHeight.getInputHeight('', 100, 'Courier', 300, 12, 2, 20)
+  const result = await GetInputHeight.getInputHeight('', 100, 'Courier', 300, 12, 2, 20, 0)
 
-  expect(result).toBe(20) // empty string returns lineHeight directly
+  expect(result).toBe(20) // empty string returns lineHeight + inputPadding * 2
 })
 
 test('getInputHeight - handles large height values', async () => {
