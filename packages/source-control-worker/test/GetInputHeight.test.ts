@@ -8,7 +8,7 @@ test('getInputHeight - returns height from RPC call when successful', async () =
   }
   const mockRpc = RendererWorker.registerMockRpc(commandMap)
 
-  const result = await GetInputHeight.getInputHeight('test input', 200, 'Arial', 400, 14, 0, 30)
+  const result = await GetInputHeight.getInputHeight('test input', 200, 'Arial', 400, 14, 0, 30, 0)
 
   expect(result).toBe(60)
   expect(mockRpc.invocations).toEqual([['MeasureTextHeight.measureTextBlockHeight', 'test input', 'Arial', 14, '30px', 200]])
