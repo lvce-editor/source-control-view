@@ -1,5 +1,5 @@
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import type { Group } from '../Group/Group.ts'
+import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
 import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
