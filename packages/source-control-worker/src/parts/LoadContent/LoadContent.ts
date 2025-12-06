@@ -26,6 +26,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
     inputFontWeight,
     inputLetterSpacing,
     inputLineHeight,
+    inputPadding,
     itemHeight,
     minimumSliderSize,
     width,
@@ -58,7 +59,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
   const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inputPlaceholder = SourceControlStrings.messageEnterToCommitOnMaster()
-  const inputBoxHeight = await getInputHeight(inputValue, width, inputFontFamily, inputFontSize, inputFontWeight, inputLetterSpacing, inputLineHeight)
+  const inputBoxHeight = await getInputHeight(inputValue, width, inputFontFamily, inputFontSize, inputFontWeight, inputLetterSpacing, inputLineHeight, inputPadding)
   return {
     ...state,
     actionsCache,

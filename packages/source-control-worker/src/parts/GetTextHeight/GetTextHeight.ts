@@ -8,10 +8,11 @@ export const getTextHeight = async (
   fontWeight: number,
   letterSpacing: number,
   lineHeight: number,
+  inputPadding: number,
 ): Promise<number> => {
   try {
     if (!input) {
-      return lineHeight
+      return lineHeight + inputPadding * 2
     }
     const actualInput = input
     // TODO line height could also be like 1.5
