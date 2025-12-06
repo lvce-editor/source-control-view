@@ -31,6 +31,7 @@ export interface SourceControlState {
   readonly inputFontWeight: number
   readonly inputLetterSpacing: number
   readonly inputLineHeight: number
+  readonly inputPadding: number
   readonly inputPlaceholder: string
   readonly inputSource: number
   readonly inputValue: string

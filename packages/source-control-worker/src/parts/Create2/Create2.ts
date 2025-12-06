@@ -28,6 +28,7 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     inputFontWeight: 400,
     inputLetterSpacing: 0,
     inputLineHeight: 20,
+    inputPadding: 2,
     inputPlaceholder: '',
     inputSource: 0,
     inputValue: '',
