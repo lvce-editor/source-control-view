@@ -43,13 +43,13 @@ test('restoreExpandedGroups - groups with full structure', (): void => {
   const groups: Array<{ id: string; label: string; items: readonly unknown[] }> = [
     {
       id: 'group1',
-      label: 'Group 1',
       items: [],
+      label: 'Group 1',
     },
     {
       id: 'group2',
-      label: 'Group 2',
       items: [],
+      label: 'Group 2',
     },
   ]
   const result = restoreExpandedGroups(groups)

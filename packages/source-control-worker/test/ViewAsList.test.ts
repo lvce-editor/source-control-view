@@ -14,9 +14,9 @@ test('viewAsList - sets viewMode to List', () => {
 test('viewAsList - preserves other state properties', () => {
   const state: SourceControlState = {
     ...createDefaultState(),
+    height: 200,
     id: 123,
     width: 300,
-    height: 200,
   }
 
   const result = ViewAsList.viewAsList(state)

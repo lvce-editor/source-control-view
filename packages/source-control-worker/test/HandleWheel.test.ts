@@ -62,10 +62,10 @@ test('handleWheel - with initial zero deltaY', async (): Promise<void> => {
 test('handleWheel - preserves other state properties', async (): Promise<void> => {
   const state: SourceControlState = {
     ...createDefaultState(),
+    deltaY: 5,
+    height: 300,
     id: 42,
     width: 200,
-    height: 300,
-    deltaY: 5,
   }
 
   const newState = await handleWheel(state, 0, 10)

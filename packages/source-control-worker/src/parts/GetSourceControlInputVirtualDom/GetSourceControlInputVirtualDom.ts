@@ -8,17 +8,17 @@ import * as ViewletSourceControlStrings from '../SourceControlStrings/SourceCont
 export const getSourceControlInputDom = (inputPlaceholder: string): readonly VirtualDomNode[] => {
   return [
     {
-      type: VirtualDomElements.TextArea,
-      className: mergeClassNames(ClassNames.InputBox, 'MultilineInputBox'),
       ariaLabel: ViewletSourceControlStrings.sourceControlInput(),
       autocapitalize: 'off',
       autocorrect: 'off',
       childCount: 0,
+      className: mergeClassNames(ClassNames.InputBox, 'MultilineInputBox'),
       name: InputName.SourceControlInput,
       onFocus: DomEventListenerFunctions.HandleFocus,
       onInput: DomEventListenerFunctions.HandleInput,
       placeholder: inputPlaceholder,
       spellcheck: false,
+      type: VirtualDomElements.TextArea,
     },
   ]
 }

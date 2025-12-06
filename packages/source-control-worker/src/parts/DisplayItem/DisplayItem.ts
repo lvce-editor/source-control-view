@@ -1,14 +1,14 @@
 export interface DisplayItem {
-  readonly file: string
-  readonly label: string
-  readonly detail: string
-  readonly posInSet: number
-  readonly setSize: number
-  readonly icon: string
+  readonly badgeCount: number
   readonly decorationIcon: string
   readonly decorationIconTitle: string
   readonly decorationStrikeThrough: boolean
-  readonly type: number
-  readonly badgeCount: number
+  readonly detail: string
+  readonly file: string
   readonly groupId: string
+  readonly icon: string
+  readonly label: string
+  readonly posInSet: number
+  readonly setSize: number
+  readonly type: number
 }

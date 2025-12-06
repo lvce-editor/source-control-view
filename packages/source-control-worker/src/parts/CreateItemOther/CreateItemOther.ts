@@ -11,9 +11,9 @@ import { getTreeItemClassName } from '../GetTreeItemClassName/GetTreeItemClassNa
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 const chevron: VirtualDomNode = {
-  type: VirtualDomElements.Div,
-  className: ClassNames.Chevron,
   childCount: 1,
+  className: ClassNames.Chevron,
+  type: VirtualDomElements.Div,
 }
 
 const getIconsDom = (icon: string, fileIcon: string): readonly VirtualDomNode[] => {
@@ -25,7 +25,7 @@ const getIconsDom = (icon: string, fileIcon: string): readonly VirtualDomNode[] 
 }
 
 export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] => {
-  const { posInSet, setSize, icon, file, label, decorationIcon, decorationIconTitle, decorationStrikeThrough, detail, buttons, fileIcon, indent } = item
+  const { buttons, decorationIcon, decorationIconTitle, decorationStrikeThrough, detail, file, fileIcon, icon, indent, label, posInSet, setSize } = item
   const labelClassName = getLabelClassName(decorationStrikeThrough)
   const dom: VirtualDomNode[] = []
   const hasButtons = buttons.length
@@ -33,21 +33,21 @@ export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] =>
   const treeItemClassName = getTreeItemClassName(indent)
   dom.push(
     {
-      type: VirtualDomElements.Div,
-      className: treeItemClassName,
-      role: AriaRoles.TreeItem,
       ariaPosInSet: posInSet,
       ariaSetSize: setSize,
-      title: file,
       childCount: 3 + (hasButtons ? 1 : 0),
+      className: treeItemClassName,
       paddingRight: '12px',
+      role: AriaRoles.TreeItem,
+      title: file,
+      type: VirtualDomElements.Div,
     },
     ...getIconsDom(icon, fileIcon),
   )
   const labelDom = {
-    type: VirtualDomElements.Div,
-    className: labelClassName,
     childCount: 1,
+    className: labelClassName,
+    type: VirtualDomElements.Div,
   }
   dom.push(labelDom, text(label))
 
@@ -55,20 +55,20 @@ export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] =>
     labelDom.childCount++
     dom.push(
       {
-        type: VirtualDomElements.Span,
-        className: ClassNames.LabelDetail,
         childCount: 1,
+        className: ClassNames.LabelDetail,
+        type: VirtualDomElements.Span,
       },
       text(detail),
     )
   }
   dom.push(...buttonsDom)
   dom.push({
-    type: VirtualDomElements.Img,
-    className: ClassNames.DecorationIcon,
-    title: decorationIconTitle,
-    src: decorationIcon,
     childCount: 0,
+    className: ClassNames.DecorationIcon,
+    src: decorationIcon,
+    title: decorationIconTitle,
+    type: VirtualDomElements.Img,
   })
   return dom
 }

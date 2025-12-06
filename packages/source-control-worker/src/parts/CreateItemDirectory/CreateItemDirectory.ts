@@ -12,31 +12,31 @@ import * as TreeItemPadding from '../TreeItemPadding/TreeItemPadding.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 export const createItemDirectory = (item: VisibleItem): readonly VirtualDomNode[] => {
-  const { posInSet, setSize, icon, label, badgeCount, decorationStrikeThrough, type, buttons, indent } = item
+  const { badgeCount, buttons, decorationStrikeThrough, icon, indent, label, posInSet, setSize, type } = item
   const labelClassName = getLabelClassName(decorationStrikeThrough)
   const buttonsDom = getButtonsVirtualDom(buttons)
   const hasButtons = buttons.length
   const treeItemClassName = getTreeItemClassName(indent)
   return [
     {
-      type: VirtualDomElements.Div,
-      className: treeItemClassName,
-      role: AriaRoles.TreeItem,
       ariaExpanded: type === DirentType.DirectoryExpanded,
       ariaPosInSet: posInSet,
       ariaSetSize: setSize,
       childCount: 3 + (hasButtons ? 1 : 0),
+      className: treeItemClassName,
       paddingRight: TreeItemPadding.PaddingRight,
+      role: AriaRoles.TreeItem,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Div,
-      className: MergeClassNames.mergeClassNames(ClassNames.Chevron, `MaskIcon${icon}`),
       childCount: 0,
+      className: MergeClassNames.mergeClassNames(ClassNames.Chevron, `MaskIcon${icon}`),
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Div,
-      className: labelClassName,
       childCount: 1,
+      className: labelClassName,
+      type: VirtualDomElements.Div,
     },
     text(label),
     ...buttonsDom,

@@ -10,32 +10,32 @@ export const getSplitButtonVirtualDom = (hasItems: boolean, splitButtonEnabled: 
   }
   return [
     {
-      type: VirtualDomElements.Div,
-      className: MergeClassNames.mergeClassNames(ClassNames.SplitButton, hasItems ? '' : ClassNames.SplitButtonDisabled),
       childCount: 3,
+      className: MergeClassNames.mergeClassNames(ClassNames.SplitButton, hasItems ? '' : ClassNames.SplitButtonDisabled),
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Div,
-      className: MergeClassNames.mergeClassNames(ClassNames.SplitButtonContent, hasItems ? '' : ClassNames.SplitButtonContentDisabled),
       childCount: 1,
+      className: MergeClassNames.mergeClassNames(ClassNames.SplitButtonContent, hasItems ? '' : ClassNames.SplitButtonContentDisabled),
       tabIndex: 0,
+      type: VirtualDomElements.Div,
     },
     text(buttonText),
     {
-      type: VirtualDomElements.Div,
+      childCount: 0,
       className: ClassNames.SplitButtonSeparator,
-      childCount: 0,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Div,
-      className: MergeClassNames.mergeClassNames(ClassNames.SplitButtonDropDown, hasItems ? '' : ClassNames.SplitButtonDropDownDisabled),
       childCount: 1,
+      className: MergeClassNames.mergeClassNames(ClassNames.SplitButtonDropDown, hasItems ? '' : ClassNames.SplitButtonDropDownDisabled),
       tabIndex: 0,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Div,
-      className: MergeClassNames.mergeClassNames(ClassNames.MaskIcon, ClassNames.MaskIconChevronDown),
       childCount: 0,
+      className: MergeClassNames.mergeClassNames(ClassNames.MaskIcon, ClassNames.MaskIconChevronDown),
+      type: VirtualDomElements.Div,
     },
   ]
 }

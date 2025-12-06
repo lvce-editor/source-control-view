@@ -10,8 +10,8 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
     'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
-    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
@@ -36,8 +36,8 @@ test('loadContent - with saved state inputValue', async (): Promise<void> => {
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
     'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
-    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 45,
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 45,
     'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
@@ -57,11 +57,11 @@ test('loadContent - with enabled providers', async (): Promise<void> => {
   const commandMap = {
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
-    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => ['icon1', 'icon2'],
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [],
+    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => ['icon1', 'icon2'],
     'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
-    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
@@ -82,7 +82,6 @@ test('loadContent - with groups', async (): Promise<void> => {
   const mockGroups = [
     {
       id: 'group1',
-      label: 'Changes',
       items: [
         {
           file: '/test/file1.js',
@@ -91,17 +90,18 @@ test('loadContent - with groups', async (): Promise<void> => {
           strikeThrough: false,
         },
       ],
+      label: 'Changes',
     },
   ]
 
   const commandMap = {
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
-    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => [],
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => mockGroups,
+    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => [],
     'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
-    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
@@ -132,8 +132,8 @@ test('loadContent - with source control actions', async (): Promise<void> => {
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
     'Extensions.getExtensions': async (): Promise<readonly any[]> => mockExtensions,
-    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
@@ -152,7 +152,6 @@ test('loadContent - calculates scroll bar and visible items correctly', async ()
   const mockGroups = [
     {
       id: 'group1',
-      label: 'Changes',
       items: [
         {
           file: '/test/file1.js',
@@ -167,17 +166,18 @@ test('loadContent - calculates scroll bar and visible items correctly', async ()
           strikeThrough: false,
         },
       ],
+      label: 'Changes',
     },
   ]
 
   const commandMap = {
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
-    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => [],
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => mockGroups,
+    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => [],
     'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
-    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'IconTheme.getIcons': async (): Promise<readonly string[]> => ['icon1', 'icon2'],
+    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
@@ -185,10 +185,10 @@ test('loadContent - calculates scroll bar and visible items correctly', async ()
 
   const state: SourceControlState = {
     ...createDefaultState(),
-    workspacePath: '/test/workspace',
     height: 200,
     itemHeight: 20,
     minimumSliderSize: 30,
+    workspacePath: '/test/workspace',
   }
   const result = await loadContent(state, {})
 

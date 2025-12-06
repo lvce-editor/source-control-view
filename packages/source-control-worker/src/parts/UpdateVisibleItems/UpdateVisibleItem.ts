@@ -5,7 +5,7 @@ import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOf
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 
 export const updateVisibleItems = async (state: Readonly<SourceControlState>, expandedGroups: Readonly<Record<string, boolean>>): Promise<SourceControlState> => {
-  const { itemHeight, height, actionsCache, fileIconCache, allGroups, iconDefinitions } = state
+  const { actionsCache, allGroups, fileIconCache, height, iconDefinitions, itemHeight } = state
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
   const badgeCount = allGroups.reduce((sum, group) => sum + group.items.length, 0)
   const total = displayItems.length
@@ -16,11 +16,16 @@ export const updateVisibleItems = async (state: Readonly<SourceControlState>, ex
   const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, fileIconCache)
   return {
     ...state,
+<<<<<<< HEAD
     badgeCount,
     items: displayItems,
     visibleItems,
+=======
+>>>>>>> origin/main
     expandedGroups,
-    minLineY,
+    items: displayItems,
     maxLineY,
+    minLineY,
+    visibleItems,
   }
 }

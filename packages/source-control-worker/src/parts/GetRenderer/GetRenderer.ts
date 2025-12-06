@@ -7,14 +7,14 @@ import { renderValue } from '../RenderValue/RenderValue.ts'
 
 export const getRenderer = (diffType: number): Renderer => {
   switch (diffType) {
-    case DiffType.RenderItems:
-      return RenderItems.renderItems
-    case DiffType.RenderValue:
-      return renderValue
     case DiffType.RenderCss:
       return renderCss
     case DiffType.RenderFocusContext:
       return renderFocusContext
+    case DiffType.RenderItems:
+      return RenderItems.renderItems
+    case DiffType.RenderValue:
+      return renderValue
     default:
       throw new Error('unknown renderer')
   }

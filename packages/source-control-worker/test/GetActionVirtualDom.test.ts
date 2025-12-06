@@ -8,30 +8,30 @@ import * as MaskIcon from '../src/parts/MaskIcon/MaskIcon.ts'
 
 test('getActionVirtualDom - Button action', () => {
   const action = {
-    type: ActionType.Button as 1,
+    command: 'test-command',
+    icon: MaskIcon.Check,
     id: 'test-action',
     name: InputName.ViewAsTree,
-    icon: MaskIcon.Check,
-    command: 'test-command',
+    type: ActionType.Button as 1,
   }
   const result = getActionVirtualDom(action)
   expect(result).toHaveLength(2)
   expect(result[0]).toEqual({
-    type: VirtualDomElements.Button,
-    className: ClassNames.IconButton,
-    title: 'test-action',
-    name: InputName.ViewAsTree,
     childCount: 1,
+    className: ClassNames.IconButton,
+    name: InputName.ViewAsTree,
+    title: 'test-action',
+    type: VirtualDomElements.Button,
   })
 })
 
 test('getActionVirtualDom - unknown action type', () => {
   const action = {
-    type: 999 as 1,
+    command: 'test',
+    icon: MaskIcon.Check,
     id: 'test',
     name: InputName.ViewAsTree,
-    icon: MaskIcon.Check,
-    command: 'test',
+    type: 999 as 1,
   }
   const result = getActionVirtualDom(action)
   expect(result).toEqual([])

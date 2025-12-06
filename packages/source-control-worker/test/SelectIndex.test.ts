@@ -19,31 +19,31 @@ test('selectIndex - directory', async (): Promise<void> => {
   ParentRpc.registerMockRpc(commandMap)
 
   const testItem = {
-    type: DirentType.Directory,
-    file: 'test',
-    label: 'test',
-    detail: '',
-    posInSet: 1,
-    setSize: 1,
-    icon: '',
+    badgeCount: 0,
     decorationIcon: '',
     decorationIconTitle: '',
     decorationStrikeThrough: false,
-    badgeCount: 0,
+    detail: '',
+    file: 'test',
     groupId: 'test',
+    icon: '',
+    label: 'test',
+    posInSet: 1,
+    setSize: 1,
+    type: DirentType.Directory,
   }
 
   const state: SourceControlState = {
     ...createDefaultState(),
-    items: [testItem],
     allGroups: [
       {
         id: 'test',
-        label: 'test',
         items: [testItem],
+        label: 'test',
       },
     ],
     enabledProviderIds: ['test'],
+    items: [testItem],
   }
   const newState = await selectIndex(state, 0)
   expect(newState.expandedGroups['test']).toBe(true)
@@ -57,32 +57,32 @@ test('selectIndex - expanded directory', async (): Promise<void> => {
   ParentRpc.registerMockRpc(commandMap)
 
   const testItem = {
-    type: DirentType.DirectoryExpanded,
-    file: 'test',
-    label: 'test',
-    detail: '',
-    posInSet: 1,
-    setSize: 1,
-    icon: '',
+    badgeCount: 0,
     decorationIcon: '',
     decorationIconTitle: '',
     decorationStrikeThrough: false,
-    badgeCount: 0,
+    detail: '',
+    file: 'test',
     groupId: 'test',
+    icon: '',
+    label: 'test',
+    posInSet: 1,
+    setSize: 1,
+    type: DirentType.DirectoryExpanded,
   }
 
   const state: SourceControlState = {
     ...createDefaultState(),
-    items: [testItem],
     allGroups: [
       {
         id: 'test',
-        label: 'test',
         items: [testItem],
+        label: 'test',
       },
     ],
     enabledProviderIds: ['test'],
     expandedGroups: { test: true },
+    items: [testItem],
   }
   const newState = await selectIndex(state, 0)
   expect(newState.expandedGroups['test']).toBe(false)
@@ -103,31 +103,31 @@ test('selectIndex - file', async (): Promise<void> => {
   ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const testItem = {
-    type: DirentType.File,
-    file: 'test.txt',
-    label: 'test.txt',
-    detail: '',
-    posInSet: 1,
-    setSize: 1,
-    icon: '',
+    badgeCount: 0,
     decorationIcon: '',
     decorationIconTitle: '',
     decorationStrikeThrough: false,
-    badgeCount: 0,
+    detail: '',
+    file: 'test.txt',
     groupId: 'test',
+    icon: '',
+    label: 'test.txt',
+    posInSet: 1,
+    setSize: 1,
+    type: DirentType.File,
   }
 
   const state: SourceControlState = {
     ...createDefaultState(),
-    items: [testItem],
     allGroups: [
       {
         id: 'test',
-        label: 'test',
         items: [testItem],
+        label: 'test',
       },
     ],
     enabledProviderIds: ['test'],
+    items: [testItem],
     root: '/test',
   }
   const newState = await selectIndex(state, 0)
@@ -136,31 +136,31 @@ test('selectIndex - file', async (): Promise<void> => {
 
 test('selectIndex - unknown item type', async (): Promise<void> => {
   const testItem = {
-    type: 999,
-    file: 'test',
-    label: 'test',
-    detail: '',
-    posInSet: 1,
-    setSize: 1,
-    icon: '',
+    badgeCount: 0,
     decorationIcon: '',
     decorationIconTitle: '',
     decorationStrikeThrough: false,
-    badgeCount: 0,
+    detail: '',
+    file: 'test',
     groupId: 'test',
+    icon: '',
+    label: 'test',
+    posInSet: 1,
+    setSize: 1,
+    type: 999,
   }
 
   const state: SourceControlState = {
     ...createDefaultState(),
-    items: [testItem],
     allGroups: [
       {
         id: 'test',
-        label: 'test',
         items: [testItem],
+        label: 'test',
       },
     ],
     enabledProviderIds: ['test'],
+    items: [testItem],
   }
   const newState = await selectIndex(state, 0)
   expect(newState).toBe(state)

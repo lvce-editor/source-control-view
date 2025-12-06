@@ -4,7 +4,7 @@ export const name = 'source-control.handle-new-line'
 
 export const skip = 1
 
-export const test: Test = async ({ SourceControl, Locator, expect, FileSystem, Workspace, Extension }) => {
+export const test: Test = async ({ expect, Extension, FileSystem, Locator, SourceControl, Workspace }) => {
   // arrange
   const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)
