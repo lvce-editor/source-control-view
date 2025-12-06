@@ -27,8 +27,8 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
   expect(result.visibleItems).toEqual([])
   expect(result.inputValue).toBe('')
   expect(result.inputPlaceholder).toBeDefined()
-  // Empty input returns lineHeight directly without RPC call
-  expect(result.inputBoxHeight).toBe(state.inputLineHeight)
+  // Empty input returns lineHeight + inputPadding * 2
+  expect(result.inputBoxHeight).toBe(state.inputLineHeight + state.inputPadding * 2)
 })
 
 test('loadContent - with saved state inputValue', async (): Promise<void> => {
@@ -50,7 +50,7 @@ test('loadContent - with saved state inputValue', async (): Promise<void> => {
   const result = await loadContent(state, savedState)
 
   expect(result.inputValue).toBe('test commit message')
-  expect(result.inputBoxHeight).toBe(45)
+  expect(result.inputBoxHeight).toBe(49) // 45 from RPC + inputPadding * 2 (2 * 2 = 4)
 })
 
 test('loadContent - with enabled providers', async (): Promise<void> => {

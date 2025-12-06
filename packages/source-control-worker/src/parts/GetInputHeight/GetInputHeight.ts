@@ -8,7 +8,8 @@ export const getInputHeight = async (
   fontSize: number,
   letterSpacing: number,
   lineHeight: number,
+  inputPadding: number,
 ): Promise<number> => {
-  const height = await getTextHeight(input, width, fontFamily, fontSize, fontWeight, letterSpacing, lineHeight)
+  const height = await getTextHeight(input, width, fontFamily, fontSize, fontWeight, letterSpacing, lineHeight, inputPadding)
   return height
 }
