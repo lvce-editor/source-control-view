@@ -16,12 +16,7 @@ export const updateVisibleItems = async (state: Readonly<SourceControlState>, ex
   const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, fileIconCache)
   return {
     ...state,
-<<<<<<< HEAD
     badgeCount,
-    items: displayItems,
-    visibleItems,
-=======
->>>>>>> origin/main
     expandedGroups,
     items: displayItems,
     maxLineY,
