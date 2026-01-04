@@ -51,4 +51,6 @@ export const createDefaultState = (): SourceControlState => ({
   workspacePath: '',
   x: 0,
   y: 0,
+  assetDir: '',
+  platform: 0,
 })

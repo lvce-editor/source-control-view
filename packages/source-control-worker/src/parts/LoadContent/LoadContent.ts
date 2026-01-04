@@ -35,10 +35,11 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
   const root = workspacePath
   const scheme = GetProtocol.getProtocol(root)
   const { inputValue } = restoreState(savedState)
-  const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root)
+  const { assetDir, platform } = state
+  const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root, assetDir, platform)
 
   const iconDefinitions = await SourceControl.getIconDefinitions(enabledProviderIds)
-  const { allGroups, gitRoot } = await getGroups(enabledProviderIds)
+  const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform)
 
   const expandedGroups = restoreExpandedGroups(allGroups)
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)

@@ -56,4 +56,6 @@ export interface SourceControlState {
   readonly workspacePath: string
   readonly x: number
   readonly y: number
+  readonly assetDir: string
+  readonly platform: number
 }
