@@ -16,7 +16,7 @@ export const handleClickSourceControlButtons = async (state: SourceControlState,
     return state
   }
   const { file } = item
-  await ExtensionHostCommand.executeCommand(button.command, file)
+  await ExtensionHostCommand.executeCommand(button.command, state.assetDir, state.platform, file)
   const newState = await refresh(state)
   return newState
 }

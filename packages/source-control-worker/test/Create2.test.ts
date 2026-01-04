@@ -11,7 +11,7 @@ test('create2 - creates state with provided parameters', (): void => {
   const height = 400
   const workspacePath = '/test/workspace'
 
-  create2(id, uri, x, y, width, height, workspacePath)
+  create2(id, uri, x, y, width, height, workspacePath, 0, '')
 
   const { newState } = get(id)
   expect(newState).toBeDefined()

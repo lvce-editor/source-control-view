@@ -13,7 +13,7 @@ test('getGroups - aggregates groups from multiple providers', async (): Promise<
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
-  const result = await getGroups(['provider1', 'provider2'])
+  const result = await getGroups(['provider1', 'provider2'], '/test-root', '/test-asset-dir', 1)
   expect(result).toEqual({
     allGroups: [{ id: 'group1' }, { id: 'group2' }, { id: 'group1' }, { id: 'group2' }],
     gitRoot: '',
@@ -33,7 +33,7 @@ test('getGroups - empty providers', async (): Promise<void> => {
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
-  const result = await getGroups([])
+  const result = await getGroups([], '/test-root', '/test-asset-dir', 1)
   expect(result).toEqual({
     allGroups: [],
     gitRoot: '',
@@ -53,7 +53,7 @@ test('getGroups - single provider', async (): Promise<void> => {
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
-  const result = await getGroups(['provider1'])
+  const result = await getGroups(['provider1'], '/test-root', '/test-asset-dir', 1)
   expect(result).toEqual({
     allGroups: [],
     gitRoot: '',
@@ -73,7 +73,7 @@ test('getGroups - multiple providers', async (): Promise<void> => {
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
-  const result = await getGroups(['provider1', 'provider2'])
+  const result = await getGroups(['provider1', 'provider2'], '/test-root', '/test-asset-dir', 1)
   expect(result).toEqual({
     allGroups: [],
     gitRoot: '',

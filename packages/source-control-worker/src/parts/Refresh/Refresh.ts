@@ -11,8 +11,8 @@ import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedG
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 
 export const refresh = async (state: SourceControlState): Promise<SourceControlState> => {
-  const { actionsCache, enabledProviderIds, fileIconCache, height, iconDefinitions, itemHeight, minimumSliderSize, splitButtonEnabled } = state
-  const { allGroups, gitRoot } = await getGroups(enabledProviderIds)
+  const { actionsCache, assetDir, enabledProviderIds, fileIconCache, height, iconDefinitions, itemHeight, minimumSliderSize, platform, root, splitButtonEnabled } = state
+  const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform)
   const expandedGroups = restoreExpandedGroups(allGroups)
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
   const badgeCount = allGroups.reduce((sum: number, group: Group) => sum + group.items.length, 0)

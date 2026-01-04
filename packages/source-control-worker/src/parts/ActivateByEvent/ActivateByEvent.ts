@@ -1,5 +1,5 @@
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 
-export const activateByEvent = (event: string): Promise<void> => {
-  return RendererWorker.activateByEvent(event)
+export const activateByEvent = (event: string, assetDir: string, platform: number): Promise<void> => {
+  return RendererWorker.activateByEvent(event, assetDir, platform)
 }

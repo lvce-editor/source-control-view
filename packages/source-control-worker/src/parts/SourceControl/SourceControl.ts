@@ -6,22 +6,22 @@ export const state = {
   initialized: false,
 }
 
-export const acceptInput = (providerId: string, text: string): Promise<void> => {
+export const acceptInput = (providerId: string, text: string, assetDir: string, platform: number): Promise<void> => {
   Assert.string(providerId)
   Assert.string(text)
-  return ExtensionHostSourceControl.acceptInput(providerId, text)
+  return ExtensionHostSourceControl.acceptInput(providerId, text, assetDir, platform)
 }
 
-export const getChangedFiles = (providerId: string): Promise<readonly any[]> => {
-  return ExtensionHostSourceControl.getChangedFiles(providerId)
+export const getChangedFiles = (providerId: string, assetDir: string, platform: number): Promise<readonly any[]> => {
+  return ExtensionHostSourceControl.getChangedFiles(providerId, assetDir, platform)
 }
 
-export const getFileDecorations = (providerId: string, uris: readonly string[]): Promise<readonly any[]> => {
-  return ExtensionHostSourceControl.getFileDecorations(providerId, uris)
+export const getFileDecorations = (providerId: string, uris: readonly string[], assetDir: string, platform: number): Promise<readonly any[]> => {
+  return ExtensionHostSourceControl.getFileDecorations(providerId, uris, assetDir, platform)
 }
 
-export const getFileBefore = (providerId: string, file: string): Promise<any> => {
-  return ExtensionHostSourceControl.getFileBefore(providerId, file)
+export const getFileBefore = (providerId: string, file: string, assetDir: string, platform: number): Promise<any> => {
+  return ExtensionHostSourceControl.getFileBefore(providerId, file, assetDir, platform)
 }
 
 export const add = (file: string): Promise<void> => {
@@ -38,14 +38,14 @@ export const openFile = async (file: string): Promise<void> => {
   // TODO
 }
 
-export const getEnabledProviderIds = (scheme: string, root: string): Promise<readonly string[]> => {
+export const getEnabledProviderIds = (scheme: string, root: string, assetDir: string, platform: number): Promise<readonly string[]> => {
   Assert.string(scheme)
   Assert.string(root)
-  return ExtensionHostSourceControl.getEnabledProviderIds(scheme, root)
+  return ExtensionHostSourceControl.getEnabledProviderIds(scheme, root, assetDir, platform)
 }
 
-export const getGroups = (providerId: string, root: string): Promise<any> => {
-  return ExtensionHostSourceControl.getGroups(providerId, root)
+export const getGroups = (providerId: string, root: string, assetDir: string, platform: number): Promise<any> => {
+  return ExtensionHostSourceControl.getGroups(providerId, root, assetDir, platform)
 }
 
 export const getIconDefinitions = async (providerIds: readonly string[]): Promise<readonly string[]> => {

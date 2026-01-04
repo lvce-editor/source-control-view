@@ -9,7 +9,7 @@ export const handleButtonClick = async (state: SourceControlState, clickedIndex:
   if (!button) {
     return state
   }
-  await ExtensionHostCommand.executeCommand(button.command, item.file)
+  await ExtensionHostCommand.executeCommand(button.command, state.assetDir, state.platform, item.file)
   const newState = await loadContent(state, {})
   return newState
 }
