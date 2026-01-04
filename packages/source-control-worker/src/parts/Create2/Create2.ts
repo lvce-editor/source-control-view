@@ -1,10 +1,21 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import * as SourceControlStates from '../SourceControlStates/SourceControlStates.ts'
 
-export const create2 = (id: number, uri: string, x: number, y: number, width: number, height: number, workspacePath: string): void => {
+export const create2 = (
+  id: number,
+  uri: string,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  workspacePath: string,
+  platform: number,
+  assetDir: string,
+): void => {
   const state: SourceControlState = {
     actionsCache: Object.create(null),
     allGroups: [],
+    assetDir,
     badgeCount: 0,
     decorationIcons: [],
     deltaY: 0,
@@ -40,6 +51,7 @@ export const create2 = (id: number, uri: string, x: number, y: number, width: nu
     merge: [],
     minimumSliderSize: 20,
     minLineY: 0,
+    platform,
     providerId: '',
     root: '',
     scrollBarActive: false,
