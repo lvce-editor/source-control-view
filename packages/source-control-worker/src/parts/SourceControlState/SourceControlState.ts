@@ -8,6 +8,7 @@ import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 export interface SourceControlState {
   readonly actionsCache: ActionsCache
   readonly allGroups: readonly Group[]
+  readonly assetDir: string
   readonly badgeCount: number
   readonly decorationIcons: readonly string[]
   readonly deltaY: number
@@ -43,6 +44,7 @@ export interface SourceControlState {
   readonly merge: readonly any[]
   readonly minimumSliderSize: number
   readonly minLineY: number
+  readonly platform: number
   readonly providerId: string
   readonly root: string
   readonly scrollBarActive: boolean
@@ -56,6 +58,4 @@ export interface SourceControlState {
   readonly workspacePath: string
   readonly x: number
   readonly y: number
-  readonly assetDir: string
-  readonly platform: number
 }

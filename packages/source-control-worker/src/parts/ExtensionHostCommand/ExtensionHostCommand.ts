@@ -3,10 +3,10 @@ import * as ExtensionHostCommandType from '../ExtensionHostCommandType/Extension
 
 export const executeCommand = (id: string, assetDir: string, platform: number, ...args: readonly any[]): Promise<void> => {
   return ExtensionHostShared.executeProvider({
+    assetDir,
     event: `onCommand:${id}`,
     method: ExtensionHostCommandType.CommandExecute,
     params: [id, ...args],
-    assetDir,
     platform,
   })
 }

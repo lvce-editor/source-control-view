@@ -4,7 +4,7 @@ import * as Logger from '../Logger/Logger.ts'
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 
 export const acceptInput = async (state: SourceControlState): Promise<SourceControlState> => {
-  const { enabledProviderIds, inputValue, assetDir, platform } = state
+  const { assetDir, enabledProviderIds, inputValue, platform } = state
   if (enabledProviderIds.length === 0) {
     Logger.info('[ViewletSourceControl] no source control provider found')
     return state

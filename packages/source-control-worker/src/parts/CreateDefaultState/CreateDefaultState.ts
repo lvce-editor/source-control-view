@@ -3,6 +3,7 @@ import type { SourceControlState } from '../SourceControlState/SourceControlStat
 export const createDefaultState = (): SourceControlState => ({
   actionsCache: Object.create(null),
   allGroups: [],
+  assetDir: '',
   badgeCount: 0,
   decorationIcons: [],
   deltaY: 0,
@@ -38,6 +39,7 @@ export const createDefaultState = (): SourceControlState => ({
   merge: [],
   minimumSliderSize: 30,
   minLineY: 0,
+  platform: 0,
   providerId: '',
   root: '/',
   scrollBarActive: false,
@@ -51,6 +53,4 @@ export const createDefaultState = (): SourceControlState => ({
   workspacePath: '',
   x: 0,
   y: 0,
-  assetDir: '',
-  platform: 0,
 })
