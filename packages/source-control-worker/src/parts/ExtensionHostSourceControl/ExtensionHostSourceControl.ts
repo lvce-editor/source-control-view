@@ -1,3 +1,4 @@
+import * as Assert from '@lvce-editor/assert'
 import { ExtensionHost } from '@lvce-editor/rpc-registry'
 import * as ExecuteProvider from '../ExecuteProvider/ExecuteProvider.ts'
 import * as ExtensionHostCommandType from '../ExtensionHostCommandType/ExtensionHostCommandType.ts'
@@ -24,6 +25,8 @@ export const getChangedFiles = (providerId: string, assetDir: string, platform: 
   })
 }
 export const getFileDecorations = (providerId: string, uris: readonly string[], assetDir: string, platform: number): Promise<readonly any[]> => {
+  Assert.string(assetDir)
+  Assert.number(platform)
   return ExecuteProvider.executeProvider({
     assetDir,
     event: 'none',
