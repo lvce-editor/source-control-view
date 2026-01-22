@@ -32,6 +32,7 @@ export const create2 = (
     iconDefinitions: [],
     id,
     index: [],
+    initial: true,
     inputBoxHeight: 30,
     inputBoxMaxHeight: 214,
     inputFontFamily: 'system-ui, Ubuntu, "Droid Sans", sans-serif',
