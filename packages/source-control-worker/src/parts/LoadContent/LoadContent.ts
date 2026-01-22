@@ -72,6 +72,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
     finalDeltaY,
     gitRoot,
     iconDefinitions,
+    initial: false,
     inputBoxHeight,
     inputPlaceholder,
     inputValue,
