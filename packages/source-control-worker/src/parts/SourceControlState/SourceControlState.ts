@@ -25,6 +25,7 @@ export interface SourceControlState {
   readonly iconDefinitions: readonly string[]
   readonly id: number
   readonly index: readonly any[]
+  readonly initial: boolean
   readonly inputBoxHeight: number
   readonly inputBoxMaxHeight: number
   readonly inputFontFamily: string

@@ -20,6 +20,7 @@ export const createDefaultState = (): SourceControlState => ({
   iconDefinitions: [],
   id: 1,
   index: [],
+  initial: false,
   inputBoxHeight: 30,
   inputBoxMaxHeight: 214,
   inputFontFamily: '',
