@@ -14,6 +14,7 @@ const IconType = {
 }
 
 const staged = Object.create(null)
+const committed = Object.create(null)
 
 const renamedFilesMap = Object.create(null)
 
@@ -57,7 +58,15 @@ const isStaged = (dirent) => {
   return dirent.name in staged
 }
 
+const isCommitted = (dirent) => {
+  return dirent.name in committed
+}
+
 const isChanged = (dirent) => {
+  console.log({ dirent, committed })
+  if (isCommitted(dirent)) {
+    return false
+  }
   if (isStaged(dirent)) {
     return false
   }
@@ -69,6 +78,7 @@ const getGroups = async () => {
   const dirents = await vscode.readDirWithFileTypes(root)
   const changed = dirents.filter(isChanged).map((item) => toChangedItem(item, root))
   const staged = dirents.filter(isStaged).map((item) => toStagedItem(item, root))
+  console.log({ changed, staged })
   const groups = [
     {
       id: 'merge',
@@ -91,6 +101,8 @@ const getGroups = async () => {
       items: [],
     },
   ]
+  console.log({ groups })
+
   return groups
 }
 
@@ -114,8 +126,21 @@ const unstageAll = () => {
   }
 }
 
+const commit = (path) => {
+  committed[path] = true
+  delete staged[path]
+}
+
+const commitAll = () => {
+  console.log({ staged: { ...staged } })
+  for (const path in staged) {
+    commit(path)
+  }
+}
+
 const acceptInput = () => {
-  // No-op for this sample provider
+  console.log('accept input')
+  commitAll()
 }
 
 const getFileBefore = (path) => {
