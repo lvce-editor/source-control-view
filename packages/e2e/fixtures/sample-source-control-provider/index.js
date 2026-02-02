@@ -63,7 +63,6 @@ const isCommitted = (dirent) => {
 }
 
 const isChanged = (dirent) => {
-  console.log({ dirent, committed })
   if (isCommitted(dirent)) {
     return false
   }
@@ -78,7 +77,6 @@ const getGroups = async () => {
   const dirents = await vscode.readDirWithFileTypes(root)
   const changed = dirents.filter(isChanged).map((item) => toChangedItem(item, root))
   const staged = dirents.filter(isStaged).map((item) => toStagedItem(item, root))
-  console.log({ changed, staged })
   const groups = [
     {
       id: 'merge',
@@ -101,8 +99,6 @@ const getGroups = async () => {
       items: [],
     },
   ]
-  console.log({ groups })
-
   return groups
 }
 
@@ -132,14 +128,12 @@ const commit = (path) => {
 }
 
 const commitAll = () => {
-  console.log({ staged: { ...staged } })
   for (const path in staged) {
     commit(path)
   }
 }
 
 const acceptInput = () => {
-  console.log('accept input')
   commitAll()
 }
 
