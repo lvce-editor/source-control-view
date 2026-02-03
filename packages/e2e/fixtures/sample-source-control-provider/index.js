@@ -14,6 +14,7 @@ const IconType = {
 }
 
 const staged = Object.create(null)
+const committed = Object.create(null)
 
 const renamedFilesMap = Object.create(null)
 
@@ -57,7 +58,14 @@ const isStaged = (dirent) => {
   return dirent.name in staged
 }
 
+const isCommitted = (dirent) => {
+  return dirent.name in committed
+}
+
 const isChanged = (dirent) => {
+  if (isCommitted(dirent)) {
+    return false
+  }
   if (isStaged(dirent)) {
     return false
   }
@@ -114,8 +122,19 @@ const unstageAll = () => {
   }
 }
 
+const commit = (path) => {
+  committed[path] = true
+  delete staged[path]
+}
+
+const commitAll = () => {
+  for (const path in staged) {
+    commit(path)
+  }
+}
+
 const acceptInput = () => {
-  // No-op for this sample provider
+  commitAll()
 }
 
 const getFileBefore = (path) => {

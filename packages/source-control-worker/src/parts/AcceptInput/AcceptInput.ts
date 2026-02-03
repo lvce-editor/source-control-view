@@ -9,8 +9,9 @@ export const acceptInput = async (state: SourceControlState): Promise<SourceCont
     Logger.info('[ViewletSourceControl] no source control provider found')
     return state
   }
-  const providerId = enabledProviderIds[0]
-  await SourceControl.acceptInput(providerId, inputValue, assetDir, platform)
+  for (const providerId of enabledProviderIds) {
+    await SourceControl.acceptInput(providerId, inputValue, assetDir, platform)
+  }
   const newState = await loadContent(state, {})
   return {
     ...newState,
