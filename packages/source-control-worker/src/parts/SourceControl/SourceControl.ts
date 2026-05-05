@@ -12,6 +12,27 @@ export const acceptInput = (providerId: string, text: string, assetDir: string, 
   return ExtensionHostSourceControl.acceptInput(providerId, text, assetDir, platform)
 }
 
+export const generateCommitMessage = (providerId: string, assetDir: string, platform: number): Promise<string> => {
+  Assert.string(providerId)
+  return ExtensionHostSourceControl.generateCommitMessage(providerId, assetDir, platform)
+}
+
+export const getShowGenerateCommitMessageButton = async (providerId: string, assetDir: string, platform: number): Promise<boolean> => {
+  Assert.string(providerId)
+  try {
+    const features = await ExtensionHostSourceControl.getFeatures(providerId, assetDir, platform)
+    if (!features || typeof features !== 'object') {
+      return true
+    }
+    if ('showGenerateCommitMessageButton' in features && typeof features.showGenerateCommitMessageButton === 'boolean') {
+      return features.showGenerateCommitMessageButton
+    }
+    return true
+  } catch {
+    return true
+  }
+}
+
 export const getChangedFiles = (providerId: string, assetDir: string, platform: number): Promise<readonly any[]> => {
   return ExtensionHostSourceControl.getChangedFiles(providerId, assetDir, platform)
 }

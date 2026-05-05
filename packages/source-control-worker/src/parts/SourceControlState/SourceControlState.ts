@@ -33,6 +33,7 @@ export interface SourceControlState {
   readonly inputFontWeight: number
   readonly inputLetterSpacing: number
   readonly inputLineHeight: number
+  readonly inputMessage: string
   readonly inputPadding: number
   readonly inputPlaceholder: string
   readonly inputSource: number
@@ -50,6 +51,7 @@ export interface SourceControlState {
   readonly root: string
   readonly scrollBarActive: boolean
   readonly scrollBarHeight: number
+  readonly showGenerateCommitMessageButton: boolean
   readonly splitButtonEnabled: boolean
   readonly untracked: readonly any[]
   readonly viewMode: ViewMode

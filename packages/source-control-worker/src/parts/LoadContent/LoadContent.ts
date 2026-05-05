@@ -37,6 +37,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
   const { inputValue } = restoreState(savedState)
   const { assetDir, platform } = state
   const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root, assetDir, platform)
+  const showGenerateCommitMessageButton = enabledProviderIds.length === 0 ? false : await SourceControl.getShowGenerateCommitMessageButton(enabledProviderIds[0], assetDir, platform)
 
   const iconDefinitions = await SourceControl.getIconDefinitions(enabledProviderIds)
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform)
@@ -80,6 +81,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
     maxLineY,
     root,
     scrollBarHeight,
+    showGenerateCommitMessageButton,
     splitButtonEnabled,
     visibleItems,
   }

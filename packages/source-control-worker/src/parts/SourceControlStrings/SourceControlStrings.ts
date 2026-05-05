@@ -68,6 +68,10 @@ export const commitAndPush = (): string => {
   return I18nString.i18nString(UiStrings.CommitAndPush)
 }
 
+export const generateCommitMessage = (): string => {
+  return I18nString.i18nString(UiStrings.GenerateCommitMessage)
+}
+
 export const refresh = (): string => {
   return I18nString.i18nString(UiStrings.Refresh)
 }

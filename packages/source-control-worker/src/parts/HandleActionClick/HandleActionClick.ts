@@ -1,4 +1,5 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import * as HandleGenerateCommitMessage from '../HandleGenerateCommitMessage/HandleGenerateCommitMessage.ts'
 import * as InputName from '../InputName/InputName.ts'
 import * as Logger from '../Logger/Logger.ts'
 import { refresh } from '../Refresh/Refresh.ts'
@@ -9,6 +10,8 @@ export const handleActionClick = async (state: SourceControlState, actionName: s
     case InputName.CommitAndPush:
       Logger.warn(`[source-control-worker] CommitAndPush action not yet implemented`)
       return state
+    case InputName.GenerateCommitMessage:
+      return HandleGenerateCommitMessage.handleGenerateCommitMessage(state)
     case InputName.Refresh:
       return refresh(state)
     case InputName.ViewAsTree:

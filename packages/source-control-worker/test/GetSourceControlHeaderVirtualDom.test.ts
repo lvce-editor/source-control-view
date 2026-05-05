@@ -8,7 +8,7 @@ import * as ViewletSourceControlStrings from '../src/parts/SourceControlStrings/
 
 test('getSourceControlHeaderVirtualDom', () => {
   const inputPlaceholder = 'Test placeholder'
-  const result = GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder)
+  const result = GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder, '')
   expect(result).toEqual([
     {
       childCount: 1,
@@ -27,6 +27,41 @@ test('getSourceControlHeaderVirtualDom', () => {
       placeholder: inputPlaceholder,
       spellcheck: false,
       type: VirtualDomElements.TextArea,
+    },
+  ])
+})
+
+test('getSourceControlHeaderVirtualDom - with input message', () => {
+  const inputPlaceholder = 'Test placeholder'
+  const inputMessage = 'Failed to generate commit message: test error'
+  const result = GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder, inputMessage)
+  expect(result).toEqual([
+    {
+      childCount: 2,
+      className: ClassNames.SourceControlHeader,
+      type: VirtualDomElements.Div,
+    },
+    {
+      ariaLabel: ViewletSourceControlStrings.sourceControlInput(),
+      autocapitalize: 'off',
+      autocorrect: 'off',
+      childCount: 0,
+      className: 'InputBox MultilineInputBox',
+      name: InputName.SourceControlInput,
+      onFocus: DomEventListenerFunctions.HandleFocus,
+      onInput: DomEventListenerFunctions.HandleInput,
+      placeholder: inputPlaceholder,
+      spellcheck: false,
+      type: VirtualDomElements.TextArea,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.Message,
+      type: VirtualDomElements.Div,
+    },
+    {
+      text: inputMessage,
+      type: VirtualDomElements.Text,
     },
   ])
 })

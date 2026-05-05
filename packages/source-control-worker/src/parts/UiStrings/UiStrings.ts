@@ -18,6 +18,7 @@ export const DiscardAll = 'Discard All Changes'
 export const ViewAsTree = 'View As Tree'
 export const CreatePullRequest = 'Create Pull Request'
 export const CommitAndPush = 'Commit and Push'
+export const GenerateCommitMessage = 'Generate Commit Message'
 export const Refresh = 'Refresh'
 export const MessageEnterToCommitOnMaster = `Message (Enter) to commit on 'master'`
 export const SourceControlInput = 'Source Control Input'

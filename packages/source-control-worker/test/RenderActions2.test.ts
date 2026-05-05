@@ -1,4 +1,5 @@
 import { test, expect } from '@jest/globals'
+import * as InputName from '../src/parts/InputName/InputName.ts'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as RenderActions2 from '../src/parts/RenderActions2/RenderActions2.ts'
@@ -34,4 +35,24 @@ test('renderActions - returns consistent structure', () => {
 
   expect(Array.isArray(result1)).toBe(true)
   expect(Array.isArray(result2)).toBe(true)
+})
+
+test('renderActions - includes generate commit message action when enabled', () => {
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    showGenerateCommitMessageButton: true,
+  }
+
+  const result = RenderActions2.renderActions(state)
+
+  expect(result[0]).toEqual(
+    expect.objectContaining({
+      childCount: 4,
+    }),
+  )
+  expect(result).toContainEqual(
+    expect.objectContaining({
+      name: InputName.GenerateCommitMessage,
+    }),
+  )
 })
