@@ -1,7 +1,7 @@
 import { InputSource } from '@lvce-editor/constants'
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
-import * as SourceControl from '../SourceControl/SourceControl.ts'
 import { handleInput } from '../HandleInput/HandleInput.ts'
+import * as SourceControl from '../SourceControl/SourceControl.ts'
 
 const toErrorMessage = (error: unknown): string => {
   if (error instanceof Error && error.message) {
