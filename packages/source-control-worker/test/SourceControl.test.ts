@@ -112,35 +112,9 @@ test('getFileBefore should call ExtensionHostSourceControl.getFileBefore', async
   expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHostSourceControl.getFileBefore', 'test-provider', 'test-file']])
 })
 
-test.skip('add should call ExtensionHostSourceControl.add', async (): Promise<void> => {
-  const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.add': async (): Promise<void> => {},
-  }
-  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+test.todo('add should call ExtensionHostSourceControl.add')
 
-  const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
-  }
-  ParentRpc.registerMockRpc(parentCommandMap)
-
-  await SourceControl.add('test-file')
-  expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHostSourceControl.add', 'test-file']])
-})
-
-test.skip('discard should call ExtensionHostSourceControl.discard', async (): Promise<void> => {
-  const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.discard': async (): Promise<void> => {},
-  }
-  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
-
-  const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
-  }
-  ParentRpc.registerMockRpc(parentCommandMap)
-
-  await SourceControl.discard('test-file')
-  expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHostSourceControl.discard', 'test-file']])
-})
+test.todo('discard should call ExtensionHostSourceControl.discard')
 
 test('getEnabledProviderIds should call ExtensionHostSourceControl.getEnabledProviderIds', async (): Promise<void> => {
   const extensionHostCommandMap = {

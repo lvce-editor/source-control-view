@@ -9,7 +9,7 @@ test('handleContextMenu', async (): Promise<void> => {
   const commandMap = {
     'ContextMenu.show2': async (): Promise<void> => {},
   }
-  const mockRpc = ParentRpc.registerMockRpc(commandMap)
+  using mockRpc = ParentRpc.registerMockRpc(commandMap)
 
   const state: SourceControlState = createDefaultState()
   const button = 2

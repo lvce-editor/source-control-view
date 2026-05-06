@@ -6,7 +6,7 @@ test('getInputHeight - returns height from RPC call when successful', async () =
   const commandMap = {
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 60,
   }
-  const mockRpc = RendererWorker.registerMockRpc(commandMap)
+  using mockRpc = RendererWorker.registerMockRpc(commandMap)
 
   const result = await GetInputHeight.getInputHeight('test input', 200, 'Arial', 400, 14, 0, 30, 0)
 
@@ -18,7 +18,7 @@ test('getInputHeight - passes through all parameters correctly', async () => {
   const commandMap = {
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 45,
   }
-  const mockRpc = RendererWorker.registerMockRpc(commandMap)
+  using mockRpc = RendererWorker.registerMockRpc(commandMap)
 
   const result = await GetInputHeight.getInputHeight('multiline\ninput', 300, 'Monaco', 600, 16, 1, 25, 0)
 

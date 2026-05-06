@@ -134,6 +134,7 @@ test('createItemDirectory - expanded directory with badge and buttons', () => {
     },
     {
       childCount: 0,
+      // cspell:disable-next-line
       className: 'MaskIcon MaskIcondelete',
       role: 'none',
       type: 8,

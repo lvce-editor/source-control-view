@@ -16,7 +16,7 @@ test('refresh should update state with groups and visible items', async (): Prom
       gitRoot: '/test',
     }),
   }
-  const mockRpc = ExtensionHost.registerMockRpc(commandMap)
+  using mockRpc = ExtensionHost.registerMockRpc(commandMap)
 
   const state: SourceControlState = createDefaultState()
   const result = await Refresh.refresh(state)
