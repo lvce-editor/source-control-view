@@ -1,6 +1,6 @@
 import { test, expect } from '@jest/globals'
-import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as InputName from '../src/parts/InputName/InputName.ts'
 import * as RenderActions2 from '../src/parts/RenderActions2/RenderActions2.ts'
 
