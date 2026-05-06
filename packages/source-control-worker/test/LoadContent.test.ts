@@ -57,6 +57,7 @@ test('loadContent - with enabled providers', async (): Promise<void> => {
   const commandMap = {
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
+    'ExtensionHostSourceControl.getFeatures': async (): Promise<{ showGenerateCommitMessageButton: boolean }> => ({ showGenerateCommitMessageButton: false }),
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [],
     'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => ['icon1', 'icon2'],
     'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
@@ -76,6 +77,7 @@ test('loadContent - with enabled providers', async (): Promise<void> => {
   expect(result.enabledProviderIds).toEqual(['git'])
   expect(result.iconDefinitions).toEqual(['icon1', 'icon2'])
   expect(result.decorationIcons).toEqual(['icon1', 'icon2'])
+  expect(result.showGenerateCommitMessageButton).toBe(false)
 })
 
 test('loadContent - with groups', async (): Promise<void> => {

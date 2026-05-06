@@ -5,7 +5,7 @@ import { getActions } from '../GetActions/GetActions.ts'
 import * as GetActionsVirtualDom from '../GetActionsVirtualDom/GetActionsVirtualDom.ts'
 
 export const renderActions = (state: SourceControlState): readonly VirtualDomNode[] => {
-  const actions: readonly Action[] = getActions()
+  const actions: readonly Action[] = getActions(state)
   const dom = GetActionsVirtualDom.getActionsVirtualDom(actions)
   return dom
 }

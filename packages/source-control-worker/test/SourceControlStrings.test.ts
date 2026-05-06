@@ -88,6 +88,11 @@ test('commitAndPush', () => {
   expect(result).toBe(I18nString.i18nString(UiStrings.CommitAndPush))
 })
 
+test('generateCommitMessage', () => {
+  const result = SourceControlStrings.generateCommitMessage()
+  expect(result).toBe(I18nString.i18nString(UiStrings.GenerateCommitMessage))
+})
+
 test('refresh', () => {
   const result = SourceControlStrings.refresh()
   expect(result).toBe(I18nString.i18nString(UiStrings.Refresh))

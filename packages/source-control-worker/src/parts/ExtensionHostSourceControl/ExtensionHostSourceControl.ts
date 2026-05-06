@@ -14,6 +14,26 @@ export const acceptInput = async (providerId: string, text: string, assetDir: st
   })
 }
 
+export const generateCommitMessage = async (providerId: string, assetDir: string, platform: number): Promise<string> => {
+  return ExecuteProvider.executeProvider({
+    assetDir,
+    event: 'none',
+    method: ExtensionHostCommandType.SourceControlGenerateCommitMessage,
+    params: [providerId],
+    platform,
+  })
+}
+
+export const getFeatures = async (providerId: string, assetDir: string, platform: number): Promise<any> => {
+  return ExecuteProvider.executeProvider({
+    assetDir,
+    event: 'none',
+    method: ExtensionHostCommandType.SourceControlGetFeatures,
+    params: [providerId],
+    platform,
+  })
+}
+
 export const getChangedFiles = (providerId: string, assetDir: string, platform: number): Promise<readonly any[]> => {
   return ExecuteProvider.executeProvider({
     assetDir,

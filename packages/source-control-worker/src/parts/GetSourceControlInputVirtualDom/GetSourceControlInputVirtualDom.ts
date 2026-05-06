@@ -5,8 +5,8 @@ import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEven
 import * as InputName from '../InputName/InputName.ts'
 import * as ViewletSourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
-export const getSourceControlInputDom = (inputPlaceholder: string): readonly VirtualDomNode[] => {
-  return [
+export const getSourceControlInputDom = (inputPlaceholder: string, inputMessage: string): readonly VirtualDomNode[] => {
+  const dom: VirtualDomNode[] = [
     {
       ariaLabel: ViewletSourceControlStrings.sourceControlInput(),
       autocapitalize: 'off',
@@ -21,4 +21,18 @@ export const getSourceControlInputDom = (inputPlaceholder: string): readonly Vir
       type: VirtualDomElements.TextArea,
     },
   ]
+  if (inputMessage) {
+    dom.push(
+      {
+        childCount: 1,
+        className: ClassNames.Message,
+        type: VirtualDomElements.Div,
+      },
+      {
+        text: inputMessage,
+        type: VirtualDomElements.Text,
+      },
+    )
+  }
+  return dom
 }

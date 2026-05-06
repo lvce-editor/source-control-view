@@ -29,6 +29,57 @@ test('acceptInput should call ExtensionHostSourceControl.acceptInput', async ():
   expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHostSourceControl.acceptInput', 'test-provider', 'test-input']])
 })
 
+test('generateCommitMessage should call ExtensionHostSourceControl.generateCommitMessage', async (): Promise<void> => {
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.generateCommitMessage': async (): Promise<string> => 'feat: generated',
+  }
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+
+  const parentCommandMap = {
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+  }
+  ParentRpc.registerMockRpc(parentCommandMap)
+
+  const result = await SourceControl.generateCommitMessage('test-provider', '/test-asset-dir', 1)
+  expect(result).toBe('feat: generated')
+  expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHostSourceControl.generateCommitMessage', 'test-provider']])
+})
+
+test('getShowGenerateCommitMessageButton should read provider features', async (): Promise<void> => {
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.getFeatures': async (): Promise<{ showGenerateCommitMessageButton: boolean }> => ({
+      showGenerateCommitMessageButton: false,
+    }),
+  }
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+
+  const parentCommandMap = {
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+  }
+  ParentRpc.registerMockRpc(parentCommandMap)
+
+  const result = await SourceControl.getShowGenerateCommitMessageButton('test-provider', '/test-asset-dir', 1)
+  expect(result).toBe(false)
+  expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHostSourceControl.getFeatures', 'test-provider']])
+})
+
+test('getShowGenerateCommitMessageButton should default to true when provider features are unavailable', async (): Promise<void> => {
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.getFeatures': async (): Promise<never> => {
+      throw new Error('method not implemented')
+    },
+  }
+  ExtensionHost.registerMockRpc(extensionHostCommandMap)
+
+  const parentCommandMap = {
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+  }
+  ParentRpc.registerMockRpc(parentCommandMap)
+
+  const result = await SourceControl.getShowGenerateCommitMessageButton('test-provider', '/test-asset-dir', 1)
+  expect(result).toBe(true)
+})
+
 test('getChangedFiles should call ExtensionHostSourceControl.getChangedFiles', async (): Promise<void> => {
   const extensionHostCommandMap = {
     'ExtensionHost.sourceControlGetChangedFiles': async (): Promise<never[]> => [],

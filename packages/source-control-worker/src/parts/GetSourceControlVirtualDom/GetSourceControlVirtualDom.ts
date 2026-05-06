@@ -10,7 +10,12 @@ import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 
 const className = MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.SourceControl)
 
-export const getSourceControlVirtualDom = (items: readonly VisibleItem[], splitButtonEnabled: boolean, inputPlaceholder: string): readonly VirtualDomNode[] => {
+export const getSourceControlVirtualDom = (
+  items: readonly VisibleItem[],
+  splitButtonEnabled: boolean,
+  inputPlaceholder: string,
+  inputMessage: string,
+): readonly VirtualDomNode[] => {
   const hasItems = items.length > 0
   const dom = [
     {
@@ -23,7 +28,7 @@ export const getSourceControlVirtualDom = (items: readonly VisibleItem[], splitB
       tabIndex: 0,
       type: VirtualDomElements.Div,
     },
-    ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder),
+    ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder, inputMessage),
     ...GetSplitButtonVirtualDom.getSplitButtonVirtualDom(hasItems, splitButtonEnabled, 'Commit'),
     ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items),
   ]

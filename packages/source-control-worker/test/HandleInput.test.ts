@@ -11,12 +11,14 @@ test('handleInput - updates state with input value', async () => {
     inputFontSize: 14,
     inputFontWeight: 400,
     inputLetterSpacing: 0,
+    inputMessage: 'Previous error',
     width: 200,
   }
 
   const result = await HandleInput.handleInput(state, 'test input')
 
   expect(result.inputValue).toBe('test input')
+  expect(result.inputMessage).toBe('')
   expect(result.inputSource).toBe(InputSource.User)
   expect(typeof result.inputBoxHeight).toBe('number')
 })
