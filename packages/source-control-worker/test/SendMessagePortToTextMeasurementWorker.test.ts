@@ -6,7 +6,7 @@ test('sendMessagePortToTextMeasurementWorker', async (): Promise<void> => {
   const commandMap = {
     'SendMessagePortToExtensionHostWorker.sendMessagePortToTextMeasurementWorker': async (): Promise<void> => {},
   }
-  const mockRpc = RendererWorker.registerMockRpc(commandMap)
+  using mockRpc = RendererWorker.registerMockRpc(commandMap)
 
   // @ts-ignore
   const port = new MessageChannel().port1

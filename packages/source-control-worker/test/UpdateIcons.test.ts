@@ -11,7 +11,7 @@ const commandMap = {
 }
 
 test('updateIcons - should update icons for visible items', async (): Promise<void> => {
-  const mockRpc = RendererWorker.registerMockRpc(commandMap)
+  using mockRpc = RendererWorker.registerMockRpc(commandMap)
   const defaultState = CreateDefaultState.createDefaultState()
   const state: SourceControlState = {
     ...defaultState,
@@ -37,7 +37,7 @@ test('updateIcons - should update icons for visible items', async (): Promise<vo
 })
 
 test('updateIcons - should handle empty visible items', async (): Promise<void> => {
-  const mockRpc = RendererWorker.registerMockRpc(commandMap)
+  using mockRpc = RendererWorker.registerMockRpc(commandMap)
   const defaultState = CreateDefaultState.createDefaultState()
   const state: SourceControlState = {
     ...defaultState,

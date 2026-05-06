@@ -12,7 +12,7 @@ test('handleWorkspaceRefresh should call refresh and return updated state', asyn
       gitRoot: '/test',
     }),
   }
-  const mockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+  using mockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const rendererCommandMap = {
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],

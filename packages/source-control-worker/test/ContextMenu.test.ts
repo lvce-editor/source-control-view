@@ -7,7 +7,7 @@ test('show2', async (): Promise<void> => {
   const commandMap = {
     'ContextMenu.show2': async (): Promise<void> => {},
   }
-  const mockRpc = RendererWorker.registerMockRpc(commandMap)
+  using mockRpc = RendererWorker.registerMockRpc(commandMap)
   await ContextMenu.show2(1, MenuEntryId.SourceControl, 2, 3, {
     menuId: MenuEntryId.SourceControl,
   })
