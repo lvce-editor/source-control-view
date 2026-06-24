@@ -8,7 +8,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
   const contents = Array.from(Array(1000), (_item, index) => index)
-  await Promise.all(contents.map((i) => FileSystem.writeFile(`${tmpDir}/${i}.txt`, `${i}`)))
+  await Promise.all(contents.map((i) => FileSystem.writeFile(`${tmpDir}/${i}.txt`, String(i))))
   await Workspace.setPath(tmpDir)
 
   // act
@@ -18,6 +18,8 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   const sourceControlView = Locator('.Viewlet.SourceControl')
   await expect(sourceControlView).toBeVisible()
   const treeItems = Locator('.SourceControlItems .TreeItem')
-  await expect(treeItems.nth(0)).toHaveText('Changes1000')
-  await expect(treeItems.nth(1)).toHaveText('0.txt')
+  const changesItem = treeItems.nth(0)
+  const firstFileItem = treeItems.nth(1)
+  await expect(changesItem).toHaveText('Changes1000')
+  await expect(firstFileItem).toHaveText('0.txt')
 }

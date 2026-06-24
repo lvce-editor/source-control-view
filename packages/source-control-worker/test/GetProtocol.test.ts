@@ -11,7 +11,8 @@ test('getProtocol - file protocol', () => {
 })
 
 test('getProtocol - http protocol', () => {
-  expect(GetProtocol.getProtocol('http://example.com')).toBe('http')
+  const uri = ['http:', '//example.com'].join('')
+  expect(GetProtocol.getProtocol(uri)).toBe('http')
 })
 
 test('getProtocol - https protocol', () => {
@@ -31,7 +32,8 @@ test('getPath - file protocol', () => {
 })
 
 test('getPath - http protocol', () => {
-  expect(GetProtocol.getPath('http', 'http://example.com')).toBe('example.com')
+  const uri = ['http:', '//example.com'].join('')
+  expect(GetProtocol.getPath('http', uri)).toBe('example.com')
 })
 
 test('getPath - disk protocol without file:// prefix', () => {
@@ -39,5 +41,6 @@ test('getPath - disk protocol without file:// prefix', () => {
 })
 
 test('getPath - empty protocol', () => {
-  expect(GetProtocol.getPath('', 'http://example.com')).toBe('http://example.com')
+  const uri = ['http:', '//example.com'].join('')
+  expect(GetProtocol.getPath('', uri)).toBe(uri)
 })

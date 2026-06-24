@@ -20,6 +20,8 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, Locat
   await expect(sourceControlView).toBeVisible()
   const treeItems = Locator('.SourceControlItems .TreeItem')
   await expect(treeItems).toHaveCount(2)
-  await expect(treeItems.nth(0)).toHaveText('Staged Changes1')
-  await expect(treeItems.nth(1)).toHaveText('test-renamed.css')
+  const stagedChangesItem = treeItems.nth(0)
+  const renamedFileItem = treeItems.nth(1)
+  await expect(stagedChangesItem).toHaveText('Staged Changes1')
+  await expect(renamedFileItem).toHaveText('test-renamed.css')
 }

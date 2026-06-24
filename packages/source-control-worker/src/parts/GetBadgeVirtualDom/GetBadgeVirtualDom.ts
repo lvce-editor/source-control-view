@@ -11,5 +11,5 @@ const parentNode: VirtualDomNode = {
 }
 
 export const getBadgeVirtualDom = (count: number): readonly VirtualDomNode[] => {
-  return [parentNode, text(`${count}`)]
+  return [parentNode, text(String(count))]
 }

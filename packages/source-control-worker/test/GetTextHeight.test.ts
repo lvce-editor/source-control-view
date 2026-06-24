@@ -84,7 +84,7 @@ test('getTextHeight - returns height from RPC call (line 21)', async (): Promise
   const result = await GetTextHeight.getTextHeight('test input', 200, 'Arial', 14, 400, 0, 30, 0)
 
   expect(result).toBe(75)
-  expect(mockRpc.invocations.length).toBe(1)
+  expect(mockRpc.invocations).toHaveLength(1)
   expect(mockRpc.invocations[0][0]).toBe('MeasureTextHeight.measureTextBlockHeight')
   expect(mockRpc.invocations[0][1]).toBe('test input')
   expect(mockRpc.invocations[0][2]).toBe('Arial')

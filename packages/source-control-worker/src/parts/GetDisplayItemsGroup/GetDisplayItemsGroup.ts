@@ -12,7 +12,7 @@ export const getDisplayItemsGroup = (group: Group, expandedGroups: Readonly<Reco
     throw new Error('Source control group is missing an items property')
   }
   const { length } = items
-  const isExpanded = expandedGroups[id] || false
+  const isExpanded = expandedGroups[id] ?? false
   const type = isExpanded ? DirentType.DirectoryExpanded : DirentType.Directory
   const icon = isExpanded ? 'ChevronDown' : 'ChevronRight'
   if (length > 0) {

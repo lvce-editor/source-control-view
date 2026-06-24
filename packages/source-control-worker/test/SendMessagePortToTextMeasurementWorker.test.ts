@@ -12,7 +12,7 @@ test('sendMessagePortToTextMeasurementWorker', async (): Promise<void> => {
   const port = new MessageChannel().port1
   await sendMessagePortToTextMeasurementWorker(port)
 
-  expect(mockRpc.invocations.length).toBe(1)
+  expect(mockRpc.invocations).toHaveLength(1)
   expect(mockRpc.invocations[0][0]).toBe('SendMessagePortToExtensionHostWorker.sendMessagePortToTextMeasurementWorker')
   expect(mockRpc.invocations[0][1]).toBe(port)
 })
