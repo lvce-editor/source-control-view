@@ -20,6 +20,8 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(sourceControlView).toBeVisible()
   const treeItems = Locator('.SourceControlItems .TreeItem')
   await expect(treeItems).toHaveCount(2)
-  await expect(treeItems.nth(0)).toHaveText('Changes1')
-  await expect(treeItems.nth(1)).toHaveText('test.css')
+  const changesItem = treeItems.nth(0)
+  const fileItem = treeItems.nth(1)
+  await expect(changesItem).toHaveText('Changes1')
+  await expect(fileItem).toHaveText('test.css')
 }
