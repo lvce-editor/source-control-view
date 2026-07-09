@@ -1,4 +1,5 @@
 import { expect, test } from '@jest/globals'
+import { PlatformType } from '@lvce-editor/constants'
 import { ExtensionHost } from '@lvce-editor/rpc-registry'
 import { requestSourceActions } from '../src/parts/RequestSourceActions/RequestSourceActions.ts'
 
@@ -29,5 +30,27 @@ test('requestSourceActions', async () => {
     action2: 'value2',
     action3: 'value3',
   })
+  expect(mockRpc.invocations).toEqual([['Extensions.getExtensions']])
+})
+
+test('requestSourceActions excludes extensions that are incompatible with web', async () => {
+  const mockExtensions = [
+    {
+      compatibility: {
+        web: false,
+      },
+      'source-control-actions': {
+        action1: 'value1',
+      },
+    },
+  ]
+  const commandMap = {
+    'Extensions.getExtensions': async (): Promise<typeof mockExtensions> => mockExtensions,
+  }
+  using mockRpc = ExtensionHost.registerMockRpc(commandMap)
+
+  const result = await requestSourceActions(PlatformType.Web)
+
+  expect(result).toEqual({})
   expect(mockRpc.invocations).toEqual([['Extensions.getExtensions']])
 })

@@ -8,6 +8,7 @@ import * as GetSourceControlButtonsVirtualDom from '../GetSourceControlButtonsVi
 import * as GetSourceControlHeaderVirtualDom from '../GetSourceControlHeaderVirtualDom/GetSourceControlHeaderVirtualDom.ts'
 import * as GetSourceControlListVirtualDom from '../GetSourceControlListVirtualDom/GetSourceControlListVirtualDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
+import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 const className = MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.SourceControl)
 
@@ -16,10 +17,25 @@ export const getSourceControlVirtualDom = (
   sourceControlButtons: readonly ActionButton[],
   inputPlaceholder: string,
   inputMessage: string,
+  unavailableMessage: string,
 ): readonly VirtualDomNode[] => {
+  const content = unavailableMessage
+    ? [
+        {
+          childCount: 1,
+          className: ClassNames.Message,
+          type: VirtualDomElements.Div,
+        },
+        text(unavailableMessage),
+      ]
+    : [
+        ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder, inputMessage),
+        ...GetSourceControlButtonsVirtualDom.getSourceControlButtonsVirtualDom(sourceControlButtons),
+        ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items),
+      ]
   const dom = [
     {
-      childCount: 2 + sourceControlButtons.length,
+      childCount: unavailableMessage ? 1 : 2 + sourceControlButtons.length,
       className: className,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onMouseOver: DomEventListenerFunctions.HandleMouseOver,
@@ -28,9 +44,7 @@ export const getSourceControlVirtualDom = (
       tabIndex: 0,
       type: VirtualDomElements.Div,
     },
-    ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder, inputMessage),
-    ...GetSourceControlButtonsVirtualDom.getSourceControlButtonsVirtualDom(sourceControlButtons),
-    ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items),
+    ...content,
   ]
   return dom
 }

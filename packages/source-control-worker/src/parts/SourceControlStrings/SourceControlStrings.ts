@@ -83,3 +83,7 @@ export const messageEnterToCommitOnMaster = (): string => {
 export const sourceControlInput = (): string => {
   return I18nString.i18nString(UiStrings.SourceControlInput)
 }
+
+export const noSourceControlProvidersAvailableForWeb = (): string => {
+  return I18nString.i18nString(UiStrings.NoSourceControlProvidersAvailableForWeb)
+}

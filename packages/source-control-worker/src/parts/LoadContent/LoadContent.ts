@@ -47,8 +47,8 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
   const expandedGroups = restoreExpandedGroups(allGroups)
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
 
-  const actionsCache = await requestSourceActions()
-  const sourceControlButtons = await requestSourceControlButtons()
+  const actionsCache = enabledProviderIds.length === 0 ? Object.create(null) : await requestSourceActions(platform)
+  const sourceControlButtons = enabledProviderIds.length === 0 ? [] : await requestSourceControlButtons(platform)
 
   // TODO make preferences async and more functional
   const splitButtonEnabled = await Preferences.get('sourceControl.splitButtonEnabled')
