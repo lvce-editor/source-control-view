@@ -127,6 +127,14 @@ test('loadContent - with source control actions', async (): Promise<void> => {
         action1: 'value1',
         action2: 'value2',
       },
+      'source-control-buttons': [
+        {
+          command: 'git.commitAndSync',
+          icon: 'Check',
+          id: 'git.commitAndSync',
+          label: 'Commit & Sync',
+        },
+      ],
     },
   ]
 
@@ -148,6 +156,15 @@ test('loadContent - with source control actions', async (): Promise<void> => {
     action1: 'value1',
     action2: 'value2',
   })
+  expect(result.sourceControlButtons).toEqual([
+    {
+      command: 'git.commitAndSync',
+      icon: 'Check',
+      id: 'git.commitAndSync',
+      label: 'Commit & Sync',
+    },
+  ])
+  expect(result.headerHeight).toBe(result.inputBoxHeight + 11 + 34)
 })
 
 test('loadContent - calculates scroll bar and visible items correctly', async (): Promise<void> => {

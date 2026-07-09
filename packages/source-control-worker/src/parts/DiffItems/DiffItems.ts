@@ -7,6 +7,7 @@ export const isEqual = (oldState: SourceControlState, newState: SourceControlSta
     oldState.items === newState.items &&
     oldState.maxLineY === newState.maxLineY &&
     oldState.minLineY === newState.minLineY &&
+    oldState.sourceControlButtons === newState.sourceControlButtons &&
     oldState.visibleItems === newState.visibleItems
   )
 }

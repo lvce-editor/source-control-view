@@ -1,25 +1,25 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import type { ActionButton } from '../ActionButton/ActionButton.ts'
 import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
+import * as GetSourceControlButtonsVirtualDom from '../GetSourceControlButtonsVirtualDom/GetSourceControlButtonsVirtualDom.ts'
 import * as GetSourceControlHeaderVirtualDom from '../GetSourceControlHeaderVirtualDom/GetSourceControlHeaderVirtualDom.ts'
 import * as GetSourceControlListVirtualDom from '../GetSourceControlListVirtualDom/GetSourceControlListVirtualDom.ts'
-import * as GetSplitButtonVirtualDom from '../GetSplitButtonVirtualDom/GetSplitButtonVirtualDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 
 const className = MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.SourceControl)
 
 export const getSourceControlVirtualDom = (
   items: readonly VisibleItem[],
-  splitButtonEnabled: boolean,
+  sourceControlButtons: readonly ActionButton[],
   inputPlaceholder: string,
   inputMessage: string,
 ): readonly VirtualDomNode[] => {
-  const hasItems = items.length > 0
   const dom = [
     {
-      childCount: splitButtonEnabled ? 3 : 2,
+      childCount: 2 + sourceControlButtons.length,
       className: className,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onMouseOver: DomEventListenerFunctions.HandleMouseOver,
@@ -29,7 +29,7 @@ export const getSourceControlVirtualDom = (
       type: VirtualDomElements.Div,
     },
     ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder, inputMessage),
-    ...GetSplitButtonVirtualDom.getSplitButtonVirtualDom(hasItems, splitButtonEnabled, 'Commit'),
+    ...GetSourceControlButtonsVirtualDom.getSourceControlButtonsVirtualDom(sourceControlButtons),
     ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items),
   ]
   return dom
