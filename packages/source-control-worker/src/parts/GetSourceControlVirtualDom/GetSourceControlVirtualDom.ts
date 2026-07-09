@@ -7,6 +7,7 @@ import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEven
 import * as GetSourceControlButtonsVirtualDom from '../GetSourceControlButtonsVirtualDom/GetSourceControlButtonsVirtualDom.ts'
 import * as GetSourceControlHeaderVirtualDom from '../GetSourceControlHeaderVirtualDom/GetSourceControlHeaderVirtualDom.ts'
 import * as GetSourceControlListVirtualDom from '../GetSourceControlListVirtualDom/GetSourceControlListVirtualDom.ts'
+import * as GetSourceControlUnavailableVirtualDom from '../GetSourceControlUnavailableVirtualDom/GetSourceControlUnavailableVirtualDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 
 const className = MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.SourceControl)
@@ -16,10 +17,18 @@ export const getSourceControlVirtualDom = (
   sourceControlButtons: readonly ActionButton[],
   inputPlaceholder: string,
   inputMessage: string,
+  unavailableMessage: string,
 ): readonly VirtualDomNode[] => {
+  const content = unavailableMessage
+    ? GetSourceControlUnavailableVirtualDom.getSourceControlUnavailableVirtualDom(unavailableMessage)
+    : [
+        ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder, inputMessage),
+        ...GetSourceControlButtonsVirtualDom.getSourceControlButtonsVirtualDom(sourceControlButtons),
+        ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items),
+      ]
   const dom = [
     {
-      childCount: 2 + sourceControlButtons.length,
+      childCount: unavailableMessage ? 1 : 2 + sourceControlButtons.length,
       className: className,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onMouseOver: DomEventListenerFunctions.HandleMouseOver,
@@ -28,9 +37,7 @@ export const getSourceControlVirtualDom = (
       tabIndex: 0,
       type: VirtualDomElements.Div,
     },
-    ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder, inputMessage),
-    ...GetSourceControlButtonsVirtualDom.getSourceControlButtonsVirtualDom(sourceControlButtons),
-    ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items),
+    ...content,
   ]
   return dom
 }

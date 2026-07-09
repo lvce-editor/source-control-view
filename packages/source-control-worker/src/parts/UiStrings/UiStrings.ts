@@ -22,3 +22,4 @@ export const GenerateCommitMessage = 'Generate Commit Message'
 export const Refresh = 'Refresh'
 export const MessageEnterToCommitOnMaster = `Message (Enter) to commit on 'master'`
 export const SourceControlInput = 'Source Control Input'
+export const NoSourceControlProvidersAvailableForWeb = 'No source control providers are available for web.'

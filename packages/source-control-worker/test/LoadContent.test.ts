@@ -140,7 +140,9 @@ test('loadContent - with source control actions', async (): Promise<void> => {
 
   const commandMap = {
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
-    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
+    'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [],
+    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => [],
     'Extensions.getExtensions': async (): Promise<readonly any[]> => mockExtensions,
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,

@@ -1,5 +1,6 @@
 import { test, expect } from '@jest/globals'
-import { ViewletCommand } from '@lvce-editor/constants'
+import { PlatformType, ViewletCommand } from '@lvce-editor/constants'
+import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as RenderItems from '../src/parts/RenderItems/RenderItems.ts'
@@ -100,4 +101,35 @@ test('renderItems - handles empty placeholder', () => {
   const result = RenderItems.renderItems(oldState, newState)
 
   expect(result).toEqual([ViewletCommand.SetDom2, 3, expect.any(Object)])
+})
+
+test('renderItems - shows unavailable message instead of commit controls in web without providers', () => {
+  const oldState: SourceControlState = createDefaultState()
+  const newState: SourceControlState = {
+    ...createDefaultState(),
+    platform: PlatformType.Web,
+    sourceControlButtons: [
+      {
+        command: 'git.commitAndSync',
+        icon: 'Check',
+        id: 'git.commitAndSync',
+        label: 'Commit & Sync',
+      },
+    ],
+  }
+
+  const result = RenderItems.renderItems(oldState, newState)
+
+  expect(result).toEqual([
+    ViewletCommand.SetDom2,
+    1,
+    [
+      expect.objectContaining({ childCount: 1 }),
+      expect.objectContaining({ childCount: 1 }),
+      expect.objectContaining({
+        text: 'No source control providers are available for web.',
+        type: VirtualDomElements.Text,
+      }),
+    ],
+  ])
 })
