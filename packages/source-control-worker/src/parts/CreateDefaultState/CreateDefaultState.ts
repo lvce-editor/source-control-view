@@ -47,6 +47,7 @@ export const createDefaultState = (): SourceControlState => ({
   scrollBarActive: false,
   scrollBarHeight: 0,
   showGenerateCommitMessageButton: false,
+  sourceControlButtons: [],
   splitButtonEnabled: false,
   untracked: [],
   viewMode: 1,

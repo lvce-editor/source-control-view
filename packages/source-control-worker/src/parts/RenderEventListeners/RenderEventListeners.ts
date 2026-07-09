@@ -47,5 +47,9 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       name: DomEventListenersFunctions.HandleClickAction,
       params: ['handleActionClick', EventExpression.TargetName],
     },
+    {
+      name: DomEventListenersFunctions.HandleClickSourceControlButton,
+      params: ['handleSourceControlButtonClick', EventExpression.TargetName],
+    },
   ]
 }

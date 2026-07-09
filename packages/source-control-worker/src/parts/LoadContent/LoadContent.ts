@@ -4,6 +4,7 @@ import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
 import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
 import { getGroups } from '../GetGroups/GetGroups.ts'
+import { getHeaderHeight } from '../GetHeaderHeight/GetHeaderHeight.ts'
 import { getInputHeight } from '../GetInputHeight/GetInputHeight.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
 import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
@@ -11,6 +12,7 @@ import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 import * as Preferences from '../Preferences/Preferences.ts'
 import { requestSourceActions } from '../RequestSourceActions/RequestSourceActions.ts'
+import { requestSourceControlButtons } from '../RequestSourceControlButtons/RequestSourceControlButtons.ts'
 import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedGroups.ts'
 import { restoreState } from '../RestoreState/RestoreState.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
@@ -47,6 +49,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
 
   const actionsCache = await requestSourceActions()
+  const sourceControlButtons = await requestSourceControlButtons()
 
   // TODO make preferences async and more functional
   const splitButtonEnabled = await Preferences.get('sourceControl.splitButtonEnabled')
@@ -63,6 +66,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inputPlaceholder = SourceControlStrings.messageEnterToCommitOnMaster()
   const inputBoxHeight = await getInputHeight(inputValue, width, inputFontFamily, inputFontSize, inputFontWeight, inputLetterSpacing, inputLineHeight, inputPadding)
+  const headerHeight = getHeaderHeight(inputBoxHeight, sourceControlButtons)
   return {
     ...state,
     actionsCache,
@@ -73,6 +77,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
     fileIconCache: newFileIconCache,
     finalDeltaY,
     gitRoot,
+    headerHeight,
     iconDefinitions,
     initial: false,
     inputBoxHeight,
@@ -83,6 +88,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
     root,
     scrollBarHeight,
     showGenerateCommitMessageButton,
+    sourceControlButtons,
     splitButtonEnabled,
     visibleItems,
   }

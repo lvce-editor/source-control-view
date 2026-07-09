@@ -1,3 +1,4 @@
+import type { ActionButton } from '../ActionButton/ActionButton.ts'
 import type { ActionsCache } from '../ActionsCache/ActionsCache.ts'
 import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
 import type { FileIconCache } from '../FileIconCache/FileIconCache.ts'
@@ -52,6 +53,7 @@ export interface SourceControlState {
   readonly scrollBarActive: boolean
   readonly scrollBarHeight: number
   readonly showGenerateCommitMessageButton: boolean
+  readonly sourceControlButtons: readonly ActionButton[]
   readonly splitButtonEnabled: boolean
   readonly untracked: readonly any[]
   readonly viewMode: ViewMode
