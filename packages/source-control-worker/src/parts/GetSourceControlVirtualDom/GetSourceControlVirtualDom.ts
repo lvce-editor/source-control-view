@@ -7,8 +7,8 @@ import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEven
 import * as GetSourceControlButtonsVirtualDom from '../GetSourceControlButtonsVirtualDom/GetSourceControlButtonsVirtualDom.ts'
 import * as GetSourceControlHeaderVirtualDom from '../GetSourceControlHeaderVirtualDom/GetSourceControlHeaderVirtualDom.ts'
 import * as GetSourceControlListVirtualDom from '../GetSourceControlListVirtualDom/GetSourceControlListVirtualDom.ts'
-import * as GetSourceControlUnavailableVirtualDom from '../GetSourceControlUnavailableVirtualDom/GetSourceControlUnavailableVirtualDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
+import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 const className = MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.SourceControl)
 
@@ -20,7 +20,14 @@ export const getSourceControlVirtualDom = (
   unavailableMessage: string,
 ): readonly VirtualDomNode[] => {
   const content = unavailableMessage
-    ? GetSourceControlUnavailableVirtualDom.getSourceControlUnavailableVirtualDom(unavailableMessage)
+    ? [
+        {
+          childCount: 1,
+          className: ClassNames.Message,
+          type: VirtualDomElements.Div,
+        },
+        text(unavailableMessage),
+      ]
     : [
         ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder, inputMessage),
         ...GetSourceControlButtonsVirtualDom.getSourceControlButtonsVirtualDom(sourceControlButtons),
