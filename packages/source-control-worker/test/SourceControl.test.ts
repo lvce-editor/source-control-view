@@ -96,6 +96,45 @@ test('getChangedFiles should call ExtensionHostSourceControl.getChangedFiles', a
   expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHost.sourceControlGetChangedFiles', 'test-provider']])
 })
 
+test('getBadgeCount should call ExtensionHostSourceControl.getBadgeCount for each provider', async (): Promise<void> => {
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.getBadgeCount': async (providerId: string): Promise<number> => (providerId === 'test-provider-1' ? 2 : 3),
+  }
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+
+  const parentCommandMap = {
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+  }
+  ParentRpc.registerMockRpc(parentCommandMap)
+
+  const result = await SourceControl.getBadgeCount(['test-provider-1', 'test-provider-2'], '/test-asset-dir', 1)
+  expect(result).toBe(5)
+  expect(extensionHostMockRpc.invocations).toEqual([
+    ['ExtensionHostSourceControl.getBadgeCount', 'test-provider-1'],
+    ['ExtensionHostSourceControl.getBadgeCount', 'test-provider-2'],
+  ])
+})
+
+test('getWorkspaceBadgeCount should activate providers and get badge count', async (): Promise<void> => {
+  const extensionHostCommandMap = {
+    'ExtensionHostSourceControl.getBadgeCount': async (): Promise<number> => 4,
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<string[]> => ['test-provider'],
+  }
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+
+  const parentCommandMap = {
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+  }
+  ParentRpc.registerMockRpc(parentCommandMap)
+
+  const result = await SourceControl.getWorkspaceBadgeCount('file:///test-root', '/test-asset-dir', 1)
+  expect(result).toBe(4)
+  expect(extensionHostMockRpc.invocations).toEqual([
+    ['ExtensionHostSourceControl.getEnabledProviderIds', 'file', 'file:///test-root'],
+    ['ExtensionHostSourceControl.getBadgeCount', 'test-provider'],
+  ])
+})
+
 test('getFileBefore should call ExtensionHostSourceControl.getFileBefore', async (): Promise<void> => {
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.getFileBefore': async (): Promise<Record<string, never>> => ({}),

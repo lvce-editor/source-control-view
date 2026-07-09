@@ -1,4 +1,3 @@
-import type { Group } from '../Group/Group.ts'
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
 import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
@@ -9,13 +8,14 @@ import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOf
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedGroups.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
+import * as SourceControl from '../SourceControl/SourceControl.ts'
 
 export const refresh = async (state: SourceControlState): Promise<SourceControlState> => {
   const { actionsCache, assetDir, enabledProviderIds, fileIconCache, height, iconDefinitions, itemHeight, minimumSliderSize, platform, root, splitButtonEnabled } = state
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform)
   const expandedGroups = restoreExpandedGroups(allGroups)
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
-  const badgeCount = allGroups.reduce((sum: number, group: Group) => sum + group.items.length, 0)
+  const badgeCount = await SourceControl.getBadgeCount(enabledProviderIds, assetDir, platform)
   const total = displayItems.length
   const contentHeight = total * itemHeight
   const listHeight = getListHeight(total, itemHeight, height)

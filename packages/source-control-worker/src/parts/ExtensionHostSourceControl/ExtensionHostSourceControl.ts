@@ -44,6 +44,17 @@ export const getChangedFiles = (providerId: string, assetDir: string, platform: 
     // noProviderFoundMessage: 'No source control provider found',
   })
 }
+
+export const getBadgeCount = (providerId: string, assetDir: string, platform: number): Promise<any> => {
+  return ExecuteProvider.executeProvider({
+    assetDir,
+    event: 'none',
+    method: ExtensionHostCommandType.SourceControlGetBadgeCount,
+    params: [providerId],
+    platform,
+  })
+}
+
 export const getFileDecorations = (providerId: string, uris: readonly string[], assetDir: string, platform: number): Promise<readonly any[]> => {
   Assert.string(assetDir)
   Assert.number(platform)

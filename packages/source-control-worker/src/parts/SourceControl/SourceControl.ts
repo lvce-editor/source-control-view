@@ -1,5 +1,6 @@
 import * as Assert from '../Assert/Assert.ts'
 import * as ExtensionHostSourceControl from '../ExtensionHostSourceControl/ExtensionHostSourceControl.ts'
+import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
 
 export const state = {
   enabledProviders: [],
@@ -35,6 +36,33 @@ export const getShowGenerateCommitMessageButton = async (providerId: string, ass
 
 export const getChangedFiles = (providerId: string, assetDir: string, platform: number): Promise<readonly any[]> => {
   return ExtensionHostSourceControl.getChangedFiles(providerId, assetDir, platform)
+}
+
+const getProviderBadgeCount = async (providerId: string, assetDir: string, platform: number): Promise<any> => {
+  try {
+    return await ExtensionHostSourceControl.getBadgeCount(providerId, assetDir, platform)
+  } catch {
+    try {
+      const changedFiles = await ExtensionHostSourceControl.getChangedFiles(providerId, assetDir, platform)
+      return changedFiles.length
+    } catch {
+      return 0
+    }
+  }
+}
+
+export const getBadgeCount = async (providerIds: readonly string[], assetDir: string, platform: number): Promise<any> => {
+  let badgeCount = 0
+  for (const providerId of providerIds) {
+    badgeCount += await getProviderBadgeCount(providerId, assetDir, platform)
+  }
+  return badgeCount
+}
+
+export const getWorkspaceBadgeCount = async (root: string, assetDir: string, platform: number): Promise<any> => {
+  const scheme = GetProtocol.getProtocol(root)
+  const providerIds = await getEnabledProviderIds(scheme, root, assetDir, platform)
+  return getBadgeCount(providerIds, assetDir, platform)
 }
 
 export const getFileDecorations = (providerId: string, uris: readonly string[], assetDir: string, platform: number): Promise<readonly any[]> => {

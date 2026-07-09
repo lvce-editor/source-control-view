@@ -32,7 +32,7 @@ import * as RenderEventListeners from '../RenderEventListeners/RenderEventListen
 import * as SaveState from '../SaveState/SaveState.ts'
 import * as SelectIndex from '../SelectIndex/SelectIndex.ts'
 import * as SetDeltaY from '../SetDeltaY/SetDeltaY.ts'
-import { getEnabledProviderIds, getFileDecorations } from '../SourceControl/SourceControl.ts'
+import { getEnabledProviderIds, getFileDecorations, getWorkspaceBadgeCount } from '../SourceControl/SourceControl.ts'
 import * as WrapCommand from '../SourceControlStates/SourceControlStates.ts'
 import * as UpdateIcons from '../UpdateIcons/UpdateIcons.ts'
 import * as ViewAsList from '../ViewAsList/ViewAsList.ts'
@@ -51,6 +51,7 @@ export const commandMap = {
   'SourceControl.getKeyBindings': getKeyBindings,
   'SourceControl.getMenuEntries2': WrapCommand.wrapGetter(getMenuEntries2),
   'SourceControl.getMenuIds': getMenuIds,
+  'SourceControl.getWorkspaceBadgeCount': getWorkspaceBadgeCount,
   'SourceControl.handleActionClick': WrapCommand.wrapCommand(HandleActionClick.handleActionClick),
   'SourceControl.handleButtonClick': WrapCommand.wrapCommand(HandleButtonClick.handleButtonClick),
   'SourceControl.handleClickAt': WrapCommand.wrapCommand(HandleClickAt.handleClickAt),
