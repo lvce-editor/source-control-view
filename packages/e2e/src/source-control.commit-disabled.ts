@@ -13,7 +13,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await SourceControl.show()
 
   // assert
-  const commitButton = Locator('.SplitButtonContent[name="Commit"]')
+  const commitButton = Locator('.Viewlet.SourceControl .SplitButtonContent')
   await expect(commitButton).toBeVisible()
   await expect(commitButton).toHaveAttribute('aria-disabled', 'true')
   await expect(commitButton).toHaveAttribute('tabindex', '-1')
