@@ -4,12 +4,12 @@ import * as GetSourceControlDom from '../GetSourceControlVirtualDom/GetSourceCon
 import * as SourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
 export const renderItems = (oldState: SourceControlState, newState: SourceControlState): any => {
-  const { allGroups, enabledProviderIds, id, initial, inputMessage, inputPlaceholder, platform, sourceControlButtons, visibleItems } = newState
+  const { enabledProviderIds, id, initial, inputMessage, inputPlaceholder, items, platform, sourceControlButtons, visibleItems } = newState
   if (initial) {
     return [ViewletCommand.SetDom2, id, []]
   }
   const unavailableMessage = platform === PlatformType.Web && enabledProviderIds.length === 0 ? SourceControlStrings.noSourceControlProvidersAvailableForWeb() : ''
-  const sourceControlButtonsDisabled = allGroups.every((group) => group.items.length === 0)
+  const sourceControlButtonsDisabled = items.length === 0
   const dom = GetSourceControlDom.getSourceControlVirtualDom(
     visibleItems,
     sourceControlButtons,
