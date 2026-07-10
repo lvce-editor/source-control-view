@@ -20,6 +20,14 @@
     "./icons/dark/status-ignored.svg",
     "./icons/dark/status-conflict.svg"
   ],
+  "source-control-buttons": [
+    {
+      "command": "sampleSourceControl.commitAndSync",
+      "id": "sampleSourceControl.commitAndSync",
+      "icon": "Lock",
+      "label": "Commit & Sync"
+    }
+  ],
   "source-control-actions": {
     "index": [
       {

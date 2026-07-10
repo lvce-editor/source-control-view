@@ -7,7 +7,7 @@ import { getSourceControlButtonVirtualDom } from '../src/parts/GetSourceControlB
 test('getSourceControlButtonVirtualDom', () => {
   const result = getSourceControlButtonVirtualDom({
     command: 'git.commitAndSync',
-    icon: 'Check',
+    icon: 'Lock',
     id: 'git.commitAndSync',
     label: 'Commit & Sync',
   })
@@ -19,13 +19,19 @@ test('getSourceControlButtonVirtualDom', () => {
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 1,
+      childCount: 2,
       className: ClassNames.SplitButtonContent,
       name: 'Commit & Sync',
       onClick: DomEventListenerFunctions.HandleClickSourceControlButton,
       tabIndex: 0,
       title: 'git.commitAndSync',
       type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: 'MaskIcon MaskIconLock',
+      role: 'none',
+      type: VirtualDomElements.Span,
     },
     {
       childCount: 0,
