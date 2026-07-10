@@ -4,7 +4,7 @@ import type { ActionButton } from '../ActionButton/ActionButton.ts'
 import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
-import * as GetSourceControlButtonsVirtualDom from '../GetSourceControlButtonsVirtualDom/GetSourceControlButtonsVirtualDom.ts'
+import * as GetSourceControlButtonVirtualDom from '../GetSourceControlButtonVirtualDom/GetSourceControlButtonVirtualDom.ts'
 import * as GetSourceControlHeaderVirtualDom from '../GetSourceControlHeaderVirtualDom/GetSourceControlHeaderVirtualDom.ts'
 import * as GetSourceControlListVirtualDom from '../GetSourceControlListVirtualDom/GetSourceControlListVirtualDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
@@ -14,28 +14,29 @@ const className = MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames
 
 export const getSourceControlVirtualDom = (
   items: readonly VisibleItem[],
-  sourceControlButtons: readonly ActionButton[],
-  inputPlaceholder: string,
+  buttons: readonly ActionButton[],
+  disabled: boolean,
+  placeholder: string,
   inputMessage: string,
-  unavailableMessage: string,
+  message: string,
 ): readonly VirtualDomNode[] => {
-  const content = unavailableMessage
+  const content = message
     ? [
         {
           childCount: 1,
           className: ClassNames.Message,
           type: VirtualDomElements.Div,
         },
-        text(unavailableMessage),
+        text(message),
       ]
     : [
-        ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder, inputMessage),
-        ...GetSourceControlButtonsVirtualDom.getSourceControlButtonsVirtualDom(sourceControlButtons),
+        ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(placeholder, inputMessage),
+        ...buttons.flatMap<VirtualDomNode>((button) => GetSourceControlButtonVirtualDom.getSourceControlButtonVirtualDom(button, disabled)),
         ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items),
       ]
   const dom = [
     {
-      childCount: unavailableMessage ? 1 : 2 + sourceControlButtons.length,
+      childCount: message ? 1 : 2 + buttons.length,
       className: className,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onMouseOver: DomEventListenerFunctions.HandleMouseOver,

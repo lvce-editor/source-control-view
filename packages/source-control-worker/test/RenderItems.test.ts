@@ -2,6 +2,7 @@ import { test, expect } from '@jest/globals'
 import { PlatformType, ViewletCommand } from '@lvce-editor/constants'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as RenderItems from '../src/parts/RenderItems/RenderItems.ts'
 
@@ -132,4 +133,25 @@ test('renderItems - shows unavailable message instead of commit controls in web 
       }),
     ],
   ])
+})
+
+test('renderItems - disables source control buttons without changes', () => {
+  const oldState: SourceControlState = createDefaultState()
+  const newState: SourceControlState = {
+    ...createDefaultState(),
+    sourceControlButtons: [
+      {
+        command: 'git.commitAndSync',
+        icon: 'Check',
+        id: 'git.commitAndSync',
+        label: 'Commit & Sync',
+      },
+    ],
+  }
+
+  const result = RenderItems.renderItems(oldState, newState)
+
+  expect(result[2][3].className).toBe(`${ClassNames.SplitButton} ${ClassNames.SplitButtonDisabled}`)
+  expect(result[2][4].ariaDisabled).toBe(true)
+  expect(result[2][4].className).toBe(`${ClassNames.SplitButtonContent} ${ClassNames.SplitButtonContentDisabled}`)
 })
