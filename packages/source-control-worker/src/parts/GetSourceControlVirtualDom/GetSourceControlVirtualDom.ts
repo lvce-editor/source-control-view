@@ -4,7 +4,7 @@ import type { ActionButton } from '../ActionButton/ActionButton.ts'
 import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
-import * as GetSourceControlButtonsVirtualDom from '../GetSourceControlButtonsVirtualDom/GetSourceControlButtonsVirtualDom.ts'
+import * as GetSourceControlButtonVirtualDom from '../GetSourceControlButtonVirtualDom/GetSourceControlButtonVirtualDom.ts'
 import * as GetSourceControlHeaderVirtualDom from '../GetSourceControlHeaderVirtualDom/GetSourceControlHeaderVirtualDom.ts'
 import * as GetSourceControlListVirtualDom from '../GetSourceControlListVirtualDom/GetSourceControlListVirtualDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
@@ -31,7 +31,9 @@ export const getSourceControlVirtualDom = (
       ]
     : [
         ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder, inputMessage),
-        ...GetSourceControlButtonsVirtualDom.getSourceControlButtonsVirtualDom(sourceControlButtons, sourceControlButtonsDisabled),
+        ...sourceControlButtons.flatMap<VirtualDomNode>((button) =>
+          GetSourceControlButtonVirtualDom.getSourceControlButtonVirtualDom(button, sourceControlButtonsDisabled),
+        ),
         ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items),
       ]
   const dom = [

@@ -9,14 +9,6 @@ export const renderItems = (oldState: SourceControlState, newState: SourceContro
     return [ViewletCommand.SetDom2, id, []]
   }
   const unavailableMessage = platform === PlatformType.Web && enabledProviderIds.length === 0 ? SourceControlStrings.noSourceControlProvidersAvailableForWeb() : ''
-  const sourceControlButtonsDisabled = items.length === 0
-  const dom = GetSourceControlDom.getSourceControlVirtualDom(
-    visibleItems,
-    sourceControlButtons,
-    sourceControlButtonsDisabled,
-    inputPlaceholder,
-    inputMessage,
-    unavailableMessage,
-  )
+  const dom = GetSourceControlDom.getSourceControlVirtualDom(visibleItems, sourceControlButtons, items.length === 0, inputPlaceholder, inputMessage, unavailableMessage)
   return [ViewletCommand.SetDom2, id, dom]
 }

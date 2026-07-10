@@ -151,10 +151,7 @@ test('renderItems - disables source control buttons without changes', () => {
 
   const result = RenderItems.renderItems(oldState, newState)
 
-  expect(result[2]).toEqual(
-    expect.arrayContaining([
-      expect.objectContaining({ className: `${ClassNames.SplitButton} ${ClassNames.SplitButtonDisabled}` }),
-      expect.objectContaining({ ariaDisabled: true, className: `${ClassNames.SplitButtonContent} ${ClassNames.SplitButtonContentDisabled}` }),
-    ]),
-  )
+  expect(result[2][3].className).toBe(`${ClassNames.SplitButton} ${ClassNames.SplitButtonDisabled}`)
+  expect(result[2][4].ariaDisabled).toBe(true)
+  expect(result[2][4].className).toBe(`${ClassNames.SplitButtonContent} ${ClassNames.SplitButtonContentDisabled}`)
 })
