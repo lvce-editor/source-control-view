@@ -9,7 +9,6 @@ import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 export const getSourceControlButtonVirtualDom = (button: ActionButton, disabled: boolean): readonly VirtualDomNode[] => {
   const { icon, id, label } = button
-  const clickHandler = disabled ? {} : { onClick: DomEventListenerFunctions.HandleClickSourceControlButton }
   return [
     {
       childCount: 1,
@@ -24,7 +23,7 @@ export const getSourceControlButtonVirtualDom = (button: ActionButton, disabled:
       tabIndex: disabled ? -1 : 0,
       title: id,
       type: VirtualDomElements.Div,
-      ...clickHandler,
+      ...(!disabled && { onClick: DomEventListenerFunctions.HandleClickSourceControlButton }),
     },
     GetIconVirtualDom.getIconVirtualDom(icon, VirtualDomElements.Span),
     text(label),

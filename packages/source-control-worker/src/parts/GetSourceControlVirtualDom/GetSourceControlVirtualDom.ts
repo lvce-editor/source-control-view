@@ -15,28 +15,28 @@ const className = MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames
 export const getSourceControlVirtualDom = (
   items: readonly VisibleItem[],
   buttons: readonly ActionButton[],
-  buttonsDisabled: boolean,
-  inputPlaceholder: string,
+  disabled: boolean,
+  placeholder: string,
   inputMessage: string,
-  unavailableMessage: string,
+  message: string,
 ): readonly VirtualDomNode[] => {
-  const content = unavailableMessage
+  const content = message
     ? [
         {
           childCount: 1,
           className: ClassNames.Message,
           type: VirtualDomElements.Div,
         },
-        text(unavailableMessage),
+        text(message),
       ]
     : [
-        ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder, inputMessage),
-        ...buttons.flatMap<VirtualDomNode>((button) => GetSourceControlButtonVirtualDom.getSourceControlButtonVirtualDom(button, buttonsDisabled)),
+        ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(placeholder, inputMessage),
+        ...buttons.flatMap<VirtualDomNode>((button) => GetSourceControlButtonVirtualDom.getSourceControlButtonVirtualDom(button, disabled)),
         ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items),
       ]
   const dom = [
     {
-      childCount: unavailableMessage ? 1 : 2 + buttons.length,
+      childCount: message ? 1 : 2 + buttons.length,
       className: className,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onMouseOver: DomEventListenerFunctions.HandleMouseOver,
