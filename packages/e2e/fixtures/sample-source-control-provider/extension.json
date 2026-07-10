@@ -77,5 +77,13 @@
         "icon": "Add"
       }
     ]
-  }
+  },
+  "source-control-buttons": [
+    {
+      "command": "sampleSourceControl.commit",
+      "id": "sampleSourceControl.commit",
+      "icon": "Check",
+      "label": "Commit"
+    }
+  ]
 }

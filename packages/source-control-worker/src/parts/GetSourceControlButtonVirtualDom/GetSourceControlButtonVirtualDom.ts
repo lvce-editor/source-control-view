@@ -4,24 +4,27 @@ import type { ActionButton } from '../ActionButton/ActionButton.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as GetIconVirtualDom from '../GetIconVirtualDom/GetIconVirtualDom.ts'
+import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
-export const getSourceControlButtonVirtualDom = (button: ActionButton): readonly VirtualDomNode[] => {
+export const getSourceControlButtonVirtualDom = (button: ActionButton, disabled: boolean): readonly VirtualDomNode[] => {
   const { icon, id, label } = button
+  const clickHandler = disabled ? {} : { onClick: DomEventListenerFunctions.HandleClickSourceControlButton }
   return [
     {
       childCount: 1,
-      className: ClassNames.SplitButton,
+      className: MergeClassNames.mergeClassNames(ClassNames.SplitButton, disabled ? ClassNames.SplitButtonDisabled : ''),
       type: VirtualDomElements.Div,
     },
     {
+      ariaDisabled: disabled,
       childCount: 2,
-      className: ClassNames.SplitButtonContent,
+      className: MergeClassNames.mergeClassNames(ClassNames.SplitButtonContent, disabled ? ClassNames.SplitButtonContentDisabled : ''),
       name: label,
-      onClick: DomEventListenerFunctions.HandleClickSourceControlButton,
-      tabIndex: 0,
+      tabIndex: disabled ? -1 : 0,
       title: id,
       type: VirtualDomElements.Div,
+      ...clickHandler,
     },
     GetIconVirtualDom.getIconVirtualDom(icon, VirtualDomElements.Span),
     text(label),

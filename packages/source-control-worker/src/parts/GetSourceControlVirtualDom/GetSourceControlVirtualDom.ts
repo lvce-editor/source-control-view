@@ -15,6 +15,7 @@ const className = MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames
 export const getSourceControlVirtualDom = (
   items: readonly VisibleItem[],
   sourceControlButtons: readonly ActionButton[],
+  sourceControlButtonsDisabled: boolean,
   inputPlaceholder: string,
   inputMessage: string,
   unavailableMessage: string,
@@ -30,7 +31,7 @@ export const getSourceControlVirtualDom = (
       ]
     : [
         ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder, inputMessage),
-        ...GetSourceControlButtonsVirtualDom.getSourceControlButtonsVirtualDom(sourceControlButtons),
+        ...GetSourceControlButtonsVirtualDom.getSourceControlButtonsVirtualDom(sourceControlButtons, sourceControlButtonsDisabled),
         ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items),
       ]
   const dom = [
