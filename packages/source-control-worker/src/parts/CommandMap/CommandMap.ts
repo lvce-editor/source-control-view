@@ -30,6 +30,7 @@ import * as Refresh from '../Refresh/Refresh.ts'
 import * as Render2 from '../Render2/Render2.ts'
 import * as RenderActions2 from '../RenderActions2/RenderActions2.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
+import * as RevealInExplorer from '../RevealInExplorer/RevealInExplorer.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
 import * as SelectIndex from '../SelectIndex/SelectIndex.ts'
 import * as SetDeltaY from '../SetDeltaY/SetDeltaY.ts'
@@ -76,6 +77,7 @@ export const commandMap = {
   'SourceControl.renderActions': WrapCommand.wrapGetter(RenderActions2.renderActions),
   'SourceControl.renderActions2': RenderActions2.renderActions,
   'SourceControl.renderEventListeners': RenderEventListeners.renderEventListeners,
+  'SourceControl.revealInExplorer': WrapCommand.wrapCommand(RevealInExplorer.revealInExplorer),
   'SourceControl.saveState': SaveState.saveState,
   'SourceControl.selectIndex': WrapCommand.wrapCommand(SelectIndex.selectIndex),
   'SourceControl.setDeltaY': WrapCommand.wrapCommand(SetDeltaY.setDeltaY),

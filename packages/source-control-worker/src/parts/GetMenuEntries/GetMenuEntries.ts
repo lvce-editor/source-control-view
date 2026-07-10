@@ -2,7 +2,7 @@ import { MenuItemFlags } from '@lvce-editor/constants'
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import * as ViewletSourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
-export const getMenuEntries = (): readonly MenuEntry[] => {
+export const getMenuEntries = (uri: string): readonly MenuEntry[] => {
   return [
     {
       command: /* TODO */ '-1',
@@ -41,9 +41,10 @@ export const getMenuEntries = (): readonly MenuEntry[] => {
       label: ViewletSourceControlStrings.addToGitignore(),
     },
     {
-      command: /* TODO */ '-1',
+      args: [uri],
+      command: 'SourceControl.revealInExplorer',
       flags: MenuItemFlags.None,
-      id: '',
+      id: 'revealInExplorerView',
       label: ViewletSourceControlStrings.revealInExplorerView(),
     },
     {
