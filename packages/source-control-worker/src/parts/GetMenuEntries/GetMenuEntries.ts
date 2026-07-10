@@ -42,7 +42,7 @@ export const getMenuEntries = (uri: string): readonly MenuEntry[] => {
     },
     {
       args: [uri],
-      command: 'SourceControl.revealInExplorer',
+      command: 'Source Control.revealInExplorer',
       flags: MenuItemFlags.None,
       id: 'revealInExplorerView',
       label: ViewletSourceControlStrings.revealInExplorerView(),

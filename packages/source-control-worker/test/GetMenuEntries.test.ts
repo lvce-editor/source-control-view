@@ -8,7 +8,7 @@ test('reveal in explorer entry', () => {
 
   expect(entry).toEqual({
     args: [uri],
-    command: 'SourceControl.revealInExplorer',
+    command: 'Source Control.revealInExplorer',
     flags: 0,
     id: 'revealInExplorerView',
     label: 'Reveal in Explorer View',
