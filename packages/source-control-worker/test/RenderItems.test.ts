@@ -1,5 +1,5 @@
 import { test, expect } from '@jest/globals'
-import { PlatformType, ViewletCommand } from '@lvce-editor/constants'
+import { ViewletCommand } from '@lvce-editor/constants'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
@@ -104,11 +104,10 @@ test('renderItems - handles empty placeholder', () => {
   expect(result).toEqual([ViewletCommand.SetDom2, 3, expect.any(Object)])
 })
 
-test('renderItems - shows unavailable message instead of commit controls in web without providers', () => {
+test('renderItems - shows unavailable message instead of commit controls without providers', () => {
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
     ...createDefaultState(),
-    platform: PlatformType.Web,
     sourceControlButtons: [
       {
         command: 'git.commitAndSync',
@@ -128,7 +127,7 @@ test('renderItems - shows unavailable message instead of commit controls in web 
       expect.objectContaining({ childCount: 1 }),
       expect.objectContaining({ childCount: 1 }),
       expect.objectContaining({
-        text: 'No source control providers are available for web.',
+        text: 'No source control provider is enabled or installed.',
         type: VirtualDomElements.Text,
       }),
     ],
@@ -139,6 +138,7 @@ test('renderItems - disables source control buttons without changes', () => {
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
     ...createDefaultState(),
+    enabledProviderIds: ['git'],
     sourceControlButtons: [
       {
         command: 'git.commitAndSync',

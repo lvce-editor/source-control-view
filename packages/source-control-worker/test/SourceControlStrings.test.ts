@@ -108,7 +108,7 @@ test('sourceControlInput', () => {
   expect(result).toBe(I18nString.i18nString(UiStrings.SourceControlInput))
 })
 
-test('noSourceControlProvidersAvailableForWeb', () => {
-  const result = SourceControlStrings.noSourceControlProvidersAvailableForWeb()
-  expect(result).toBe(I18nString.i18nString(UiStrings.NoSourceControlProvidersAvailableForWeb))
+test('noSourceControlProvider', () => {
+  const result = SourceControlStrings.noSourceControlProvider()
+  expect(result).toBe(I18nString.i18nString(UiStrings.NoSourceControlProvider))
 })
