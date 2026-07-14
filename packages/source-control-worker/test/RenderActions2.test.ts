@@ -40,6 +40,7 @@ test('renderActions - returns consistent structure', () => {
 test('renderActions - includes generate commit message action when enabled', () => {
   const state: SourceControlState = {
     ...createDefaultState(),
+    enabledProviderIds: ['git'],
     showGenerateCommitMessageButton: true,
   }
 

@@ -1,4 +1,3 @@
-import { PlatformType } from '@lvce-editor/constants'
 import type { Action } from '../Action/Action.ts'
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import * as ActionType from '../ActionType/ActionType.ts'
@@ -7,7 +6,7 @@ import * as MaskIcon from '../MaskIcon/MaskIcon.ts'
 import * as ViewletSourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
 export const getActions = (state: SourceControlState): readonly Action[] => {
-  if (state.platform === PlatformType.Web && state.enabledProviderIds.length === 0) {
+  if (state.enabledProviderIds.length === 0) {
     return [
       {
         command: '',

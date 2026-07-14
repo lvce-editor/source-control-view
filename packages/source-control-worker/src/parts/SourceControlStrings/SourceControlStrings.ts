@@ -84,6 +84,6 @@ export const sourceControlInput = (): string => {
   return I18nString.i18nString(UiStrings.SourceControlInput)
 }
 
-export const noSourceControlProvidersAvailableForWeb = (): string => {
-  return I18nString.i18nString(UiStrings.NoSourceControlProvidersAvailableForWeb)
+export const noSourceControlProvider = (): string => {
+  return I18nString.i18nString(UiStrings.NoSourceControlProvider)
 }
