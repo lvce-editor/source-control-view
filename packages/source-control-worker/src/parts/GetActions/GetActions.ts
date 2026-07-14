@@ -6,7 +6,7 @@ import * as MaskIcon from '../MaskIcon/MaskIcon.ts'
 import * as ViewletSourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
 export const getActions = (state: SourceControlState): readonly Action[] => {
-  if (state.enabledProviderIds.length === 0) {
+  if (!state.initial && state.enabledProviderIds.length === 0) {
     return [
       {
         command: '',

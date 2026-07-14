@@ -33,3 +33,14 @@ test('getActions - only shows refresh when no provider is available', () => {
 
   expect(result.map((action) => action.name)).toEqual([InputName.Refresh])
 })
+
+test('getActions - keeps the action structure while loading providers', () => {
+  const state = {
+    ...createDefaultState(),
+    initial: true,
+  }
+
+  const result = GetActions.getActions(state)
+
+  expect(result.map((action) => action.name)).toEqual([InputName.ViewAsTree, InputName.CommitAndPush, InputName.Refresh])
+})
