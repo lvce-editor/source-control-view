@@ -1,13 +1,11 @@
 import { expect, test } from '@jest/globals'
+import { PlatformType } from '@lvce-editor/constants'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as GetActions from '../src/parts/GetActions/GetActions.ts'
 import * as InputName from '../src/parts/InputName/InputName.ts'
 
 test('getActions - omits generate commit message action when disabled', () => {
-  const state = {
-    ...createDefaultState(),
-    enabledProviderIds: ['git'],
-  }
+  const state = createDefaultState()
 
   const result = GetActions.getActions(state)
 
@@ -17,7 +15,6 @@ test('getActions - omits generate commit message action when disabled', () => {
 test('getActions - includes generate commit message action when enabled', () => {
   const state = {
     ...createDefaultState(),
-    enabledProviderIds: ['git'],
     showGenerateCommitMessageButton: true,
   }
 
@@ -26,21 +23,13 @@ test('getActions - includes generate commit message action when enabled', () => 
   expect(result.map((action) => action.name)).toEqual([InputName.ViewAsTree, InputName.CommitAndPush, InputName.GenerateCommitMessage, InputName.Refresh])
 })
 
-test('getActions - only shows refresh when no provider is available', () => {
-  const state = createDefaultState()
-
-  const result = GetActions.getActions(state)
-
-  expect(result.map((action) => action.name)).toEqual([InputName.Refresh])
-})
-
-test('getActions - keeps the action structure while loading providers', () => {
+test('getActions - only shows refresh in web when no provider is available', () => {
   const state = {
     ...createDefaultState(),
-    initial: true,
+    platform: PlatformType.Web,
   }
 
   const result = GetActions.getActions(state)
 
-  expect(result.map((action) => action.name)).toEqual([InputName.ViewAsTree, InputName.CommitAndPush, InputName.Refresh])
+  expect(result.map((action) => action.name)).toEqual([InputName.Refresh])
 })
