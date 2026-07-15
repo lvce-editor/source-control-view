@@ -125,7 +125,11 @@ test('renderItems - shows unavailable message instead of commit controls without
     1,
     [
       expect.objectContaining({ childCount: 1 }),
-      expect.objectContaining({ childCount: 1 }),
+      expect.objectContaining({
+        childCount: 1,
+        paddingLeft: '20px',
+        paddingRight: '20px',
+      }),
       expect.objectContaining({
         text: 'No source control provider is enabled or installed.',
         type: VirtualDomElements.Text,
