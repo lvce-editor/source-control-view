@@ -25,6 +25,8 @@ export const getSourceControlVirtualDom = (
         {
           childCount: 1,
           className: ClassNames.Message,
+          paddingLeft: '20px',
+          paddingRight: '20px',
           type: VirtualDomElements.Div,
         },
         text(message),
