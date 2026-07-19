@@ -8,6 +8,8 @@ export const isEqual = (oldState: SourceControlState, newState: SourceControlSta
     oldState.loading === newState.loading &&
     oldState.maxLineY === newState.maxLineY &&
     oldState.minLineY === newState.minLineY &&
+    oldState.scrollBarActive === newState.scrollBarActive &&
+    oldState.scrollBarHeight === newState.scrollBarHeight &&
     oldState.sourceControlButtons === newState.sourceControlButtons &&
     oldState.visibleItems === newState.visibleItems
   )

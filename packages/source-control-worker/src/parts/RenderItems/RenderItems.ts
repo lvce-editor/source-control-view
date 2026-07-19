@@ -4,7 +4,8 @@ import * as GetSourceControlDom from '../GetSourceControlVirtualDom/GetSourceCon
 import * as SourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
 export const renderItems = (oldState: SourceControlState, newState: SourceControlState): any => {
-  const { enabledProviderIds, id, initial, inputMessage, inputPlaceholder, items, loading, sourceControlButtons, visibleItems } = newState
+  const { enabledProviderIds, id, initial, inputMessage, inputPlaceholder, items, loading, scrollBarActive, scrollBarHeight, sourceControlButtons, visibleItems } =
+    newState
   if (initial) {
     return [ViewletCommand.SetDom2, id, []]
   }
@@ -17,6 +18,8 @@ export const renderItems = (oldState: SourceControlState, newState: SourceContro
     inputMessage,
     unavailableMessage,
     loading,
+    scrollBarHeight,
+    scrollBarActive,
   )
   return [ViewletCommand.SetDom2, id, dom]
 }

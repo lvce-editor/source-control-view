@@ -4,6 +4,20 @@ import type { SourceControlState } from '../src/parts/SourceControlState/SourceC
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as RenderCss from '../src/parts/RenderCss/RenderCss.ts'
 
+const getExpectedCss = (inputBoxHeight: number): string => `:root {
+  --SourceControlInputHeight: ${inputBoxHeight}px;
+}
+
+.SourceControl .ScrollBarThumb {
+  height: 0px;
+  translate: 0 0px;
+}
+
+.SourceControlItems > .TreeItem:first-child {
+  margin-top: 0px;
+}
+`
+
 test('renderCss - returns correct command with CSS', () => {
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
@@ -15,14 +29,7 @@ test('renderCss - returns correct command with CSS', () => {
 
   const result = RenderCss.renderCss(oldState, newState)
 
-  expect(result).toEqual([
-    ViewletCommand.SetCss,
-    1,
-    `:root {
-  --SourceControlInputHeight: 30px;
-}
-`,
-  ])
+  expect(result).toEqual([ViewletCommand.SetCss, 1, getExpectedCss(30)])
 })
 
 test('renderCss - handles different input box heights', () => {
@@ -36,14 +43,7 @@ test('renderCss - handles different input box heights', () => {
 
   const result = RenderCss.renderCss(oldState, newState)
 
-  expect(result).toEqual([
-    ViewletCommand.SetCss,
-    2,
-    `:root {
-  --SourceControlInputHeight: 50px;
-}
-`,
-  ])
+  expect(result).toEqual([ViewletCommand.SetCss, 2, getExpectedCss(50)])
 })
 
 test('renderCss - handles zero height', () => {
@@ -57,14 +57,7 @@ test('renderCss - handles zero height', () => {
 
   const result = RenderCss.renderCss(oldState, newState)
 
-  expect(result).toEqual([
-    ViewletCommand.SetCss,
-    3,
-    `:root {
-  --SourceControlInputHeight: 0px;
-}
-`,
-  ])
+  expect(result).toEqual([ViewletCommand.SetCss, 3, getExpectedCss(0)])
 })
 
 test('renderCss - handles large height values', () => {
@@ -78,14 +71,7 @@ test('renderCss - handles large height values', () => {
 
   const result = RenderCss.renderCss(oldState, newState)
 
-  expect(result).toEqual([
-    ViewletCommand.SetCss,
-    4,
-    `:root {
-  --SourceControlInputHeight: 200px;
-}
-`,
-  ])
+  expect(result).toEqual([ViewletCommand.SetCss, 4, getExpectedCss(200)])
 })
 
 test('renderCss - generates indent CSS rules', () => {
@@ -140,6 +126,16 @@ test('renderCss - generates indent CSS rules', () => {
     `:root {
   --SourceControlInputHeight: 30px;
 }
+
+.SourceControl .ScrollBarThumb {
+  height: 0px;
+  translate: 0 0px;
+}
+
+.SourceControlItems > .TreeItem:first-child {
+  margin-top: 0px;
+}
+
 .Indent-0 {
   padding-left: 0px;
 }
@@ -148,4 +144,24 @@ test('renderCss - generates indent CSS rules', () => {
 }
 `,
   ])
+})
+
+test('renderCss - positions scrollbar and first visible item', () => {
+  const oldState: SourceControlState = createDefaultState()
+  const newState: SourceControlState = {
+    ...createDefaultState(),
+    deltaY: 50,
+    finalDeltaY: 200,
+    headerHeight: 40,
+    height: 200,
+    itemHeight: 20,
+    scrollBarHeight: 40,
+  }
+
+  const result = RenderCss.renderCss(oldState, newState)
+  const css = result[2]
+
+  expect(css).toContain('height: 40px;')
+  expect(css).toContain('translate: 0 30px;')
+  expect(css).toContain('margin-top: -10px;')
 })

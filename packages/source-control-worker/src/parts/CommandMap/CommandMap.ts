@@ -21,6 +21,9 @@ import * as HandleMouseOut from '../HandleMouseOut/HandleMouseOut.ts'
 import * as HandleMouseOutAt from '../HandleMouseOutAt/HandleMouseOutAt.ts'
 import * as HandleMouseOver from '../HandleMouseOver/HandleMouseOver.ts'
 import * as HandleMouseOverAt from '../HandleMouseOverAt/HandleMouseOverAt.ts'
+import { handleScrollBarCaptureLost } from '../HandleScrollBarCaptureLost/HandleScrollBarCaptureLost.ts'
+import { handleScrollBarClick } from '../HandleScrollBarClick/HandleScrollBarClick.ts'
+import { handleScrollBarMove } from '../HandleScrollBarMove/HandleScrollBarMove.ts'
 import * as HandleSourceControlButtonClick from '../HandleSourceControlButtonClick/HandleSourceControlButtonClick.ts'
 import * as HandleWheel from '../HandleWheel/HandleWheel.ts'
 import { handleWorkspaceRefresh } from '../HandleWorkspaceRefresh/HandleWorkspaceRefresh.ts'
@@ -67,6 +70,9 @@ export const commandMap = {
   'SourceControl.handleMouseOutAt': WrapCommand.wrapCommand(HandleMouseOutAt.handleMouseOutAt),
   'SourceControl.handleMouseOver': WrapCommand.wrapCommand(HandleMouseOver.handleMouseOver),
   'SourceControl.handleMouseOverAt': WrapCommand.wrapCommand(HandleMouseOverAt.handleMouseOverAt),
+  'SourceControl.handleScrollBarCaptureLost': WrapCommand.wrapCommand(handleScrollBarCaptureLost),
+  'SourceControl.handleScrollBarClick': WrapCommand.wrapCommand(handleScrollBarClick),
+  'SourceControl.handleScrollBarMove': WrapCommand.wrapCommand(handleScrollBarMove),
   'SourceControl.handleSourceControlButtonClick': WrapCommand.wrapCommand(HandleSourceControlButtonClick.handleSourceControlButtonClick),
   'SourceControl.handleWheel': WrapCommand.wrapCommand(HandleWheel.handleWheel),
   'SourceControl.handleWorkspaceRefresh': WrapCommand.wrapCommand(handleWorkspaceRefresh),

@@ -21,6 +21,8 @@ export const getSourceControlVirtualDom = (
   inputMessage: string,
   message: string,
   loading: boolean,
+  scrollBarHeight: number,
+  scrollBarActive: boolean,
 ): readonly VirtualDomNode[] => {
   const content = message
     ? [
@@ -36,7 +38,7 @@ export const getSourceControlVirtualDom = (
     : [
         ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(placeholder, inputMessage),
         ...buttons.flatMap<VirtualDomNode>((button) => GetSourceControlButtonVirtualDom.getSourceControlButtonVirtualDom(button, disabled)),
-        ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items),
+        ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items, scrollBarHeight, scrollBarActive),
       ]
   const progressDom = loading ? GetProgressVirtualDom.getProgressVirtualDom() : []
   const dom = [

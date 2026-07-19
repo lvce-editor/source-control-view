@@ -53,19 +53,20 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
   // TODO make preferences async and more functional
   const splitButtonEnabled = await Preferences.get('sourceControl.splitButtonEnabled')
   const badgeCount = await SourceControl.getBadgeCount(enabledProviderIds, assetDir, platform)
+  const inputPlaceholder = SourceControlStrings.messageEnterToCommitOnMaster()
+  const inputBoxHeight = await getInputHeight(inputValue, width, inputFontFamily, inputFontSize, inputFontWeight, inputLetterSpacing, inputLineHeight, inputPadding)
+  const headerHeight = getHeaderHeight(inputBoxHeight, sourceControlButtons)
   const total = displayItems.length
   const contentHeight = total * itemHeight
-  const listHeight = getListHeight(total, itemHeight, height)
-  const scrollBarHeight = ScrollBarFunctions.getScrollBarSize(height, contentHeight, minimumSliderSize)
+  const availableListHeight = Math.max(height - headerHeight, 0)
+  const listHeight = getListHeight(total, itemHeight, availableListHeight)
+  const scrollBarHeight = ScrollBarFunctions.getScrollBarSize(availableListHeight, contentHeight, minimumSliderSize)
   const numberOfVisible = GetNumberOfVisibleItems.getNumberOfVisibleItems(listHeight, itemHeight)
   const minLineY = 0
   const maxLineY = Math.min(numberOfVisible, total)
   const newFileIconCache = await GetFileIcons.getFileIcons(displayItems, fileIconCache)
   const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
-  const inputPlaceholder = SourceControlStrings.messageEnterToCommitOnMaster()
-  const inputBoxHeight = await getInputHeight(inputValue, width, inputFontFamily, inputFontSize, inputFontWeight, inputLetterSpacing, inputLineHeight, inputPadding)
-  const headerHeight = getHeaderHeight(inputBoxHeight, sourceControlButtons)
   return {
     ...state,
     actionsCache,

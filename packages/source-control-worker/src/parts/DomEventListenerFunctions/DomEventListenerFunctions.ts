@@ -9,3 +9,6 @@ export const HandleMouseOverAt = 8
 export const HandleWheel = 9
 export const HandleClickAction = 10
 export const HandleClickSourceControlButton = 11
+export const HandleScrollBarMove = 12
+export const HandleScrollBarPointerCaptureLost = 13
+export const HandleScrollBarPointerDown = 14
