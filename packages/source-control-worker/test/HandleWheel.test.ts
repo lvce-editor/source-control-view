@@ -7,6 +7,7 @@ test('handleWheel - adds deltaY to current deltaY', async (): Promise<void> => {
   const state: SourceControlState = {
     ...createDefaultState(),
     deltaY: 10,
+    finalDeltaY: 100,
   }
 
   const newState = await handleWheel(state, 0, 20)
@@ -21,6 +22,7 @@ test('handleWheel - handles negative deltaY', async (): Promise<void> => {
   const state: SourceControlState = {
     ...createDefaultState(),
     deltaY: 50,
+    finalDeltaY: 100,
   }
 
   const newState = await handleWheel(state, 0, -30)
@@ -33,6 +35,7 @@ test('handleWheel - handles zero deltaY', async (): Promise<void> => {
   const state: SourceControlState = {
     ...createDefaultState(),
     deltaY: 25,
+    finalDeltaY: 100,
   }
 
   const newState = await handleWheel(state, 0, 0)
@@ -42,7 +45,10 @@ test('handleWheel - handles zero deltaY', async (): Promise<void> => {
 })
 
 test('handleWheel - accepts deltaMode parameter', async (): Promise<void> => {
-  const state: SourceControlState = createDefaultState()
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    finalDeltaY: 100,
+  }
 
   const newState = await handleWheel(state, 1, 10)
 
@@ -51,7 +57,10 @@ test('handleWheel - accepts deltaMode parameter', async (): Promise<void> => {
 })
 
 test('handleWheel - with initial zero deltaY', async (): Promise<void> => {
-  const state: SourceControlState = createDefaultState()
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    finalDeltaY: 100,
+  }
 
   const newState = await handleWheel(state, 0, 15)
 
@@ -63,6 +72,7 @@ test('handleWheel - preserves other state properties', async (): Promise<void> =
   const state: SourceControlState = {
     ...createDefaultState(),
     deltaY: 5,
+    finalDeltaY: 100,
     height: 300,
     id: 42,
     width: 200,

@@ -11,15 +11,29 @@ import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 
 export const refresh = async (state: SourceControlState): Promise<SourceControlState> => {
-  const { actionsCache, assetDir, enabledProviderIds, fileIconCache, height, iconDefinitions, itemHeight, minimumSliderSize, platform, root, splitButtonEnabled } = state
+  const {
+    actionsCache,
+    assetDir,
+    enabledProviderIds,
+    fileIconCache,
+    headerHeight,
+    height,
+    iconDefinitions,
+    itemHeight,
+    minimumSliderSize,
+    platform,
+    root,
+    splitButtonEnabled,
+  } = state
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform)
   const expandedGroups = restoreExpandedGroups(allGroups)
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
   const badgeCount = await SourceControl.getBadgeCount(enabledProviderIds, assetDir, platform)
   const total = displayItems.length
   const contentHeight = total * itemHeight
-  const listHeight = getListHeight(total, itemHeight, height)
-  const scrollBarHeight = ScrollBarFunctions.getScrollBarSize(height, contentHeight, minimumSliderSize)
+  const availableListHeight = Math.max(height - headerHeight, 0)
+  const listHeight = getListHeight(total, itemHeight, availableListHeight)
+  const scrollBarHeight = ScrollBarFunctions.getScrollBarSize(availableListHeight, contentHeight, minimumSliderSize)
   const numberOfVisible = GetNumberOfVisibleItems.getNumberOfVisibleItems(listHeight, itemHeight)
   const minLineY = 0
   const maxLineY = Math.min(numberOfVisible, total)
@@ -31,12 +45,14 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     actionsCache,
     allGroups,
     badgeCount,
+    deltaY: 0,
     enabledProviderIds,
     fileIconCache: newFileIconCache,
     finalDeltaY,
     gitRoot,
     items: displayItems,
     maxLineY,
+    minLineY,
     scrollBarHeight,
     splitButtonEnabled,
     visibleItems,
