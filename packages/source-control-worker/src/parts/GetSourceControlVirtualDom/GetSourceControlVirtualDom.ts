@@ -4,6 +4,7 @@ import type { ActionButton } from '../ActionButton/ActionButton.ts'
 import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
+import * as GetProgressVirtualDom from '../GetProgressVirtualDom/GetProgressVirtualDom.ts'
 import * as GetSourceControlButtonVirtualDom from '../GetSourceControlButtonVirtualDom/GetSourceControlButtonVirtualDom.ts'
 import * as GetSourceControlHeaderVirtualDom from '../GetSourceControlHeaderVirtualDom/GetSourceControlHeaderVirtualDom.ts'
 import * as GetSourceControlListVirtualDom from '../GetSourceControlListVirtualDom/GetSourceControlListVirtualDom.ts'
@@ -19,6 +20,7 @@ export const getSourceControlVirtualDom = (
   placeholder: string,
   inputMessage: string,
   message: string,
+  loading: boolean,
 ): readonly VirtualDomNode[] => {
   const content = message
     ? [
@@ -36,9 +38,11 @@ export const getSourceControlVirtualDom = (
         ...buttons.flatMap<VirtualDomNode>((button) => GetSourceControlButtonVirtualDom.getSourceControlButtonVirtualDom(button, disabled)),
         ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items),
       ]
+  const progressDom = loading ? GetProgressVirtualDom.getProgressVirtualDom() : []
   const dom = [
     {
-      childCount: message ? 1 : 2 + buttons.length,
+      ariaBusy: loading,
+      childCount: (message ? 1 : 2 + buttons.length) + (loading ? 1 : 0),
       className: className,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onMouseOver: DomEventListenerFunctions.HandleMouseOver,
@@ -47,6 +51,7 @@ export const getSourceControlVirtualDom = (
       tabIndex: 0,
       type: VirtualDomElements.Div,
     },
+    ...progressDom,
     ...content,
   ]
   return dom

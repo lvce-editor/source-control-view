@@ -4,11 +4,19 @@ import * as GetSourceControlDom from '../GetSourceControlVirtualDom/GetSourceCon
 import * as SourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
 export const renderItems = (oldState: SourceControlState, newState: SourceControlState): any => {
-  const { enabledProviderIds, id, initial, inputMessage, inputPlaceholder, items, sourceControlButtons, visibleItems } = newState
+  const { enabledProviderIds, id, initial, inputMessage, inputPlaceholder, items, loading, sourceControlButtons, visibleItems } = newState
   if (initial) {
     return [ViewletCommand.SetDom2, id, []]
   }
-  const unavailableMessage = enabledProviderIds.length === 0 ? SourceControlStrings.noSourceControlProvider() : ''
-  const dom = GetSourceControlDom.getSourceControlVirtualDom(visibleItems, sourceControlButtons, items.length === 0, inputPlaceholder, inputMessage, unavailableMessage)
+  const unavailableMessage = !loading && enabledProviderIds.length === 0 ? SourceControlStrings.noSourceControlProvider() : ''
+  const dom = GetSourceControlDom.getSourceControlVirtualDom(
+    visibleItems,
+    sourceControlButtons,
+    items.length === 0,
+    inputPlaceholder,
+    inputMessage,
+    unavailableMessage,
+    loading,
+  )
   return [ViewletCommand.SetDom2, id, dom]
 }

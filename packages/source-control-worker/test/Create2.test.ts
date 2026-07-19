@@ -13,7 +13,7 @@ test('create2 - creates state with provided parameters', (): void => {
 
   create2(id, uri, x, y, width, height, workspacePath, 0, '')
 
-  const { newState } = get(id)
+  const { newState, oldState } = get(id)
   expect(newState).toBeDefined()
   expect(newState.id).toBe(id)
   expect(newState.workspacePath).toBe(workspacePath)
@@ -24,4 +24,8 @@ test('create2 - creates state with provided parameters', (): void => {
   expect(newState.assetDir).toBe('')
   expect(newState.inputMessage).toBe('')
   expect(newState.showGenerateCommitMessageButton).toBe(false)
+  expect(newState.initial).toBe(false)
+  expect(newState.loading).toBe(true)
+  expect(oldState.initial).toBe(true)
+  expect(oldState.loading).toBe(false)
 })
