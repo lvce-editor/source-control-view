@@ -83,6 +83,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
     inputPlaceholder,
     inputValue,
     items: displayItems,
+    loading: false,
     maxLineY,
     root,
     scrollBarHeight,

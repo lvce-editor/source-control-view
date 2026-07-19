@@ -138,6 +138,38 @@ test('renderItems - shows unavailable message instead of commit controls without
   ])
 })
 
+test('renderItems - shows progress without unavailable message while loading', () => {
+  const oldState: SourceControlState = createDefaultState()
+  const newState: SourceControlState = {
+    ...createDefaultState(),
+    loading: true,
+  }
+
+  const result = RenderItems.renderItems(oldState, newState)
+
+  expect(result[2].slice(0, 3)).toEqual([
+    expect.objectContaining({
+      ariaBusy: true,
+      childCount: 3,
+    }),
+    {
+      childCount: 1,
+      className: ClassNames.ProgressContainer,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.Progress,
+      type: VirtualDomElements.Div,
+    },
+  ])
+  expect(result[2]).not.toContainEqual(
+    expect.objectContaining({
+      text: 'No source control provider is enabled or installed.',
+    }),
+  )
+})
+
 test('renderItems - disables source control buttons without changes', () => {
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
