@@ -32,4 +32,15 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, Locat
 
   // assert
   await expect(scrollBarThumb).toHaveCSS('translate', '0px 6px')
+
+  // act
+  const visibleFileItem = Locator('.SourceControlItems .TreeItem', { hasText: '10.txt' })
+  await expect(visibleFileItem).toBeVisible()
+  await Command.execute('Source Control.handleClickAt', 0, 145, '')
+
+  // assert
+  const diffEditor = Locator('.DiffEditor')
+  const changedContent = Locator('.DiffEditorContentRight .DiffEditorRows')
+  await expect(diffEditor).toBeVisible()
+  await expect(changedContent).toContainText('10')
 }
