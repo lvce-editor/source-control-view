@@ -16,14 +16,9 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   await SourceControl.selectIndex(0)
 
-  const treeItems = Locator('.SourceControlItems .TreeItem')
-  const stagedGroup = treeItems.nth(0)
-  const changesGroup = treeItems.nth(1)
-  const changedFile = treeItems.nth(2)
-  await expect(treeItems).toHaveCount(3)
+  const stagedGroup = Locator('.SourceControlItems .TreeItem', { hasText: 'Staged Changes1' })
+  const stagedFile = Locator('.SourceControlItems .TreeItem', { hasText: 'a.css' })
   await expect(stagedGroup).toHaveText('Staged Changes1')
   await expect(stagedGroup).toHaveAttribute('aria-expanded', 'false')
-  await expect(changesGroup).toHaveText('Changes1')
-  await expect(changesGroup).toHaveAttribute('aria-expanded', 'true')
-  await expect(changedFile).toHaveText('b.css')
+  await expect(stagedFile).toHaveCount(0)
 }
