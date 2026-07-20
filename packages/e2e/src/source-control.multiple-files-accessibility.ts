@@ -6,18 +6,23 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/a.css`, 'a')
-  await FileSystem.writeFile(`${tmpDir}/b.css`, 'b')
-  await FileSystem.writeFile(`${tmpDir}/c.css`, 'c')
+  await FileSystem.setFiles([
+    { content: 'a', uri: `${tmpDir}/a.css` },
+    { content: 'b', uri: `${tmpDir}/b.css` },
+    { content: 'c', uri: `${tmpDir}/c.css` },
+  ])
   await Workspace.setPath(tmpDir)
 
   await SourceControl.show()
 
   const treeItems = Locator('.SourceControlItems .TreeItem')
-  await expect(treeItems.nth(1)).toHaveAttribute('aria-posinset', '1')
-  await expect(treeItems.nth(1)).toHaveAttribute('aria-setsize', '3')
-  await expect(treeItems.nth(2)).toHaveAttribute('aria-posinset', '2')
-  await expect(treeItems.nth(2)).toHaveAttribute('aria-setsize', '3')
-  await expect(treeItems.nth(3)).toHaveAttribute('aria-posinset', '3')
-  await expect(treeItems.nth(3)).toHaveAttribute('aria-setsize', '3')
+  const firstFile = treeItems.nth(1)
+  const secondFile = treeItems.nth(2)
+  const thirdFile = treeItems.nth(3)
+  await expect(firstFile).toHaveAttribute('aria-posinset', '1')
+  await expect(firstFile).toHaveAttribute('aria-setsize', '3')
+  await expect(secondFile).toHaveAttribute('aria-posinset', '2')
+  await expect(secondFile).toHaveAttribute('aria-setsize', '3')
+  await expect(thirdFile).toHaveAttribute('aria-posinset', '3')
+  await expect(thirdFile).toHaveAttribute('aria-setsize', '3')
 }

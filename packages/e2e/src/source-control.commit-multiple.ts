@@ -6,8 +6,10 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/a.css`, 'a')
-  await FileSystem.writeFile(`${tmpDir}/b.css`, 'b')
+  await FileSystem.setFiles([
+    { content: 'a', uri: `${tmpDir}/a.css` },
+    { content: 'b', uri: `${tmpDir}/b.css` },
+  ])
   await Workspace.setPath(tmpDir)
   await SourceControl.show()
   await SourceControl.handleClickSourceControlButtons(1, 'Stage')
@@ -17,6 +19,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await SourceControl.acceptInput()
 
   const treeItems = Locator('.SourceControlItems .TreeItem')
+  const input = Locator('.SourceControl .InputBox')
   await expect(treeItems).toHaveCount(0)
-  await expect(Locator('.SourceControl .InputBox')).toHaveValue('')
+  await expect(input).toHaveValue('')
 }
