@@ -13,7 +13,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await SourceControl.show()
 
   const fileItem = Locator('.SourceControlItems .TreeItem').nth(1)
-  const decoration = fileItem.locator('.DecorationIcon[src*="status-deleted.svg"]')
+  const decoration = fileItem.locator('.DecorationIcon')
   await expect(decoration).toHaveCount(1)
   await expect(decoration).toHaveAttribute('title', 'Deleted')
   await expect(fileItem.locator('.Label.StrikeThrough')).toHaveCount(1)

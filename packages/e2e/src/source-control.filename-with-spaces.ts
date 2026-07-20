@@ -14,5 +14,5 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   const fileItem = Locator('.SourceControlItems .TreeItem').nth(1)
   await expect(fileItem).toHaveText('file with spaces.css')
-  await expect(fileItem).toHaveAttribute('title', file)
+  await expect(fileItem).toHaveAttribute('title', 'file with spaces.css')
 }

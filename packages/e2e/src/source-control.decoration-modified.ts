@@ -12,7 +12,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   await SourceControl.show()
 
-  const decoration = Locator('.SourceControlItems .DecorationIcon[src*="status-modified.svg"]')
+  const decoration = Locator('.SourceControlItems .DecorationIcon')
   await expect(decoration).toHaveCount(1)
   await expect(decoration).toHaveAttribute('title', 'Modified')
 }

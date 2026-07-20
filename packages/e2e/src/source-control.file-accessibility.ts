@@ -16,5 +16,5 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(fileItem).toHaveAttribute('role', 'treeitem')
   await expect(fileItem).toHaveAttribute('aria-posinset', '1')
   await expect(fileItem).toHaveAttribute('aria-setsize', '1')
-  await expect(fileItem).toHaveAttribute('title', file)
+  await expect(fileItem).toHaveAttribute('title', 'test.css')
 }

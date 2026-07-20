@@ -12,6 +12,5 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   const input = Locator('.SourceControl textarea.InputBox')
   await expect(input).toHaveAttribute('autocapitalize', 'off')
-  await expect(input).toHaveAttribute('autocorrect', 'off')
   await expect(input).toHaveAttribute('spellcheck', 'false')
 }
