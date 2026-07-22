@@ -4,6 +4,12 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
+const separatorNode: VirtualDomNode = {
+  childCount: 0,
+  className: ClassNames.SplitButtonSeparator,
+  type: VirtualDomElements.Div,
+}
+
 export const getSplitButtonVirtualDom = (hasItems: boolean, splitButtonEnabled: boolean, buttonText: string): readonly VirtualDomNode[] => {
   if (!splitButtonEnabled || !hasItems) {
     return []
@@ -21,11 +27,7 @@ export const getSplitButtonVirtualDom = (hasItems: boolean, splitButtonEnabled: 
       type: VirtualDomElements.Div,
     },
     text(buttonText),
-    {
-      childCount: 0,
-      className: ClassNames.SplitButtonSeparator,
-      type: VirtualDomElements.Div,
-    },
+    separatorNode,
     {
       childCount: 1,
       className: MergeClassNames.mergeClassNames(ClassNames.SplitButtonDropDown, hasItems ? '' : ClassNames.SplitButtonDropDownDisabled),
