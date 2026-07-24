@@ -23,3 +23,6 @@ export const Refresh = 'Refresh'
 export const MessageEnterToCommitOnMaster = `Message (Enter) to commit on 'master'`
 export const SourceControlInput = 'Source Control Input'
 export const NoSourceControlProvider = 'No source control provider is enabled or installed.'
+export const NoSourceControlExtensionsInstalled = 'No source control extensions are installed.'
+export const SourceControlExtensionsDisabled = 'All installed source control extensions are disabled.'
+export const NoSourceControlProviderForWorkspace = 'No source control provider is available for this workspace.'

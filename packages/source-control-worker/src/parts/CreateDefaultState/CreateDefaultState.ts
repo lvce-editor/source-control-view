@@ -44,6 +44,7 @@ export const createDefaultState = (): SourceControlState => ({
   minLineY: 0,
   platform: 0,
   providerId: '',
+  providerUnavailableMessage: '',
   root: '/',
   scrollBarActive: false,
   scrollBarHeight: 0,

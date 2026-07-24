@@ -1,15 +1,25 @@
 import { ViewletCommand } from '@lvce-editor/constants'
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import * as GetSourceControlDom from '../GetSourceControlVirtualDom/GetSourceControlVirtualDom.ts'
-import * as SourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
 export const renderItems = (oldState: SourceControlState, newState: SourceControlState): any => {
-  const { enabledProviderIds, id, initial, inputMessage, inputPlaceholder, items, loading, scrollBarActive, scrollBarHeight, sourceControlButtons, visibleItems } =
-    newState
+  const {
+    id,
+    initial,
+    inputMessage,
+    inputPlaceholder,
+    items,
+    loading,
+    providerUnavailableMessage,
+    scrollBarActive,
+    scrollBarHeight,
+    sourceControlButtons,
+    visibleItems,
+  } = newState
   if (initial) {
     return [ViewletCommand.SetDom2, id, []]
   }
-  const unavailableMessage = !loading && enabledProviderIds.length === 0 ? SourceControlStrings.noSourceControlProvider() : ''
+  const unavailableMessage = loading ? '' : providerUnavailableMessage
   const dom = GetSourceControlDom.getSourceControlVirtualDom(
     visibleItems,
     sourceControlButtons,

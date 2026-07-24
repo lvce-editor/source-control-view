@@ -50,6 +50,7 @@ export interface SourceControlState {
   readonly minLineY: number
   readonly platform: number
   readonly providerId: string
+  readonly providerUnavailableMessage: string
   readonly root: string
   readonly scrollBarActive: boolean
   readonly scrollBarHeight: number
