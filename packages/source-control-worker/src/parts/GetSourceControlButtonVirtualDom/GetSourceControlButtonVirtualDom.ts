@@ -25,7 +25,10 @@ export const getSourceControlButtonVirtualDom = (button: ActionButton, disabled:
       type: VirtualDomElements.Div,
       ...(!disabled && { onClick: DomEventListenerFunctions.HandleClickSourceControlButton }),
     },
-    GetIconVirtualDom.getIconVirtualDom(icon, VirtualDomElements.Span),
+    {
+      ...GetIconVirtualDom.getIconVirtualDom(icon, VirtualDomElements.Span),
+      name: label,
+    },
     text(label),
   ]
 }
