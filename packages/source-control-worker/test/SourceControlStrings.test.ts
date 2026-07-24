@@ -112,3 +112,18 @@ test('noSourceControlProvider', () => {
   const result = SourceControlStrings.noSourceControlProvider()
   expect(result).toBe(I18nString.i18nString(UiStrings.NoSourceControlProvider))
 })
+
+test('noSourceControlExtensionsInstalled', () => {
+  const result = SourceControlStrings.noSourceControlExtensionsInstalled()
+  expect(result).toBe(I18nString.i18nString(UiStrings.NoSourceControlExtensionsInstalled))
+})
+
+test('sourceControlExtensionsDisabled', () => {
+  const result = SourceControlStrings.sourceControlExtensionsDisabled()
+  expect(result).toBe(I18nString.i18nString(UiStrings.SourceControlExtensionsDisabled))
+})
+
+test('noSourceControlProviderForWorkspace', () => {
+  const result = SourceControlStrings.noSourceControlProviderForWorkspace()
+  expect(result).toBe(I18nString.i18nString(UiStrings.NoSourceControlProviderForWorkspace))
+})

@@ -108,6 +108,7 @@ test('renderItems - shows unavailable message instead of commit controls without
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
     ...createDefaultState(),
+    providerUnavailableMessage: 'No source control extensions are installed.',
     sourceControlButtons: [
       {
         command: 'git.commitAndSync',
@@ -131,7 +132,7 @@ test('renderItems - shows unavailable message instead of commit controls without
         paddingRight: '20px',
       }),
       expect.objectContaining({
-        text: 'No source control provider is enabled or installed.',
+        text: 'No source control extensions are installed.',
         type: VirtualDomElements.Text,
       }),
     ],
@@ -165,7 +166,7 @@ test('renderItems - shows progress without unavailable message while loading', (
   ])
   expect(result[2]).not.toContainEqual(
     expect.objectContaining({
-      text: 'No source control provider is enabled or installed.',
+      text: 'No source control extensions are installed.',
     }),
   )
 })

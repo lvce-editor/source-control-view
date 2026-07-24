@@ -8,6 +8,7 @@ import { getInputHeight } from '../GetInputHeight/GetInputHeight.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
 import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
 import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
+import { getSourceControlUnavailableMessage } from '../GetSourceControlUnavailableMessage/GetSourceControlUnavailableMessage.ts'
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 import * as Preferences from '../Preferences/Preferences.ts'
 import { requestSourceActions } from '../RequestSourceActions/RequestSourceActions.ts'
@@ -38,6 +39,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
   const { inputValue } = restoreState(savedState)
   const { assetDir, platform } = state
   const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root, assetDir, platform)
+  const providerUnavailableMessage = enabledProviderIds.length === 0 ? await getSourceControlUnavailableMessage(assetDir, platform) : ''
   const showGenerateCommitMessageButton =
     enabledProviderIds.length === 0 ? false : await SourceControl.getShowGenerateCommitMessageButton(enabledProviderIds[0], assetDir, platform)
 
@@ -86,6 +88,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
     items: displayItems,
     loading: false,
     maxLineY,
+    providerUnavailableMessage,
     root,
     scrollBarHeight,
     showGenerateCommitMessageButton,

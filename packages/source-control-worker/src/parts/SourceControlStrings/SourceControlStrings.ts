@@ -87,3 +87,15 @@ export const sourceControlInput = (): string => {
 export const noSourceControlProvider = (): string => {
   return I18nString.i18nString(UiStrings.NoSourceControlProvider)
 }
+
+export const noSourceControlExtensionsInstalled = (): string => {
+  return I18nString.i18nString(UiStrings.NoSourceControlExtensionsInstalled)
+}
+
+export const sourceControlExtensionsDisabled = (): string => {
+  return I18nString.i18nString(UiStrings.SourceControlExtensionsDisabled)
+}
+
+export const noSourceControlProviderForWorkspace = (): string => {
+  return I18nString.i18nString(UiStrings.NoSourceControlProviderForWorkspace)
+}
