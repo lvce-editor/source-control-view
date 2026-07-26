@@ -5,6 +5,12 @@ import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEven
 import * as InputName from '../InputName/InputName.ts'
 import * as ViewletSourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
+const messageNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.Message,
+  type: VirtualDomElements.Div,
+}
+
 export const getSourceControlInputDom = (inputPlaceholder: string, inputMessage: string): readonly VirtualDomNode[] => {
   const dom: VirtualDomNode[] = [
     {
@@ -22,17 +28,10 @@ export const getSourceControlInputDom = (inputPlaceholder: string, inputMessage:
     },
   ]
   if (inputMessage) {
-    dom.push(
-      {
-        childCount: 1,
-        className: ClassNames.Message,
-        type: VirtualDomElements.Div,
-      },
-      {
-        text: inputMessage,
-        type: VirtualDomElements.Text,
-      },
-    )
+    dom.push(messageNode, {
+      text: inputMessage,
+      type: VirtualDomElements.Text,
+    })
   }
   return dom
 }
