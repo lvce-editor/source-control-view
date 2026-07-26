@@ -16,6 +16,12 @@ const chevron: VirtualDomNode = {
   type: VirtualDomElements.Div,
 }
 
+const labelDetailNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.LabelDetail,
+  type: VirtualDomElements.Span,
+}
+
 const getIconsDom = (icon: string, fileIcon: string): readonly VirtualDomNode[] => {
   if (icon === ClassNames.ChevronRight) {
     return [chevron, GetIconVirtualDom.getIconVirtualDom(icon)]
@@ -53,14 +59,7 @@ export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] =>
 
   if (detail) {
     labelDom.childCount++
-    dom.push(
-      {
-        childCount: 1,
-        className: ClassNames.LabelDetail,
-        type: VirtualDomElements.Span,
-      },
-      text(detail),
-    )
+    dom.push(labelDetailNode, text(detail))
   }
   dom.push(...buttonsDom)
   dom.push({

@@ -13,6 +13,14 @@ import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 const className = MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.SourceControl)
 
+const messageNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.Message,
+  paddingLeft: '20px',
+  paddingRight: '20px',
+  type: VirtualDomElements.Div,
+}
+
 export const getSourceControlVirtualDom = (
   items: readonly VisibleItem[],
   buttons: readonly ActionButton[],
@@ -25,16 +33,7 @@ export const getSourceControlVirtualDom = (
   scrollBarActive: boolean,
 ): readonly VirtualDomNode[] => {
   const content = message
-    ? [
-        {
-          childCount: 1,
-          className: ClassNames.Message,
-          paddingLeft: '20px',
-          paddingRight: '20px',
-          type: VirtualDomElements.Div,
-        },
-        text(message),
-      ]
+    ? [messageNode, text(message)]
     : [
         ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(placeholder, inputMessage),
         ...buttons.flatMap<VirtualDomNode>((button) => GetSourceControlButtonVirtualDom.getSourceControlButtonVirtualDom(button, disabled)),
