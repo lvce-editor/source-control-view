@@ -10,6 +10,12 @@ const splitButtonSeparatorNode: VirtualDomNode = {
   type: VirtualDomElements.Div,
 }
 
+const chevronDownNode: VirtualDomNode = {
+  childCount: 0,
+  className: MergeClassNames.mergeClassNames(ClassNames.MaskIcon, ClassNames.MaskIconChevronDown),
+  type: VirtualDomElements.Div,
+}
+
 export const getSplitButtonVirtualDom = (hasItems: boolean, splitButtonEnabled: boolean, buttonText: string): readonly VirtualDomNode[] => {
   if (!splitButtonEnabled || !hasItems) {
     return []
@@ -34,10 +40,6 @@ export const getSplitButtonVirtualDom = (hasItems: boolean, splitButtonEnabled: 
       tabIndex: 0,
       type: VirtualDomElements.Div,
     },
-    {
-      childCount: 0,
-      className: MergeClassNames.mergeClassNames(ClassNames.MaskIcon, ClassNames.MaskIconChevronDown),
-      type: VirtualDomElements.Div,
-    },
+    chevronDownNode,
   ]
 }
