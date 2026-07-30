@@ -1,7 +1,5 @@
 export const CommandExecute = 'ExtensionHostCommand.executeCommand'
 export const SourceControlAcceptInput = 'ExtensionHostSourceControl.acceptInput'
-export const SourceControlAdd = 'ExtensionHostSourceControl.add'
-export const SourceControlDiscard = 'ExtensionHostSourceControl.discard'
 export const SourceControlGenerateCommitMessage = 'ExtensionHostSourceControl.generateCommitMessage'
 export const SourceControlGetBadgeCount = 'ExtensionHostSourceControl.getBadgeCount'
 export const SourceControlGetChangedFiles = 'ExtensionHost.sourceControlGetChangedFiles'
