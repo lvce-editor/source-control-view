@@ -73,20 +73,6 @@ export const getFileBefore = (providerId: string, file: string, assetDir: string
   return ExtensionHostSourceControl.getFileBefore(providerId, file, assetDir, platform)
 }
 
-export const add = (file: string): Promise<void> => {
-  // @ts-ignore
-  return ExtensionHostSourceControl.add(file)
-}
-
-export const discard = (file: string): Promise<void> => {
-  // @ts-ignore
-  return ExtensionHostSourceControl.discard(file)
-}
-
-export const openFile = async (file: string): Promise<void> => {
-  // TODO
-}
-
 export const getEnabledProviderIds = (scheme: string, root: string, assetDir: string, platform: number): Promise<readonly string[]> => {
   Assert.string(scheme)
   Assert.string(root)

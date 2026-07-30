@@ -10,7 +10,9 @@ export const getScrollBarOffset = (delta: number, finalDelta: number, size: numb
   return scrollBarOffset
 }
 
-export const getScrollBarY = getScrollBarOffset
+export const getScrollBarY = (delta: number, finalDelta: number, size: number, scrollBarSize: number): number => {
+  return getScrollBarOffset(delta, finalDelta, size, scrollBarSize)
+}
 
 export const getScrollBarWidth = (width: number, longestLineWidth: number): number => {
   if (width > longestLineWidth) {
