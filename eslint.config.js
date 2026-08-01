@@ -1,10 +1,10 @@
+import { defineConfig } from 'eslint/config'
 import * as config from '@lvce-editor/eslint-config'
-import actions from '@lvce-editor/eslint-plugin-github-actions'
 
-export default [
+export default defineConfig([
   ...config.default,
   ...config.recommendedVirtualDom,
-  ...actions,
+  ...config.recommendedActions,
   {
     rules: {
       'e2e/prefer-execute-extension-command': 'off',
@@ -44,4 +44,4 @@ export default [
       'virtual-dom/prefer-state-destructuring': 'off',
     },
   },
-]
+])
