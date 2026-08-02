@@ -17,5 +17,6 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(message).toBeVisible()
   await expect(message).toContainText('Failed to load source control:')
   await expect(message).toContainText('Unable to read repository state')
-  await expect(Locator('.Viewlet.SourceControl > .ProgressContainer')).toHaveCount(0)
+  const progress = Locator('.Viewlet.SourceControl > .ProgressContainer')
+  await expect(progress).toHaveCount(0)
 }
