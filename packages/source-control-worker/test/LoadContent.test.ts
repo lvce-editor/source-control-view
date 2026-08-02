@@ -1,6 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { ExtensionHost } from '@lvce-editor/rpc-registry'
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, ExtensionManagementWorker, RendererWorker } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
@@ -9,12 +8,13 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
   const commandMap = {
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
-    'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
 
   const state: SourceControlState = createDefaultState()
@@ -35,12 +35,13 @@ test('loadContent - with saved state inputValue', async (): Promise<void> => {
   const commandMap = {
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
-    'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 45,
     'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
 
   const state: SourceControlState = createDefaultState()
@@ -60,12 +61,13 @@ test('loadContent - with enabled providers', async (): Promise<void> => {
     'ExtensionHostSourceControl.getFeatures': async (): Promise<{ showGenerateCommitMessageButton: boolean }> => ({ showGenerateCommitMessageButton: false }),
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [],
     'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => ['icon1', 'icon2'],
-    'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
 
   const state: SourceControlState = {
@@ -101,12 +103,13 @@ test('loadContent - with groups', async (): Promise<void> => {
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => mockGroups,
     'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => [],
-    'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
 
   const state: SourceControlState = {
@@ -143,12 +146,13 @@ test('loadContent - with source control actions', async (): Promise<void> => {
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [],
     'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => [],
-    'Extensions.getExtensions': async (): Promise<readonly any[]> => mockExtensions,
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => mockExtensions,
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
 
   const state: SourceControlState = createDefaultState()
@@ -196,12 +200,13 @@ test('loadContent - calculates scroll bar and visible items correctly', async ()
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => mockGroups,
     'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => [],
-    'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
     'IconTheme.getIcons': async (): Promise<readonly string[]> => ['icon1', 'icon2'],
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
   }
   ExtensionHost.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
 
   const state: SourceControlState = {

@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { PlatformType } from '@lvce-editor/constants'
-import { ExtensionHost } from '@lvce-editor/rpc-registry'
+import { ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
 import { requestSourceActions } from '../src/parts/RequestSourceActions/RequestSourceActions.ts'
 
 test('requestSourceActions', async () => {
@@ -18,19 +18,18 @@ test('requestSourceActions', async () => {
     },
   ]
   const commandMap = {
-    'ExtensionHostSourceControl.requestSourceActions': async (): Promise<typeof mockExtensions> => mockExtensions,
-    'Extensions.getExtensions': async (): Promise<typeof mockExtensions> => mockExtensions,
+    'Extensions.getAllExtensions': async (): Promise<typeof mockExtensions> => mockExtensions,
   }
-  using mockRpc = ExtensionHost.registerMockRpc(commandMap)
+  using mockRpc = ExtensionManagementWorker.registerMockRpc(commandMap)
 
-  const result = await requestSourceActions()
+  const result = await requestSourceActions('/assets', PlatformType.Electron)
 
   expect(result).toEqual({
     action1: 'value1',
     action2: 'value2',
     action3: 'value3',
   })
-  expect(mockRpc.invocations).toEqual([['Extensions.getExtensions']])
+  expect(mockRpc.invocations).toEqual([['Extensions.getAllExtensions', '/assets', PlatformType.Electron]])
 })
 
 test('requestSourceActions excludes extensions that are incompatible with web', async () => {
@@ -45,12 +44,12 @@ test('requestSourceActions excludes extensions that are incompatible with web', 
     },
   ]
   const commandMap = {
-    'Extensions.getExtensions': async (): Promise<typeof mockExtensions> => mockExtensions,
+    'Extensions.getAllExtensions': async (): Promise<typeof mockExtensions> => mockExtensions,
   }
-  using mockRpc = ExtensionHost.registerMockRpc(commandMap)
+  using mockRpc = ExtensionManagementWorker.registerMockRpc(commandMap)
 
-  const result = await requestSourceActions(PlatformType.Web)
+  const result = await requestSourceActions('', PlatformType.Web)
 
   expect(result).toEqual({})
-  expect(mockRpc.invocations).toEqual([['Extensions.getExtensions']])
+  expect(mockRpc.invocations).toEqual([['Extensions.getAllExtensions', '', PlatformType.Web]])
 })

@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { ExtensionHost, RendererWorker } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, ExtensionManagementWorker, RendererWorker } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleWorkspaceRefresh } from '../src/parts/HandleWorkspaceRefresh/HandleWorkspaceRefresh.ts'
@@ -12,9 +12,11 @@ test('handleWorkspaceRefresh should discover newly available source control prov
     }),
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly never[]> => [],
     'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => [],
-    'Extensions.getExtensions': async (): Promise<readonly unknown[]> => [],
   }
   using mockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+  using extensionManagementMockRpc = ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getAllExtensions': async (): Promise<readonly unknown[]> => [],
+  })
 
   const rendererCommandMap = {
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
@@ -35,6 +37,10 @@ test('handleWorkspaceRefresh should discover newly available source control prov
   expect(result.enabledProviderIds).toEqual(['git'])
   expect(result.inputValue).toBe('existing commit message')
   expect(mockRpc.invocations).toContainEqual(['ExtensionHostSourceControl.getEnabledProviderIds', 'file', '/test'])
+  expect(extensionManagementMockRpc.invocations).toEqual([
+    ['Extensions.getAllExtensions', '', 0],
+    ['Extensions.getAllExtensions', '', 0],
+  ])
 })
 
 test('handleWorkspaceRefresh should use the lightweight refresh when providers are unchanged', async (): Promise<void> => {
