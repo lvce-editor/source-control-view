@@ -19,7 +19,7 @@ import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 import * as SourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
-export const loadContent = async (state: SourceControlState, savedState: unknown): Promise<SourceControlState> => {
+const loadContentActual = async (state: SourceControlState, savedState: unknown): Promise<SourceControlState> => {
   const {
     fileIconCache,
     height,
@@ -81,7 +81,6 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
     gitRoot,
     headerHeight,
     iconDefinitions,
-    initial: false,
     inputBoxHeight,
     inputPlaceholder,
     inputValue,
@@ -96,4 +95,13 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
     splitButtonEnabled,
     visibleItems,
   }
+}
+
+export const loadContent = (state: SourceControlState, savedState: unknown): Promise<SourceControlState> => {
+  // eslint-disable-next-line unicorn/prefer-await
+  return loadContentActual(state, savedState).catch((error: any) => ({
+    ...state,
+    loading: false,
+    providerUnavailableMessage: error.message,
+  }))
 }

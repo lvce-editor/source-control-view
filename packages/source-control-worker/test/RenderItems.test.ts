@@ -171,6 +171,28 @@ test('renderItems - shows progress without unavailable message while loading', (
   )
 })
 
+test('renderItems - shows a load error instead of progress', () => {
+  const oldState: SourceControlState = createDefaultState()
+  const newState: SourceControlState = {
+    ...createDefaultState(),
+    providerUnavailableMessage: 'Unable to read repository state',
+  }
+
+  const result = RenderItems.renderItems(oldState, newState)
+
+  expect(result[2]).toContainEqual(
+    expect.objectContaining({
+      text: 'Unable to read repository state',
+      type: VirtualDomElements.Text,
+    }),
+  )
+  expect(result[2]).not.toContainEqual(
+    expect.objectContaining({
+      className: ClassNames.Progress,
+    }),
+  )
+})
+
 test('renderItems - disables source control buttons without changes', () => {
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {

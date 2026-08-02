@@ -4,6 +4,27 @@ import type { SourceControlState } from '../src/parts/SourceControlState/SourceC
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
 
+test('loadContent - returns an error state when loading fails', async (): Promise<void> => {
+  const commandMap = {
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => {
+      throw new Error('Unable to read repository state')
+    },
+  }
+  ExtensionHost.registerMockRpc(commandMap)
+  RendererWorker.registerMockRpc(commandMap)
+
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    loading: true,
+  }
+  const result = await loadContent(state, {})
+
+  expect(result.initial).toBe(false)
+  expect(result.loading).toBe(false)
+  expect(result.providerUnavailableMessage).toBe('Unable to read repository state')
+})
+
 test('loadContent - basic with empty state', async (): Promise<void> => {
   const commandMap = {
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},

@@ -19,14 +19,13 @@ export const renderItems = (oldState: SourceControlState, newState: SourceContro
   if (initial) {
     return [ViewletCommand.SetDom2, id, []]
   }
-  const unavailableMessage = loading ? '' : providerUnavailableMessage
   const dom = GetSourceControlDom.getSourceControlVirtualDom(
     visibleItems,
     sourceControlButtons,
     items.length === 0,
     inputPlaceholder,
     inputMessage,
-    unavailableMessage,
+    loading ? '' : providerUnavailableMessage,
     loading,
     scrollBarHeight,
     scrollBarActive,
