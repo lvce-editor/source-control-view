@@ -16,14 +16,13 @@ test('loadContent - returns an error state when loading fails', async (): Promis
 
   const state: SourceControlState = {
     ...createDefaultState(),
-    initial: true,
     loading: true,
   }
   const result = await loadContent(state, {})
 
   expect(result.initial).toBe(false)
-  expect(result.loadErrorMessage).toBe('Failed to load source control: Unable to read repository state')
   expect(result.loading).toBe(false)
+  expect(result.providerUnavailableMessage).toBe('Unable to read repository state')
 })
 
 test('loadContent - basic with empty state', async (): Promise<void> => {
@@ -49,7 +48,6 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
   expect(result.visibleItems).toEqual([])
   expect(result.inputValue).toBe('')
   expect(result.inputPlaceholder).toBeDefined()
-  expect(result.loadErrorMessage).toBe('')
   // Empty input returns lineHeight + inputPadding * 2
   expect(result.inputBoxHeight).toBe(state.inputLineHeight + state.inputPadding * 2)
 })

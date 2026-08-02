@@ -42,7 +42,6 @@ export interface SourceControlState {
   readonly isVisible: boolean
   readonly itemHeight: number
   readonly items: readonly DisplayItem[]
-  readonly loadErrorMessage: string
   readonly loading: boolean
   readonly maxInputLines: number
   readonly maxLineY: number

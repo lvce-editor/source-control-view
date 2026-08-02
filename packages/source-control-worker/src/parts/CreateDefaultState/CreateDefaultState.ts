@@ -36,7 +36,6 @@ export const createDefaultState = (): SourceControlState => ({
   isVisible: true,
   itemHeight: 20,
   items: [],
-  loadErrorMessage: '',
   loading: false,
   maxInputLines: 5,
   maxLineY: 0,

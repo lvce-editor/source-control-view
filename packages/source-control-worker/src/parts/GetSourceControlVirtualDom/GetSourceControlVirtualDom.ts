@@ -39,8 +39,7 @@ export const getSourceControlVirtualDom = (
         ...buttons.flatMap<VirtualDomNode>((button) => GetSourceControlButtonVirtualDom.getSourceControlButtonVirtualDom(button, disabled)),
         ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items, scrollBarHeight, scrollBarActive),
       ]
-  const progressDom = loading ? GetProgressVirtualDom.getProgressVirtualDom() : []
-  const dom = [
+  return [
     {
       ariaBusy: loading,
       childCount: (message ? 1 : 2 + buttons.length) + (loading ? 1 : 0),
@@ -52,8 +51,8 @@ export const getSourceControlVirtualDom = (
       tabIndex: 0,
       type: VirtualDomElements.Div,
     },
-    ...progressDom,
+    // eslint-disable-next-line virtual-dom/no-conditional-spread
+    ...(loading ? GetProgressVirtualDom.getProgressVirtualDom() : []),
     ...content,
   ]
-  return dom
 }

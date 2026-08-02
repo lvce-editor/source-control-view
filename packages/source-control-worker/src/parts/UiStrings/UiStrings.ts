@@ -23,4 +23,3 @@ export const NoSourceControlProvider = 'No source control provider is enabled or
 export const NoSourceControlExtensionsInstalled = 'No source control extensions are installed.'
 export const SourceControlExtensionsDisabled = 'All installed source control extensions are disabled.'
 export const NoSourceControlProviderForWorkspace = 'No source control provider is available for this workspace.'
-export const FailedToLoadSourceControl = 'Failed to load source control: {PH1}'

@@ -1,6 +1,5 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
-import { getErrorMessage } from '../GetErrorMessage/GetErrorMessage.ts'
 import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
 import { getGroups } from '../GetGroups/GetGroups.ts'
@@ -82,12 +81,10 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     gitRoot,
     headerHeight,
     iconDefinitions,
-    initial: false,
     inputBoxHeight,
     inputPlaceholder,
     inputValue,
     items: displayItems,
-    loadErrorMessage: '',
     loading: false,
     maxLineY,
     providerUnavailableMessage,
@@ -100,15 +97,11 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   }
 }
 
-export const loadContent = async (state: SourceControlState, savedState: unknown): Promise<SourceControlState> => {
-  try {
-    return await loadContentActual(state, savedState)
-  } catch (error) {
-    return {
-      ...state,
-      initial: false,
-      loadErrorMessage: SourceControlStrings.failedToLoadSourceControl(getErrorMessage(error)),
-      loading: false,
-    }
-  }
+export const loadContent = (state: SourceControlState, savedState: unknown): Promise<SourceControlState> => {
+  // eslint-disable-next-line unicorn/prefer-await
+  return loadContentActual(state, savedState).catch((error: any) => ({
+    ...state,
+    loading: false,
+    providerUnavailableMessage: error.message,
+  }))
 }

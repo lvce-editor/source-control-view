@@ -175,14 +175,14 @@ test('renderItems - shows a load error instead of progress', () => {
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
     ...createDefaultState(),
-    loadErrorMessage: 'Failed to load source control: Unable to read repository state',
+    providerUnavailableMessage: 'Unable to read repository state',
   }
 
   const result = RenderItems.renderItems(oldState, newState)
 
   expect(result[2]).toContainEqual(
     expect.objectContaining({
-      text: 'Failed to load source control: Unable to read repository state',
+      text: 'Unable to read repository state',
       type: VirtualDomElements.Text,
     }),
   )
