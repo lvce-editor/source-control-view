@@ -1,5 +1,6 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
+import { getErrorMessage } from '../GetErrorMessage/GetErrorMessage.ts'
 import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
 import { getGroups } from '../GetGroups/GetGroups.ts'
@@ -19,7 +20,7 @@ import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 import * as SourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
-export const loadContent = async (state: SourceControlState, savedState: unknown): Promise<SourceControlState> => {
+const loadContentActual = async (state: SourceControlState, savedState: unknown): Promise<SourceControlState> => {
   const {
     fileIconCache,
     height,
@@ -86,6 +87,7 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
     inputPlaceholder,
     inputValue,
     items: displayItems,
+    loadErrorMessage: '',
     loading: false,
     maxLineY,
     providerUnavailableMessage,
@@ -95,5 +97,18 @@ export const loadContent = async (state: SourceControlState, savedState: unknown
     sourceControlButtons,
     splitButtonEnabled,
     visibleItems,
+  }
+}
+
+export const loadContent = async (state: SourceControlState, savedState: unknown): Promise<SourceControlState> => {
+  try {
+    return await loadContentActual(state, savedState)
+  } catch (error) {
+    return {
+      ...state,
+      initial: false,
+      loadErrorMessage: SourceControlStrings.failedToLoadSourceControl(getErrorMessage(error)),
+      loading: false,
+    }
   }
 }

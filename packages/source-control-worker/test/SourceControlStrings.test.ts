@@ -3,6 +3,12 @@ import * as I18nString from '../src/parts/I18NString/I18NString.ts'
 import * as SourceControlStrings from '../src/parts/SourceControlStrings/SourceControlStrings.ts'
 import * as UiStrings from '../src/parts/UiStrings/UiStrings.ts'
 
+test('failedToLoadSourceControl', () => {
+  expect(SourceControlStrings.failedToLoadSourceControl('Unable to read repository state')).toBe(
+    I18nString.i18nString(UiStrings.FailedToLoadSourceControl, { PH1: 'Unable to read repository state' }),
+  )
+})
+
 test('openChanges', () => {
   const result = SourceControlStrings.openChanges()
   expect(result).toBe(I18nString.i18nString(UiStrings.OpenChanges))

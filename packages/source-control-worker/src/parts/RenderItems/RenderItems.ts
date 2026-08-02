@@ -9,6 +9,7 @@ export const renderItems = (oldState: SourceControlState, newState: SourceContro
     inputMessage,
     inputPlaceholder,
     items,
+    loadErrorMessage,
     loading,
     providerUnavailableMessage,
     scrollBarActive,
@@ -19,14 +20,14 @@ export const renderItems = (oldState: SourceControlState, newState: SourceContro
   if (initial) {
     return [ViewletCommand.SetDom2, id, []]
   }
-  const unavailableMessage = loading ? '' : providerUnavailableMessage
+  const message = loading ? '' : loadErrorMessage || providerUnavailableMessage
   const dom = GetSourceControlDom.getSourceControlVirtualDom(
     visibleItems,
     sourceControlButtons,
     items.length === 0,
     inputPlaceholder,
     inputMessage,
-    unavailableMessage,
+    message,
     loading,
     scrollBarHeight,
     scrollBarActive,

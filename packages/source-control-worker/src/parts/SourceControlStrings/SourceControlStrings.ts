@@ -99,3 +99,7 @@ export const sourceControlExtensionsDisabled = (): string => {
 export const noSourceControlProviderForWorkspace = (): string => {
   return I18nString.i18nString(UiStrings.NoSourceControlProviderForWorkspace)
 }
+
+export const failedToLoadSourceControl = (errorMessage: string): string => {
+  return I18nString.i18nString(UiStrings.FailedToLoadSourceControl, { PH1: errorMessage })
+}
