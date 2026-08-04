@@ -1,8 +1,8 @@
+import { PlatformType } from '@lvce-editor/constants'
 import * as Assert from '../Assert/Assert.ts'
 import * as ExtensionHostSourceControl from '../ExtensionHostSourceControl/ExtensionHostSourceControl.ts'
 import * as ExtensionMeta from '../ExtensionMeta/ExtensionMeta.ts'
 import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
-import { getSourceControlIconDefinitions } from '../GetSourceControlIconDefinitions/GetSourceControlIconDefinitions.ts'
 
 export const state = {
   enabledProviders: [],
@@ -91,7 +91,23 @@ export const getIconDefinitions = async (providerIds: readonly string[], assetDi
       return []
     }
     const extensions = await ExtensionMeta.getExtensions(assetDir, platform)
-    return getSourceControlIconDefinitions(extensions, providerIds[0], platform)
+    const extension = extensions.find((extension) => {
+      const idParts = typeof extension?.id === 'string' ? extension.id.split('.') : []
+      return idParts[1] === providerIds[0]
+    })
+    if (!Array.isArray(extension?.['source-control-icons']) || typeof extension.uri !== 'string') {
+      return []
+    }
+    const icons = extension['source-control-icons'].filter((icon: unknown): icon is string => typeof icon === 'string')
+    return icons.map((icon) => {
+      const uri = `${extension.uri}/${icon}`
+      if (platform === PlatformType.Electron || platform === PlatformType.Remote) {
+        const protocol = GetProtocol.getProtocol(uri)
+        const path = GetProtocol.getPath(protocol, uri)
+        return `/remote${path.startsWith('/') ? '' : '/'}${path}`
+      }
+      return uri
+    })
   } catch {
     return []
   }

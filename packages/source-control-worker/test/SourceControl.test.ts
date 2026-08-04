@@ -224,6 +224,21 @@ test('getIconDefinitions should load icon definitions from extension metadata', 
   expect(extensionManagementMockRpc.invocations).toEqual([['Extensions.getAllExtensions', '/assets', 1]])
 })
 
+test('getIconDefinitions should convert desktop file urls to remote urls', async (): Promise<void> => {
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [
+      {
+        id: 'builtin.git',
+        'source-control-icons': ['icons/status-modified.svg'],
+        uri: 'file:///usr/lib/lvce-editor/extensions/builtin.git',
+      },
+    ],
+  })
+
+  const result = await SourceControl.getIconDefinitions(['git'], '/assets', 2)
+  expect(result).toEqual(['/remote/usr/lib/lvce-editor/extensions/builtin.git/icons/status-modified.svg'])
+})
+
 test('getIconDefinitions should return empty array on error', async (): Promise<void> => {
   ExtensionManagementWorker.registerMockRpc({
     'Extensions.getAllExtensions': async (): Promise<readonly any[]> => {
