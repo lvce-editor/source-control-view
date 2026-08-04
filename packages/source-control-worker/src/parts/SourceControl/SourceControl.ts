@@ -4,11 +4,6 @@ import * as ExtensionHostSourceControl from '../ExtensionHostSourceControl/Exten
 import * as ExtensionMeta from '../ExtensionMeta/ExtensionMeta.ts'
 import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
 
-export const state = {
-  enabledProviders: [],
-  initialized: false,
-}
-
 export const acceptInput = (providerId: string, text: string, assetDir: string, platform: number): Promise<void> => {
   Assert.string(providerId)
   Assert.string(text)

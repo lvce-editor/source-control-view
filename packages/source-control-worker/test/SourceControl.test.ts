@@ -8,13 +8,6 @@ beforeAll(() => {
   ParentRpc.registerMockRpc(commandMap)
 })
 
-test('state should be initialized with default values', (): void => {
-  expect(SourceControl.state).toEqual({
-    enabledProviders: [],
-    initialized: false,
-  })
-})
-
 test('acceptInput should call ExtensionHostSourceControl.acceptInput', async (): Promise<void> => {
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.acceptInput': async (): Promise<void> => {},
