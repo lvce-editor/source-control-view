@@ -81,8 +81,13 @@ test('loadContent - with enabled providers', async (): Promise<void> => {
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
     'ExtensionHostSourceControl.getFeatures': async (): Promise<{ showGenerateCommitMessageButton: boolean }> => ({ showGenerateCommitMessageButton: false }),
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [],
-    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => ['icon1', 'icon2'],
-    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [
+      {
+        id: 'builtin.git',
+        'source-control-icons': ['icon1', 'icon2'],
+        uri: 'https://example.com/extensions/builtin.git',
+      },
+    ],
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
@@ -98,8 +103,8 @@ test('loadContent - with enabled providers', async (): Promise<void> => {
   const result = await loadContent(state, {})
 
   expect(result.enabledProviderIds).toEqual(['git'])
-  expect(result.iconDefinitions).toEqual(['icon1', 'icon2'])
-  expect(result.decorationIcons).toEqual(['icon1', 'icon2'])
+  expect(result.iconDefinitions).toEqual(['https://example.com/extensions/builtin.git/icon1', 'https://example.com/extensions/builtin.git/icon2'])
+  expect(result.decorationIcons).toEqual(['https://example.com/extensions/builtin.git/icon1', 'https://example.com/extensions/builtin.git/icon2'])
   expect(result.showGenerateCommitMessageButton).toBe(false)
 })
 

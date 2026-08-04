@@ -1,6 +1,8 @@
 import * as Assert from '../Assert/Assert.ts'
 import * as ExtensionHostSourceControl from '../ExtensionHostSourceControl/ExtensionHostSourceControl.ts'
+import * as ExtensionMeta from '../ExtensionMeta/ExtensionMeta.ts'
 import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
+import { getSourceControlIconDefinitions } from '../GetSourceControlIconDefinitions/GetSourceControlIconDefinitions.ts'
 
 export const state = {
   enabledProviders: [],
@@ -83,12 +85,13 @@ export const getGroups = (providerId: string, root: string, assetDir: string, pl
   return ExtensionHostSourceControl.getGroups(providerId, root, assetDir, platform)
 }
 
-export const getIconDefinitions = async (providerIds: readonly string[]): Promise<readonly string[]> => {
+export const getIconDefinitions = async (providerIds: readonly string[], assetDir: string, platform: number): Promise<readonly string[]> => {
   try {
     if (providerIds.length === 0) {
       return []
     }
-    return await ExtensionHostSourceControl.getIconDefinitions(providerIds[0])
+    const extensions = await ExtensionMeta.getExtensions(assetDir, platform)
+    return getSourceControlIconDefinitions(extensions, providerIds[0], platform)
   } catch {
     return []
   }
