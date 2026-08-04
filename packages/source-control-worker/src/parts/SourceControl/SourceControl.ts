@@ -80,36 +80,29 @@ export const getGroups = (providerId: string, root: string, assetDir: string, pl
   return ExtensionHostSourceControl.getGroups(providerId, root, assetDir, platform)
 }
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
 export const getIconDefinitions = async (providerIds: readonly string[], assetDir: string, platform: number): Promise<readonly string[]> => {
   try {
     if (providerIds.length === 0) {
       return []
     }
     const extensions = await ExtensionMeta.getExtensions(assetDir, platform)
-    for (const extension of extensions) {
+    const extension = extensions.find((extension) => {
       const idParts = typeof extension?.id === 'string' ? extension.id.split('.') : []
-      const sourceControlIcons = extension?.['source-control-icons']
-      if (idParts[1] !== providerIds[0] || !Array.isArray(sourceControlIcons) || typeof extension.uri !== 'string') {
-        continue
-      }
-      const iconDefinitions: string[] = []
-      for (const icon of sourceControlIcons) {
-        // eslint-disable-next-line unicorn/prefer-continue
-        if (typeof icon === 'string') {
-          const uri = `${extension.uri}/${icon}`
-          if (platform === PlatformType.Electron || platform === PlatformType.Remote) {
-            const protocol = GetProtocol.getProtocol(uri)
-            const path = GetProtocol.getPath(protocol, uri)
-            iconDefinitions.push(`/remote${path.startsWith('/') ? '' : '/'}${path}`)
-          } else {
-            iconDefinitions.push(uri)
-          }
-        }
-      }
-      return iconDefinitions
+      return idParts[1] === providerIds[0]
+    })
+    if (!Array.isArray(extension?.['source-control-icons']) || typeof extension.uri !== 'string') {
+      return []
     }
-    return []
+    const icons = extension['source-control-icons'].filter((icon: unknown): icon is string => typeof icon === 'string')
+    return icons.map((icon) => {
+      const uri = `${extension.uri}/${icon}`
+      if (platform === PlatformType.Electron || platform === PlatformType.Remote) {
+        const protocol = GetProtocol.getProtocol(uri)
+        const path = GetProtocol.getPath(protocol, uri)
+        return `/remote${path.startsWith('/') ? '' : '/'}${path}`
+      }
+      return uri
+    })
   } catch {
     return []
   }
