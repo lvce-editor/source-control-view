@@ -22,4 +22,6 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   const fileItem = treeItems.nth(1)
   await expect(changesItem).toHaveText('Changes1')
   await expect(fileItem).toHaveText('test.css')
+  const decorationIcon = Locator('.SourceControlItems .TreeItem .DecorationIcon:not([src="not-available"])')
+  await expect(decorationIcon).toHaveCount(1)
 }

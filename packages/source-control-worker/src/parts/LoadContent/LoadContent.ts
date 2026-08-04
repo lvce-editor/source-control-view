@@ -43,7 +43,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   const showGenerateCommitMessageButton =
     enabledProviderIds.length === 0 ? false : await SourceControl.getShowGenerateCommitMessageButton(enabledProviderIds[0], assetDir, platform)
 
-  const iconDefinitions = await SourceControl.getIconDefinitions(enabledProviderIds)
+  const iconDefinitions = await SourceControl.getIconDefinitions(enabledProviderIds, assetDir, platform)
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform)
 
   const expandedGroups = restoreExpandedGroups(allGroups)

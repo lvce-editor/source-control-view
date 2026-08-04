@@ -40,6 +40,7 @@ test('handleWorkspaceRefresh should discover newly available source control prov
   expect(extensionManagementMockRpc.invocations).toEqual([
     ['Extensions.getAllExtensions', '', 0],
     ['Extensions.getAllExtensions', '', 0],
+    ['Extensions.getAllExtensions', '', 0],
   ])
 })
 
