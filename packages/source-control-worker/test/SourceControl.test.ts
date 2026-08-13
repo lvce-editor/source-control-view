@@ -1,18 +1,11 @@
 import { beforeAll, expect, test } from '@jest/globals'
-import { ExtensionHost } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
 import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import * as SourceControl from '../src/parts/SourceControl/SourceControl.ts'
 
 beforeAll(() => {
   const commandMap = {}
   ParentRpc.registerMockRpc(commandMap)
-})
-
-test('state should be initialized with default values', (): void => {
-  expect(SourceControl.state).toEqual({
-    enabledProviders: [],
-    initialized: false,
-  })
 })
 
 test('acceptInput should call ExtensionHostSourceControl.acceptInput', async (): Promise<void> => {
@@ -204,29 +197,48 @@ test('getFileDecorations should call ExtensionHostSourceControl.getFileDecoratio
 })
 
 test('getIconDefinitions should return empty array when providerIds is empty', async (): Promise<void> => {
-  const result = await SourceControl.getIconDefinitions([])
+  const result = await SourceControl.getIconDefinitions([], '/assets', 1)
   expect(result).toEqual([])
 })
 
-test('getIconDefinitions should call ExtensionHostSourceControl.getIconDefinitions with first providerId', async (): Promise<void> => {
-  const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<string[]> => ['icon1', 'icon2'],
-  }
-  const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
+test('getIconDefinitions should load icon definitions from extension metadata', async (): Promise<void> => {
+  const extensionManagementMockRpc = ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [
+      {
+        id: 'builtin.provider1',
+        'source-control-icons': ['icon1.svg', 'icon2.svg'],
+        uri: 'https://example.com/provider1',
+      },
+    ],
+  })
 
-  const result = await SourceControl.getIconDefinitions(['provider1', 'provider2'])
-  expect(result).toEqual(['icon1', 'icon2'])
-  expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHostSourceControl.getIconDefinitions', 'provider1']])
+  const result = await SourceControl.getIconDefinitions(['provider1', 'provider2'], '/assets', 1)
+  expect(result).toEqual(['https://example.com/provider1/icon1.svg', 'https://example.com/provider1/icon2.svg'])
+  expect(extensionManagementMockRpc.invocations).toEqual([['Extensions.getAllExtensions', '/assets', 1]])
+})
+
+test('getIconDefinitions should convert desktop file urls to remote urls', async (): Promise<void> => {
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [
+      {
+        id: 'builtin.git',
+        'source-control-icons': ['icons/status-modified.svg'],
+        uri: 'file:///usr/lib/lvce-editor/extensions/builtin.git',
+      },
+    ],
+  })
+
+  const result = await SourceControl.getIconDefinitions(['git'], '/assets', 2)
+  expect(result).toEqual(['/remote/usr/lib/lvce-editor/extensions/builtin.git/icons/status-modified.svg'])
 })
 
 test('getIconDefinitions should return empty array on error', async (): Promise<void> => {
-  const extensionHostCommandMap = {
-    'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<string[]> => {
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => {
       throw new Error('test error')
     },
-  }
-  ExtensionHost.registerMockRpc(extensionHostCommandMap)
+  })
 
-  const result = await SourceControl.getIconDefinitions(['provider1'])
+  const result = await SourceControl.getIconDefinitions(['provider1'], '/assets', 1)
   expect(result).toEqual([])
 })

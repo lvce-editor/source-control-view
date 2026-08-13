@@ -1,0 +1,7 @@
+{
+  "id": "builtin.sample-disabled-source-control-provider",
+  "name": "Sample Disabled Source Control Provider",
+  "description": "Sample Disabled Source Control Provider",
+  "disabled": true,
+  "activation": ["onSourceControl:memfs"]
+}

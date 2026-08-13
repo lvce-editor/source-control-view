@@ -1,5 +1,5 @@
 export const getScrollBarSize = (size: number, contentSize: number, minimumSliderSize: number): number => {
-  if (size >= contentSize) {
+  if (size <= 0 || size >= contentSize) {
     return 0
   }
   return Math.max(Math.round(size ** 2 / contentSize), minimumSliderSize)
@@ -10,7 +10,9 @@ export const getScrollBarOffset = (delta: number, finalDelta: number, size: numb
   return scrollBarOffset
 }
 
-export const getScrollBarY = getScrollBarOffset
+export const getScrollBarY = (delta: number, finalDelta: number, size: number, scrollBarSize: number): number => {
+  return getScrollBarOffset(delta, finalDelta, size, scrollBarSize)
+}
 
 export const getScrollBarWidth = (width: number, longestLineWidth: number): number => {
   if (width > longestLineWidth) {

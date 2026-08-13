@@ -54,3 +54,27 @@ test('getIndex - different header height', () => {
   const result = getIndex(state, eventX, eventY)
   expect(result).toBe(1)
 })
+
+test('getIndex - scrolled', () => {
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    deltaY: 60,
+    headerHeight: 50,
+    itemHeight: 30,
+    y: 100,
+  }
+  const result = getIndex(state, 0, 150)
+  expect(result).toBe(2)
+})
+
+test('getIndex - fractionally scrolled into next item', () => {
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    deltaY: 50,
+    headerHeight: 50,
+    itemHeight: 30,
+    y: 100,
+  }
+  const result = getIndex(state, 0, 160)
+  expect(result).toBe(2)
+})

@@ -18,8 +18,53 @@ const committed = Object.create(null)
 
 const renamedFilesMap = Object.create(null)
 
+const decorations = {
+  'added.css': {
+    icon: IconType.Added,
+    iconTitle: 'Added',
+  },
+  'conflict.css': {
+    icon: IconType.Conflict,
+    iconTitle: 'Conflict',
+  },
+  'copied.css': {
+    icon: IconType.Copied,
+    iconTitle: 'Copied',
+  },
+  'deleted.css': {
+    icon: IconType.Deleted,
+    iconTitle: 'Deleted',
+    strikeThrough: true,
+  },
+  'ignored.css': {
+    icon: IconType.Ignored,
+    iconTitle: 'Ignored',
+  },
+  'modified.css': {
+    icon: IconType.Modified,
+    iconTitle: 'Modified',
+  },
+  'renamed.css': {
+    icon: IconType.Renamed,
+    iconTitle: 'Renamed',
+  },
+  'untracked.css': {
+    icon: IconType.Untracked,
+    iconTitle: 'Untracked',
+  },
+}
+
 const toChangedItem = (dirent, root) => {
   const absoluteUri = `${root}/${dirent.name}`
+  if (dirent.name in decorations) {
+    return {
+      file: dirent.name,
+      icon: decorations[dirent.name].icon,
+      iconTitle: decorations[dirent.name].iconTitle,
+      strikeThrough: decorations[dirent.name].strikeThrough,
+      type: 8,
+    }
+  }
   if (absoluteUri in renamedFilesMap) {
     return {
       file: dirent.name,
@@ -37,21 +82,7 @@ const toChangedItem = (dirent, root) => {
 }
 
 const toStagedItem = (dirent, root) => {
-  const absoluteUri = `${root}/${dirent.name}`
-  if (absoluteUri in renamedFilesMap) {
-    return {
-      file: dirent.name,
-      icon: IconType.Renamed,
-      iconTitle: '',
-      type: 8,
-    }
-  }
-  return {
-    file: dirent.name,
-    icon: IconType.Untracked,
-    iconTitle: '',
-    type: 8,
-  }
+  return toChangedItem(dirent, root)
 }
 
 const isStaged = (dirent) => {

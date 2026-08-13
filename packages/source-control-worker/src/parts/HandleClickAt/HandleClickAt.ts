@@ -4,9 +4,10 @@ import { handleClickSourceControlButtons } from '../HandleClickSourceControlButt
 import * as SelectIndex from '../SelectIndex/SelectIndex.ts'
 
 export const handleClickAt = async (state: SourceControlState, eventX: number, eventY: number, name: string): Promise<SourceControlState> => {
+  const { minLineY } = state
   const index = getIndex(state, eventX, eventY)
   if (name) {
-    return handleClickSourceControlButtons(state, index, name)
+    return handleClickSourceControlButtons(state, index - minLineY, name)
   }
   return SelectIndex.selectIndex(state, index)
 }

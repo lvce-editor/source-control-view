@@ -1,7 +1,8 @@
 import { test, expect } from '@jest/globals'
-import { PlatformType, ViewletCommand } from '@lvce-editor/constants'
+import { ViewletCommand } from '@lvce-editor/constants'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as RenderItems from '../src/parts/RenderItems/RenderItems.ts'
 
@@ -103,11 +104,11 @@ test('renderItems - handles empty placeholder', () => {
   expect(result).toEqual([ViewletCommand.SetDom2, 3, expect.any(Object)])
 })
 
-test('renderItems - shows unavailable message instead of commit controls in web without providers', () => {
+test('renderItems - shows unavailable message instead of commit controls without providers', () => {
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
     ...createDefaultState(),
-    platform: PlatformType.Web,
+    providerUnavailableMessage: 'No source control extensions are installed.',
     sourceControlButtons: [
       {
         command: 'git.commitAndSync',
@@ -125,11 +126,91 @@ test('renderItems - shows unavailable message instead of commit controls in web 
     1,
     [
       expect.objectContaining({ childCount: 1 }),
-      expect.objectContaining({ childCount: 1 }),
       expect.objectContaining({
-        text: 'No source control providers are available for web.',
+        childCount: 1,
+        paddingLeft: '20px',
+        paddingRight: '20px',
+      }),
+      expect.objectContaining({
+        text: 'No source control extensions are installed.',
         type: VirtualDomElements.Text,
       }),
     ],
   ])
+})
+
+test('renderItems - shows progress without unavailable message while loading', () => {
+  const oldState: SourceControlState = createDefaultState()
+  const newState: SourceControlState = {
+    ...createDefaultState(),
+    loading: true,
+  }
+
+  const result = RenderItems.renderItems(oldState, newState)
+
+  expect(result[2].slice(0, 3)).toEqual([
+    expect.objectContaining({
+      ariaBusy: true,
+      childCount: 3,
+    }),
+    {
+      childCount: 1,
+      className: ClassNames.ProgressContainer,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.Progress,
+      type: VirtualDomElements.Div,
+    },
+  ])
+  expect(result[2]).not.toContainEqual(
+    expect.objectContaining({
+      text: 'No source control extensions are installed.',
+    }),
+  )
+})
+
+test('renderItems - shows a load error instead of progress', () => {
+  const oldState: SourceControlState = createDefaultState()
+  const newState: SourceControlState = {
+    ...createDefaultState(),
+    providerUnavailableMessage: 'Unable to read repository state',
+  }
+
+  const result = RenderItems.renderItems(oldState, newState)
+
+  expect(result[2]).toContainEqual(
+    expect.objectContaining({
+      text: 'Unable to read repository state',
+      type: VirtualDomElements.Text,
+    }),
+  )
+  expect(result[2]).not.toContainEqual(
+    expect.objectContaining({
+      className: ClassNames.Progress,
+    }),
+  )
+})
+
+test('renderItems - disables source control buttons without changes', () => {
+  const oldState: SourceControlState = createDefaultState()
+  const newState: SourceControlState = {
+    ...createDefaultState(),
+    enabledProviderIds: ['git'],
+    sourceControlButtons: [
+      {
+        command: 'git.commitAndSync',
+        icon: 'Check',
+        id: 'git.commitAndSync',
+        label: 'Commit & Sync',
+      },
+    ],
+  }
+
+  const result = RenderItems.renderItems(oldState, newState)
+
+  expect(result[2][3].className).toBe(`${ClassNames.SplitButton} ${ClassNames.SplitButtonDisabled}`)
+  expect(result[2][4].ariaDisabled).toBe(true)
+  expect(result[2][4].className).toBe(`${ClassNames.SplitButtonContent} ${ClassNames.SplitButtonContentDisabled}`)
 })

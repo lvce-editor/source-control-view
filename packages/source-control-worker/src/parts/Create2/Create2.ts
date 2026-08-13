@@ -19,12 +19,21 @@ export const create2 = (
     assetDir,
     height,
     id,
-    initial: true,
+    initial: false,
+    loading: true,
     platform,
     width,
     workspacePath,
     x,
     y,
   }
-  SourceControlStates.set(id, state, state)
+  SourceControlStates.set(
+    id,
+    {
+      ...state,
+      initial: true,
+      loading: false,
+    },
+    state,
+  )
 }

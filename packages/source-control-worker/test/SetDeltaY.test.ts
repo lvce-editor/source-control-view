@@ -5,7 +5,10 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { setDeltaY } from '../src/parts/SetDeltaY/SetDeltaY.ts'
 
 test('setDeltaY - basic', async () => {
-  const state: SourceControlState = createDefaultState()
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    finalDeltaY: 100,
+  }
   const newState = await setDeltaY(state, 100)
   expect(newState.deltaY).toBe(100)
   expect(newState.visibleItems).toBeDefined()
@@ -16,7 +19,7 @@ test('setDeltaY - basic', async () => {
 test('setDeltaY - negative value', async () => {
   const state: SourceControlState = createDefaultState()
   const newState = await setDeltaY(state, -100)
-  expect(newState.deltaY).toBe(-100)
+  expect(newState.deltaY).toBe(0)
   expect(newState.visibleItems).toBeDefined()
   expect(newState.minLineY).toBe(0)
 })
@@ -68,9 +71,19 @@ test('setDeltaY - with items', async () => {
   ]
   const state: SourceControlState = {
     ...createDefaultState(),
+    finalDeltaY: 50,
     items,
   }
   const newState = await setDeltaY(state, 50)
   expect(newState.deltaY).toBe(50)
   expect(newState.visibleItems.length).toBeGreaterThan(0)
+})
+
+test('setDeltaY - clamps value to final delta', async () => {
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    finalDeltaY: 50,
+  }
+  const newState = await setDeltaY(state, 100)
+  expect(newState.deltaY).toBe(50)
 })

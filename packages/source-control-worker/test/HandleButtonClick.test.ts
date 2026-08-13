@@ -14,7 +14,6 @@ test('handleButtonClick - valid button click', async (): Promise<void> => {
       gitRoot: '',
     }),
     'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<never[]> => [],
-    'Extensions.getExtensions': async (): Promise<never[]> => [],
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 

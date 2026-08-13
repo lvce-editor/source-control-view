@@ -42,6 +42,7 @@ export interface SourceControlState {
   readonly isVisible: boolean
   readonly itemHeight: number
   readonly items: readonly DisplayItem[]
+  readonly loading: boolean
   readonly maxInputLines: number
   readonly maxLineY: number
   readonly merge: readonly any[]
@@ -49,6 +50,7 @@ export interface SourceControlState {
   readonly minLineY: number
   readonly platform: number
   readonly providerId: string
+  readonly providerUnavailableMessage: string
   readonly root: string
   readonly scrollBarActive: boolean
   readonly scrollBarHeight: number

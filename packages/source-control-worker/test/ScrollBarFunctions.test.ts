@@ -6,6 +6,11 @@ test('getScrollBarSize - when size is greater than or equal to contentSize, retu
   expect(result).toBe(0)
 })
 
+test('getScrollBarSize - when size is zero, returns 0', () => {
+  const result = ScrollBarFunctions.getScrollBarSize(0, 100, 30)
+  expect(result).toBe(0)
+})
+
 test('getScrollBarSize - when size is less than contentSize, returns calculated size', () => {
   const result = ScrollBarFunctions.getScrollBarSize(50, 100, 10)
   expect(result).toBe(25)

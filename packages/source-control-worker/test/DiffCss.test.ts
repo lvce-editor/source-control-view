@@ -3,6 +3,24 @@ import type { SourceControlState } from '../src/parts/SourceControlState/SourceC
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { isEqual } from '../src/parts/DiffCss/DiffCss.ts'
 
+const item = {
+  badgeCount: 0,
+  buttons: [],
+  decorationIcon: '',
+  decorationIconTitle: '',
+  decorationStrikeThrough: false,
+  detail: '',
+  file: 'test',
+  fileIcon: '',
+  groupId: 'test',
+  icon: '',
+  indent: 0,
+  label: 'test',
+  posInSet: 1,
+  setSize: 1,
+  type: 0,
+}
+
 test('isEqual - same inputBoxHeight', () => {
   const oldState: SourceControlState = {
     ...createDefaultState(),
@@ -37,4 +55,28 @@ test('isEqual - zero values', () => {
     inputBoxHeight: 0,
   }
   expect(isEqual(oldState, newState)).toBe(true)
+})
+
+test('isEqual - different arrays with same indents', () => {
+  const oldState: SourceControlState = {
+    ...createDefaultState(),
+    visibleItems: [{ ...item }],
+  }
+  const newState: SourceControlState = {
+    ...createDefaultState(),
+    visibleItems: [{ ...item, label: 'changed' }],
+  }
+  expect(isEqual(oldState, newState)).toBe(true)
+})
+
+test('isEqual - different indents', () => {
+  const oldState: SourceControlState = {
+    ...createDefaultState(),
+    visibleItems: [{ ...item }],
+  }
+  const newState: SourceControlState = {
+    ...createDefaultState(),
+    visibleItems: [{ ...item, indent: 16 }],
+  }
+  expect(isEqual(oldState, newState)).toBe(false)
 })

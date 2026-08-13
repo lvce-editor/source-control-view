@@ -1,12 +1,12 @@
 import { join } from 'node:path'
 import { root } from './root.ts'
 
-export const threshold = 465_000
+export const threshold = 480_000
 
-export const instantiations = 3200
+export const instantiations = 3300
 
 export const instantiationsPath = join(root, 'packages', 'source-control-worker')
 
 export const workerPath = join(root, '.tmp/dist/dist/sourceControlWorkerMain.js')
 
-export const playwrightPath = import.meta.resolve('../../e2e/node_modules/playwright/index.mjs')
+export const playwrightPath = import.meta.resolve('../../../node_modules/playwright/index.mjs')

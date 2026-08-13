@@ -4,7 +4,8 @@ import type { ActionButton } from '../ActionButton/ActionButton.ts'
 import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
-import * as GetSourceControlButtonsVirtualDom from '../GetSourceControlButtonsVirtualDom/GetSourceControlButtonsVirtualDom.ts'
+import * as GetProgressVirtualDom from '../GetProgressVirtualDom/GetProgressVirtualDom.ts'
+import * as GetSourceControlButtonVirtualDom from '../GetSourceControlButtonVirtualDom/GetSourceControlButtonVirtualDom.ts'
 import * as GetSourceControlHeaderVirtualDom from '../GetSourceControlHeaderVirtualDom/GetSourceControlHeaderVirtualDom.ts'
 import * as GetSourceControlListVirtualDom from '../GetSourceControlListVirtualDom/GetSourceControlListVirtualDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
@@ -12,30 +13,36 @@ import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 const className = MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.SourceControl)
 
+const messageNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.Message,
+  paddingLeft: '20px',
+  paddingRight: '20px',
+  type: VirtualDomElements.Div,
+}
+
 export const getSourceControlVirtualDom = (
   items: readonly VisibleItem[],
-  sourceControlButtons: readonly ActionButton[],
-  inputPlaceholder: string,
+  buttons: readonly ActionButton[],
+  disabled: boolean,
+  placeholder: string,
   inputMessage: string,
-  unavailableMessage: string,
+  message: string,
+  loading: boolean,
+  scrollBarHeight: number,
+  scrollBarActive: boolean,
 ): readonly VirtualDomNode[] => {
-  const content = unavailableMessage
-    ? [
-        {
-          childCount: 1,
-          className: ClassNames.Message,
-          type: VirtualDomElements.Div,
-        },
-        text(unavailableMessage),
-      ]
+  const content = message
+    ? [messageNode, text(message)]
     : [
-        ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(inputPlaceholder, inputMessage),
-        ...GetSourceControlButtonsVirtualDom.getSourceControlButtonsVirtualDom(sourceControlButtons),
-        ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items),
+        ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(placeholder, inputMessage),
+        ...buttons.flatMap<VirtualDomNode>((button) => GetSourceControlButtonVirtualDom.getSourceControlButtonVirtualDom(button, disabled)),
+        ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items, scrollBarHeight, scrollBarActive),
       ]
-  const dom = [
+  return [
     {
-      childCount: unavailableMessage ? 1 : 2 + sourceControlButtons.length,
+      ariaBusy: loading,
+      childCount: (message ? 1 : 2 + buttons.length) + (loading ? 1 : 0),
       className: className,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onMouseOver: DomEventListenerFunctions.HandleMouseOver,
@@ -44,7 +51,8 @@ export const getSourceControlVirtualDom = (
       tabIndex: 0,
       type: VirtualDomElements.Div,
     },
+    // eslint-disable-next-line virtual-dom/no-conditional-spread
+    ...(loading ? GetProgressVirtualDom.getProgressVirtualDom() : []),
     ...content,
   ]
-  return dom
 }

@@ -1,5 +1,4 @@
 import * as Assert from '@lvce-editor/assert'
-import { ExtensionHost } from '@lvce-editor/rpc-registry'
 import * as ExecuteProvider from '../ExecuteProvider/ExecuteProvider.ts'
 import * as ExtensionHostCommandType from '../ExtensionHostCommandType/ExtensionHostCommandType.ts'
 
@@ -89,28 +88,6 @@ export const getGroups = (providerId: string, path: string, assetDir: string, pl
   })
 }
 
-export const add = (providerId: string, path: string, assetDir: string, platform: number): Promise<void> => {
-  return ExecuteProvider.executeProvider({
-    assetDir,
-    event: 'none',
-    method: ExtensionHostCommandType.SourceControlAdd,
-    params: [providerId, path],
-    platform,
-    // noProviderFoundMessage: 'No source control provider found',
-  })
-}
-
-export const discard = (providerId: string, path: string, assetDir: string, platform: number): Promise<void> => {
-  return ExecuteProvider.executeProvider({
-    assetDir,
-    event: 'none',
-    method: ExtensionHostCommandType.SourceControlDiscard,
-    params: [providerId, path],
-    platform,
-    // noProviderFoundMessage: 'No source control provider found',
-  })
-}
-
 export const getEnabledProviderIds = (scheme: string, root: string, assetDir: string, platform: number): Promise<readonly string[]> => {
   return ExecuteProvider.executeProvider({
     assetDir,
@@ -120,10 +97,4 @@ export const getEnabledProviderIds = (scheme: string, root: string, assetDir: st
     platform,
     // noProviderFoundMessage: 'No source control provider found',
   })
-}
-
-export const getIconDefinitions = async (providerId: string): Promise<readonly string[]> => {
-  // @ts-ignore
-  const result = await ExtensionHost.invoke('ExtensionHostSourceControl.getIconDefinitions', providerId)
-  return result
 }

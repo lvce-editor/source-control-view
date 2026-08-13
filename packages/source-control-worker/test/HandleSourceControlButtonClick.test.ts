@@ -9,7 +9,6 @@ test('handleSourceControlButtonClick', async () => {
     'ExtensionHostCommand.executeCommand': async (): Promise<void> => {},
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
-    'Extensions.getExtensions': async (): Promise<readonly any[]> => [],
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
