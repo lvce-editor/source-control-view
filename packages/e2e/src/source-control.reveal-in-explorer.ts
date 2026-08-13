@@ -14,7 +14,7 @@ export const test: Test = async ({ ContextMenu, expect, Extension, FileSystem, L
   await expect(changedFile).toBeVisible()
 
   // act
-  await SourceControl.handleContextMenu(2, 1, 170)
+  await SourceControl.handleContextMenu(2, 1, 150)
   await ContextMenu.selectItem('Reveal in Explorer View')
 
   // assert
