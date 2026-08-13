@@ -5,6 +5,7 @@ import { handleMessagePort } from '../src/parts/HandleMessagePort/HandleMessageP
 
 test('handleMessagePort connects the source control worker to the renderer process', async () => {
   const queueCommands = jest.fn((_uid: number, _commands: readonly unknown[]) => 31)
+  // @ts-ignore
   const { port1, port2 } = new MessageChannel()
   const rendererProcessRpc = await PlainMessagePortRpcParent.create({
     commandMap: {
