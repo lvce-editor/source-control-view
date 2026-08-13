@@ -12,7 +12,7 @@ test('render2 returns renderer commands when no direct renderer is connected', a
   const newState = { ...oldState, id: uid, inputValue: 'message' }
   SourceControlStates.set(uid, oldState, newState)
 
-  await expect(Render2.render2(uid, [DiffType.RenderValue])).resolves.toEqual([['Viewlet.setValueByName', uid, 'SourceControlInput', 'message']])
+  expect(Render2.render2(uid, [DiffType.RenderValue])).toEqual([['Viewlet.setValueByName', uid, 'SourceControlInput', 'message']])
 })
 
 test('render2 queues renderer commands and returns a lightweight commit marker', async () => {
