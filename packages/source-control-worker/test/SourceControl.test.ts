@@ -217,12 +217,30 @@ test('getIconDefinitions should load icon definitions from extension metadata', 
   expect(extensionManagementMockRpc.invocations).toEqual([['Extensions.getAllExtensions', '/assets', 1]])
 })
 
+test('getIconDefinitions should normalize icon uri dot segments', async (): Promise<void> => {
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [
+      {
+        id: 'builtin.git',
+        'source-control-icons': ['./icons/dark/status-modified.svg', 'icons/dark/../dark/status-added.svg'],
+        uri: 'https://example.com/extensions/builtin.git',
+      },
+    ],
+  })
+
+  const result = await SourceControl.getIconDefinitions(['git'], '/assets', 1)
+  expect(result).toEqual([
+    'https://example.com/extensions/builtin.git/icons/dark/status-modified.svg',
+    'https://example.com/extensions/builtin.git/icons/dark/status-added.svg',
+  ])
+})
+
 test('getIconDefinitions should convert desktop file urls to remote urls', async (): Promise<void> => {
   ExtensionManagementWorker.registerMockRpc({
     'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [
       {
         id: 'builtin.git',
-        'source-control-icons': ['icons/status-modified.svg'],
+        'source-control-icons': ['./icons/status-modified.svg'],
         uri: 'file:///usr/lib/lvce-editor/extensions/builtin.git',
       },
     ],
@@ -230,6 +248,21 @@ test('getIconDefinitions should convert desktop file urls to remote urls', async
 
   const result = await SourceControl.getIconDefinitions(['git'], '/assets', 2)
   expect(result).toEqual(['/remote/usr/lib/lvce-editor/extensions/builtin.git/icons/status-modified.svg'])
+})
+
+test('getIconDefinitions should normalize remote icon urls before converting them', async (): Promise<void> => {
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [
+      {
+        id: 'builtin.git',
+        'source-control-icons': ['./icons/dark/status-untracked.svg'],
+        uri: 'http://localhost:3000/remote/home/user/source-control-provider',
+      },
+    ],
+  })
+
+  const result = await SourceControl.getIconDefinitions(['git'], '/assets', 3)
+  expect(result).toEqual(['/remote/localhost:3000/remote/home/user/source-control-provider/icons/dark/status-untracked.svg'])
 })
 
 test('getIconDefinitions should return empty array on error', async (): Promise<void> => {

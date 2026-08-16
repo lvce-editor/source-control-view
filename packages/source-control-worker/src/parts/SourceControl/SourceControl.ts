@@ -80,6 +80,11 @@ export const getGroups = (providerId: string, root: string, assetDir: string, pl
   return ExtensionHostSourceControl.getGroups(providerId, root, assetDir, platform)
 }
 
+const resolveIconUri = (extensionUri: string, icon: string): string => {
+  const baseUri = extensionUri.endsWith('/') ? extensionUri : `${extensionUri}/`
+  return new URL(icon, baseUri).toString()
+}
+
 export const getIconDefinitions = async (providerIds: readonly string[], assetDir: string, platform: number): Promise<readonly string[]> => {
   try {
     if (providerIds.length === 0) {
@@ -95,7 +100,7 @@ export const getIconDefinitions = async (providerIds: readonly string[], assetDi
     }
     const icons = extension['source-control-icons'].filter((icon: unknown): icon is string => typeof icon === 'string')
     return icons.map((icon) => {
-      const uri = `${extension.uri}/${icon}`
+      const uri = resolveIconUri(extension.uri, icon)
       if (platform === PlatformType.Electron || platform === PlatformType.Remote) {
         const protocol = GetProtocol.getProtocol(uri)
         const path = GetProtocol.getPath(protocol, uri)

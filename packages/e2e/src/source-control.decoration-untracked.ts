@@ -15,4 +15,6 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   const decoration = Locator('.SourceControlItems .DecorationIcon')
   await expect(decoration).toHaveCount(1)
   await expect(decoration).toHaveAttribute('title', 'Untracked')
+  const nonCanonicalDecoration = Locator('.SourceControlItems .DecorationIcon[src*="/./"]')
+  await expect(nonCanonicalDecoration).toHaveCount(0)
 }
