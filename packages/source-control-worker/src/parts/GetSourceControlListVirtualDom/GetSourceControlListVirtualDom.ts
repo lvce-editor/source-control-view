@@ -18,7 +18,7 @@ export const getSourceControlListVirtualDom = (items: readonly VisibleItem[], sc
     },
     {
       childCount: items.length,
-      className: ClassNames.SourceControlItems,
+      className: MergeClassNames.mergeClassNames(ClassNames.ListItems, ClassNames.SourceControlItems),
       onClick: DomEventListenerFunctions.HandleClickAt,
       onPointerOut: DomEventListenerFunctions.HandleMouseOutAt,
       onPointerOver: DomEventListenerFunctions.HandleMouseOverAt,

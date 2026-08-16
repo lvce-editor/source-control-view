@@ -12,9 +12,16 @@ export const renderCss = (oldState: SourceControlState, newState: SourceControlS
   const listHeight = Math.max(height - headerHeight, 0)
   const scrollBarY = scrollBarHeight > 0 ? ScrollBarFunctions.getScrollBarY(deltaY, finalDeltaY, listHeight, scrollBarHeight) : 0
   const itemOffset = -(deltaY % itemHeight)
-  const indentCss = indentRules ? `\n${indentRules}\n` : ''
+  const indentCss = indentRules ? `${indentRules}\n` : ''
   const css = `:root {
   --SourceControlInputHeight: ${inputBoxHeight}px;
+}
+
+.SourceControl .SplitButtonContent > .MaskIcon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  flex-shrink: 0;
 }
 
 .SourceControl .ScrollBarThumb {
@@ -25,6 +32,10 @@ export const renderCss = (oldState: SourceControlState, newState: SourceControlS
 .SourceControlItems > .TreeItem:first-child {
   margin-top: ${itemOffset}px;
 }
-${indentCss}`
+
+${indentCss}.IndentRight-12 {
+  padding-right: 12px;
+}
+`
   return [ViewletCommand.SetCss, id, css]
 }

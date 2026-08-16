@@ -94,8 +94,9 @@ export const getIconDefinitions = async (providerIds: readonly string[], assetDi
       return []
     }
     const icons = extension['source-control-icons'].filter((icon: unknown): icon is string => typeof icon === 'string')
+    const baseUri = extension.uri.endsWith('/') ? extension.uri : `${extension.uri}/`
     return icons.map((icon) => {
-      const uri = `${extension.uri}/${icon}`
+      const uri = new URL(icon, baseUri).href
       if (platform === PlatformType.Electron || platform === PlatformType.Remote) {
         const protocol = GetProtocol.getProtocol(uri)
         const path = GetProtocol.getPath(protocol, uri)
