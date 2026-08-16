@@ -82,7 +82,12 @@ export const getGroups = (providerId: string, root: string, assetDir: string, pl
 
 const resolveIconUri = (extensionUri: string, icon: string): string => {
   const baseUri = extensionUri.endsWith('/') ? extensionUri : `${extensionUri}/`
-  return new URL(icon, baseUri).toString()
+  const Url = (
+    globalThis as unknown as {
+      URL: new (url: string, base: string) => { readonly href: string }
+    }
+  ).URL
+  return new Url(icon, baseUri).href
 }
 
 export const getIconDefinitions = async (providerIds: readonly string[], assetDir: string, platform: number): Promise<readonly string[]> => {
