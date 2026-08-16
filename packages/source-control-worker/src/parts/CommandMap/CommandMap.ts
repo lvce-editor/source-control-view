@@ -94,3 +94,5 @@ export const commandMap = {
   'SourceControl.viewAsList': WrapCommand.wrapCommand(ViewAsList.viewAsList),
   'SourceControl.viewAsTree': WrapCommand.wrapCommand(ViewAsTree.viewAsTree),
 }
+
+HandleRendererProcessMessagePort.setCommandMap(commandMap)
