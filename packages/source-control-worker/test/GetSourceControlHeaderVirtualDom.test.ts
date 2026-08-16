@@ -16,6 +16,11 @@ test('getSourceControlHeaderVirtualDom', () => {
       type: VirtualDomElements.Div,
     },
     {
+      childCount: 1,
+      className: ClassNames.ViewSourceControlInput,
+      type: VirtualDomElements.Div,
+    },
+    {
       ariaLabel: ViewletSourceControlStrings.sourceControlInput(),
       autocapitalize: 'off',
       autocorrect: 'off',
@@ -39,6 +44,11 @@ test('getSourceControlHeaderVirtualDom - with input message', () => {
     {
       childCount: 2,
       className: ClassNames.SourceControlHeader,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.ViewSourceControlInput,
       type: VirtualDomElements.Div,
     },
     {

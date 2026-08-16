@@ -14,6 +14,11 @@ const messageNode: VirtualDomNode = {
 export const getSourceControlInputDom = (inputPlaceholder: string, inputMessage: string): readonly VirtualDomNode[] => {
   const dom: VirtualDomNode[] = [
     {
+      childCount: 1,
+      className: ClassNames.ViewSourceControlInput,
+      type: VirtualDomElements.Div,
+    },
+    {
       ariaLabel: ViewletSourceControlStrings.sourceControlInput(),
       autocapitalize: 'off',
       autocorrect: 'off',
