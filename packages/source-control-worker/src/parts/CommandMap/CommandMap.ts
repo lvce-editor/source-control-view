@@ -44,6 +44,8 @@ import * as UpdateIcons from '../UpdateIcons/UpdateIcons.ts'
 import * as ViewAsList from '../ViewAsList/ViewAsList.ts'
 import * as ViewAsTree from '../ViewAsTree/ViewAsTree.ts'
 
+const handleDirectMessagePort = (port: any): Promise<void> => HandleRendererProcessMessagePort.handleRendererProcessMessagePort(port, commandMap)
+
 export const commandMap = {
   'Initialize.initialize': Initialize.initialize,
   'SourceControl.acceptInput': WrapCommand.wrapCommand(acceptInput),
@@ -72,7 +74,7 @@ export const commandMap = {
   'SourceControl.handleMouseOutAt': WrapCommand.wrapCommand(HandleMouseOutAt.handleMouseOutAt),
   'SourceControl.handleMouseOver': WrapCommand.wrapCommand(HandleMouseOver.handleMouseOver),
   'SourceControl.handleMouseOverAt': WrapCommand.wrapCommand(HandleMouseOverAt.handleMouseOverAt),
-  'SourceControl.handleRendererProcessMessagePort': HandleRendererProcessMessagePort.handleRendererProcessMessagePort,
+  'SourceControl.handleRendererProcessMessagePort': handleDirectMessagePort,
   'SourceControl.handleScrollBarCaptureLost': WrapCommand.wrapCommand(handleScrollBarCaptureLost),
   'SourceControl.handleScrollBarClick': WrapCommand.wrapCommand(handleScrollBarClick),
   'SourceControl.handleScrollBarMove': WrapCommand.wrapCommand(handleScrollBarMove),
@@ -94,5 +96,3 @@ export const commandMap = {
   'SourceControl.viewAsList': WrapCommand.wrapCommand(ViewAsList.viewAsList),
   'SourceControl.viewAsTree': WrapCommand.wrapCommand(ViewAsTree.viewAsTree),
 }
-
-HandleRendererProcessMessagePort.setCommandMap(commandMap)
