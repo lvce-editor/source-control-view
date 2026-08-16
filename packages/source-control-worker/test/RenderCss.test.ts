@@ -23,6 +23,10 @@ const getExpectedCss = (inputBoxHeight: number): string => `:root {
 .SourceControlItems > .TreeItem:first-child {
   margin-top: 0px;
 }
+
+.IndentRight-12 {
+  padding-right: 12px;
+}
 `
 
 test('renderCss - returns correct command with CSS', () => {
@@ -155,6 +159,9 @@ test('renderCss - generates indent CSS rules', () => {
 }
 .Indent-16 {
   padding-left: 16px;
+}
+.IndentRight-12 {
+  padding-right: 12px;
 }
 `,
   ])

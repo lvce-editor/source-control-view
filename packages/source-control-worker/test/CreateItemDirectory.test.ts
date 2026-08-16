@@ -3,7 +3,6 @@ import { DirentType } from '@lvce-editor/constants'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleItem } from '../src/parts/VisibleItem/VisibleItem.ts'
 import { createItemDirectory } from '../src/parts/CreateItemDirectory/CreateItemDirectory.ts'
-import * as TreeItemPadding from '../src/parts/TreeItemPadding/TreeItemPadding.ts'
 
 test('createItemDirectory - basic directory', () => {
   const item: VisibleItem = {
@@ -30,8 +29,7 @@ test('createItemDirectory - basic directory', () => {
       ariaPosInSet: 1,
       ariaSetSize: 2,
       childCount: 3,
-      className: 'TreeItem Indent-0',
-      paddingRight: TreeItemPadding.PaddingRight,
+      className: 'TreeItem Indent-0 IndentRight-12',
       role: 'treeitem',
       type: VirtualDomElements.Div,
     },
@@ -99,8 +97,7 @@ test('createItemDirectory - expanded directory with badge and buttons', () => {
       ariaPosInSet: 1,
       ariaSetSize: 2,
       childCount: 4,
-      className: 'TreeItem Indent-0',
-      paddingRight: '12px',
+      className: 'TreeItem Indent-0 IndentRight-12',
       role: 'treeitem',
       type: 4,
     },
