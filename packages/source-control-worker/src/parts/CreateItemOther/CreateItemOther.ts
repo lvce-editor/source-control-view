@@ -43,7 +43,6 @@ export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] =>
       ariaSetSize: setSize,
       childCount: 3 + (hasButtons ? 1 : 0),
       className: treeItemClassName,
-      paddingRight: '12px',
       role: AriaRoles.TreeItem,
       title: file,
       type: VirtualDomElements.Div,
