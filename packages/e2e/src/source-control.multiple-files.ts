@@ -15,11 +15,13 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   await SourceControl.show()
 
+  const sourceControlItems = Locator('.ListItems.SourceControlItems')
   const treeItems = Locator('.SourceControlItems .TreeItem')
   const changesGroup = treeItems.nth(0)
   const firstFile = treeItems.nth(1)
   const secondFile = treeItems.nth(2)
   const thirdFile = treeItems.nth(3)
+  await expect(sourceControlItems).toHaveCount(1)
   await expect(treeItems).toHaveCount(4)
   await expect(changesGroup).toHaveText('Changes3')
   await expect(firstFile).toHaveText('a.css')
