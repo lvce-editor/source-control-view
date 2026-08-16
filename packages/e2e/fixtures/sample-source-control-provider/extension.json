@@ -2,9 +2,35 @@
   "id": "builtin.sample-source-control-provider",
   "name": "Sample Source Control Provider",
   "description": "Sample Source Control Provider",
-  "browser": "index.js",
-  "activation": ["onStartupFinished", "onSourceControl", "onSourceControl:", "onSourceControl:memfs", "onStatusBarItem", "onCommand:sampleSourceControl.rename"],
+  "browser": "dist/index.js",
+  "isolated": true,
+  "activation": [
+    "onStartupFinished",
+    "onSourceControl",
+    "onSourceControl:",
+    "onSourceControl:file",
+    "onSourceControl:memfs",
+    "onStatusBarItem",
+    "onCommand:sampleSourceControl.rename"
+  ],
+  "sourceControlProviders": [
+    {
+      "id": "sample-source-control-provider"
+    }
+  ],
   "commands": [
+    {
+      "id": "sampleSourceControl.stage",
+      "label": "Stage"
+    },
+    {
+      "id": "sampleSourceControl.unstage",
+      "label": "Unstage"
+    },
+    {
+      "id": "sampleSourceControl.unstageAll",
+      "label": "Unstage All"
+    },
     {
       "id": "sampleSourceControl.rename",
       "label": "Rename Uri"

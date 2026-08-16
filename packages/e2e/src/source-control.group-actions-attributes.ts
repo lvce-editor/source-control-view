@@ -10,6 +10,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await Workspace.setPath(tmpDir)
 
   await SourceControl.show()
+  await new Promise((resolve) => setTimeout(resolve, 2000))
 
   const group = Locator('.SourceControlItems .TreeItem').nth(0)
   await expect(group.locator('.SourceControlButton[aria-label="Discard All"][title="Discard All"]')).toHaveCount(1)

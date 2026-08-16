@@ -1,3 +1,5 @@
+import { activate as activateExtensionApi, readDirWithFileTypes, registerCommand, registerSourceControlProvider } from '@lvce-editor/api'
+
 const id = 'sample-source-control'
 const label = 'Sample Source Control'
 const rootUri = ''
@@ -66,9 +68,8 @@ const isChanged = (dirent) => {
   return true
 }
 
-const getGroups = async () => {
-  const root = vscode.getWorkspaceFolder()
-  const dirents = await vscode.readDirWithFileTypes(root)
+const getGroups = async (root) => {
+  const dirents = await readDirWithFileTypes(root)
   const changed = dirents.filter(isChanged).map((item) => toChangedItem(item, root))
   const staged = dirents.filter(isStaged).map((item) => toStagedItem(item, root))
   const groups = [
@@ -149,29 +150,25 @@ const rename = (oldUri, newUri) => {
   renamedFilesMap[newUri] = oldUri
 }
 
-export function activate(context) {
-  // @ts-ignore
-  vscode.registerSourceControlProvider(sampleSourceControlProvider)
-  // @ts-ignore
-  vscode.registerCommand({
+const activate = async () => {
+  await activateExtensionApi()
+  registerSourceControlProvider(sampleSourceControlProvider)
+  registerCommand({
     id: 'sampleSourceControl.stage',
     execute: stage,
   })
-  // @ts-ignore
-  vscode.registerCommand({
+  registerCommand({
     id: 'sampleSourceControl.unstage',
     execute: unstage,
   })
-  // @ts-ignore
-  vscode.registerCommand({
+  registerCommand({
     id: 'sampleSourceControl.unstageAll',
     execute: unstageAll,
   })
-  // @ts-ignore
-  vscode.registerCommand({
+  registerCommand({
     id: 'sampleSourceControl.rename',
     execute: rename,
   })
 }
 
-export function deactivate() {}
+await activate()

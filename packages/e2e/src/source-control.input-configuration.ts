@@ -9,6 +9,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await Workspace.setPath(tmpDir)
 
   await SourceControl.show()
+  await new Promise((resolve) => setTimeout(resolve, 2000))
 
   const input = Locator('.SourceControl textarea.InputBox')
   await expect(input).toHaveAttribute('autocapitalize', 'off')

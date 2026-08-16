@@ -14,6 +14,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await Workspace.setPath(tmpDir)
 
   await SourceControl.show()
+  await new Promise((resolve) => setTimeout(resolve, 2000))
 
   const treeItems = Locator('.SourceControlItems .TreeItem')
   const firstFile = treeItems.nth(1)

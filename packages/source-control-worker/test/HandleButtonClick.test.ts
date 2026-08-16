@@ -7,13 +7,13 @@ import { handleButtonClick } from '../src/parts/HandleButtonClick/HandleButtonCl
 
 test('handleButtonClick - valid button click', async (): Promise<void> => {
   const extensionHostCommandMap = {
-    'ExtensionHostCommand.executeCommand': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<never[]> => [],
     'ExtensionHostSourceControl.getGroups': async (): Promise<{ allGroups: never[]; gitRoot: string }> => ({
       allGroups: [],
       gitRoot: '',
     }),
     'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<never[]> => [],
+    'Extensions.executeCommand': async (): Promise<void> => {},
   }
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 

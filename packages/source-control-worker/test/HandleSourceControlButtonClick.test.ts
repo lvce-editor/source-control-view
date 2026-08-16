@@ -6,9 +6,9 @@ import { handleSourceControlButtonClick } from '../src/parts/HandleSourceControl
 
 test('handleSourceControlButtonClick', async () => {
   const commandMap = {
-    'ExtensionHostCommand.executeCommand': async (): Promise<void> => {},
     'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
+    'Extensions.executeCommand': async (): Promise<void> => {},
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
@@ -31,7 +31,7 @@ test('handleSourceControlButtonClick', async () => {
 
   const result = await handleSourceControlButtonClick(state, 'Commit & Sync')
 
-  expect(extensionHostMockRpc.invocations).toContainEqual(['ExtensionHostCommand.executeCommand', 'git.commitAndSync', 'test message'])
+  expect(extensionHostMockRpc.invocations).toContainEqual(['Extensions.executeCommand', 'git.commitAndSync', 'test message'])
   expect(result.inputValue).toBe('')
   expect(mockRpc.invocations).toEqual([
     ['ExtensionHostManagement.activateByEvent', 'onCommand:git.commitAndSync', '', 0],

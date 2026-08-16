@@ -1,7 +1,23 @@
 import { cp, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { build } from 'esbuild'
 import { root } from './root.ts'
+
+const sourceControlFixtures = ['sample-source-control-provider', 'sample-source-control-provider-load-error', 'sample-source-control-provider-stage-error']
+
+await Promise.all(
+  sourceControlFixtures.map((fixture) =>
+    build({
+      bundle: true,
+      entryPoints: [join(root, 'packages', 'e2e', 'fixtures', fixture, 'index.js')],
+      external: ['electron', 'node:buffer', 'node:worker_threads'],
+      format: 'esm',
+      outfile: join(root, 'packages', 'e2e', 'fixtures', fixture, 'dist', 'index.js'),
+      platform: 'browser',
+    }),
+  ),
+)
 
 const sharedProcessUrl = import.meta.resolve('@lvce-editor/shared-process')
 const sharedProcess = await import(sharedProcessUrl)

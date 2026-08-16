@@ -2,6 +2,12 @@
   "id": "builtin.sample-source-control-provider-load-error",
   "name": "Sample Source Control Provider Load Error",
   "description": "Sample Source Control Provider Load Error",
-  "browser": "index.js",
-  "activation": ["onSourceControl", "onSourceControl:memfs"]
+  "browser": "dist/index.js",
+  "isolated": true,
+  "activation": ["onSourceControl", "onSourceControl:file", "onSourceControl:memfs"],
+  "sourceControlProviders": [
+    {
+      "id": "sample-source-control-provider-load-error"
+    }
+  ]
 }

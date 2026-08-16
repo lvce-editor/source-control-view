@@ -1,4 +1,4 @@
-export const CommandExecute = 'ExtensionHostCommand.executeCommand'
+export const CommandExecute = 'Extensions.executeCommand'
 export const SourceControlAcceptInput = 'ExtensionHostSourceControl.acceptInput'
 export const SourceControlGenerateCommitMessage = 'ExtensionHostSourceControl.generateCommitMessage'
 export const SourceControlGetBadgeCount = 'ExtensionHostSourceControl.getBadgeCount'

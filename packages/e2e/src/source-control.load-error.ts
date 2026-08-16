@@ -11,6 +11,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   // act
   await SourceControl.show()
+  await new Promise((resolve) => setTimeout(resolve, 2000))
 
   // assert
   const message = Locator('.Viewlet.SourceControl > .Message')
