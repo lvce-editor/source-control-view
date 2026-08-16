@@ -11,11 +11,10 @@ export const getRemoteUrl = (path) => {
   return `/remote/${url}`
 }
 
-const nodeModulesPath = join(root, 'packages', 'server', 'node_modules')
-
 const fileSearchWorkerPath = join(root, '.tmp', 'dist', 'dist', 'sourceControlWorkerMain.js')
 
-const serverStaticPath = join(nodeModulesPath, '@lvce-editor', 'static-server', 'static')
+const staticServerPackagePath = dirname(fileURLToPath(import.meta.resolve('@lvce-editor/static-server/package.json')))
+const serverStaticPath = join(staticServerPackagePath, 'static')
 
 const RE_COMMIT_HASH = /^[a-z\d]+$/
 const isCommitHash = (dirent) => {
