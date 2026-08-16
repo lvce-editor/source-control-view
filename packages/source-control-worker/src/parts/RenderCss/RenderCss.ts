@@ -17,6 +17,13 @@ export const renderCss = (oldState: SourceControlState, newState: SourceControlS
   --SourceControlInputHeight: ${inputBoxHeight}px;
 }
 
+.SourceControl .SplitButtonContent > .MaskIcon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
 .SourceControl .ScrollBarThumb {
   height: ${scrollBarHeight}px;
   translate: 0 ${Math.round(scrollBarY)}px;

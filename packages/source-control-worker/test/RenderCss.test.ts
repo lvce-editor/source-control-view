@@ -8,6 +8,13 @@ const getExpectedCss = (inputBoxHeight: number): string => `:root {
   --SourceControlInputHeight: ${inputBoxHeight}px;
 }
 
+.SourceControl .SplitButtonContent > .MaskIcon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
 .SourceControl .ScrollBarThumb {
   height: 0px;
   translate: 0 0px;
@@ -129,6 +136,13 @@ test('renderCss - generates indent CSS rules', () => {
     5,
     `:root {
   --SourceControlInputHeight: 30px;
+}
+
+.SourceControl .SplitButtonContent > .MaskIcon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  flex-shrink: 0;
 }
 
 .SourceControl .ScrollBarThumb {
