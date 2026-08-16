@@ -15,6 +15,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   await SourceControl.show()
 
+  const sourceControlItems = Locator('.ListItems.SourceControlItems')
   const treeItems = Locator('.SourceControlItems .TreeItem')
   const changesGroup = treeItems.nth(0)
   const firstFile = treeItems.nth(1)
@@ -22,6 +23,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   const thirdFile = treeItems.nth(3)
   const changesGroupsWithPaddingClasses = Locator('.SourceControlItems .TreeItem.Indent-0.IndentRight-12')
   const filesWithPaddingClasses = Locator('.SourceControlItems .TreeItem.Indent-16.IndentRight-12')
+  await expect(sourceControlItems).toHaveCount(1)
   await expect(treeItems).toHaveCount(4)
   await expect(changesGroup).toHaveText('Changes3')
   await expect(firstFile).toHaveText('a.css')
