@@ -25,4 +25,12 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(firstFile).toHaveText('a.css')
   await expect(secondFile).toHaveText('b.css')
   await expect(thirdFile).toHaveText('c.css')
+  await expect(changesGroup).toHaveClass('TreeItem Indent-0 IndentRight-12')
+  await expect(firstFile).toHaveClass('TreeItem Indent-16 IndentRight-12')
+  await expect(secondFile).toHaveClass('TreeItem Indent-16 IndentRight-12')
+  await expect(thirdFile).toHaveClass('TreeItem Indent-16 IndentRight-12')
+  await expect(changesGroup).not.toHaveAttribute('style', 'padding-right: 12px;')
+  await expect(firstFile).not.toHaveAttribute('style', 'padding-right: 12px;')
+  await expect(secondFile).not.toHaveAttribute('style', 'padding-right: 12px;')
+  await expect(thirdFile).not.toHaveAttribute('style', 'padding-right: 12px;')
 }

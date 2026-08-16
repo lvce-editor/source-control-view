@@ -1,1 +1,1 @@
-export const PaddingRight = '12px'
+export const PaddingRight = 12
