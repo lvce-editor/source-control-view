@@ -27,7 +27,10 @@ export const getSourceControlButtonVirtualDom = (button: ActionButton, disabled:
     },
     {
       ...GetIconVirtualDom.getIconVirtualDom(icon, VirtualDomElements.Span),
+      height: 16,
       name: label,
+      style: 'flex-shrink: 0; margin-right: 4px',
+      width: 16,
     },
     text(label),
   ]

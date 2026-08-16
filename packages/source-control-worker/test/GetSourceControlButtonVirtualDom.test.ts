@@ -34,9 +34,12 @@ test('getSourceControlButtonVirtualDom - enabled', () => {
     {
       childCount: 0,
       className: 'MaskIcon MaskIconLock',
+      height: 16,
       name: 'Commit & Sync',
       role: 'none',
+      style: 'flex-shrink: 0; margin-right: 4px',
       type: VirtualDomElements.Span,
+      width: 16,
     },
     {
       childCount: 0,
@@ -75,9 +78,12 @@ test('getSourceControlButtonVirtualDom - disabled', () => {
     {
       childCount: 0,
       className: 'MaskIcon MaskIconLock',
+      height: 16,
       name: 'Commit & Sync',
       role: 'none',
+      style: 'flex-shrink: 0; margin-right: 4px',
       type: VirtualDomElements.Span,
+      width: 16,
     },
     {
       childCount: 0,
