@@ -1,9 +1,10 @@
-import { expect, test } from '@jest/globals'
+import { expect, jest, test } from '@jest/globals'
 import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { revealInExplorer } from '../src/parts/RevealInExplorer/RevealInExplorer.ts'
 
 test('revealInExplorer', async () => {
+  jest.useFakeTimers()
   const commandMap = {
     'SideBar.show': async (): Promise<void> => {},
     'Viewlet.executeViewletCommand': async (): Promise<void> => {},
@@ -18,13 +19,9 @@ test('revealInExplorer', async () => {
   const state = createDefaultState()
   const uri = '/test/src/test.ts'
 
-  const newState = await revealInExplorer(state, uri)
+  const newState = revealInExplorer(state, uri)
+  await jest.runAllTimersAsync()
 
   expect(newState).toBe(state)
-  expect(mockRpc.invocations).toEqual([
-    ['SideBar.show', 'Explorer'],
-    ['Viewlet.getAllStates'],
-    ['Viewlet.executeViewletCommand', 12, 'reveal', uri],
-    ['Viewlet.executeViewletCommand', 12, 'refresh'],
-  ])
+  expect(mockRpc.invocations).toEqual([['SideBar.show', 'Explorer'], ['Viewlet.getAllStates'], ['Viewlet.executeViewletCommand', 12, 'reveal', uri]])
 })

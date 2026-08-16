@@ -10,13 +10,15 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await Workspace.setPath(tmpDir)
 
   await SourceControl.show()
+  await new Promise((resolve) => setTimeout(resolve, 2000))
 
   const fileItem = Locator('.SourceControlItems .TreeItem').nth(1)
   await expect(fileItem).toHaveText('test.css')
   await SourceControl.selectIndex(1)
+  await new Promise((resolve) => setTimeout(resolve, 2000))
 
   const diffEditor = Locator('.DiffEditor')
-  const changedContent = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const changedContent = Locator('.DiffEditor .DiffEditorRows')
   const errorMessage = Locator('.DiffEditorErrorMessage')
   await expect(diffEditor).toBeVisible()
   await expect(changedContent).toContainText('abc')

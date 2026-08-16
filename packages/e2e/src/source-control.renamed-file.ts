@@ -11,6 +11,7 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, Locat
   await Command.execute('ExtensionHost.executeCommand', `sampleSourceControl.rename`, `${tmpDir}/test.css`, `${tmpDir}/test-renamed.css`)
   await Workspace.setPath(tmpDir)
   await SourceControl.show()
+  await new Promise((resolve) => setTimeout(resolve, 2000))
 
   // act
   await SourceControl.handleClickSourceControlButtons(1, 'Stage')

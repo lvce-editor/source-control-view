@@ -1,3 +1,5 @@
+import { activate as activateExtensionApi, registerSourceControlProvider } from '@lvce-editor/api'
+
 const sampleSourceControlProvider = {
   id: 'sample-source-control-provider-load-error',
   label: 'Sample Source Control',
@@ -14,6 +16,9 @@ const sampleSourceControlProvider = {
   },
 }
 
-export function activate() {
-  vscode.registerSourceControlProvider(sampleSourceControlProvider)
+const activate = async () => {
+  await activateExtensionApi()
+  registerSourceControlProvider(sampleSourceControlProvider)
 }
+
+await activate()

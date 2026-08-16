@@ -6,11 +6,11 @@ import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefau
 import { handleClickSourceControlButtons } from '../src/parts/HandleClickSourceControlButtons/HandleClickSourceControlButtons.ts'
 
 const extensionHostCommandMap = {
-  'ExtensionHostCommand.executeCommand': async (): Promise<void> => {},
   'ExtensionHostSourceControl.getGroups': async (): Promise<{ allGroups: never[]; gitRoot: string }> => ({
     allGroups: [],
     gitRoot: '/test',
   }),
+  'Extensions.executeCommand': async (): Promise<void> => {},
 }
 
 test('handleClickSourceControlButtons - valid button click', async (): Promise<void> => {

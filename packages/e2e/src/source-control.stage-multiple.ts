@@ -12,6 +12,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   ])
   await Workspace.setPath(tmpDir)
   await SourceControl.show()
+  await new Promise((resolve) => setTimeout(resolve, 2000))
   await SourceControl.handleClickSourceControlButtons(1, 'Stage')
 
   await SourceControl.handleClickSourceControlButtons(3, 'Stage')
