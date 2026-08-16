@@ -4,7 +4,7 @@ import { initialize } from '../src/parts/Initialize/Initialize.ts'
 
 test('initialize should set ExtensionHost and TextMeasurementWorker RPCs', async (): Promise<void> => {
   const commandMap = {
-    'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': async (): Promise<void> => {},
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionManagementWorker': async (): Promise<void> => {},
     'SendMessagePortToExtensionHostWorker.sendMessagePortToTextMeasurementWorker': async (): Promise<void> => {},
   }
   RendererWorker.registerMockRpc(commandMap)

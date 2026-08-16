@@ -8,5 +8,5 @@ test('openUri', async (): Promise<void> => {
   }
   using mockRpc = ParentRpc.registerMockRpc(commandMap)
   await openUri('test-uri')
-  expect(mockRpc.invocations).toEqual([['Main.openUri', 'test-uri']])
+  expect(mockRpc.invocations).toEqual([['Main.openUri', { focus: undefined, uri: 'test-uri' }]])
 })

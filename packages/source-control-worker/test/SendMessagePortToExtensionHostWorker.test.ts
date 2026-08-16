@@ -5,7 +5,7 @@ import { sendMessagePortToExtensionHostWorker } from '../src/parts/SendMessagePo
 
 test('sendMessagePortToExtensionHostWorker', async (): Promise<void> => {
   const commandMap = {
-    'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker': async (): Promise<void> => {},
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionManagementWorker': async (): Promise<void> => {},
   }
   using mockRpc = RendererWorker.registerMockRpc(commandMap)
 
@@ -14,6 +14,6 @@ test('sendMessagePortToExtensionHostWorker', async (): Promise<void> => {
   await sendMessagePortToExtensionHostWorker(port)
 
   expect(mockRpc.invocations).toEqual([
-    ['SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, 'HandleMessagePort.handleMessagePort2', RpcId.SourceControlWorker],
+    ['SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionManagementWorker', port, 'Extensions.handleMessagePort', RpcId.SourceControlWorker],
   ])
 })
