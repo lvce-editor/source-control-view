@@ -10,7 +10,7 @@ await Promise.all(
   sourceControlFixtures.map((fixture) =>
     build({
       bundle: true,
-      entryPoints: [join(root, 'packages', 'e2e', 'fixtures', fixture, 'index.js')],
+      entryPoints: [join(root, 'packages', 'e2e', 'fixtures', fixture, 'index.ts')],
       external: ['electron', 'node:buffer', 'node:worker_threads'],
       format: 'esm',
       outfile: join(root, 'packages', 'e2e', 'fixtures', fixture, 'dist', 'index.js'),
