@@ -44,7 +44,8 @@ import * as UpdateIcons from '../UpdateIcons/UpdateIcons.ts'
 import * as ViewAsList from '../ViewAsList/ViewAsList.ts'
 import * as ViewAsTree from '../ViewAsTree/ViewAsTree.ts'
 
-const handleDirectMessagePort = (port: any): Promise<void> => HandleRendererProcessMessagePort.handleRendererProcessMessagePort(port, commandMap)
+const handleDirectMessagePort = (port: any, setAsRendererProcess = true): Promise<void> =>
+  HandleRendererProcessMessagePort.handleRendererProcessMessagePort(port, commandMap, setAsRendererProcess)
 
 export const commandMap = {
   'Initialize.initialize': Initialize.initialize,
