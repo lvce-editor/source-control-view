@@ -66,5 +66,6 @@ test('getSourceControlItemVirtualDom - other', () => {
     type: DirentType.File,
   }
   const result = getSourceControlItemVirtualDom(item)
-  expect(result).toBeDefined()
+  expect(result[0].childCount).toBe(2)
+  expect(result.some((node) => node.className === 'FileIcon')).toBe(false)
 })
