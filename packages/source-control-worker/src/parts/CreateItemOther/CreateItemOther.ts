@@ -27,6 +27,10 @@ const getIconsDom = (icon: string, fileIcon: string): readonly VirtualDomNode[] 
     return [chevron, GetIconVirtualDom.getIconVirtualDom(icon)]
   }
 
+  if (!fileIcon) {
+    return []
+  }
+
   return [GetFileIconVirtualDom.getFileIconVirtualDom(fileIcon)]
 }
 
@@ -36,18 +40,19 @@ export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] =>
   const dom: VirtualDomNode[] = []
   const hasButtons = buttons.length
   const buttonsDom = getButtonsVirtualDom(buttons)
+  const iconsDom = getIconsDom(icon, fileIcon)
   const treeItemClassName = getTreeItemClassName(indent)
   dom.push(
     {
       ariaPosInSet: posInSet,
       ariaSetSize: setSize,
-      childCount: 3 + (hasButtons ? 1 : 0),
+      childCount: 2 + (iconsDom.length > 0 ? 1 : 0) + (hasButtons ? 1 : 0),
       className: treeItemClassName,
       role: AriaRoles.TreeItem,
       title: file,
       type: VirtualDomElements.Div,
     },
-    ...getIconsDom(icon, fileIcon),
+    ...iconsDom,
   )
   const labelDom = {
     childCount: 1,
