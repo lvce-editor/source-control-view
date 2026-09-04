@@ -80,6 +80,19 @@ export const getGroups = (providerId: string, root: string, assetDir: string, pl
   return ExtensionHostSourceControl.getGroups(providerId, root, assetDir, platform)
 }
 
+const getIconDefinition = (icon: string, baseUri: string, platform: number): string => {
+  if (!URL.canParse(icon, baseUri)) {
+    throw new Error('Invalid source control icon URL')
+  }
+  const uri = new URL(icon, baseUri).href
+  if (platform === PlatformType.Electron || platform === PlatformType.Remote) {
+    const protocol = GetProtocol.getProtocol(uri)
+    const path = GetProtocol.getPath(protocol, uri)
+    return `/remote${path.startsWith('/') ? '' : '/'}${path}`
+  }
+  return uri
+}
+
 export const getIconDefinitions = async (providerIds: readonly string[], assetDir: string, platform: number): Promise<readonly string[]> => {
   try {
     if (providerIds.length === 0) {
@@ -95,15 +108,7 @@ export const getIconDefinitions = async (providerIds: readonly string[], assetDi
     }
     const icons = extension['source-control-icons'].filter((icon: unknown): icon is string => typeof icon === 'string')
     const baseUri = extension.uri.endsWith('/') ? extension.uri : `${extension.uri}/`
-    return icons.map((icon) => {
-      const uri = new URL(icon, baseUri).href
-      if (platform === PlatformType.Electron || platform === PlatformType.Remote) {
-        const protocol = GetProtocol.getProtocol(uri)
-        const path = GetProtocol.getPath(protocol, uri)
-        return `/remote${path.startsWith('/') ? '' : '/'}${path}`
-      }
-      return uri
-    })
+    return icons.map((icon) => getIconDefinition(icon, baseUri, platform))
   } catch {
     return []
   }

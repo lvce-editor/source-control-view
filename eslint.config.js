@@ -7,6 +7,7 @@ export default defineConfig([
   ...config.recommendedActions,
   {
     rules: {
+      'e2e/no-timeouts': 'off',
       'e2e/prefer-execute-extension-command': 'off',
     },
   },

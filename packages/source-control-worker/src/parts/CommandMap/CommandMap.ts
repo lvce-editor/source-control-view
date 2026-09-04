@@ -3,6 +3,7 @@ import { acceptInput } from '../AcceptInput/AcceptInput.ts'
 import * as Create2 from '../Create2/Create2.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import { getBadgeCount } from '../GetBadgeCount/GetBadgeCount.ts'
+import { getComponentState } from '../GetComponentState/GetComponentState.ts'
 import * as GetInfo from '../GetInfo/GetInfo.ts'
 import { getKeyBindings } from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
@@ -37,6 +38,7 @@ import * as RenderEventListeners from '../RenderEventListeners/RenderEventListen
 import * as RevealInExplorer from '../RevealInExplorer/RevealInExplorer.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
 import * as SelectIndex from '../SelectIndex/SelectIndex.ts'
+import { setComponentState } from '../SetComponentState/SetComponentState.ts'
 import * as SetDeltaY from '../SetDeltaY/SetDeltaY.ts'
 import { getEnabledProviderIds, getFileDecorations, getWorkspaceBadgeCount } from '../SourceControl/SourceControl.ts'
 import * as WrapCommand from '../SourceControlStates/SourceControlStates.ts'
@@ -44,7 +46,8 @@ import * as UpdateIcons from '../UpdateIcons/UpdateIcons.ts'
 import * as ViewAsList from '../ViewAsList/ViewAsList.ts'
 import * as ViewAsTree from '../ViewAsTree/ViewAsTree.ts'
 
-const handleDirectMessagePort = (port: any): Promise<void> => HandleRendererProcessMessagePort.handleRendererProcessMessagePort(port, commandMap)
+const handleDirectMessagePort = (port: any, setAsRendererProcess = true): Promise<void> =>
+  HandleRendererProcessMessagePort.handleRendererProcessMessagePort(port, commandMap, setAsRendererProcess)
 
 export const commandMap = {
   'Initialize.initialize': Initialize.initialize,
@@ -53,6 +56,7 @@ export const commandMap = {
   'SourceControl.diff2': Diff2.diff2,
   'SourceControl.getBadgeCount': WrapCommand.wrapGetter(getBadgeCount),
   'SourceControl.getCommandIds': WrapCommand.getCommandIds,
+  'SourceControl.getComponentState': getComponentState,
   'SourceControl.getEnabledProviderIds': getEnabledProviderIds,
   'SourceControl.getFileDecorations': getFileDecorations,
   'SourceControl.getInfo': GetInfo.getInfo,
@@ -90,6 +94,7 @@ export const commandMap = {
   'SourceControl.revealInExplorer': WrapCommand.wrapCommand(RevealInExplorer.revealInExplorer),
   'SourceControl.saveState': SaveState.saveState,
   'SourceControl.selectIndex': WrapCommand.wrapCommand(SelectIndex.selectIndex),
+  'SourceControl.setComponentState': setComponentState,
   'SourceControl.setDeltaY': WrapCommand.wrapCommand(SetDeltaY.setDeltaY),
   'SourceControl.terminate': terminate,
   'SourceControl.updateIcons': WrapCommand.wrapCommand(UpdateIcons.updateIcons),

@@ -1,0 +1,10 @@
+[
+  {
+    "category": "source-control",
+    "description": "Controls whether source control actions use a split button.",
+    "heading": "Split Button",
+    "id": "sourceControl.splitButtonEnabled",
+    "type": "boolean",
+    "value": "false"
+  }
+]
