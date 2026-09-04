@@ -5,8 +5,10 @@ const applyComponentState = (currentState: SourceControlState, state: SourceCont
   if (!state || typeof state !== 'object' || Array.isArray(state)) {
     throw new TypeError('Source Control state must be an object')
   }
-  if (state.id !== currentState.id) {
-    throw new Error(`Source Control state id must remain ${currentState.id}`)
+  const { id } = state
+  const { id: currentId } = currentState
+  if (id !== currentId) {
+    throw new Error(`Source Control state id must remain ${currentId}`)
   }
   return state
 }
