@@ -11,8 +11,7 @@ const toErrorMessage = (error: unknown): string => {
 }
 
 export const handleGenerateCommitMessage = async (state: SourceControlState): Promise<SourceControlState> => {
-  const { applicationId } = state
-  const { assetDir, enabledProviderIds, platform } = state
+  const { applicationId, assetDir, enabledProviderIds, platform } = state
   if (enabledProviderIds.length === 0) {
     return {
       ...state,

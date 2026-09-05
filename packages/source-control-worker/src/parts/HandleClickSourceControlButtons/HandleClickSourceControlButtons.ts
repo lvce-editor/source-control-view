@@ -4,8 +4,7 @@ import * as Logger from '../Logger/Logger.ts'
 import { refresh } from '../Refresh/Refresh.ts'
 
 export const handleClickSourceControlButtons = async (state: SourceControlState, index: number, name: string): Promise<SourceControlState> => {
-  const { applicationId } = state
-  const { visibleItems } = state
+  const { applicationId, visibleItems } = state
   const item = visibleItems[index]
   if (!item) {
     return state

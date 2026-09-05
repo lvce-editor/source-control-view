@@ -5,8 +5,7 @@ import { openDiffEditor } from '../OpenDiffEditor/OpenDiffEditor.ts'
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 
 export const handleClickFile = async (state: SourceControlState, item: any): Promise<SourceControlState> => {
-  const { applicationId } = state
-  const { assetDir, enabledProviderIds, platform, root } = state
+  const { applicationId, assetDir, enabledProviderIds, platform, root } = state
   const providerId = enabledProviderIds[0]
   const absolutePath = `${root}/${item.file}`
   // TODO handle error

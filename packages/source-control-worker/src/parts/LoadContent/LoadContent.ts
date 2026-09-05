@@ -20,8 +20,8 @@ import * as SourceControl from '../SourceControl/SourceControl.ts'
 import * as SourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
 const loadContentActual = async (state: SourceControlState, savedState: unknown): Promise<SourceControlState> => {
-  const { applicationId } = state
   const {
+    applicationId,
     fileIconCache,
     height,
     inputFontFamily,

@@ -11,9 +11,9 @@ import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 
 export const refresh = async (state: SourceControlState): Promise<SourceControlState> => {
-  const { applicationId } = state
   const {
     actionsCache,
+    applicationId,
     assetDir,
     enabledProviderIds,
     fileIconCache,
