@@ -1,7 +1,7 @@
 import * as ExtensionHostShared from '../ExecuteProvider/ExecuteProvider.ts'
 import * as ExtensionHostCommandType from '../ExtensionHostCommandType/ExtensionHostCommandType.ts'
 
-export const executeCommand = (id: string, assetDir: string, platform: number, ...args: readonly any[]): Promise<void> => {
+const executeCommand = (id: string, assetDir: string, platform: number, ...args: readonly any[]): Promise<void> => {
   return ExtensionHostShared.executeProvider({
     assetDir,
     event: `onCommand:${id}`,
@@ -18,6 +18,9 @@ export const executeCommandForApplication = (
   platform: number,
   ...args: readonly any[]
 ): Promise<void> => {
+  if (applicationId === undefined) {
+    return executeCommand(id, assetDir, platform, ...args)
+  }
   return ExtensionHostShared.executeProvider({
     applicationId,
     assetDir,
