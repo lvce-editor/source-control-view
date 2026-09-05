@@ -2,8 +2,9 @@ import * as Assert from '@lvce-editor/assert'
 import * as ExecuteProvider from '../ExecuteProvider/ExecuteProvider.ts'
 import * as ExtensionHostCommandType from '../ExtensionHostCommandType/ExtensionHostCommandType.ts'
 
-export const acceptInput = async (providerId: string, text: string, assetDir: string, platform: number): Promise<void> => {
+export const acceptInput = async (providerId: string, text: string, assetDir: string, platform: number, applicationId?: string): Promise<void> => {
   return ExecuteProvider.executeProvider({
+    applicationId,
     assetDir,
     event: 'none',
     method: ExtensionHostCommandType.SourceControlAcceptInput,
@@ -13,8 +14,9 @@ export const acceptInput = async (providerId: string, text: string, assetDir: st
   })
 }
 
-export const generateCommitMessage = async (providerId: string, assetDir: string, platform: number): Promise<string> => {
+export const generateCommitMessage = async (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<string> => {
   return ExecuteProvider.executeProvider({
+    applicationId,
     assetDir,
     event: 'none',
     method: ExtensionHostCommandType.SourceControlGenerateCommitMessage,
@@ -23,8 +25,9 @@ export const generateCommitMessage = async (providerId: string, assetDir: string
   })
 }
 
-export const getFeatures = async (providerId: string, assetDir: string, platform: number): Promise<any> => {
+export const getFeatures = async (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<any> => {
   return ExecuteProvider.executeProvider({
+    applicationId,
     assetDir,
     event: 'none',
     method: ExtensionHostCommandType.SourceControlGetFeatures,
@@ -33,8 +36,9 @@ export const getFeatures = async (providerId: string, assetDir: string, platform
   })
 }
 
-export const getChangedFiles = (providerId: string, assetDir: string, platform: number): Promise<readonly any[]> => {
+export const getChangedFiles = (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<readonly any[]> => {
   return ExecuteProvider.executeProvider({
+    applicationId,
     assetDir,
     event: 'none',
     method: ExtensionHostCommandType.SourceControlGetChangedFiles,
@@ -44,8 +48,9 @@ export const getChangedFiles = (providerId: string, assetDir: string, platform: 
   })
 }
 
-export const getBadgeCount = (providerId: string, assetDir: string, platform: number): Promise<any> => {
+export const getBadgeCount = (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<any> => {
   return ExecuteProvider.executeProvider({
+    applicationId,
     assetDir,
     event: 'none',
     method: ExtensionHostCommandType.SourceControlGetBadgeCount,
@@ -54,10 +59,11 @@ export const getBadgeCount = (providerId: string, assetDir: string, platform: nu
   })
 }
 
-export const getFileDecorations = (providerId: string, uris: readonly string[], assetDir: string, platform: number): Promise<readonly any[]> => {
+export const getFileDecorations = (providerId: string, uris: readonly string[], assetDir: string, platform: number, applicationId?: string): Promise<readonly any[]> => {
   Assert.string(assetDir)
   Assert.number(platform)
   return ExecuteProvider.executeProvider({
+    applicationId,
     assetDir,
     event: 'none',
     method: ExtensionHostCommandType.SourceControlGetFileDecorations,
@@ -66,8 +72,9 @@ export const getFileDecorations = (providerId: string, uris: readonly string[], 
   })
 }
 
-export const getFileBefore = (providerId: string, path: string, assetDir: string, platform: number): Promise<any> => {
+export const getFileBefore = (providerId: string, path: string, assetDir: string, platform: number, applicationId?: string): Promise<any> => {
   return ExecuteProvider.executeProvider({
+    applicationId,
     assetDir,
     event: 'none',
     method: ExtensionHostCommandType.SourceControlGetFileBefore,
@@ -77,8 +84,9 @@ export const getFileBefore = (providerId: string, path: string, assetDir: string
   })
 }
 
-export const getGroups = (providerId: string, path: string, assetDir: string, platform: number): Promise<any> => {
+export const getGroups = (providerId: string, path: string, assetDir: string, platform: number, applicationId?: string): Promise<any> => {
   return ExecuteProvider.executeProvider({
+    applicationId,
     assetDir,
     event: 'none',
     method: ExtensionHostCommandType.SourceControlGetGroups,
@@ -88,8 +96,9 @@ export const getGroups = (providerId: string, path: string, assetDir: string, pl
   })
 }
 
-export const getEnabledProviderIds = (scheme: string, root: string, assetDir: string, platform: number): Promise<readonly string[]> => {
+export const getEnabledProviderIds = (scheme: string, root: string, assetDir: string, platform: number, applicationId?: string): Promise<readonly string[]> => {
   return ExecuteProvider.executeProvider({
+    applicationId,
     assetDir,
     event: `onSourceControl:${scheme}`,
     method: ExtensionHostCommandType.SourceControlGetEnabledProviderIds,

@@ -11,7 +11,7 @@ const toErrorMessage = (error: unknown): string => {
 }
 
 export const handleGenerateCommitMessage = async (state: SourceControlState): Promise<SourceControlState> => {
-  const { assetDir, enabledProviderIds, platform } = state
+  const { applicationId, assetDir, enabledProviderIds, platform } = state
   if (enabledProviderIds.length === 0) {
     return {
       ...state,
@@ -19,7 +19,7 @@ export const handleGenerateCommitMessage = async (state: SourceControlState): Pr
     }
   }
   try {
-    const inputValue = await SourceControl.generateCommitMessage(enabledProviderIds[0], assetDir, platform)
+    const inputValue = await SourceControl.generateCommitMessage(enabledProviderIds[0], assetDir, platform, applicationId)
     const newState = await handleInput(state, inputValue, InputSource.Script)
     return {
       ...newState,

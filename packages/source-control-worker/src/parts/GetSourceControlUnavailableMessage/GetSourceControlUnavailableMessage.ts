@@ -1,4 +1,4 @@
-import { ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
+import * as ApplicationExtensionRpc from '../ApplicationExtensionRpc/ApplicationExtensionRpc.ts'
 import * as SourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
 const hasSourceControlActivation = (extension: any): boolean => {
@@ -14,9 +14,9 @@ const isSourceControlExtension = (extension: any): boolean => {
   return Boolean(extension?.sourceControl) || hasSourceControlActivation(extension)
 }
 
-export const getSourceControlUnavailableMessage = async (assetDir: string, platform: number): Promise<string> => {
+export const getSourceControlUnavailableMessage = async (assetDir: string, platform: number, applicationId?: string): Promise<string> => {
   try {
-    const extensions = await ExtensionManagementWorker.invoke('Extensions.getAllExtensions', assetDir, platform)
+    const extensions = await ApplicationExtensionRpc.invoke(applicationId, 'Extensions.getAllExtensions', assetDir, platform)
     const sourceControlExtensions = extensions.filter(isSourceControlExtension)
     if (sourceControlExtensions.length === 0) {
       return SourceControlStrings.noSourceControlExtensionsInstalled()

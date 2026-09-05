@@ -9,6 +9,7 @@ import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 export interface SourceControlState {
   readonly actionsCache: ActionsCache
   readonly allGroups: readonly Group[]
+  readonly applicationId?: string
   readonly assetDir: string
   readonly badgeCount: number
   readonly decorationIcons: readonly string[]

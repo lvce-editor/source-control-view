@@ -21,6 +21,7 @@ import * as SourceControlStrings from '../SourceControlStrings/SourceControlStri
 
 const loadContentActual = async (state: SourceControlState, savedState: unknown): Promise<SourceControlState> => {
   const {
+    applicationId,
     fileIconCache,
     height,
     inputFontFamily,
@@ -38,23 +39,23 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   const scheme = GetProtocol.getProtocol(root)
   const { inputValue } = restoreState(savedState)
   const { assetDir, platform } = state
-  const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root, assetDir, platform)
-  const providerUnavailableMessage = enabledProviderIds.length === 0 ? await getSourceControlUnavailableMessage(assetDir, platform) : ''
+  const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root, assetDir, platform, applicationId)
+  const providerUnavailableMessage = enabledProviderIds.length === 0 ? await getSourceControlUnavailableMessage(assetDir, platform, applicationId) : ''
   const showGenerateCommitMessageButton =
-    enabledProviderIds.length === 0 ? false : await SourceControl.getShowGenerateCommitMessageButton(enabledProviderIds[0], assetDir, platform)
+    enabledProviderIds.length === 0 ? false : await SourceControl.getShowGenerateCommitMessageButton(enabledProviderIds[0], assetDir, platform, applicationId)
 
-  const iconDefinitions = await SourceControl.getIconDefinitions(enabledProviderIds, assetDir, platform)
-  const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform)
+  const iconDefinitions = await SourceControl.getIconDefinitions(enabledProviderIds, assetDir, platform, applicationId)
+  const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform, applicationId)
 
   const expandedGroups = restoreExpandedGroups(allGroups)
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
 
-  const actionsCache = enabledProviderIds.length === 0 ? Object.create(null) : await requestSourceActions(assetDir, platform)
-  const sourceControlButtons = enabledProviderIds.length === 0 ? [] : await requestSourceControlButtons(assetDir, platform)
+  const actionsCache = enabledProviderIds.length === 0 ? Object.create(null) : await requestSourceActions(assetDir, platform, applicationId)
+  const sourceControlButtons = enabledProviderIds.length === 0 ? [] : await requestSourceControlButtons(assetDir, platform, applicationId)
 
   // TODO make preferences async and more functional
   const splitButtonEnabled = await Preferences.get('sourceControl.splitButtonEnabled')
-  const badgeCount = await SourceControl.getBadgeCount(enabledProviderIds, assetDir, platform)
+  const badgeCount = await SourceControl.getBadgeCount(enabledProviderIds, assetDir, platform, applicationId)
   const inputPlaceholder = SourceControlStrings.messageEnterToCommitOnMaster()
   const inputBoxHeight = await getInputHeight(inputValue, width, inputFontFamily, inputFontSize, inputFontWeight, inputLetterSpacing, inputLineHeight, inputPadding)
   const headerHeight = getHeaderHeight(inputBoxHeight, sourceControlButtons)
