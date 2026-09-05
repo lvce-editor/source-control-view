@@ -28,4 +28,12 @@ test('create2 - creates state with provided parameters', (): void => {
   expect(newState.loading).toBe(true)
   expect(oldState.initial).toBe(true)
   expect(oldState.loading).toBe(false)
+  expect(newState.applicationId).toBeUndefined()
+})
+
+test('create2 - retains explicit application ownership without changing legacy arguments', (): void => {
+  create2(124, 'memfs:///workspace', 10, 20, 300, 400, '/workspace', 2, '/assets', 'preview')
+  const { newState, oldState } = get(124)
+  expect(newState).toMatchObject({ applicationId: 'preview', assetDir: '/assets', id: 124, platform: 2, workspacePath: '/workspace' })
+  expect(oldState.applicationId).toBe('preview')
 })

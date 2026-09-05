@@ -4,6 +4,7 @@ import * as Logger from '../Logger/Logger.ts'
 import { refresh } from '../Refresh/Refresh.ts'
 
 export const handleClickSourceControlButtons = async (state: SourceControlState, index: number, name: string): Promise<SourceControlState> => {
+  const { applicationId } = state
   const { visibleItems } = state
   const item = visibleItems[index]
   if (!item) {
@@ -16,7 +17,7 @@ export const handleClickSourceControlButtons = async (state: SourceControlState,
     return state
   }
   const { file } = item
-  await ExtensionHostCommand.executeCommand(button.command, state.assetDir, state.platform, file)
+  await ExtensionHostCommand.executeCommandForApplication(applicationId, button.command, state.assetDir, state.platform, file)
   const newState = await refresh(state)
   return newState
 }

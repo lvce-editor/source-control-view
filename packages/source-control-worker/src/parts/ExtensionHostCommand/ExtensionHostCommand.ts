@@ -10,3 +10,20 @@ export const executeCommand = (id: string, assetDir: string, platform: number, .
     platform,
   })
 }
+
+export const executeCommandForApplication = (
+  applicationId: string | undefined,
+  id: string,
+  assetDir: string,
+  platform: number,
+  ...args: readonly any[]
+): Promise<void> => {
+  return ExtensionHostShared.executeProvider({
+    applicationId,
+    assetDir,
+    event: 'onCommand:' + id,
+    method: ExtensionHostCommandType.CommandExecute,
+    params: [id, ...args],
+    platform,
+  })
+}

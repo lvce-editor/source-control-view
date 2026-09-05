@@ -11,6 +11,7 @@ import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 
 export const refresh = async (state: SourceControlState): Promise<SourceControlState> => {
+  const { applicationId } = state
   const {
     actionsCache,
     assetDir,
@@ -25,10 +26,10 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     root,
     splitButtonEnabled,
   } = state
-  const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform)
+  const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform, applicationId)
   const expandedGroups = restoreExpandedGroups(allGroups)
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
-  const badgeCount = await SourceControl.getBadgeCount(enabledProviderIds, assetDir, platform)
+  const badgeCount = await SourceControl.getBadgeCount(enabledProviderIds, assetDir, platform, applicationId)
   const total = displayItems.length
   const contentHeight = total * itemHeight
   const availableListHeight = Math.max(height - headerHeight, 0)
