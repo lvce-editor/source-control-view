@@ -54,6 +54,7 @@ export const commandMap = {
   'SourceControl.acceptInput': WrapCommand.wrapCommand(acceptInput),
   'SourceControl.create2': Create2.create2,
   'SourceControl.diff2': Diff2.diff2,
+  'SourceControl.dispose': WrapCommand.dispose,
   'SourceControl.getBadgeCount': WrapCommand.wrapGetter(getBadgeCount),
   'SourceControl.getCommandIds': WrapCommand.getCommandIds,
   'SourceControl.getComponentState': getComponentState,
