@@ -9,6 +9,6 @@
   "devDependencies": {
     "@lvce-editor/measure-memory": "^3.11.0",
     "@types/node": "^22.13.14",
-    "playwright": "^1.62.1"
+    "playwright": "^1.63.0"
   }
 }
