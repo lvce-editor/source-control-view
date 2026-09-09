@@ -13,6 +13,18 @@
     },
     {
       "path": "./packages/e2e"
+    },
+    {
+      "path": "./packages/e2e/fixtures/sample-disabled-source-control-provider"
+    },
+    {
+      "path": "./packages/e2e/fixtures/sample-source-control-provider"
+    },
+    {
+      "path": "./packages/e2e/fixtures/sample-source-control-provider-load-error"
+    },
+    {
+      "path": "./packages/e2e/fixtures/sample-source-control-provider-stage-error"
     }
   ]
 }

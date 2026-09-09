@@ -5,7 +5,8 @@
   "author": "Lvce Editor",
   "type": "module",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "packages/e2e/fixtures/*"
   ],
   "scripts": {
     "build": "node packages/build/src/build.ts",
