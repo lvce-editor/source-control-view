@@ -14,6 +14,8 @@
     "dev": "node packages/build/src/dev.ts",
     "format": "prettier --write .",
     "lint": "eslint . && prettier --check . && knip --no-config-hints",
+    "measure": "npm run measure --workspace=packages/build",
+    "measure:visible": "npm run measure:visible --workspace=packages/build",
     "test": "npm test --workspaces --if-present",
     "test-integration": "npm run test-integration --workspaces --if-present",
     "type-check": "tsc -b"
