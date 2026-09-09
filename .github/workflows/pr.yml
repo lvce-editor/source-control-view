@@ -47,6 +47,11 @@ jobs:
         run: npm run e2e:headless
         env:
           PLAYWRIGHT_BROWSERS_PATH: 0
+      - name: install memory measurement browser
+        run: node node_modules/playwright/cli.js install chromium
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: 0
       - name: measure
         run: npm run measure
         env:

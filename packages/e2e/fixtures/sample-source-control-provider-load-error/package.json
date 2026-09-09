@@ -8,6 +8,6 @@
     "type-check": "tsc"
   },
   "dependencies": {
-    "@lvce-editor/api": "^9.25.0"
+    "@lvce-editor/api": "^9.30.0"
   }
 }
