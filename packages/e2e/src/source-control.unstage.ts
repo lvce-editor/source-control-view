@@ -16,7 +16,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   // act
   await SourceControl.handleClickSourceControlButtons(1, `Unstage Changes`)
 
-  //  assert
+  // assert
   const sourceControlView = Locator('.Viewlet.SourceControl')
   await expect(sourceControlView).toBeVisible()
   const treeItems = Locator('.SourceControlItems .TreeItem')

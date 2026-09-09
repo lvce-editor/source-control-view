@@ -3,6 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'source-control.open-changes-diff'
 
 export const test: Test = async ({ expect, Extension, FileSystem, Locator, SourceControl, Workspace }) => {
+  // arrange
   const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
@@ -14,9 +15,12 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   const fileItem = Locator('.SourceControlItems .TreeItem').nth(1)
   await expect(fileItem).toHaveText('test.css')
+
+  // act
   await SourceControl.selectIndex(1)
   await new Promise((resolve) => setTimeout(resolve, 2000))
 
+  // assert
   const diffEditor = Locator('.DiffEditor')
   const changedContent = Locator('.DiffEditor .DiffEditorRows')
   const errorMessage = Locator('.DiffEditorErrorMessage')
