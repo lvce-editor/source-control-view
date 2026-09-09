@@ -6,15 +6,11 @@
     },
     "packages/build": {
       "project": ["src/**/*.ts"],
-      "ignoreDependencies": ["esbuild"]
+      "ignoreDependencies": ["esbuild", "playwright"]
     },
     "packages/e2e": {
       "entry": ["src/**/*.ts", "fixtures/**/index.js"],
       "project": ["src/**/*.ts", "fixtures/**/*.js"]
-    },
-    "packages/memory": {
-      "entry": ["src/measureMemory.ts"],
-      "project": ["src/**/*.ts"]
     },
     "packages/server": {
       "project": ["src/**/*.js"]
