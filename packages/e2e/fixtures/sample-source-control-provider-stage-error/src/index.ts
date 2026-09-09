@@ -1,72 +1,28 @@
 import { activate as activateExtensionApi, readDirWithFileTypes, registerCommand, registerSourceControlProvider } from '@lvce-editor/api'
 
-const id = 'sample-source-control-provider' // TODO name it just sample-source-control-provider
+const id = 'sample-source-control'
 const label = 'Sample Source Control'
 const rootUri = ''
 
+const iconRoot = new URL('../icons/dark', import.meta.url).toString()
+
 const IconType = {
-  Modified: 0,
-  Added: 1,
-  Deleted: 2,
-  Renamed: 3,
-  Copied: 4,
-  Untracked: 5,
-  Ignored: 6,
-  Conflict: 7,
+  Modified: `${iconRoot}/status-modified.svg`,
+  Added: `${iconRoot}/status-added.svg`,
+  Deleted: `${iconRoot}/status-deleted.svg`,
+  Renamed: `${iconRoot}/status-renamed.svg`,
+  Copied: `${iconRoot}/status-copied.svg`,
+  Untracked: `${iconRoot}/status-untracked.svg`,
+  Ignored: `${iconRoot}/status-ignored.svg`,
+  Conflict: `${iconRoot}/status-conflict.svg`,
 }
 
 const staged = Object.create(null)
-const committed = Object.create(null)
 
 const renamedFilesMap = Object.create(null)
 
-const decorations = {
-  'added.css': {
-    icon: IconType.Added,
-    iconTitle: 'Added',
-  },
-  'conflict.css': {
-    icon: IconType.Conflict,
-    iconTitle: 'Conflict',
-  },
-  'copied.css': {
-    icon: IconType.Copied,
-    iconTitle: 'Copied',
-  },
-  'deleted.css': {
-    icon: IconType.Deleted,
-    iconTitle: 'Deleted',
-    strikeThrough: true,
-  },
-  'ignored.css': {
-    icon: IconType.Ignored,
-    iconTitle: 'Ignored',
-  },
-  'modified.css': {
-    icon: IconType.Modified,
-    iconTitle: 'Modified',
-  },
-  'renamed.css': {
-    icon: IconType.Renamed,
-    iconTitle: 'Renamed',
-  },
-  'untracked.css': {
-    icon: IconType.Untracked,
-    iconTitle: 'Untracked',
-  },
-}
-
 const toChangedItem = (dirent, root) => {
   const absoluteUri = `${root}/${dirent.name}`
-  if (dirent.name in decorations) {
-    return {
-      file: dirent.name,
-      icon: decorations[dirent.name].icon,
-      iconTitle: decorations[dirent.name].iconTitle,
-      strikeThrough: decorations[dirent.name].strikeThrough,
-      type: 8,
-    }
-  }
   if (absoluteUri in renamedFilesMap) {
     return {
       file: dirent.name,
@@ -84,21 +40,28 @@ const toChangedItem = (dirent, root) => {
 }
 
 const toStagedItem = (dirent, root) => {
-  return toChangedItem(dirent, root)
+  const absoluteUri = `${root}/${dirent.name}`
+  if (absoluteUri in renamedFilesMap) {
+    return {
+      file: dirent.name,
+      icon: IconType.Renamed,
+      iconTitle: '',
+      type: 8,
+    }
+  }
+  return {
+    file: dirent.name,
+    icon: IconType.Untracked,
+    iconTitle: '',
+    type: 8,
+  }
 }
 
 const isStaged = (dirent) => {
   return dirent.name in staged
 }
 
-const isCommitted = (dirent) => {
-  return dirent.name in committed
-}
-
 const isChanged = (dirent) => {
-  if (isCommitted(dirent)) {
-    return false
-  }
   if (isStaged(dirent)) {
     return false
   }
@@ -135,13 +98,11 @@ const getGroups = async (root) => {
 }
 
 const getChangedFiles = () => {
-  if (!rootUri) {
-    return []
-  }
+  return []
 }
 
-const stage = (path) => {
-  staged[path] = true
+const stage = (_path) => {
+  throw new TypeError(`x is not a function`)
 }
 
 const unstage = (path) => {
@@ -154,22 +115,11 @@ const unstageAll = () => {
   }
 }
 
-const commit = (path) => {
-  committed[path] = true
-  delete staged[path]
-}
-
-const commitAll = () => {
-  for (const path in staged) {
-    commit(path)
-  }
-}
-
 const acceptInput = () => {
-  commitAll()
+  // No-op for this sample provider
 }
 
-const getFileBefore = (path) => {
+const getFileBefore = (_path) => {
   // Return empty string for this sample provider
   return ''
 }

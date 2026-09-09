@@ -1,0 +1,13 @@
+{
+  "name": "sample-source-control-provider",
+  "version": "0.0.0-dev",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "type-check": "tsc"
+  },
+  "dependencies": {
+    "@lvce-editor/api": "^9.30.0"
+  }
+}
