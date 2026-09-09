@@ -3,6 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'source-control.stage-multiple'
 
 export const test: Test = async ({ expect, Extension, FileSystem, Locator, SourceControl, Workspace }) => {
+  // arrange
   const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
@@ -15,8 +16,10 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await new Promise((resolve) => setTimeout(resolve, 2000))
   await SourceControl.handleClickSourceControlButtons(1, 'Stage')
 
+  // act
   await SourceControl.handleClickSourceControlButtons(3, 'Stage')
 
+  // assert
   const treeItems = Locator('.SourceControlItems .TreeItem')
   const stagedGroup = treeItems.nth(0)
   const firstFile = treeItems.nth(1)

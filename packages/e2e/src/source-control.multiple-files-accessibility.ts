@@ -3,6 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'source-control.multiple-files-accessibility'
 
 export const test: Test = async ({ expect, Extension, FileSystem, Locator, SourceControl, Workspace }) => {
+  // arrange
   const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
@@ -13,9 +14,11 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   ])
   await Workspace.setPath(tmpDir)
 
+  // act
   await SourceControl.show()
   await new Promise((resolve) => setTimeout(resolve, 2000))
 
+  // assert
   const treeItems = Locator('.SourceControlItems .TreeItem')
   const firstFile = treeItems.nth(1)
   const secondFile = treeItems.nth(2)

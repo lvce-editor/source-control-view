@@ -3,6 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'source-control.collapse-staged-group'
 
 export const test: Test = async ({ expect, Extension, FileSystem, Locator, SourceControl, Workspace }) => {
+  // arrange
   const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
@@ -16,8 +17,10 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await SourceControl.handleClickSourceControlButtons(1, 'Stage')
   await SourceControl.handleClickSourceControlButtons(3, 'Stage')
 
+  // act
   await SourceControl.selectIndex(0)
 
+  // assert
   const treeItems = Locator('.SourceControlItems .TreeItem')
   const stagedGroup = treeItems.nth(0)
   await expect(treeItems).toHaveCount(1)
