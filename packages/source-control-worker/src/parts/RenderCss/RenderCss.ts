@@ -16,6 +16,11 @@ export const renderCss = (oldState: SourceControlState, newState: SourceControlS
   --SourceControlInputHeight: ${inputBoxHeight}px;
 }
 
+.SourceControl > .Message {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 .SourceControl .SplitButtonContent > .MaskIcon {
   width: 16px;
   height: 16px;

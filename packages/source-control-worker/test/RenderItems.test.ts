@@ -126,11 +126,11 @@ test('renderItems - shows unavailable message instead of commit controls without
     1,
     [
       expect.objectContaining({ childCount: 1 }),
-      expect.objectContaining({
+      {
         childCount: 1,
-        paddingLeft: '20px',
-        paddingRight: '20px',
-      }),
+        className: ClassNames.Message,
+        type: VirtualDomElements.Div,
+      },
       expect.objectContaining({
         text: 'No source control extensions are installed.',
         type: VirtualDomElements.Text,
