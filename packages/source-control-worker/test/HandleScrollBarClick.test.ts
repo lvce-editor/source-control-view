@@ -14,7 +14,8 @@ const createScrollState = (): SourceControlState => ({
 
 test('handleScrollBarClick - activates existing thumb', async () => {
   const state = createScrollState()
-  const eventY = state.y + state.headerHeight + 25
+  const { headerHeight, y } = state
+  const eventY = y + headerHeight + 25
 
   const newState = await handleScrollBarClick(state, eventY)
 
@@ -25,7 +26,8 @@ test('handleScrollBarClick - activates existing thumb', async () => {
 
 test('handleScrollBarClick - moves thumb to clicked position', async () => {
   const state = createScrollState()
-  const eventY = state.y + state.headerHeight + 225
+  const { headerHeight, y } = state
+  const eventY = y + headerHeight + 225
 
   const newState = await handleScrollBarClick(state, eventY)
 

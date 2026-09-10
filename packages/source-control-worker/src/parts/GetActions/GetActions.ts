@@ -7,7 +7,8 @@ import * as MaskIcon from '../MaskIcon/MaskIcon.ts'
 import * as ViewletSourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
 export const getActions = (state: SourceControlState): readonly Action[] => {
-  if (state.platform === PlatformType.Web && state.enabledProviderIds.length === 0) {
+  const { enabledProviderIds, platform, showGenerateCommitMessageButton } = state
+  if (platform === PlatformType.Web && enabledProviderIds.length === 0) {
     return [
       {
         command: '',
@@ -41,7 +42,7 @@ export const getActions = (state: SourceControlState): readonly Action[] => {
       type: ActionType.Button,
     },
   ]
-  if (state.showGenerateCommitMessageButton) {
+  if (showGenerateCommitMessageButton) {
     actions.splice(2, 0, {
       command: '',
       icon: MaskIcon.DebugAlt2,

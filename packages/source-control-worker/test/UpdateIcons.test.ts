@@ -30,9 +30,10 @@ test('updateIcons - should update icons for visible items', async (): Promise<vo
   const result = await UpdateIcons.updateIcons(state)
 
   expect(result.fileIconCache).toBeDefined()
-  expect(result.items).toEqual(state.items)
-  expect(result.minLineY).toBe(state.minLineY)
-  expect(result.maxLineY).toBe(state.maxLineY)
+  const { items, maxLineY, minLineY } = state
+  expect(result.items).toEqual(items)
+  expect(result.minLineY).toBe(minLineY)
+  expect(result.maxLineY).toBe(maxLineY)
   expect(mockRpc.invocations.length).toBeGreaterThan(0)
 })
 
@@ -49,6 +50,7 @@ test('updateIcons - should handle empty visible items', async (): Promise<void> 
   const result = await UpdateIcons.updateIcons(state)
 
   expect(result.fileIconCache).toBeDefined()
-  expect(result.items).toEqual(state.items)
+  const { items } = state
+  expect(result.items).toEqual(items)
   expect(mockRpc.invocations).toEqual([['IconTheme.getIcons', []]])
 })
