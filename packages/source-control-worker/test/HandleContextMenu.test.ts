@@ -50,6 +50,7 @@ test('handleContextMenu', async (): Promise<void> => {
       x,
       y,
       {
+        index: 0,
         menuId: MenuEntryId.SourceControl,
         uri: '/test/src/test.ts',
       },

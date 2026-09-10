@@ -9,8 +9,9 @@ test('show2', async (): Promise<void> => {
   }
   using mockRpc = RendererWorker.registerMockRpc(commandMap)
   await ContextMenu.show2(1, MenuEntryId.SourceControl, 2, 3, {
+    index: 0,
     menuId: MenuEntryId.SourceControl,
     uri: '/test/test.ts',
   })
-  expect(mockRpc.invocations).toEqual([['ContextMenu.show2', 1, MenuEntryId.SourceControl, 2, 3, { menuId: MenuEntryId.SourceControl, uri: '/test/test.ts' }]])
+  expect(mockRpc.invocations).toEqual([['ContextMenu.show2', 1, MenuEntryId.SourceControl, 2, 3, { index: 0, menuId: MenuEntryId.SourceControl, uri: '/test/test.ts' }]])
 })

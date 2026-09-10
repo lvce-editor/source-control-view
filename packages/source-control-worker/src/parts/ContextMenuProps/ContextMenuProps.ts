@@ -5,6 +5,7 @@ interface ContextMenuPropsBase {
 }
 
 interface ContextMenuPropsSourceControl extends ContextMenuPropsBase {
+  readonly index: number
   readonly menuId: typeof MenuEntryId.SourceControl
   readonly uri: string
 }
