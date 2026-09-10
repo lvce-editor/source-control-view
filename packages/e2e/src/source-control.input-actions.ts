@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'source-control.input-actions'
 
-export const test: Test = async ({ ComponentState, expect, Extension, FileSystem, Locator, SourceControl, Workspace }) => {
+export const test: Test = async ({ expect, Extension, FileSystem, Locator, SourceControl, Workspace }) => {
   // arrange
   await Extension.addWebExtension(import.meta.resolve('../fixtures/sample-source-control-provider'))
   await Extension.addWebExtension(import.meta.resolve('../fixtures/sample-input-actions'))
@@ -21,13 +21,5 @@ export const test: Test = async ({ ComponentState, expect, Extension, FileSystem
   await action.click()
 
   // assert
-  try {
-    await expect(input).toHaveValue('Suggested: My change')
-  } catch (error) {
-    const component = await ComponentState.getComponent('Source Control')
-    const { inputDiagnostics, inputMessage, inputValue } = await ComponentState.getState<{ inputDiagnostics: unknown; inputValue: string; inputMessage: string }>(
-      component.uid,
-    )
-    throw new Error(`[DEBUG-input-actions] ${JSON.stringify({ inputDiagnostics, inputMessage, inputValue })}`, { cause: error })
-  }
+  await expect(input).toHaveValue('Suggested: My change')
 }
