@@ -4,8 +4,8 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { handleClickFile } from '../src/parts/HandleClickFile/HandleClickFile.ts'
 
 test.each([
-  { protocol: 'inline-diff', width: 799 },
-  { protocol: 'diff', width: 800 },
+  { protocol: 'inline-diff', width: 799 } as const,
+  { protocol: 'diff', width: 800 } as const,
 ])('handleClickFile uses view width $width to open $protocol', async ({ protocol, width }): Promise<void> => {
   using extensionRpc = ExtensionHost.registerMockRpc({
     'ExtensionHostSourceControl.getFileBefore': async (): Promise<string> => 'old content',
