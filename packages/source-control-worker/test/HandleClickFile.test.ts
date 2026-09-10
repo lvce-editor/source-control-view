@@ -4,11 +4,11 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { handleClickFile } from '../src/parts/HandleClickFile/HandleClickFile.ts'
 
 test.each([
-  { protocol: 'inline-diff', width: 799 },
-  { protocol: 'diff', width: 800 },
-  { inlineDiffEditorBreakpoint: 1000, protocol: 'inline-diff', width: 999 },
-  { inlineDiffEditorBreakpoint: 1000, protocol: 'diff', width: 1000 },
-  { inlineDiffEditorBreakpoint: 600, protocol: 'diff', width: 700 },
+  { protocol: 'inline-diff', width: 799 } as const,
+  { protocol: 'diff', width: 800 } as const,
+  { inlineDiffEditorBreakpoint: 1000, protocol: 'inline-diff', width: 999 } as const,
+  { inlineDiffEditorBreakpoint: 1000, protocol: 'diff', width: 1000 } as const,
+  { inlineDiffEditorBreakpoint: 600, protocol: 'diff', width: 700 } as const,
 ])(
   'handleClickFile uses view width $width and breakpoint $inlineDiffEditorBreakpoint to open $protocol',
   async ({ inlineDiffEditorBreakpoint = createDefaultState().inlineDiffEditorBreakpoint, protocol, width }): Promise<void> => {
