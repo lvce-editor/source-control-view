@@ -29,6 +29,7 @@ export const getSourceControlVirtualDom = (
   loading: boolean,
   scrollBarHeight: number,
   scrollBarActive: boolean,
+  inputActions: readonly ActionButton[] = [],
 ): readonly VirtualDomNode[] => {
   const dom: VirtualDomNode[] = [
     {
@@ -49,7 +50,7 @@ export const getSourceControlVirtualDom = (
     dom.push(messageNode, text(message))
     return dom
   }
-  dom.push(...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(placeholder, inputMessage))
+  dom.push(...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(placeholder, inputMessage, inputActions))
   for (const button of buttons) {
     dom.push(...GetSourceControlButtonVirtualDom.getSourceControlButtonVirtualDom(button, disabled))
   }

@@ -12,6 +12,7 @@ import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
 import { getSourceControlUnavailableMessage } from '../GetSourceControlUnavailableMessage/GetSourceControlUnavailableMessage.ts'
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 import * as Preferences from '../Preferences/Preferences.ts'
+import { requestInputActions } from '../RequestInputActions/RequestInputActions.ts'
 import { requestSourceActions } from '../RequestSourceActions/RequestSourceActions.ts'
 import { requestSourceControlButtons } from '../RequestSourceControlButtons/RequestSourceControlButtons.ts'
 import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedGroups.ts'
@@ -55,6 +56,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
 
   const actionsCache = enabledProviderIds.length === 0 ? Object.create(null) : await requestSourceActions(assetDir, platform, applicationId)
+  const inputActions = enabledProviderIds.length === 0 ? [] : await requestInputActions(assetDir, platform, applicationId)
   const sourceControlButtons = enabledProviderIds.length === 0 ? [] : await requestSourceControlButtons(assetDir, platform, applicationId)
 
   // TODO make preferences async and more functional
@@ -87,6 +89,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     headerHeight,
     iconDefinitions,
     indents: getIndents(indents, visibleItems),
+    inputActions,
     inputBoxHeight,
     inputPlaceholder,
     inputValue,

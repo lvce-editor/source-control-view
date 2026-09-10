@@ -4,6 +4,7 @@ import * as DomEventListenersFunctions from '../DomEventListenerFunctions/DomEve
 
 export const renderEventListeners = (): readonly DomEventListener[] => {
   return [
+    { name: DomEventListenersFunctions.HandleInputActionClick, params: ['handleInputActionClick', EventExpression.TargetName] },
     {
       name: DomEventListenersFunctions.HandleWheel,
       params: ['handleWheel', EventExpression.DeltaMode, EventExpression.DeltaY],

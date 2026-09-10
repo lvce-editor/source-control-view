@@ -16,6 +16,30 @@ export const renderCss = (oldState: SourceControlState, newState: SourceControlS
   --SourceControlInputHeight: ${inputBoxHeight}px;
 }
 
+.SourceControl .ViewSourceControlInput {
+  display: flex;
+  align-items: flex-start;
+}
+
+.SourceControl .ViewSourceControlInput > textarea {
+  flex: 1;
+  min-width: 0;
+}
+
+.SourceControlInputAction {
+  background: transparent;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.SourceControlInputAction > .MaskIcon {
+  pointer-events: none;
+  width: 16px;
+  height: 16px;
+}
+
 .SourceControl > .Message {
   padding-left: 20px;
   padding-right: 20px;

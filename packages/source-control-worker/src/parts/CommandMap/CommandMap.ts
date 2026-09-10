@@ -17,6 +17,7 @@ import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandleFocus from '../HandleFocus/HandleFocus.ts'
 import * as HandleGenerateCommitMessage from '../HandleGenerateCommitMessage/HandleGenerateCommitMessage.ts'
 import { handleInput } from '../HandleInput/HandleInput.ts'
+import { handleInputActionClick } from '../HandleInputActionClick/HandleInputActionClick.ts'
 import { handleInputBlur } from '../HandleInputBlur/HandleInputBlur.ts'
 import * as HandleMessagePort from '../HandleMessagePort/HandleMessagePort.ts'
 import * as HandleMouseOut from '../HandleMouseOut/HandleMouseOut.ts'
@@ -80,6 +81,7 @@ export const commandMap = {
   'SourceControl.handleFocus': WrapCommand.wrapCommand(HandleFocus.handleInputFocus),
   'SourceControl.handleGenerateCommitMessage': WrapCommand.wrapCommand(HandleGenerateCommitMessage.handleGenerateCommitMessage),
   'SourceControl.handleInput': WrapCommand.wrapCommand(handleInput),
+  'SourceControl.handleInputActionClick': WrapCommand.wrapCommand(handleInputActionClick),
   'SourceControl.handleInputBlur': WrapCommand.wrapCommand(handleInputBlur),
   'SourceControl.handleMessagePort': HandleMessagePort.handleMessagePort,
   'SourceControl.handleMouseOut': WrapCommand.wrapCommand(HandleMouseOut.handleMouseOut),

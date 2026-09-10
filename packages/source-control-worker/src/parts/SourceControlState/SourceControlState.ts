@@ -30,6 +30,7 @@ export interface SourceControlState {
   readonly indents: readonly number[]
   readonly index: readonly any[]
   readonly initial: boolean
+  readonly inputActions: readonly ActionButton[]
   readonly inputBoxHeight: number
   readonly inputBoxMaxHeight: number
   readonly inputFontFamily: string

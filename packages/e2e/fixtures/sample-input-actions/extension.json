@@ -1,0 +1,9 @@
+{
+  "id": "test.input-actions",
+  "name": "Input Actions",
+  "browser": "src/index.ts",
+  "isolated": true,
+  "activation": ["onCommand:sampleInputActions.generate"],
+  "commands": [{ "id": "sampleInputActions.generate", "label": "Suggest Message" }],
+  "source-control-input-actions": [{ "command": "sampleInputActions.generate", "label": "Suggest Message", "icon": "DebugAlt2" }]
+}
