@@ -1,12 +1,6 @@
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 
-interface ViewletState {
-  readonly currentViewletId?: string
-  readonly parentUid?: number
-  readonly uid: number
-}
-
 interface TimerGlobal {
   readonly setTimeout: (callback: () => void, delay: number) => number
 }
@@ -19,12 +13,7 @@ const revealInExplorerActual = async (uri: string, applicationId?: string, uid?:
     await RendererWorker.invoke('Application.executeForView', uid, 'Explorer.reveal', uri)
     return
   }
-  await RendererWorker.invoke('SideBar.show', 'Explorer')
-  const states = (await RendererWorker.invoke('Viewlet.getAllStates')) as Record<string, ViewletState>
-  const viewlets = Object.values(states)
-  const sideBar = viewlets.find((viewlet) => viewlet.currentViewletId === 'Explorer')
-  const explorerUid = Math.max(...viewlets.filter((viewlet) => viewlet.parentUid === sideBar!.uid).map((viewlet) => viewlet.uid))
-  await RendererWorker.invoke('Viewlet.executeViewletCommand', explorerUid, 'reveal', uri)
+  await RendererWorker.invoke('RevealInExplorer.reveal', uri)
 }
 
 export const revealInExplorer = (state: SourceControlState, uri: string): SourceControlState => {
