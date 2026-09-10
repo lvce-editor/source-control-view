@@ -11,7 +11,7 @@ test.each([
     'Main.openUri': async (): Promise<void> => {},
   })
 
-  await openDiffEditor('original content', '/workspace/file.ts', width)
+  await openDiffEditor('original content', '/workspace/file.ts', width, 800)
 
   expect(rpc.invocations).toEqual([['Main.openUri', { focus: undefined, uri: `${protocol}://data://original content<->/workspace/file.ts` }]])
 })
@@ -21,7 +21,7 @@ test('openDiffEditor targets the originating application', async (): Promise<voi
     'Application.execute': async (): Promise<void> => {},
   })
 
-  await openDiffEditor('', '/workspace/new.ts', 800, 'preview-1')
+  await openDiffEditor('', '/workspace/new.ts', 800, 800, 'preview-1')
 
   expect(rpc.invocations).toEqual([['Application.execute', 'preview-1', 'Main.openUri', { uri: 'diff://data://<->/workspace/new.ts' }]])
 })
@@ -33,6 +33,6 @@ test('openDiffEditor propagates editor failures', async (): Promise<void> => {
     },
   })
 
-  await expect(openDiffEditor('before', '/workspace/file.ts', 800)).rejects.toThrow('editor unavailable')
+  await expect(openDiffEditor('before', '/workspace/file.ts', 800, 800)).rejects.toThrow('editor unavailable')
   expect(rpc.invocations).toHaveLength(1)
 })
