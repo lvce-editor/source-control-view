@@ -32,7 +32,7 @@ import * as HandleSourceControlButtonClick from '../HandleSourceControlButtonCli
 import * as HandleWheel from '../HandleWheel/HandleWheel.ts'
 import { handleWorkspaceRefresh } from '../HandleWorkspaceRefresh/HandleWorkspaceRefresh.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
-import * as LoadContent from '../LoadContent/LoadContent.ts'
+import { loadContentCommand } from '../LoadContentCommand/LoadContentCommand.ts'
 import { openChanges } from '../OpenChanges/OpenChanges.ts'
 import { openContainingFolder } from '../OpenContainingFolder/OpenContainingFolder.ts'
 import { openFile } from '../OpenFile/OpenFile.ts'
@@ -95,7 +95,7 @@ export const commandMap = {
   'SourceControl.handleSourceControlButtonClick': WrapCommand.wrapCommand(HandleSourceControlButtonClick.handleSourceControlButtonClick),
   'SourceControl.handleWheel': WrapCommand.wrapCommand(HandleWheel.handleWheel),
   'SourceControl.handleWorkspaceRefresh': WrapCommand.wrapCommand(handleWorkspaceRefresh),
-  'SourceControl.loadContent': WrapCommand.wrapCommand(LoadContent.loadContent),
+  'SourceControl.loadContent': loadContentCommand,
   'SourceControl.openChanges': WrapCommand.wrapCommand(openChanges),
   'SourceControl.openContainingFolder': WrapCommand.wrapCommand(openContainingFolder),
   'SourceControl.openFile': WrapCommand.wrapCommand(openFile),
