@@ -8,7 +8,7 @@ export const requestSourceActions = async (assetDir = '', platform = 0, applicat
     if (!extension || !extension['source-control-actions']) {
       continue
     }
-    const sourceControlActions = Object.entries(extension['source-control-actions']).filter(([, value]) => Array.isArray(value))
+    const sourceControlActions = Object.entries(extension['source-control-actions']).filter(([, value]: readonly [string, unknown]) => Array.isArray(value))
     for (const [key, value] of sourceControlActions) {
       const actions = (value as unknown[]).filter((action: any) => action && typeof action.command === 'string' && typeof action.label === 'string')
       newCache[key] = [...(newCache[key] || []), ...actions]
