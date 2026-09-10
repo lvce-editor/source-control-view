@@ -4,6 +4,7 @@ import { RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleButtonClick } from '../src/parts/HandleButtonClick/HandleButtonClick.ts'
+import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 test('handleButtonClick - valid button click', async (): Promise<void> => {
   const extensionHostCommandMap = {
@@ -23,7 +24,7 @@ test('handleButtonClick - valid button click', async (): Promise<void> => {
     'Preferences.get': async (): Promise<any> => false,
     'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
-  ExtensionManagementWorker.registerMockRpc(rendererCommandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(rendererCommandMap))
   const rendererMockRpc = RendererWorker.registerMockRpc(rendererCommandMap)
   TextMeasurementWorker.registerMockRpc(rendererCommandMap)
 
