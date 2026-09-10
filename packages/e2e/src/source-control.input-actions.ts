@@ -25,7 +25,9 @@ export const test: Test = async ({ ComponentState, expect, Extension, FileSystem
     await expect(input).toHaveValue('Suggested: My change')
   } catch (error) {
     const component = await ComponentState.getComponent('Source Control')
-    const { inputMessage, inputValue } = await ComponentState.getState<{ inputValue: string; inputMessage: string }>(component.uid)
-    throw new Error(`[DEBUG-input-actions] ${JSON.stringify({ inputMessage, inputValue })}`, { cause: error })
+    const { inputDiagnostics, inputMessage, inputValue } = await ComponentState.getState<{ inputDiagnostics: unknown; inputValue: string; inputMessage: string }>(
+      component.uid,
+    )
+    throw new Error(`[DEBUG-input-actions] ${JSON.stringify({ inputDiagnostics, inputMessage, inputValue })}`, { cause: error })
   }
 }

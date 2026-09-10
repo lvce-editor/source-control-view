@@ -2,5 +2,6 @@ import type { SourceControlState } from '../SourceControlState/SourceControlStat
 import * as SourceControlStates from '../SourceControlStates/SourceControlStates.ts'
 
 export const getComponentState = (id: number): SourceControlState => {
-  return SourceControlStates.get(id).newState
+  const state = SourceControlStates.get(id).newState
+  return SourceControlStates.inputDiagnostics.length > 0 ? ({ ...state, inputDiagnostics: SourceControlStates.inputDiagnostics } as SourceControlState) : state
 }
