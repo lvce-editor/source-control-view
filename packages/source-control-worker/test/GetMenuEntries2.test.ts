@@ -17,7 +17,7 @@ const item = {
   setSize: 1,
   type: DirentType.File,
 }
-const props = { index: 0, menuId: MenuEntryId.SourceControl, uri: '/test/test.css' }
+const props = { index: 0, menuId: MenuEntryId.SourceControl, uri: '/test/test.css' } as const
 
 test('menu uses contributions for the clicked group and relative file arguments', () => {
   const state = {
