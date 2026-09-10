@@ -23,6 +23,7 @@ import * as SourceControlStrings from '../SourceControlStrings/SourceControlStri
 const loadContentActual = async (state: SourceControlState, savedState: unknown): Promise<SourceControlState> => {
   const {
     applicationId,
+    buttonBlockHeight,
     fileIconCache,
     height,
     indents,
@@ -32,6 +33,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     inputLetterSpacing,
     inputLineHeight,
     inputPadding,
+    inputPaddingBlock,
     itemHeight,
     minimumSliderSize,
     width,
@@ -60,7 +62,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   const badgeCount = await SourceControl.getBadgeCount(enabledProviderIds, assetDir, platform, applicationId)
   const inputPlaceholder = SourceControlStrings.messageEnterToCommitOnMaster()
   const inputBoxHeight = await getInputHeight(inputValue, width, inputFontFamily, inputFontSize, inputFontWeight, inputLetterSpacing, inputLineHeight, inputPadding)
-  const headerHeight = getHeaderHeight(inputBoxHeight, sourceControlButtons)
+  const headerHeight = getHeaderHeight(inputBoxHeight, sourceControlButtons, inputPaddingBlock, buttonBlockHeight)
   const total = displayItems.length
   const contentHeight = total * itemHeight
   const availableListHeight = Math.max(height - headerHeight, 0)

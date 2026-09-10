@@ -1,8 +1,5 @@
 import type { ActionButton } from '../ActionButton/ActionButton.ts'
 
-const inputPaddingBlock = 11
-const buttonBlockHeight = 34
-
-export const getHeaderHeight = (inputBoxHeight: number, sourceControlButtons: readonly ActionButton[]): number => {
+export const getHeaderHeight = (inputBoxHeight: number, sourceControlButtons: readonly ActionButton[], inputPaddingBlock: number, buttonBlockHeight: number): number => {
   return inputBoxHeight + inputPaddingBlock + sourceControlButtons.length * buttonBlockHeight
 }

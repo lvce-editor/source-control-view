@@ -151,7 +151,11 @@ test('loadContent - with groups', async (): Promise<void> => {
   expect(result.items.length).toBeGreaterThan(0)
 })
 
-test('loadContent - with source control actions', async (): Promise<void> => {
+test.each([
+  [11, 34],
+  [20, 48],
+  [0, 0],
+])('loadContent - with source control actions and header spacing %s, %s', async (inputPaddingBlock, buttonBlockHeight): Promise<void> => {
   const mockExtensions = [
     {
       'source-control-actions': {
@@ -183,7 +187,11 @@ test('loadContent - with source control actions', async (): Promise<void> => {
   ExtensionManagementWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
 
-  const state: SourceControlState = createDefaultState()
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    buttonBlockHeight,
+    inputPaddingBlock,
+  }
   const result = await loadContent(state, {})
 
   expect(result.actionsCache).toEqual({
@@ -198,7 +206,7 @@ test('loadContent - with source control actions', async (): Promise<void> => {
       label: 'Commit & Sync',
     },
   ])
-  expect(result.headerHeight).toBe(result.inputBoxHeight + 11 + 34)
+  expect(result.headerHeight).toBe(result.inputBoxHeight + inputPaddingBlock + buttonBlockHeight)
 })
 
 test('loadContent - calculates scroll bar and visible items correctly', async (): Promise<void> => {

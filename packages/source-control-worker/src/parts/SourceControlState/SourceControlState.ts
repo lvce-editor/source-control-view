@@ -12,6 +12,7 @@ export interface SourceControlState {
   readonly applicationId?: string
   readonly assetDir: string
   readonly badgeCount: number
+  readonly buttonBlockHeight: number
   readonly decorationIcons: readonly string[]
   readonly deltaY: number
   readonly enabledProviderIds: readonly string[]
@@ -38,6 +39,7 @@ export interface SourceControlState {
   readonly inputLineHeight: number
   readonly inputMessage: string
   readonly inputPadding: number
+  readonly inputPaddingBlock: number
   readonly inputPlaceholder: string
   readonly inputSource: number
   readonly inputValue: string
