@@ -275,3 +275,76 @@ test('getIconDefinitions should return empty array on error', async (): Promise<
   const result = await SourceControl.getIconDefinitions(['provider1'], '/assets', 1)
   expect(result).toEqual([])
 })
+
+test.each([undefined, null, false, 'unsupported', {}, { showGenerateCommitMessageButton: 'false' }, { showGenerateCommitMessageButton: true }])(
+  'getShowGenerateCommitMessageButton defaults to visible for %j',
+  async (features: unknown): Promise<void> => {
+    using extensionRpc = ExtensionHost.registerMockRpc({
+      'ExtensionHostSourceControl.getFeatures': async (): Promise<unknown> => features,
+    })
+    using parentRpc = ParentRpc.registerMockRpc({
+      'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    })
+
+    expect(await SourceControl.getShowGenerateCommitMessageButton('git', '/assets', 1)).toBe(true)
+    expect(extensionRpc.invocations).toEqual([['ExtensionHostSourceControl.getFeatures', 'git']])
+    expect(parentRpc.invocations).toHaveLength(1)
+  },
+)
+
+test('getBadgeCount falls back to changed files and continues summing providers', async (): Promise<void> => {
+  using extensionRpc = ExtensionHost.registerMockRpc({
+    'ExtensionHost.sourceControlGetChangedFiles': async (): Promise<readonly string[]> => ['a.ts', 'b.ts'],
+    'ExtensionHostSourceControl.getBadgeCount': async (providerId: string): Promise<number> => {
+      if (providerId === 'legacy') {
+        throw new Error('badge count unsupported')
+      }
+      return 3
+    },
+  })
+  using parentRpc = ParentRpc.registerMockRpc({
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+  })
+
+  expect(await SourceControl.getBadgeCount(['legacy', 'git'], '/assets', 1)).toBe(5)
+  expect(extensionRpc.invocations).toEqual([
+    ['ExtensionHostSourceControl.getBadgeCount', 'legacy'],
+    ['ExtensionHost.sourceControlGetChangedFiles', 'legacy'],
+    ['ExtensionHostSourceControl.getBadgeCount', 'git'],
+  ])
+  expect(parentRpc.invocations).toHaveLength(3)
+})
+
+test('getBadgeCount treats an unavailable provider as zero and continues', async (): Promise<void> => {
+  using extensionRpc = ExtensionHost.registerMockRpc({
+    'ExtensionHost.sourceControlGetChangedFiles': async (): Promise<never> => {
+      throw new Error('provider unavailable')
+    },
+    'ExtensionHostSourceControl.getBadgeCount': async (providerId: string): Promise<number> => {
+      if (providerId === 'unavailable') {
+        throw new Error('provider unavailable')
+      }
+      return 4
+    },
+  })
+  using parentRpc = ParentRpc.registerMockRpc({
+    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+  })
+
+  expect(await SourceControl.getBadgeCount(['unavailable', 'git'], '/assets', 1)).toBe(4)
+  expect(extensionRpc.invocations).toEqual([
+    ['ExtensionHostSourceControl.getBadgeCount', 'unavailable'],
+    ['ExtensionHost.sourceControlGetChangedFiles', 'unavailable'],
+    ['ExtensionHostSourceControl.getBadgeCount', 'git'],
+  ])
+  expect(parentRpc.invocations).toHaveLength(3)
+})
+
+test('getBadgeCount without providers performs no RPC calls', async (): Promise<void> => {
+  using extensionRpc = ExtensionHost.registerMockRpc({})
+  using parentRpc = ParentRpc.registerMockRpc({})
+
+  expect(await SourceControl.getBadgeCount([], '/assets', 1)).toBe(0)
+  expect(extensionRpc.invocations).toEqual([])
+  expect(parentRpc.invocations).toEqual([])
+})
