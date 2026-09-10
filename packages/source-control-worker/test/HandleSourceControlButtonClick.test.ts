@@ -6,8 +6,8 @@ import { handleSourceControlButtonClick } from '../src/parts/HandleSourceControl
 
 test('handleSourceControlButtonClick', async () => {
   const commandMap = {
-    'Extensions.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
+    'Extensions.activateByEvent': async (): Promise<void> => {},
     'Extensions.executeCommand': async (): Promise<void> => {},
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
