@@ -15,8 +15,7 @@ export const test: Test = async ({ Command, ContextMenu, expect, Extension, File
   // act
   const file = Locator('.SourceControlItems .TreeItem[title="test.css"]')
   await expect(file).toBeVisible()
-  const { headerHeight, itemHeight, x, y } = await Command.execute('Source Control.getComponentState')
-  await SourceControl.handleContextMenu(2, x + 10, y + headerHeight + itemHeight + 1)
+  await Command.execute('Source Control.showContextMenu', 1)
 
   // assert
   const menu = Locator('.Menu')

@@ -45,6 +45,7 @@ import * as SaveState from '../SaveState/SaveState.ts'
 import * as SelectIndex from '../SelectIndex/SelectIndex.ts'
 import { setComponentState } from '../SetComponentState/SetComponentState.ts'
 import * as SetDeltaY from '../SetDeltaY/SetDeltaY.ts'
+import { showContextMenu } from '../ShowContextMenu/ShowContextMenu.ts'
 import { getEnabledProviderIds, getFileDecorations, getWorkspaceBadgeCount } from '../SourceControl/SourceControl.ts'
 import * as WrapCommand from '../SourceControlStates/SourceControlStates.ts'
 import * as UpdateIcons from '../UpdateIcons/UpdateIcons.ts'
@@ -107,6 +108,7 @@ export const commandMap = {
   'SourceControl.selectIndex': WrapCommand.wrapCommand(SelectIndex.selectIndex),
   'SourceControl.setComponentState': setComponentState,
   'SourceControl.setDeltaY': WrapCommand.wrapCommand(SetDeltaY.setDeltaY),
+  'SourceControl.showContextMenu': WrapCommand.wrapCommand(showContextMenu),
   'SourceControl.terminate': terminate,
   'SourceControl.updateIcons': WrapCommand.wrapCommand(UpdateIcons.updateIcons),
   'SourceControl.viewAsList': WrapCommand.wrapCommand(ViewAsList.viewAsList),
