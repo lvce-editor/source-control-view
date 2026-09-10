@@ -1,11 +1,10 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
-import * as Bounds from '../Bounds/Bounds.ts'
 import * as FileSystem from '../FileSystem/FileSystem.ts'
 import { openDiffEditor } from '../OpenDiffEditor/OpenDiffEditor.ts'
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 
 export const handleClickFile = async (state: SourceControlState, item: any): Promise<SourceControlState> => {
-  const { applicationId, assetDir, enabledProviderIds, platform, root } = state
+  const { applicationId, assetDir, enabledProviderIds, platform, root, width } = state
   const providerId = enabledProviderIds[0]
   const absolutePath = `${root}/${item.file}`
   // TODO handle error
@@ -15,6 +14,6 @@ export const handleClickFile = async (state: SourceControlState, item: any): Pro
   ])
 
   // TODO diff editor should determine width by itself
-  await openDiffEditor(fileBefore, absolutePath, (applicationId === undefined ? Bounds.get() : state).width, applicationId)
+  await openDiffEditor(fileBefore, absolutePath, width, applicationId)
   return state
 }
