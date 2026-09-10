@@ -129,7 +129,6 @@ test('renderItems - shows unavailable message instead of commit controls without
       {
         childCount: 1,
         className: ClassNames.Message,
-        paddingRight: '20px',
         type: VirtualDomElements.Div,
       },
       expect.objectContaining({

@@ -8,6 +8,11 @@ const getExpectedCss = (inputBoxHeight: number): string => `:root {
   --SourceControlInputHeight: ${inputBoxHeight}px;
 }
 
+.SourceControl > .Message {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 .SourceControl .SplitButtonContent > .MaskIcon {
   width: 16px;
   height: 16px;
@@ -137,6 +142,11 @@ test('renderCss - generates indent CSS rules', () => {
     5,
     `:root {
   --SourceControlInputHeight: 30px;
+}
+
+.SourceControl > .Message {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .SourceControl .SplitButtonContent > .MaskIcon {

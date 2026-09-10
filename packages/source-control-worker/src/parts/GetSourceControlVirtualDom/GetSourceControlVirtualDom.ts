@@ -16,7 +16,6 @@ const className = MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames
 const messageNode: VirtualDomNode = {
   childCount: 1,
   className: ClassNames.Message,
-  paddingRight: '20px',
   type: VirtualDomElements.Div,
 }
 
