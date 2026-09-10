@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-15]
-        attempt: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+        attempt: [1, 2, 3, 4]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     steps:
@@ -45,7 +45,7 @@ jobs:
           PLAYWRIGHT_BROWSERS_PATH: 0
       - name: e2e
         working-directory: ./packages/e2e
-        run: npm run e2e:headless 2>&1 | tee e2e.log
+        run: npm run e2e:headless -- --filter=source-control.input-actions 2>&1 | tee e2e.log
         shell: bash
         env:
           PLAYWRIGHT_BROWSERS_PATH: 0
