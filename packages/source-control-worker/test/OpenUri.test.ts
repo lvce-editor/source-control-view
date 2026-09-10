@@ -1,7 +1,7 @@
-import { withRendererApplicationRouting } from './test-util/WithApplicationRouting.ts'
 import { expect, test } from '@jest/globals'
 import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import { openUri } from '../src/parts/OpenUri/OpenUri.ts'
+import { withRendererApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 test('openUri', async (): Promise<void> => {
   const commandMap = {

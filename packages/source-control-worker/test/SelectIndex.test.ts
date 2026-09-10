@@ -1,4 +1,3 @@
-import { withRendererApplicationRouting } from './test-util/WithApplicationRouting.ts'
 import { expect, test } from '@jest/globals'
 import { DirentType } from '@lvce-editor/constants'
 import { ExtensionHost, ExtensionManagementWorker, RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
@@ -6,6 +5,7 @@ import type { SourceControlState } from '../src/parts/SourceControlState/SourceC
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { selectIndex } from '../src/parts/SelectIndex/SelectIndex.ts'
 import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
+import { withRendererApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 test('selectIndex - invalid index', async (): Promise<void> => {
   const state: SourceControlState = createDefaultState()
