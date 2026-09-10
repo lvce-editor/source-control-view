@@ -15,9 +15,9 @@ test('acceptInput should call ExtensionHostSourceControl.acceptInput', async ():
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  ParentRpc.registerMockRpc(parentCommandMap)
+  ExtensionManagementWorker.registerMockRpc(parentCommandMap)
   await SourceControl.acceptInput('test-provider', 'test-input', '/test-asset-dir', 1)
   expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHostSourceControl.acceptInput', 'test-provider', 'test-input']])
 })
@@ -29,9 +29,9 @@ test('generateCommitMessage should call ExtensionHostSourceControl.generateCommi
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  ParentRpc.registerMockRpc(parentCommandMap)
+  ExtensionManagementWorker.registerMockRpc(parentCommandMap)
 
   const result = await SourceControl.generateCommitMessage('test-provider', '/test-asset-dir', 1)
   expect(result).toBe('feat: generated')
@@ -47,9 +47,9 @@ test('getShowGenerateCommitMessageButton should read provider features', async (
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  ParentRpc.registerMockRpc(parentCommandMap)
+  ExtensionManagementWorker.registerMockRpc(parentCommandMap)
 
   const result = await SourceControl.getShowGenerateCommitMessageButton('test-provider', '/test-asset-dir', 1)
   expect(result).toBe(false)
@@ -65,9 +65,9 @@ test('getShowGenerateCommitMessageButton should default to true when provider fe
   ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  ParentRpc.registerMockRpc(parentCommandMap)
+  ExtensionManagementWorker.registerMockRpc(parentCommandMap)
 
   const result = await SourceControl.getShowGenerateCommitMessageButton('test-provider', '/test-asset-dir', 1)
   expect(result).toBe(true)
@@ -80,9 +80,9 @@ test('getChangedFiles should call ExtensionHostSourceControl.getChangedFiles', a
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  ParentRpc.registerMockRpc(parentCommandMap)
+  ExtensionManagementWorker.registerMockRpc(parentCommandMap)
 
   const result = await SourceControl.getChangedFiles('test-provider', '/test-asset-dir', 1)
   expect(result).toEqual([])
@@ -96,9 +96,9 @@ test('getBadgeCount should call ExtensionHostSourceControl.getBadgeCount for eac
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  ParentRpc.registerMockRpc(parentCommandMap)
+  ExtensionManagementWorker.registerMockRpc(parentCommandMap)
 
   const result = await SourceControl.getBadgeCount(['test-provider-1', 'test-provider-2'], '/test-asset-dir', 1)
   expect(result).toBe(5)
@@ -116,9 +116,9 @@ test('getWorkspaceBadgeCount should activate providers and get badge count', asy
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  ParentRpc.registerMockRpc(parentCommandMap)
+  ExtensionManagementWorker.registerMockRpc(parentCommandMap)
 
   const result = await SourceControl.getWorkspaceBadgeCount('file:///test-root', '/test-asset-dir', 1)
   expect(result).toBe(4)
@@ -135,9 +135,9 @@ test('getFileBefore should call ExtensionHostSourceControl.getFileBefore', async
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  ParentRpc.registerMockRpc(parentCommandMap)
+  ExtensionManagementWorker.registerMockRpc(parentCommandMap)
 
   const result = await SourceControl.getFileBefore('test-provider', 'test-file', '/test-asset-dir', 1)
   expect(result).toEqual({})
@@ -155,9 +155,9 @@ test('getEnabledProviderIds should call ExtensionHostSourceControl.getEnabledPro
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  ParentRpc.registerMockRpc(parentCommandMap)
+  ExtensionManagementWorker.registerMockRpc(parentCommandMap)
 
   const result = await SourceControl.getEnabledProviderIds('test-scheme', 'test-root', '/test-asset-dir', 1)
   expect(result).toEqual(['test-provider'])
@@ -171,9 +171,9 @@ test('getGroups should call ExtensionHostSourceControl.getGroups', async (): Pro
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  ParentRpc.registerMockRpc(parentCommandMap)
+  ExtensionManagementWorker.registerMockRpc(parentCommandMap)
 
   const result = await SourceControl.getGroups('test-provider', 'test-root', '/test-asset-dir', 1)
   expect(result).toEqual([])
@@ -187,9 +187,9 @@ test('getFileDecorations should call ExtensionHostSourceControl.getFileDecoratio
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  ParentRpc.registerMockRpc(parentCommandMap)
+  ExtensionManagementWorker.registerMockRpc(parentCommandMap)
 
   const result = await SourceControl.getFileDecorations('test-provider', ['test-uri'], '/test-asset-dir', 1)
   expect(result).toEqual([])
@@ -282,8 +282,8 @@ test.each([undefined, null, false, 'unsupported', {}, { showGenerateCommitMessag
     using extensionRpc = ExtensionHost.registerMockRpc({
       'ExtensionHostSourceControl.getFeatures': async (): Promise<unknown> => features,
     })
-    using parentRpc = ParentRpc.registerMockRpc({
-      'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    using parentRpc = ExtensionManagementWorker.registerMockRpc({
+      'Extensions.activateByEvent': async (): Promise<void> => {},
     })
 
     expect(await SourceControl.getShowGenerateCommitMessageButton('git', '/assets', 1)).toBe(true)
@@ -302,8 +302,8 @@ test('getBadgeCount falls back to changed files and continues summing providers'
       return 3
     },
   })
-  using parentRpc = ParentRpc.registerMockRpc({
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+  using parentRpc = ExtensionManagementWorker.registerMockRpc({
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   })
 
   expect(await SourceControl.getBadgeCount(['legacy', 'git'], '/assets', 1)).toBe(5)
@@ -327,8 +327,8 @@ test('getBadgeCount treats an unavailable provider as zero and continues', async
       return 4
     },
   })
-  using parentRpc = ParentRpc.registerMockRpc({
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+  using parentRpc = ExtensionManagementWorker.registerMockRpc({
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   })
 
   expect(await SourceControl.getBadgeCount(['unavailable', 'git'], '/assets', 1)).toBe(4)
@@ -342,7 +342,7 @@ test('getBadgeCount treats an unavailable provider as zero and continues', async
 
 test('getBadgeCount without providers performs no RPC calls', async (): Promise<void> => {
   using extensionRpc = ExtensionHost.registerMockRpc({})
-  using parentRpc = ParentRpc.registerMockRpc({})
+  using parentRpc = ExtensionManagementWorker.registerMockRpc({})
 
   expect(await SourceControl.getBadgeCount([], '/assets', 1)).toBe(0)
   expect(extensionRpc.invocations).toEqual([])

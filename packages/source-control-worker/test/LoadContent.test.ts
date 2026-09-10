@@ -6,7 +6,7 @@ import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
 
 test('loadContent - returns an error state when loading fails', async (): Promise<void> => {
   const commandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => {
       throw new Error('Unable to read repository state')
     },
@@ -27,7 +27,7 @@ test('loadContent - returns an error state when loading fails', async (): Promis
 
 test('loadContent - basic with empty state', async (): Promise<void> => {
   const commandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
     'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
@@ -54,7 +54,7 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
 
 test('loadContent - with saved state inputValue', async (): Promise<void> => {
   const commandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
     'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
@@ -77,7 +77,7 @@ test('loadContent - with saved state inputValue', async (): Promise<void> => {
 
 test('loadContent - with enabled providers', async (): Promise<void> => {
   const commandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
     'ExtensionHostSourceControl.getFeatures': async (): Promise<{ showGenerateCommitMessageButton: boolean }> => ({ showGenerateCommitMessageButton: false }),
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [],
@@ -125,7 +125,7 @@ test('loadContent - with groups', async (): Promise<void> => {
   ]
 
   const commandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => mockGroups,
     'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => [],
@@ -168,7 +168,7 @@ test('loadContent - with source control actions', async (): Promise<void> => {
   ]
 
   const commandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [],
     'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => [],
@@ -222,7 +222,7 @@ test('loadContent - calculates scroll bar and visible items correctly', async ()
   ]
 
   const commandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => mockGroups,
     'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => [],

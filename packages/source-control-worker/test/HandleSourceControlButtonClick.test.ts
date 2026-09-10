@@ -1,12 +1,12 @@
 import { expect, jest, test } from '@jest/globals'
-import { ExtensionHost } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleSourceControlButtonClick } from '../src/parts/HandleSourceControlButtonClick/HandleSourceControlButtonClick.ts'
 
 test('handleSourceControlButtonClick', async () => {
   const commandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
     'Extensions.executeCommand': async (): Promise<void> => {},
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
@@ -14,6 +14,7 @@ test('handleSourceControlButtonClick', async () => {
     'Preferences.get': async (): Promise<any> => false,
   }
   using extensionHostMockRpc = ExtensionHost.registerMockRpc(commandMap)
+  using activationRpc = ExtensionManagementWorker.registerMockRpc(commandMap)
   using mockRpc = RendererWorker.registerMockRpc(commandMap)
 
   const state = {
@@ -33,9 +34,12 @@ test('handleSourceControlButtonClick', async () => {
 
   expect(extensionHostMockRpc.invocations).toContainEqual(['Extensions.executeCommand', 'git.commitAndSync', 'test message'])
   expect(result.inputValue).toBe('')
+  expect(activationRpc.invocations).toEqual([
+    ['Extensions.activateByEvent', 'onCommand:git.commitAndSync', '', 0],
+    ['Extensions.activateByEvent', 'onSourceControl:file', '', 0],
+    ['Extensions.getAllExtensions', '', 0],
+  ])
   expect(mockRpc.invocations).toEqual([
-    ['ExtensionHostManagement.activateByEvent', 'onCommand:git.commitAndSync', '', 0],
-    ['ExtensionHostManagement.activateByEvent', 'onSourceControl:file', '', 0],
     ['Preferences.get', 'sourceControl.splitButtonEnabled'],
     ['IconTheme.getIcons', []],
   ])
