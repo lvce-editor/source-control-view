@@ -5,8 +5,7 @@ import * as GetUnique from '../GetUnique/GetUnique.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 
 export const renderCss = (oldState: SourceControlState, newState: SourceControlState): any => {
-  const { deltaY, finalDeltaY, headerHeight, height, id, inputBoxHeight, itemHeight, scrollBarHeight, visibleItems } = newState
-  const indents = visibleItems.map((item) => item.indent)
+  const { deltaY, finalDeltaY, headerHeight, height, id, indents, inputBoxHeight, itemHeight, scrollBarHeight } = newState
   const uniqueIndents = GetUnique.getUnique(indents)
   const indentRules = uniqueIndents.map(GetIndentRule.getIndentRule).join('\n')
   const listHeight = Math.max(height - headerHeight, 0)

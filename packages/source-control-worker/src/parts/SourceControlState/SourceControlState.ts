@@ -26,6 +26,7 @@ export interface SourceControlState {
   readonly history: readonly string[]
   readonly iconDefinitions: readonly string[]
   readonly id: number
+  readonly indents: readonly number[]
   readonly index: readonly any[]
   readonly initial: boolean
   readonly inputBoxHeight: number

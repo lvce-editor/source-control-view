@@ -1,9 +1,10 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import { getIndents } from '../GetIndents/GetIndents.ts'
 import { getNumberOfVisibleItems } from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 
 export const setDeltaY = async (state: SourceControlState, newDeltaY: number): Promise<SourceControlState> => {
-  const { actionsCache, fileIconCache, finalDeltaY, headerHeight, height, itemHeight, items } = state
+  const { actionsCache, fileIconCache, finalDeltaY, headerHeight, height, indents, itemHeight, items } = state
   const normalizedDeltaY = Math.min(Math.max(newDeltaY, 0), finalDeltaY)
   const newMinLineY = Math.floor(normalizedDeltaY / itemHeight)
   const total = items.length
@@ -14,6 +15,7 @@ export const setDeltaY = async (state: SourceControlState, newDeltaY: number): P
   return {
     ...state,
     deltaY: normalizedDeltaY,
+    indents: getIndents(indents, visible),
     maxLineY,
     minLineY: newMinLineY,
     visibleItems: visible,
