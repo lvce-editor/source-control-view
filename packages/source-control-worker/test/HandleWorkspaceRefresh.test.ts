@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { ExtensionHost, ExtensionManagementWorker, RendererWorker } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, ExtensionManagementWorker, RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleWorkspaceRefresh } from '../src/parts/HandleWorkspaceRefresh/HandleWorkspaceRefresh.ts'
@@ -21,10 +21,11 @@ test('handleWorkspaceRefresh should discover newly available source control prov
 
   const rendererCommandMap = {
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
-    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<boolean> => false,
   }
   RendererWorker.registerMockRpc(rendererCommandMap)
+  TextMeasurementWorker.registerMockRpc(rendererCommandMap)
 
   const state: SourceControlState = {
     ...createDefaultState(),
@@ -57,6 +58,7 @@ test('handleWorkspaceRefresh should use the lightweight refresh when providers a
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
   }
   RendererWorker.registerMockRpc(rendererCommandMap)
+  TextMeasurementWorker.registerMockRpc(rendererCommandMap)
 
   const state: SourceControlState = {
     ...createDefaultState(),
