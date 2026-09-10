@@ -12,7 +12,7 @@ test('getActions - omits generate commit message action when disabled', () => {
   expect(result.map((action) => action.name)).toEqual([InputName.ViewAsTree, InputName.CommitAndPush, InputName.Refresh])
 })
 
-test('getActions - includes generate commit message action when enabled', () => {
+test('getActions - does not hardcode an extension input action', () => {
   const state = {
     ...createDefaultState(),
     showGenerateCommitMessageButton: true,
@@ -20,7 +20,7 @@ test('getActions - includes generate commit message action when enabled', () => 
 
   const result = GetActions.getActions(state)
 
-  expect(result.map((action) => action.name)).toEqual([InputName.ViewAsTree, InputName.CommitAndPush, InputName.GenerateCommitMessage, InputName.Refresh])
+  expect(result.map((action) => action.name)).toEqual([InputName.ViewAsTree, InputName.CommitAndPush, InputName.Refresh])
 })
 
 test('getActions - only shows refresh in web when no provider is available', () => {

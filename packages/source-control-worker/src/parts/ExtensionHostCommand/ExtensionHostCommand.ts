@@ -7,7 +7,7 @@ export const executeCommandForApplication = (
   assetDir: string,
   platform: number,
   ...args: readonly any[]
-): Promise<void> => {
+): Promise<unknown> => {
   return ExtensionHostShared.executeProvider({
     applicationId,
     assetDir,

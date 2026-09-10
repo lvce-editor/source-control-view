@@ -1,7 +1,9 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { mergeClassNames, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import type { ActionButton } from '../ActionButton/ActionButton.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
+import { getInputActionsVirtualDom } from '../GetInputActionsVirtualDom/GetInputActionsVirtualDom.ts'
 import * as InputName from '../InputName/InputName.ts'
 import * as ViewletSourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
@@ -17,9 +19,9 @@ const inputWrapperNode: VirtualDomNode = {
   type: VirtualDomElements.Div,
 }
 
-export const getSourceControlInputDom = (inputPlaceholder: string, inputMessage: string): readonly VirtualDomNode[] => {
+export const getSourceControlInputDom = (inputPlaceholder: string, inputMessage: string, inputActions: readonly ActionButton[] = []): readonly VirtualDomNode[] => {
   const dom: VirtualDomNode[] = [
-    inputWrapperNode,
+    { ...inputWrapperNode, childCount: 1 + inputActions.length },
     {
       ariaLabel: ViewletSourceControlStrings.sourceControlInput(),
       autocapitalize: 'off',
@@ -33,6 +35,7 @@ export const getSourceControlInputDom = (inputPlaceholder: string, inputMessage:
       spellcheck: false,
       type: VirtualDomElements.TextArea,
     },
+    ...getInputActionsVirtualDom(inputActions),
   ]
   if (inputMessage) {
     dom.push(messageNode, {

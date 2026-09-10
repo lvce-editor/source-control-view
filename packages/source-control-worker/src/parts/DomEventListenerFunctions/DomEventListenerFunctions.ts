@@ -1,3 +1,4 @@
+export const HandleInputActionClick = 15
 export const HandleClickAt = 1
 export const HandleContextMenu = 2
 export const HandleFocus = 3

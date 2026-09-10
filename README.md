@@ -26,3 +26,24 @@ completion. Built-in file actions open changes, the file, its original contents,
 or reveal it in Explorer. Native platforms also offer Open Containing Folder.
 Provider-specific operations, including Stage, Discard, and Add to Gitignore,
 are supplied by extensions rather than inert built-in menu entries.
+
+Extensions can contribute icon buttons beside the source control message using
+`source-control-input-actions` in `extension.json`:
+
+```json
+{
+  "activation": ["onCommand:example.generateMessage"],
+  "source-control-input-actions": [
+    {
+      "command": "example.generateMessage",
+      "label": "Generate Commit Message",
+      "icon": "DebugAlt2"
+    }
+  ]
+}
+```
+
+Register the command through the extension API. It receives the current message;
+a string return value replaces that message, while other return values leave it
+unchanged. The contributing extension can be independent of the source control
+provider. Labels, icons, and commands are supplied entirely by extensions.

@@ -42,6 +42,7 @@ test('handleWorkspaceRefresh should discover newly available source control prov
     ['Extensions.getAllExtensions', '', 0],
     ['Extensions.getAllExtensions', '', 0],
     ['Extensions.getAllExtensions', '', 0],
+    ['Extensions.getAllExtensions', '', 0],
   ])
 })
 

@@ -37,7 +37,7 @@ test('renderActions - returns consistent structure', () => {
   expect(Array.isArray(result2)).toBe(true)
 })
 
-test('renderActions - includes generate commit message action when enabled', () => {
+test('renderActions - does not hardcode a generate action', () => {
   const state: SourceControlState = {
     ...createDefaultState(),
     showGenerateCommitMessageButton: true,
@@ -47,10 +47,10 @@ test('renderActions - includes generate commit message action when enabled', () 
 
   expect(result[0]).toEqual(
     expect.objectContaining({
-      childCount: 4,
+      childCount: 3,
     }),
   )
-  expect(result).toContainEqual(
+  expect(result).not.toContainEqual(
     expect.objectContaining({
       name: InputName.GenerateCommitMessage,
     }),
