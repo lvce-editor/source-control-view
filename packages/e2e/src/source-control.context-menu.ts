@@ -21,7 +21,7 @@ export const test: Test = async ({ Command, ContextMenu, expect, Extension, File
   const menu = Locator('.Menu')
   await expect(menu).toBeVisible()
   const menuItems = menu.locator('.MenuItem')
-  await expect(menuItems).toHaveCount(6)
+  await expect(menuItems).toHaveCount(7)
   const menuItem1 = menuItems.nth(0)
   await expect(menuItem1).toHaveText('Open Changes')
   const menuItem2 = menuItems.nth(1)
