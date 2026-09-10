@@ -6,7 +6,7 @@ import { initialize } from '../src/parts/Initialize/Initialize.ts'
 
 test('connects lazily and shares the connection between concurrent requests', async (): Promise<void> => {
   let workerRpc: Rpc | undefined
-  const getIcons = jest.fn((requests: readonly { name: string }[]): readonly string[] => requests.map((request) => `${request.name}.svg`))
+  const getIcons = jest.fn((requests: readonly { readonly name: string }[]): readonly string[] => requests.map((request) => `${request.name}.svg`))
   const sendPort = jest.fn(async (port: any): Promise<void> => {
     workerRpc = await PlainMessagePortRpcParent.create({
       commandMap: { 'IconTheme.getIcons': getIcons },
