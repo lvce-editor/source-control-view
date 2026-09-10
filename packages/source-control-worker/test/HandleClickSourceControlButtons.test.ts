@@ -1,6 +1,6 @@
 import { expect, jest, test } from '@jest/globals'
 import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
-import { ExtensionHost } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleClickSourceControlButtons } from '../src/parts/HandleClickSourceControlButtons/HandleClickSourceControlButtons.ts'
@@ -15,9 +15,10 @@ const extensionHostCommandMap = {
 
 test('handleClickSourceControlButtons - valid button click', async (): Promise<void> => {
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
   }
+  ExtensionManagementWorker.registerMockRpc(parentCommandMap)
   ParentRpc.registerMockRpc(parentCommandMap)
   const extensionHostMockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 

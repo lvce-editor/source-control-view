@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { DirentType } from '@lvce-editor/constants'
-import { ExtensionHost, RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, ExtensionManagementWorker, RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { selectIndex } from '../src/parts/SelectIndex/SelectIndex.ts'
@@ -90,11 +90,12 @@ test('selectIndex - expanded directory', async (): Promise<void> => {
 
 test('selectIndex - file', async (): Promise<void> => {
   const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+    'Extensions.activateByEvent': async (): Promise<void> => {},
     'FileSystem.readFile': async (): Promise<string> => '',
     'IconTheme.getIcons': async (): Promise<never[]> => [],
     'Main.openUri': async (): Promise<void> => {},
   }
+  ExtensionManagementWorker.registerMockRpc(parentCommandMap)
   ParentRpc.registerMockRpc(parentCommandMap)
 
   const extensionHostCommandMap = {

@@ -7,8 +7,10 @@ test('handleClickFile reads the selected file and opens its diff', async (): Pro
   using extensionRpc = ExtensionHost.registerMockRpc({
     'ExtensionHostSourceControl.getFileBefore': async (): Promise<string> => 'old content',
   })
+  using _activationRpc = ExtensionManagementWorker.registerMockRpc({
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+  })
   using rendererRpc = RendererWorker.registerMockRpc({
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'FileSystem.readFile': async (): Promise<string> => 'new content',
     'Main.openUri': async (): Promise<void> => {},
   })
@@ -56,8 +58,10 @@ test.each(['provider', 'filesystem'])('handleClickFile does not open a diff afte
       return 'old content'
     },
   })
+  using _activationRpc = ExtensionManagementWorker.registerMockRpc({
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+  })
   using rendererRpc = RendererWorker.registerMockRpc({
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'FileSystem.readFile': async (): Promise<string> => {
       if (failure === 'filesystem') {
         throw new Error('filesystem failed')

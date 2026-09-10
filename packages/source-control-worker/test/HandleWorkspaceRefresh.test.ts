@@ -15,11 +15,11 @@ test('handleWorkspaceRefresh should discover newly available source control prov
   }
   using mockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
   using extensionManagementMockRpc = ExtensionManagementWorker.registerMockRpc({
+    'Extensions.activateByEvent': async (): Promise<void> => {},
     'Extensions.getAllExtensions': async (): Promise<readonly unknown[]> => [],
   })
 
   const rendererCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
     'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<boolean> => false,
@@ -37,7 +37,7 @@ test('handleWorkspaceRefresh should discover newly available source control prov
   expect(result.enabledProviderIds).toEqual(['git'])
   expect(result.inputValue).toBe('existing commit message')
   expect(mockRpc.invocations).toContainEqual(['ExtensionHostSourceControl.getEnabledProviderIds', 'file', '/test'])
-  expect(extensionManagementMockRpc.invocations).toEqual([
+  expect(extensionManagementMockRpc.invocations.filter(([method]) => method === 'Extensions.getAllExtensions')).toEqual([
     ['Extensions.getAllExtensions', '', 0],
     ['Extensions.getAllExtensions', '', 0],
     ['Extensions.getAllExtensions', '', 0],
@@ -50,8 +50,10 @@ test('handleWorkspaceRefresh should use the lightweight refresh when providers a
   }
   using mockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
+  using _activationRpc = ExtensionManagementWorker.registerMockRpc({
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+  })
   const rendererCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
   }
   RendererWorker.registerMockRpc(rendererCommandMap)

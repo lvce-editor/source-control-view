@@ -1,12 +1,12 @@
 import { expect, test } from '@jest/globals'
-import { ExtensionHost, RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
 import { getGroups } from '../src/parts/GetGroups/GetGroups.ts'
 
 test('getGroups - aggregates groups from multiple providers', async (): Promise<void> => {
-  const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+  const activationCommandMap = {
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
+  const activationMockRpc = ExtensionManagementWorker.registerMockRpc(activationCommandMap)
 
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.getGroups': async (): Promise<Array<{ id: string }>> => [{ id: 'group1' }, { id: 'group2' }],
@@ -18,15 +18,15 @@ test('getGroups - aggregates groups from multiple providers', async (): Promise<
     allGroups: [{ id: 'group1' }, { id: 'group2' }, { id: 'group1' }, { id: 'group2' }],
     gitRoot: '',
   })
-  expect(parentMockRpc.invocations.length).toBeGreaterThan(0)
+  expect(activationMockRpc.invocations.length).toBeGreaterThan(0)
   expect(extensionHostMockRpc.invocations.length).toBeGreaterThan(0)
 })
 
 test('getGroups - empty providers', async (): Promise<void> => {
-  const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+  const activationCommandMap = {
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
+  const activationMockRpc = ExtensionManagementWorker.registerMockRpc(activationCommandMap)
 
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.getGroups': async (): Promise<never[]> => [],
@@ -38,15 +38,15 @@ test('getGroups - empty providers', async (): Promise<void> => {
     allGroups: [],
     gitRoot: '',
   })
-  expect(parentMockRpc.invocations).toEqual([])
+  expect(activationMockRpc.invocations).toEqual([])
   expect(extensionHostMockRpc.invocations).toEqual([])
 })
 
 test('getGroups - single provider', async (): Promise<void> => {
-  const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+  const activationCommandMap = {
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
+  const activationMockRpc = ExtensionManagementWorker.registerMockRpc(activationCommandMap)
 
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.getGroups': async (): Promise<never[]> => [],
@@ -58,15 +58,15 @@ test('getGroups - single provider', async (): Promise<void> => {
     allGroups: [],
     gitRoot: '',
   })
-  expect(parentMockRpc.invocations.length).toBeGreaterThan(0)
+  expect(activationMockRpc.invocations.length).toBeGreaterThan(0)
   expect(extensionHostMockRpc.invocations.length).toBeGreaterThan(0)
 })
 
 test('getGroups - multiple providers', async (): Promise<void> => {
-  const parentCommandMap = {
-    'ExtensionHostManagement.activateByEvent': async (): Promise<void> => {},
+  const activationCommandMap = {
+    'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  const parentMockRpc = ParentRpc.registerMockRpc(parentCommandMap)
+  const activationMockRpc = ExtensionManagementWorker.registerMockRpc(activationCommandMap)
 
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.getGroups': async (): Promise<never[]> => [],
@@ -78,6 +78,6 @@ test('getGroups - multiple providers', async (): Promise<void> => {
     allGroups: [],
     gitRoot: '',
   })
-  expect(parentMockRpc.invocations.length).toBeGreaterThan(0)
+  expect(activationMockRpc.invocations.length).toBeGreaterThan(0)
   expect(extensionHostMockRpc.invocations.length).toBeGreaterThan(0)
 })
