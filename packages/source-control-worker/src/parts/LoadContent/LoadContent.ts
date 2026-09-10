@@ -4,6 +4,7 @@ import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
 import { getGroups } from '../GetGroups/GetGroups.ts'
 import { getHeaderHeight } from '../GetHeaderHeight/GetHeaderHeight.ts'
+import { getIndents } from '../GetIndents/GetIndents.ts'
 import { getInputHeight } from '../GetInputHeight/GetInputHeight.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
 import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
@@ -24,6 +25,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     applicationId,
     fileIconCache,
     height,
+    indents,
     inputFontFamily,
     inputFontSize,
     inputFontWeight,
@@ -82,6 +84,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     gitRoot,
     headerHeight,
     iconDefinitions,
+    indents: getIndents(indents, visibleItems),
     inputBoxHeight,
     inputPlaceholder,
     inputValue,

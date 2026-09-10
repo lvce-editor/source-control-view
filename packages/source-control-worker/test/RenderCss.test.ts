@@ -90,6 +90,7 @@ test('renderCss - generates indent CSS rules', () => {
   const newState: SourceControlState = {
     ...createDefaultState(),
     id: 5,
+    indents: [0, 16],
     inputBoxHeight: 30,
     visibleItems: [
       {

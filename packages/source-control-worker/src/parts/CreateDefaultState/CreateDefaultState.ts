@@ -19,6 +19,7 @@ export const createDefaultState = (): SourceControlState => ({
   history: [],
   iconDefinitions: [],
   id: 1,
+  indents: [],
   index: [],
   initial: false,
   inputBoxHeight: 30,

@@ -76,6 +76,9 @@ test('setDeltaY - with items', async () => {
   }
   const newState = await setDeltaY(state, 50)
   expect(newState.deltaY).toBe(50)
+  expect(newState.indents).toEqual(newState.visibleItems.map((item) => item.indent))
+  const repeatedState = await setDeltaY(newState, 50)
+  expect(repeatedState.indents).toBe(newState.indents)
   expect(newState.visibleItems.length).toBeGreaterThan(0)
 })
 

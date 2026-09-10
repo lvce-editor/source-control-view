@@ -3,6 +3,7 @@ import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
 import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
 import { getGroups } from '../GetGroups/GetGroups.ts'
+import { getIndents } from '../GetIndents/GetIndents.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
 import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
@@ -20,6 +21,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     headerHeight,
     height,
     iconDefinitions,
+    indents,
     itemHeight,
     minimumSliderSize,
     platform,
@@ -51,6 +53,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     fileIconCache: newFileIconCache,
     finalDeltaY,
     gitRoot,
+    indents: getIndents(indents, visibleItems),
     items: displayItems,
     maxLineY,
     minLineY,
