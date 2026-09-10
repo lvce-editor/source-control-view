@@ -159,8 +159,8 @@ test.each([
   const mockExtensions = [
     {
       'source-control-actions': {
-        action1: 'value1',
-        action2: 'value2',
+        action1: [{ command: 'command1', label: 'label1' }],
+        action2: [{ command: 'command2', label: 'label2' }],
       },
       'source-control-buttons': [
         {
@@ -195,8 +195,8 @@ test.each([
   const result = await loadContent(state, {})
 
   expect(result.actionsCache).toEqual({
-    action1: 'value1',
-    action2: 'value2',
+    action1: [{ command: 'command1', label: 'label1' }],
+    action2: [{ command: 'command2', label: 'label2' }],
   })
   expect(result.sourceControlButtons).toEqual([
     {

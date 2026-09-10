@@ -53,3 +53,18 @@ test('requestSourceActions excludes extensions that are incompatible with web', 
   expect(result).toEqual({})
   expect(mockRpc.invocations).toEqual([['Extensions.getAllExtensions', '', PlatformType.Web]])
 })
+
+test('combines contributions to the same group and ignores malformed actions', async () => {
+  using _rpc = ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getAllExtensions': async (): Promise<readonly unknown[]> => [
+      { 'source-control-actions': { 'working-tree-item': [{ command: 'one.stage', label: 'Stage' }] } },
+      { 'source-control-actions': { 'working-tree-item': [null, { command: 'two.ignore', label: 'Ignore' }, { label: 'Missing command' }], invalid: 'bad' } },
+    ],
+  })
+  expect(await requestSourceActions('', PlatformType.Web)).toEqual({
+    'working-tree-item': [
+      { command: 'one.stage', label: 'Stage' },
+      { command: 'two.ignore', label: 'Ignore' },
+    ],
+  })
+})
