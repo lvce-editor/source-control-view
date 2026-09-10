@@ -15,6 +15,7 @@ test('handleSourceControlButtonClick', async () => {
   }
   using extensionHostMockRpc = ExtensionHost.registerMockRpc(commandMap)
   using activationRpc = ExtensionManagementWorker.registerMockRpc(commandMap)
+  TextMeasurementWorker.registerMockRpc(commandMap)
   using mockRpc = RendererWorker.registerMockRpc(commandMap)
 
   const state = {
