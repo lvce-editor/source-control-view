@@ -1,6 +1,6 @@
 import { expect, jest, test } from '@jest/globals'
 import { ExtensionHost, ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleSourceControlButtonClick } from '../src/parts/HandleSourceControlButtonClick/HandleSourceControlButtonClick.ts'
 
@@ -10,11 +10,12 @@ test('handleSourceControlButtonClick', async () => {
     'Extensions.activateByEvent': async (): Promise<void> => {},
     'Extensions.executeCommand': async (): Promise<void> => {},
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
-    'MeasureTextHeight.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   using extensionHostMockRpc = ExtensionHost.registerMockRpc(commandMap)
   using activationRpc = ExtensionManagementWorker.registerMockRpc(commandMap)
+  TextMeasurementWorker.registerMockRpc(commandMap)
   using mockRpc = RendererWorker.registerMockRpc(commandMap)
 
   const state = {

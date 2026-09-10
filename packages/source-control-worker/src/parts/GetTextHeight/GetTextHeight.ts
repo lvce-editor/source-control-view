@@ -1,4 +1,4 @@
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 
 export const getTextHeight = async (
   input: string,
@@ -17,8 +17,7 @@ export const getTextHeight = async (
     const actualInput = input
     // TODO line height could also be like 1.5
     const lineHeightPx = `${lineHeight}px`
-    // @ts-ignore
-    const height = await RendererWorker.invoke(`MeasureTextHeight.measureTextBlockHeight`, actualInput, fontFamily, fontSize, lineHeightPx, width)
+    const height = await TextMeasurementWorker.invoke(`TextMeasurement.measureTextBlockHeight`, actualInput, fontFamily, fontSize, lineHeightPx, width)
     return height + inputPadding * 2
   } catch {
     // fallback
