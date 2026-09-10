@@ -23,6 +23,7 @@ export const createDefaultState = (): SourceControlState => ({
   indents: [],
   index: [],
   initial: false,
+  inlineDiffEditorBreakpoint: 800,
   inputActions: [],
   inputBoxHeight: 30,
   inputBoxMaxHeight: 214,

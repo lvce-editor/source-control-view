@@ -4,7 +4,7 @@ import { openDiffEditor } from '../OpenDiffEditor/OpenDiffEditor.ts'
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 
 export const handleClickFile = async (state: SourceControlState, item: any): Promise<SourceControlState> => {
-  const { applicationId, assetDir, enabledProviderIds, platform, root, width } = state
+  const { applicationId, assetDir, enabledProviderIds, inlineDiffEditorBreakpoint, platform, root, width } = state
   const providerId = enabledProviderIds[0]
   const absolutePath = `${root}/${item.file}`
   // TODO handle error
@@ -14,6 +14,6 @@ export const handleClickFile = async (state: SourceControlState, item: any): Pro
   ])
 
   // TODO diff editor should determine width by itself
-  await openDiffEditor(fileBefore, absolutePath, width, applicationId)
+  await openDiffEditor(fileBefore, absolutePath, width, inlineDiffEditorBreakpoint, applicationId)
   return state
 }

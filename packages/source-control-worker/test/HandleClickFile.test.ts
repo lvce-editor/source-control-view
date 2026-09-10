@@ -3,9 +3,15 @@ import { ExtensionHost, ExtensionManagementWorker, RendererWorker } from '@lvce-
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleClickFile } from '../src/parts/HandleClickFile/HandleClickFile.ts'
 
-test.each([{ protocol: 'inline-diff', width: 799 } as const, { protocol: 'diff', width: 800 } as const])(
-  'handleClickFile uses view width $width to open $protocol',
-  async ({ protocol, width }): Promise<void> => {
+test.each([
+  { protocol: 'inline-diff', width: 799 },
+  { protocol: 'diff', width: 800 },
+  { inlineDiffEditorBreakpoint: 1000, protocol: 'inline-diff', width: 999 },
+  { inlineDiffEditorBreakpoint: 1000, protocol: 'diff', width: 1000 },
+  { inlineDiffEditorBreakpoint: 600, protocol: 'diff', width: 700 },
+])(
+  'handleClickFile uses view width $width and breakpoint $inlineDiffEditorBreakpoint to open $protocol',
+  async ({ inlineDiffEditorBreakpoint = createDefaultState().inlineDiffEditorBreakpoint, protocol, width }): Promise<void> => {
     using extensionRpc = ExtensionHost.registerMockRpc({
       'ExtensionHostSourceControl.getFileBefore': async (): Promise<string> => 'old content',
     })
@@ -16,7 +22,7 @@ test.each([{ protocol: 'inline-diff', width: 799 } as const, { protocol: 'diff',
       'FileSystem.readFile': async (): Promise<string> => 'new content',
       'Main.openUri': async (): Promise<void> => {},
     })
-    const state = { ...createDefaultState(), enabledProviderIds: ['git'], root: '/workspace', width }
+    const state = { ...createDefaultState(), enabledProviderIds: ['git'], inlineDiffEditorBreakpoint, root: '/workspace', width }
 
     const result = await handleClickFile(state, { file: 'src/index.ts' })
 
