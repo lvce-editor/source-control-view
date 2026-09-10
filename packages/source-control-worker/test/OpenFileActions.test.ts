@@ -5,6 +5,7 @@ import { openChanges } from '../src/parts/OpenChanges/OpenChanges.ts'
 import { openContainingFolder } from '../src/parts/OpenContainingFolder/OpenContainingFolder.ts'
 import { openFile } from '../src/parts/OpenFile/OpenFile.ts'
 import { openFileHead } from '../src/parts/OpenFileHead/OpenFileHead.ts'
+import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 const item = {
   badgeCount: 0,
@@ -29,10 +30,12 @@ test('open file targets the owning application', async () => {
 })
 
 test('open HEAD uses original provider contents and application routing', async () => {
-  using extension = ExtensionManagementWorker.registerMockRpc({
-    'Extensions.invokeForApplication': async (_applicationId: string, method: string): Promise<string | undefined> =>
-      method === 'ExtensionHostSourceControl.getFileBefore' ? 'original contents' : undefined,
-  })
+  using extension = ExtensionManagementWorker.registerMockRpc(
+    withApplicationRouting({
+      'Extensions.invokeForApplication': async (_applicationId: string, method: string): Promise<string | undefined> =>
+        method === 'ExtensionHostSourceControl.getFileBefore' ? 'original contents' : undefined,
+    }),
+  )
   using renderer = RendererWorker.registerMockRpc({ 'Application.execute': async (): Promise<void> => {} })
   const state = { ...createDefaultState(), applicationId: 'preview', enabledProviderIds: ['git'], items: [item], root: '/workspace' }
   expect(await openFileHead(state, '/workspace/test.css')).toBe(state)

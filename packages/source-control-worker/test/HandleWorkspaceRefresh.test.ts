@@ -3,6 +3,7 @@ import { ExtensionHost, ExtensionManagementWorker, RendererWorker, TextMeasureme
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleWorkspaceRefresh } from '../src/parts/HandleWorkspaceRefresh/HandleWorkspaceRefresh.ts'
+import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 test('handleWorkspaceRefresh should discover newly available source control providers', async (): Promise<void> => {
   const extensionHostCommandMap = {
@@ -14,10 +15,12 @@ test('handleWorkspaceRefresh should discover newly available source control prov
     'ExtensionHostSourceControl.getIconDefinitions': async (): Promise<readonly string[]> => [],
   }
   using mockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
-  using extensionManagementMockRpc = ExtensionManagementWorker.registerMockRpc({
-    'Extensions.activateByEvent': async (): Promise<void> => {},
-    'Extensions.getAllExtensions': async (): Promise<readonly unknown[]> => [],
-  })
+  using extensionManagementMockRpc = ExtensionManagementWorker.registerMockRpc(
+    withApplicationRouting({
+      'Extensions.activateByEvent': async (): Promise<void> => {},
+      'Extensions.getAllExtensions': async (): Promise<readonly unknown[]> => [],
+    }),
+  )
 
   const rendererCommandMap = {
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
@@ -38,11 +41,11 @@ test('handleWorkspaceRefresh should discover newly available source control prov
   expect(result.enabledProviderIds).toEqual(['git'])
   expect(result.inputValue).toBe('existing commit message')
   expect(mockRpc.invocations).toContainEqual(['ExtensionHostSourceControl.getEnabledProviderIds', 'file', '/test'])
-  expect(extensionManagementMockRpc.invocations.filter(([method]) => method === 'Extensions.getAllExtensions')).toEqual([
-    ['Extensions.getAllExtensions', '', 0],
-    ['Extensions.getAllExtensions', '', 0],
-    ['Extensions.getAllExtensions', '', 0],
-    ['Extensions.getAllExtensions', '', 0],
+  expect(extensionManagementMockRpc.invocations.filter((invocation) => invocation[2] === 'Extensions.getAllExtensions')).toEqual([
+    ['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '', 0],
+    ['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '', 0],
+    ['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '', 0],
+    ['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '', 0],
   ])
 })
 
@@ -52,9 +55,11 @@ test('handleWorkspaceRefresh should use the lightweight refresh when providers a
   }
   using mockRpc = ExtensionHost.registerMockRpc(extensionHostCommandMap)
 
-  using _activationRpc = ExtensionManagementWorker.registerMockRpc({
-    'Extensions.activateByEvent': async (): Promise<void> => {},
-  })
+  using _activationRpc = ExtensionManagementWorker.registerMockRpc(
+    withApplicationRouting({
+      'Extensions.activateByEvent': async (): Promise<void> => {},
+    }),
+  )
   const rendererCommandMap = {
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
   }

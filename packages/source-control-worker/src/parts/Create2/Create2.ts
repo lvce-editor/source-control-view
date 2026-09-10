@@ -12,12 +12,12 @@ export const create2 = (
   workspacePath: string,
   platform: number,
   assetDir: string,
-  applicationId?: string,
+  applicationId: string,
 ): void => {
   const defaultState = createDefaultState()
   const state: SourceControlState = {
     ...defaultState,
-    ...(applicationId !== undefined && { applicationId }),
+    applicationId,
     assetDir,
     height,
     id,

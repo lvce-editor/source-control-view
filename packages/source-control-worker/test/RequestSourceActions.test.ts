@@ -2,6 +2,7 @@ import { expect, test } from '@jest/globals'
 import { PlatformType } from '@lvce-editor/constants'
 import { ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
 import { requestSourceActions } from '../src/parts/RequestSourceActions/RequestSourceActions.ts'
+import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 test('requestSourceActions', async () => {
   const mockExtensions = [
@@ -20,16 +21,16 @@ test('requestSourceActions', async () => {
   const commandMap = {
     'Extensions.getAllExtensions': async (): Promise<typeof mockExtensions> => mockExtensions,
   }
-  using mockRpc = ExtensionManagementWorker.registerMockRpc(commandMap)
+  using mockRpc = ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
 
-  const result = await requestSourceActions('/assets', PlatformType.Electron)
+  const result = await requestSourceActions('/assets', PlatformType.Electron, '')
 
   expect(result).toEqual({
     action1: [{ command: 'command1', label: 'label1' }],
     action2: [{ command: 'command2', label: 'label2' }],
     action3: [{ command: 'command3', label: 'label3' }],
   })
-  expect(mockRpc.invocations).toEqual([['Extensions.getAllExtensions', '/assets', PlatformType.Electron]])
+  expect(mockRpc.invocations).toEqual([['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '/assets', PlatformType.Electron]])
 })
 
 test('requestSourceActions excludes extensions that are incompatible with web', async () => {
@@ -46,22 +47,24 @@ test('requestSourceActions excludes extensions that are incompatible with web', 
   const commandMap = {
     'Extensions.getAllExtensions': async (): Promise<typeof mockExtensions> => mockExtensions,
   }
-  using mockRpc = ExtensionManagementWorker.registerMockRpc(commandMap)
+  using mockRpc = ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
 
-  const result = await requestSourceActions('', PlatformType.Web)
+  const result = await requestSourceActions('', PlatformType.Web, '')
 
   expect(result).toEqual({})
-  expect(mockRpc.invocations).toEqual([['Extensions.getAllExtensions', '', PlatformType.Web]])
+  expect(mockRpc.invocations).toEqual([['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '', PlatformType.Web]])
 })
 
 test('combines contributions to the same group and ignores malformed actions', async () => {
-  using _rpc = ExtensionManagementWorker.registerMockRpc({
-    'Extensions.getAllExtensions': async (): Promise<readonly unknown[]> => [
-      { 'source-control-actions': { 'working-tree-item': [{ command: 'one.stage', label: 'Stage' }] } },
-      { 'source-control-actions': { invalid: 'bad', 'working-tree-item': [null, { command: 'two.ignore', label: 'Ignore' }, { label: 'Missing command' }] } },
-    ],
-  })
-  expect(await requestSourceActions('', PlatformType.Web)).toEqual({
+  using _rpc = ExtensionManagementWorker.registerMockRpc(
+    withApplicationRouting({
+      'Extensions.getAllExtensions': async (): Promise<readonly unknown[]> => [
+        { 'source-control-actions': { 'working-tree-item': [{ command: 'one.stage', label: 'Stage' }] } },
+        { 'source-control-actions': { invalid: 'bad', 'working-tree-item': [null, { command: 'two.ignore', label: 'Ignore' }, { label: 'Missing command' }] } },
+      ],
+    }),
+  )
+  expect(await requestSourceActions('', PlatformType.Web, '')).toEqual({
     'working-tree-item': [
       { command: 'one.stage', label: 'Stage' },
       { command: 'two.ignore', label: 'Ignore' },
