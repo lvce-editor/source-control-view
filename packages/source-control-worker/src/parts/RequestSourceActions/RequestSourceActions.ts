@@ -10,7 +10,10 @@ export const requestSourceActions = async (assetDir = '', platform = 0, applicat
     }
     const sourceControlActions = Object.entries(extension['source-control-actions'])
     for (const [key, value] of sourceControlActions) {
-      newCache[key] = value
+      if (Array.isArray(value)) {
+        const actions = value.filter((action) => action && typeof action.command === 'string' && typeof action.label === 'string')
+        newCache[key] = [...(newCache[key] || []), ...actions]
+      }
     }
   }
   return newCache

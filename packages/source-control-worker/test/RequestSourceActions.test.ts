@@ -7,13 +7,13 @@ test('requestSourceActions', async () => {
   const mockExtensions = [
     {
       'source-control-actions': {
-        action1: 'value1',
-        action2: 'value2',
+        action1: [{ command: 'command1', label: 'label1' }],
+        action2: [{ command: 'command2', label: 'label2' }],
       },
     },
     {
       'source-control-actions': {
-        action3: 'value3',
+        action3: [{ command: 'command3', label: 'label3' }],
       },
     },
   ]
@@ -25,9 +25,9 @@ test('requestSourceActions', async () => {
   const result = await requestSourceActions('/assets', PlatformType.Electron)
 
   expect(result).toEqual({
-    action1: 'value1',
-    action2: 'value2',
-    action3: 'value3',
+    action1: [{ command: 'command1', label: 'label1' }],
+    action2: [{ command: 'command2', label: 'label2' }],
+    action3: [{ command: 'command3', label: 'label3' }],
   })
   expect(mockRpc.invocations).toEqual([['Extensions.getAllExtensions', '/assets', PlatformType.Electron]])
 })
@@ -39,7 +39,7 @@ test('requestSourceActions excludes extensions that are incompatible with web', 
         web: false,
       },
       'source-control-actions': {
-        action1: 'value1',
+        action1: [{ command: 'command1', label: 'label1' }],
       },
     },
   ]

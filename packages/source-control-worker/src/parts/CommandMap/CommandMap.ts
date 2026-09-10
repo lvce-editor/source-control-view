@@ -2,6 +2,7 @@ import { terminate } from '@lvce-editor/viewlet-registry'
 import { acceptInput } from '../AcceptInput/AcceptInput.ts'
 import * as Create2 from '../Create2/Create2.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
+import { executeMenuAction } from '../ExecuteMenuAction/ExecuteMenuAction.ts'
 import { getBadgeCount } from '../GetBadgeCount/GetBadgeCount.ts'
 import { getComponentState } from '../GetComponentState/GetComponentState.ts'
 import * as GetInfo from '../GetInfo/GetInfo.ts'
@@ -31,6 +32,10 @@ import * as HandleWheel from '../HandleWheel/HandleWheel.ts'
 import { handleWorkspaceRefresh } from '../HandleWorkspaceRefresh/HandleWorkspaceRefresh.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
+import { openChanges } from '../OpenChanges/OpenChanges.ts'
+import { openContainingFolder } from '../OpenContainingFolder/OpenContainingFolder.ts'
+import { openFile } from '../OpenFile/OpenFile.ts'
+import { openFileHead } from '../OpenFileHead/OpenFileHead.ts'
 import * as Refresh from '../Refresh/Refresh.ts'
 import * as Render2 from '../Render2/Render2.ts'
 import * as RenderActions2 from '../RenderActions2/RenderActions2.ts'
@@ -55,6 +60,7 @@ export const commandMap = {
   'SourceControl.create2': Create2.create2,
   'SourceControl.diff2': Diff2.diff2,
   'SourceControl.dispose': WrapCommand.dispose,
+  'SourceControl.executeMenuAction': WrapCommand.wrapCommand(executeMenuAction),
   'SourceControl.getBadgeCount': WrapCommand.wrapGetter(getBadgeCount),
   'SourceControl.getCommandIds': WrapCommand.getCommandIds,
   'SourceControl.getComponentState': getComponentState,
@@ -87,6 +93,10 @@ export const commandMap = {
   'SourceControl.handleWheel': WrapCommand.wrapCommand(HandleWheel.handleWheel),
   'SourceControl.handleWorkspaceRefresh': WrapCommand.wrapCommand(handleWorkspaceRefresh),
   'SourceControl.loadContent': WrapCommand.wrapCommand(LoadContent.loadContent),
+  'SourceControl.openChanges': WrapCommand.wrapCommand(openChanges),
+  'SourceControl.openContainingFolder': WrapCommand.wrapCommand(openContainingFolder),
+  'SourceControl.openFile': WrapCommand.wrapCommand(openFile),
+  'SourceControl.openFileHead': WrapCommand.wrapCommand(openFileHead),
   'SourceControl.refresh': WrapCommand.wrapCommand(Refresh.refresh),
   'SourceControl.render2': Render2.render2,
   'SourceControl.renderActions': WrapCommand.wrapGetter(RenderActions2.renderActions),

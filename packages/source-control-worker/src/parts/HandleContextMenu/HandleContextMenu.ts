@@ -7,8 +7,12 @@ export const handleContextMenu = async (state: SourceControlState, button: numbe
   const { id, items, root } = state
   const index = getIndex(state, x, y)
   const item = items[index]
+  if (!item) {
+    return state
+  }
   const uri = item?.file ? `${root}/${item.file}` : ''
   await ContextMenu.show2(id, MenuEntryId.SourceControl, x, y, {
+    index,
     menuId: MenuEntryId.SourceControl,
     uri,
   })
