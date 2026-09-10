@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'source-control.context-menu'
 
-export const test: Test = async ({ expect, Extension, FileSystem, Locator, SourceControl, Workspace }) => {
+export const test: Test = async ({ Command, ContextMenu, expect, Extension, FileSystem, Locator, SourceControl, Workspace }) => {
   // arrange
   const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)
@@ -14,7 +14,9 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   // act
   const file = Locator('.SourceControlItems .TreeItem[title="test.css"]')
-  await file.click({ button: 'right' })
+  await expect(file).toBeVisible()
+  const state = await Command.execute('Source Control.getComponentState')
+  await SourceControl.handleContextMenu(2, state.x + 10, state.y + state.headerHeight + state.itemHeight + 1)
 
   // assert
   const menu = Locator('.Menu')
@@ -27,7 +29,8 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(menuItem2).toHaveText('Open File')
   const menuItem3 = menuItems.nth(2)
   await expect(menuItem3).toHaveText('Open File (HEAD)')
-  const stage = menu.locator('.MenuItem', { hasText: 'Stage' })
-  await stage.click()
-  await expect(Locator('.SourceControlItems .TreeItem').nth(0)).toHaveText('Staged Changes1')
+  await ContextMenu.selectItem('Stage')
+  const treeItems = Locator('.SourceControlItems .TreeItem')
+  const group = treeItems.nth(0)
+  await expect(group).toHaveText('Staged Changes1')
 }

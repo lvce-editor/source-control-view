@@ -22,12 +22,12 @@ const props = { index: 0, menuId: MenuEntryId.SourceControl, uri: '/test/test.cs
 test('menu uses contributions for the clicked group and relative file arguments', () => {
   const state = {
     ...createDefaultState(),
-    platform: PlatformType.Web,
-    items: [item],
     actionsCache: {
-      'index-item': [{ command: 'git.unstage', label: 'Unstage Changes', icon: '' }],
-      'working-tree-item': [{ command: 'git.stage', label: 'Stage Changes', icon: '' }],
+      'index-item': [{ command: 'git.unstage', icon: '', label: 'Unstage Changes' }],
+      'working-tree-item': [{ command: 'git.stage', icon: '', label: 'Stage Changes' }],
     },
+    items: [item],
+    platform: PlatformType.Web,
   }
   const entries = getMenuEntries2(state, props)
   expect(entries.map((entry) => entry.id)).toEqual(['openChanges', 'openFile', 'openFileHead', 'revealInExplorerView', 'git.unstage'])
@@ -47,13 +47,13 @@ test('empty space has no file actions', () => {
 test('group menu only includes group contributions', () => {
   const state = {
     ...createDefaultState(),
-    items: [{ ...item, type: DirentType.DirectoryExpanded, file: '' }],
-    actionsCache: { index: [{ command: 'git.unstageAll', label: 'Unstage All', icon: '' }] },
+    actionsCache: { index: [{ command: 'git.unstageAll', icon: '', label: 'Unstage All' }] },
+    items: [{ ...item, file: '', type: DirentType.DirectoryExpanded }],
   }
   expect(getMenuEntries2(state, props).map((entry) => entry.id)).toEqual(['git.unstageAll'])
 })
 
 test('native platform includes containing folder command', () => {
-  const state = { ...createDefaultState(), platform: PlatformType.Electron, items: [item] }
+  const state = { ...createDefaultState(), items: [item], platform: PlatformType.Electron }
   expect(getMenuEntries2(state, props).find((entry) => entry.id === 'openContainingFolder')?.command).toBe('Source Control.openContainingFolder')
 })

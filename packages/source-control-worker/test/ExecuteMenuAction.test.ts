@@ -24,10 +24,10 @@ test('extension menu actions execute in their application and preserve input on 
   using _renderer = RendererWorker.registerMockRpc({ 'IconTheme.getIcons': async (): Promise<readonly string[]> => [] })
   const state = {
     ...createDefaultState(),
+    actionsCache: { 'working-tree-item': [{ command: 'sample.stage', icon: '', label: 'Stage' }] },
     applicationId: 'preview',
     inputValue: 'keep my commit message',
     items: [item],
-    actionsCache: { 'working-tree-item': [{ command: 'sample.stage', label: 'Stage', icon: '' }] },
   }
   const result = await executeMenuAction(state, 'test.css', 'working-tree', 'sample.stage')
   expect(rpc.invocations).toEqual([
@@ -37,7 +37,7 @@ test('extension menu actions execute in their application and preserve input on 
   expect(result.inputValue).toBe('keep my commit message')
 })
 
-test('stale menu actions and uncontributed commands do not execute', async () => {
+test('stale menu actions and commands without contributions do not execute', async () => {
   const state = { ...createDefaultState(), items: [item] }
   expect(await executeMenuAction(state, 'missing.css', 'working-tree', 'sample.stage')).toBe(state)
   expect(await executeMenuAction(state, 'test.css', 'working-tree', 'unknown.command')).toBe(state)

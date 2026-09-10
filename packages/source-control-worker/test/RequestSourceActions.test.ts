@@ -58,7 +58,7 @@ test('combines contributions to the same group and ignores malformed actions', a
   using _rpc = ExtensionManagementWorker.registerMockRpc({
     'Extensions.getAllExtensions': async (): Promise<readonly unknown[]> => [
       { 'source-control-actions': { 'working-tree-item': [{ command: 'one.stage', label: 'Stage' }] } },
-      { 'source-control-actions': { 'working-tree-item': [null, { command: 'two.ignore', label: 'Ignore' }, { label: 'Missing command' }], invalid: 'bad' } },
+      { 'source-control-actions': { invalid: 'bad', 'working-tree-item': [null, { command: 'two.ignore', label: 'Ignore' }, { label: 'Missing command' }] } },
     ],
   })
   expect(await requestSourceActions('', PlatformType.Web)).toEqual({
