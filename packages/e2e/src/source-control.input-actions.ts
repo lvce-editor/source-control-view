@@ -10,10 +10,11 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await Workspace.setPath(tmpDir)
   await SourceControl.show()
   const input = Locator('.SourceControl textarea')
-  await SourceControl.handleInput('My change')
   const action = Locator('.ViewSourceControlInput button[title="Suggest Message"]')
   await expect(action).toBeVisible()
   await expect(action.locator('.MaskIconDebugAlt2')).toBeVisible()
+  await SourceControl.handleInput('My change')
+  await expect(input).toHaveValue('My change')
 
   // act
   // eslint-disable-next-line e2e/no-direct-click -- Verify the contributed button event reaches its extension command.
