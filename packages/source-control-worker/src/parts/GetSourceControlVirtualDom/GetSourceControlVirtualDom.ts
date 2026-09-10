@@ -32,27 +32,29 @@ export const getSourceControlVirtualDom = (
   scrollBarHeight: number,
   scrollBarActive: boolean,
 ): readonly VirtualDomNode[] => {
-  const content = message
-    ? [messageNode, text(message)]
-    : [
-        ...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(placeholder, inputMessage),
-        ...buttons.flatMap<VirtualDomNode>((button) => GetSourceControlButtonVirtualDom.getSourceControlButtonVirtualDom(button, disabled)),
-        ...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items, scrollBarHeight, scrollBarActive),
-      ]
-  return [
+  const dom: VirtualDomNode[] = [
     {
       ariaBusy: loading,
       childCount: (message ? 1 : 2 + buttons.length) + (loading ? 1 : 0),
       className: className,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onMouseOver: DomEventListenerFunctions.HandleMouseOver,
-      // onMouseOut: DomEventListenerFunctions.HandleMouseOut,
       onWheel: DomEventListenerFunctions.HandleWheel,
       tabIndex: 0,
       type: VirtualDomElements.Div,
     },
-    // eslint-disable-next-line virtual-dom/no-conditional-spread
-    ...(loading ? GetProgressVirtualDom.getProgressVirtualDom() : []),
-    ...content,
   ]
+  if (loading) {
+    dom.push(...GetProgressVirtualDom.getProgressVirtualDom())
+  }
+  if (message) {
+    dom.push(messageNode, text(message))
+    return dom
+  }
+  dom.push(...GetSourceControlHeaderVirtualDom.getSourceControlHeaderVirtualDom(placeholder, inputMessage))
+  for (const button of buttons) {
+    dom.push(...GetSourceControlButtonVirtualDom.getSourceControlButtonVirtualDom(button, disabled))
+  }
+  dom.push(...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items, scrollBarHeight, scrollBarActive))
+  return dom
 }
