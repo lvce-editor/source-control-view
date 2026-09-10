@@ -41,10 +41,11 @@ test('handleContextMenu', async (): Promise<void> => {
 
   const newState = await handleContextMenu(state, button, x, y)
   expect(newState).toBe(state)
+  const { id } = state
   expect(mockRpc.invocations).toEqual([
     [
       'ContextMenu.show2',
-      state.id,
+      id,
       MenuEntryId.SourceControl,
       x,
       y,

@@ -50,7 +50,8 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
   expect(result.inputValue).toBe('')
   expect(result.inputPlaceholder).toBeDefined()
   // Empty input returns lineHeight + inputPadding * 2
-  expect(result.inputBoxHeight).toBe(state.inputLineHeight + state.inputPadding * 2)
+  const { inputLineHeight, inputPadding } = state
+  expect(result.inputBoxHeight).toBe(inputLineHeight + inputPadding * 2)
 })
 
 test('loadContent - with saved state inputValue', async (): Promise<void> => {

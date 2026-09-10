@@ -3,13 +3,13 @@ import * as ExtensionHostCommand from '../ExtensionHostCommand/ExtensionHostComm
 import { loadContent } from '../LoadContent/LoadContent.ts'
 
 export const handleButtonClick = async (state: SourceControlState, clickedIndex: number): Promise<SourceControlState> => {
-  const { applicationId, visibleItems } = state
+  const { applicationId, assetDir, platform, visibleItems } = state
   const item = visibleItems[clickedIndex]
   const button = item.buttons[clickedIndex]
   if (!button) {
     return state
   }
-  await ExtensionHostCommand.executeCommandForApplication(applicationId, button.command, state.assetDir, state.platform, item.file)
+  await ExtensionHostCommand.executeCommandForApplication(applicationId, button.command, assetDir, platform, item.file)
   const newState = await loadContent(state, {})
   return newState
 }

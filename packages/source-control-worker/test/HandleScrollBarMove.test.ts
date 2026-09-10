@@ -16,7 +16,8 @@ const createScrollState = (): SourceControlState => ({
 
 test('handleScrollBarMove - updates scroll position', async () => {
   const state = createScrollState()
-  const eventY = state.y + state.headerHeight + state.handleOffset + 175
+  const { handleOffset, headerHeight, y } = state
+  const eventY = y + headerHeight + handleOffset + 175
 
   const newState = await handleScrollBarMove(state, eventY)
 

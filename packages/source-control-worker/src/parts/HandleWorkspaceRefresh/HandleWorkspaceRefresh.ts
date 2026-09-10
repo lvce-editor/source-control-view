@@ -17,13 +17,13 @@ const isEqual = (oldProviderIds: readonly string[], newProviderIds: readonly str
 }
 
 export const handleWorkspaceRefresh = async (state: SourceControlState): Promise<SourceControlState> => {
-  const { applicationId, assetDir, enabledProviderIds, platform, workspacePath } = state
+  const { applicationId, assetDir, enabledProviderIds, inputValue, platform, workspacePath } = state
   const scheme = GetProtocol.getProtocol(workspacePath)
   const newProviderIds = await SourceControl.getEnabledProviderIds(scheme, workspacePath, assetDir, platform, applicationId)
   if (isEqual(enabledProviderIds, newProviderIds)) {
     return refresh(state)
   }
   return loadContent(state, {
-    inputValue: state.inputValue,
+    inputValue,
   })
 }

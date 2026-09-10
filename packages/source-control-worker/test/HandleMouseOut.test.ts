@@ -26,7 +26,8 @@ test('handleMouseOut - returns new state when index is greater than items length
 
 test('handleMouseOut - returns same state when index equals items length', (): void => {
   const state: SourceControlState = createDefaultState()
-  const newState = handleMouseOut(state, state.items.length)
+  const { items } = state
+  const newState = handleMouseOut(state, items.length)
   expect(newState).toBe(state)
 })
 

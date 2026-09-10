@@ -2,5 +2,6 @@ import type { SourceControlState } from '../SourceControlState/SourceControlStat
 import { setDeltaY } from '../SetDeltaY/SetDeltaY.ts'
 
 export const handleWheel = async (state: SourceControlState, deltaMode: number, deltaY: number): Promise<SourceControlState> => {
-  return setDeltaY(state, state.deltaY + deltaY)
+  const { deltaY: oldDeltaY } = state
+  return setDeltaY(state, oldDeltaY + deltaY)
 }
