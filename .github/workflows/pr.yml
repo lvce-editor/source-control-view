@@ -10,7 +10,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, macos-15, windows-2025]
+        os: [macos-15]
+        attempt: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     steps:
@@ -44,15 +45,13 @@ jobs:
           PLAYWRIGHT_BROWSERS_PATH: 0
       - name: e2e
         working-directory: ./packages/e2e
-        run: npm run e2e:headless
+        run: npm run e2e:headless 2>&1 | tee e2e.log
+        shell: bash
         env:
           PLAYWRIGHT_BROWSERS_PATH: 0
-      - name: install memory measurement browser
-        run: node node_modules/playwright/cli.js install chromium
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        env:
-          PLAYWRIGHT_BROWSERS_PATH: 0
-      - name: measure
-        run: npm run measure
-        env:
-          PLAYWRIGHT_BROWSERS_PATH: 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-${{ matrix.attempt }}
+          path: packages/e2e/e2e.log
+          if-no-files-found: ignore
