@@ -12,6 +12,7 @@ test('loadContent - returns an error state when loading fails', async (): Promis
     },
   }
   ExtensionHost.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
 
   const state: SourceControlState = {
