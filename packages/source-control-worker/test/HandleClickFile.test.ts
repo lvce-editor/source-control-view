@@ -3,26 +3,29 @@ import { ExtensionHost, ExtensionManagementWorker, RendererWorker } from '@lvce-
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleClickFile } from '../src/parts/HandleClickFile/HandleClickFile.ts'
 
-test('handleClickFile reads the selected file and opens its diff', async (): Promise<void> => {
-  using extensionRpc = ExtensionHost.registerMockRpc({
-    'ExtensionHostSourceControl.getFileBefore': async (): Promise<string> => 'old content',
-  })
-  using _activationRpc = ExtensionManagementWorker.registerMockRpc({
-    'Extensions.activateByEvent': async (): Promise<void> => {},
-  })
-  using rendererRpc = RendererWorker.registerMockRpc({
-    'FileSystem.readFile': async (): Promise<string> => 'new content',
-    'Main.openUri': async (): Promise<void> => {},
-  })
-  const state = { ...createDefaultState(), enabledProviderIds: ['git'], root: '/workspace' }
+test.each([{ protocol: 'inline-diff', width: 799 } as const, { protocol: 'diff', width: 800 } as const])(
+  'handleClickFile uses view width $width to open $protocol',
+  async ({ protocol, width }): Promise<void> => {
+    using extensionRpc = ExtensionHost.registerMockRpc({
+      'ExtensionHostSourceControl.getFileBefore': async (): Promise<string> => 'old content',
+    })
+    using _activationRpc = ExtensionManagementWorker.registerMockRpc({
+      'Extensions.activateByEvent': async (): Promise<void> => {},
+    })
+    using rendererRpc = RendererWorker.registerMockRpc({
+      'FileSystem.readFile': async (): Promise<string> => 'new content',
+      'Main.openUri': async (): Promise<void> => {},
+    })
+    const state = { ...createDefaultState(), enabledProviderIds: ['git'], root: '/workspace', width }
 
-  const result = await handleClickFile(state, { file: 'src/index.ts' })
+    const result = await handleClickFile(state, { file: 'src/index.ts' })
 
-  expect(result).toBe(state)
-  expect(extensionRpc.invocations).toEqual([['ExtensionHostSourceControl.getFileBefore', 'git', 'src/index.ts']])
-  expect(rendererRpc.invocations).toContainEqual(['FileSystem.readFile', '/workspace/src/index.ts'])
-  expect(rendererRpc.invocations.at(-1)).toEqual(['Main.openUri', { focus: undefined, uri: 'inline-diff://data://old content<->/workspace/src/index.ts' }])
-})
+    expect(result).toBe(state)
+    expect(extensionRpc.invocations).toEqual([['ExtensionHostSourceControl.getFileBefore', 'git', 'src/index.ts']])
+    expect(rendererRpc.invocations).toContainEqual(['FileSystem.readFile', '/workspace/src/index.ts'])
+    expect(rendererRpc.invocations.at(-1)).toEqual(['Main.openUri', { focus: undefined, uri: `${protocol}://data://old content<->/workspace/src/index.ts` }])
+  },
+)
 
 test('handleClickFile uses the application width and routes all operations to that application', async (): Promise<void> => {
   using extensionRpc = ExtensionManagementWorker.registerMockRpc({
