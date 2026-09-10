@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { ExtensionHost, ExtensionManagementWorker, RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
+import { IconThemeWorker, ExtensionHost, ExtensionManagementWorker, RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
@@ -13,6 +13,7 @@ test('loadContent - returns an error state when loading fails', async (): Promis
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(commandMap)
+  IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 
@@ -38,6 +39,7 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(commandMap)
+  IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 
@@ -67,6 +69,7 @@ test('loadContent - with saved state inputValue', async (): Promise<void> => {
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(commandMap)
+  IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 
@@ -99,6 +102,7 @@ test('loadContent - with enabled providers', async (): Promise<void> => {
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(commandMap)
+  IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 
@@ -142,6 +146,7 @@ test('loadContent - with groups', async (): Promise<void> => {
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(commandMap)
+  IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 
@@ -190,6 +195,7 @@ test.each([
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(commandMap)
+  IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 
@@ -249,6 +255,7 @@ test('loadContent - calculates scroll bar and visible items correctly', async ()
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(commandMap)
+  IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 

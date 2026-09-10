@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { DirentType } from '@lvce-editor/constants'
-import { ExtensionHost, ExtensionManagementWorker, RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
+import { IconThemeWorker, ExtensionHost, ExtensionManagementWorker, RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { selectIndex } from '../src/parts/SelectIndex/SelectIndex.ts'
@@ -16,6 +16,7 @@ test('selectIndex - directory', async (): Promise<void> => {
     'FileSystem.readDirWithFileTypes': async (): Promise<never[]> => [],
     'IconTheme.getIcons': async (): Promise<never[]> => [],
   }
+  IconThemeWorker.registerMockRpc(commandMap)
   ParentRpc.registerMockRpc(commandMap)
 
   const testItem = {
@@ -54,6 +55,7 @@ test('selectIndex - expanded directory', async (): Promise<void> => {
     'FileSystem.readDirWithFileTypes': async (): Promise<never[]> => [],
     'IconTheme.getIcons': async (): Promise<never[]> => [],
   }
+  IconThemeWorker.registerMockRpc(commandMap)
   ParentRpc.registerMockRpc(commandMap)
 
   const testItem = {
@@ -96,6 +98,7 @@ test('selectIndex - file', async (): Promise<void> => {
     'Main.openUri': async (): Promise<void> => {},
   }
   ExtensionManagementWorker.registerMockRpc(parentCommandMap)
+  IconThemeWorker.registerMockRpc(parentCommandMap)
   ParentRpc.registerMockRpc(parentCommandMap)
 
   const extensionHostCommandMap = {

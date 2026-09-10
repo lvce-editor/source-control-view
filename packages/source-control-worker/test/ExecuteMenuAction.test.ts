@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { DirentType } from '@lvce-editor/constants'
-import { ExtensionManagementWorker, RendererWorker } from '@lvce-editor/rpc-registry'
+import { ExtensionManagementWorker, IconThemeWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { executeMenuAction } from '../src/parts/ExecuteMenuAction/ExecuteMenuAction.ts'
 
@@ -21,7 +21,7 @@ const item = {
 
 test('extension menu actions execute in their application and preserve input on refresh', async () => {
   using rpc = ExtensionManagementWorker.registerMockRpc({ 'Extensions.invokeForApplication': async (): Promise<void> => {} })
-  using _renderer = RendererWorker.registerMockRpc({ 'IconTheme.getIcons': async (): Promise<readonly string[]> => [] })
+  using _icons = IconThemeWorker.registerMockRpc({ 'IconTheme.getIcons': async (): Promise<readonly string[]> => [] })
   const state = {
     ...createDefaultState(),
     actionsCache: { 'working-tree-item': [{ command: 'sample.stage', icon: '', label: 'Stage' }] },
