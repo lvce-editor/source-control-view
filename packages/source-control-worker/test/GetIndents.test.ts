@@ -22,7 +22,12 @@ const item: VisibleItem = {
 
 test('reuses indents when other visible item properties change', () => {
   const indents = [0, 16]
-  expect(getIndents(indents, [{ ...item, label: 'changed' }, { ...item, indent: 16 }])).toBe(indents)
+  expect(
+    getIndents(indents, [
+      { ...item, label: 'changed' },
+      { ...item, indent: 16 },
+    ]),
+  ).toBe(indents)
 })
 
 test('reuses empty indents', () => {
