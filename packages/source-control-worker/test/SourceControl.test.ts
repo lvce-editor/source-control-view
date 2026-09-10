@@ -278,7 +278,7 @@ test('getIconDefinitions should return empty array on error', async (): Promise<
 
 test.each([undefined, null, false, 'unsupported', {}, { showGenerateCommitMessageButton: 'false' }, { showGenerateCommitMessageButton: true }])(
   'getShowGenerateCommitMessageButton defaults to visible for %j',
-  async (features): Promise<void> => {
+  async (features: unknown): Promise<void> => {
     using extensionRpc = ExtensionHost.registerMockRpc({
       'ExtensionHostSourceControl.getFeatures': async (): Promise<unknown> => features,
     })
