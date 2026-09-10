@@ -20,8 +20,8 @@ test('handleButtonClick - valid button click', async (): Promise<void> => {
   const rendererCommandMap = {
     'Extensions.activateByEvent': async (): Promise<void> => {},
     'IconTheme.getIcons': async (): Promise<never[]> => [],
-    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   ExtensionManagementWorker.registerMockRpc(rendererCommandMap)
   const rendererMockRpc = RendererWorker.registerMockRpc(rendererCommandMap)

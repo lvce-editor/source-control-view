@@ -21,8 +21,8 @@ test('handleWorkspaceRefresh should discover newly available source control prov
 
   const rendererCommandMap = {
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
-    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<boolean> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   RendererWorker.registerMockRpc(rendererCommandMap)
   TextMeasurementWorker.registerMockRpc(rendererCommandMap)

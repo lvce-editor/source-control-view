@@ -33,8 +33,8 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
     'Extensions.activateByEvent': async (): Promise<void> => {},
     'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
-    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(commandMap)
@@ -62,8 +62,8 @@ test('loadContent - with saved state inputValue', async (): Promise<void> => {
     'Extensions.activateByEvent': async (): Promise<void> => {},
     'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
-    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 45,
     'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 45,
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(commandMap)
@@ -94,8 +94,8 @@ test('loadContent - with enabled providers', async (): Promise<void> => {
       },
     ],
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
-    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(commandMap)
@@ -137,8 +137,8 @@ test('loadContent - with groups', async (): Promise<void> => {
     'Extensions.activateByEvent': async (): Promise<void> => {},
     'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
-    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(commandMap)
@@ -185,8 +185,8 @@ test.each([
     'Extensions.activateByEvent': async (): Promise<void> => {},
     'Extensions.getAllExtensions': async (): Promise<readonly any[]> => mockExtensions,
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
-    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(commandMap)
@@ -244,8 +244,8 @@ test('loadContent - calculates scroll bar and visible items correctly', async ()
     'Extensions.activateByEvent': async (): Promise<void> => {},
     'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
     'IconTheme.getIcons': async (): Promise<readonly string[]> => ['icon1', 'icon2'],
-    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(commandMap)

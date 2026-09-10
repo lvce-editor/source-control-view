@@ -10,8 +10,8 @@ test('handleSourceControlButtonClick', async () => {
     'Extensions.activateByEvent': async (): Promise<void> => {},
     'Extensions.executeCommand': async (): Promise<void> => {},
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
-    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
     'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   using extensionHostMockRpc = ExtensionHost.registerMockRpc(commandMap)
   using activationRpc = ExtensionManagementWorker.registerMockRpc(commandMap)
