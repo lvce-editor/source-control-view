@@ -7,5 +7,6 @@ export const set = (value: Rpc): void => {
 }
 
 export const invoke = (method: string, ...args: readonly unknown[]): Promise<any> => {
-  return state.rpc.invoke(method, ...args)
+  const { rpc } = state
+  return rpc.invoke(method, ...args)
 }
