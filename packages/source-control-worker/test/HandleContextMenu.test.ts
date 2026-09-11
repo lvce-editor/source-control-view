@@ -5,6 +5,7 @@ import type { DisplayItem } from '../src/parts/DisplayItem/DisplayItem.ts'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleContextMenu } from '../src/parts/HandleContextMenu/HandleContextMenu.ts'
+import * as MenuWorker from '../src/parts/MenuWorker/MenuWorker.ts'
 
 const fileItem: DisplayItem = {
   badgeCount: 0,
@@ -23,9 +24,11 @@ const fileItem: DisplayItem = {
 
 test('handleContextMenu', async (): Promise<void> => {
   const commandMap = {
-    'ContextMenu.show2': async (): Promise<void> => {},
+    'Menu.show2': async (): Promise<void> => {},
   }
   using mockRpc = ParentRpc.registerMockRpc(commandMap)
+
+  MenuWorker.set(mockRpc)
 
   const state: SourceControlState = {
     ...createDefaultState(),
@@ -44,7 +47,7 @@ test('handleContextMenu', async (): Promise<void> => {
   const { id } = state
   expect(mockRpc.invocations).toEqual([
     [
-      'ContextMenu.show2',
+      'Menu.show2',
       id,
       MenuEntryId.SourceControl,
       x,
