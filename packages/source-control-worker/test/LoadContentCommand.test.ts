@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { InputSource } from '@lvce-editor/constants'
-import { ExtensionHost, ExtensionManagementWorker, RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, ExtensionManagementWorker, IconThemeWorker, RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContentCommand } from '../src/parts/LoadContentCommand/LoadContentCommand.ts'
 import * as SourceControlStates from '../src/parts/SourceControlStates/SourceControlStates.ts'
@@ -16,6 +16,7 @@ const registerProviders = (getEnabledProviderIds: () => Promise<readonly string[
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(commandMap)
+  IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 }
