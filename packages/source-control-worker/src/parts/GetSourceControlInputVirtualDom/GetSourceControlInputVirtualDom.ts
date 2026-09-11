@@ -7,6 +7,8 @@ import { getInputActionsVirtualDom } from '../GetInputActionsVirtualDom/GetInput
 import * as InputName from '../InputName/InputName.ts'
 import * as ViewletSourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
+const inputClassName = mergeClassNames(ClassNames.InputBox, 'MultilineInputBox')
+
 const messageNode: VirtualDomNode = {
   childCount: 1,
   className: ClassNames.Message,
@@ -27,7 +29,7 @@ export const getSourceControlInputDom = (inputPlaceholder: string, inputMessage:
       autocapitalize: 'off',
       autocorrect: 'off',
       childCount: 0,
-      className: mergeClassNames(ClassNames.InputBox, 'MultilineInputBox'),
+      className: inputClassName,
       name: InputName.SourceControlInput,
       onFocus: DomEventListenerFunctions.HandleFocus,
       onInput: DomEventListenerFunctions.HandleInput,

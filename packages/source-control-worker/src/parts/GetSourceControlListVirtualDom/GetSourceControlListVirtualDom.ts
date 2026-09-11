@@ -8,17 +8,20 @@ import { getScrollBarVirtualDom } from '../GetScrollBarVirtualDom/GetScrollBarVi
 import * as GetSourceControlItemVirtualDom from '../GetSourceControlItemVirtualDom/GetSourceControlItemVirtualDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 
+const listClassName = MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.List)
+const itemsClassName = MergeClassNames.mergeClassNames(ClassNames.ListItems, ClassNames.SourceControlItems)
+
 export const getSourceControlListVirtualDom = (items: readonly VisibleItem[], scrollBarHeight: number, scrollBarActive: boolean): readonly VirtualDomNode[] => {
   const scrollBarDom = getScrollBarVirtualDom(scrollBarHeight, scrollBarActive)
   return [
     {
       childCount: scrollBarDom.length > 0 ? 2 : 1,
-      className: MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.List),
+      className: listClassName,
       type: VirtualDomElements.Div,
     },
     {
       childCount: items.length,
-      className: MergeClassNames.mergeClassNames(ClassNames.ListItems, ClassNames.SourceControlItems),
+      className: itemsClassName,
       onClick: DomEventListenerFunctions.HandleClickAt,
       onPointerOut: DomEventListenerFunctions.HandleMouseOutAt,
       onPointerOver: DomEventListenerFunctions.HandleMouseOverAt,
