@@ -3,6 +3,7 @@ import type { SourceControlState } from '../SourceControlState/SourceControlStat
 export const createDefaultState = (): SourceControlState => ({
   actionsCache: Object.create(null),
   allGroups: [],
+  applicationId: '',
   assetDir: '',
   badgeCount: 0,
   buttonBlockHeight: 34,

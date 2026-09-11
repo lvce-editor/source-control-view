@@ -2,6 +2,7 @@ import { expect, test } from '@jest/globals'
 import { PlatformType } from '@lvce-editor/constants'
 import { ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
 import { requestSourceControlButtons } from '../src/parts/RequestSourceControlButtons/RequestSourceControlButtons.ts'
+import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 test('requestSourceControlButtons', async () => {
   const mockExtensions = [
@@ -29,9 +30,9 @@ test('requestSourceControlButtons', async () => {
   const commandMap = {
     'Extensions.getAllExtensions': async (): Promise<typeof mockExtensions> => mockExtensions,
   }
-  using mockRpc = ExtensionManagementWorker.registerMockRpc(commandMap)
+  using mockRpc = ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
 
-  const result = await requestSourceControlButtons()
+  const result = await requestSourceControlButtons('', 0, '')
 
   expect(result).toEqual([
     {
@@ -47,7 +48,7 @@ test('requestSourceControlButtons', async () => {
       label: 'Test',
     },
   ])
-  expect(mockRpc.invocations).toEqual([['Extensions.getAllExtensions', '', 0]])
+  expect(mockRpc.invocations).toEqual([['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '', 0]])
 })
 
 test('requestSourceControlButtons excludes extensions that are incompatible with web', async () => {
@@ -69,12 +70,12 @@ test('requestSourceControlButtons excludes extensions that are incompatible with
   const commandMap = {
     'Extensions.getAllExtensions': async (): Promise<typeof mockExtensions> => mockExtensions,
   }
-  using mockRpc = ExtensionManagementWorker.registerMockRpc(commandMap)
+  using mockRpc = ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
 
-  const result = await requestSourceControlButtons('', PlatformType.Web)
+  const result = await requestSourceControlButtons('', PlatformType.Web, '')
 
   expect(result).toEqual([])
-  expect(mockRpc.invocations).toEqual([['Extensions.getAllExtensions', '', PlatformType.Web]])
+  expect(mockRpc.invocations).toEqual([['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '', PlatformType.Web]])
 })
 
 test('requestSourceControlButtons preserves web-incompatible extensions in electron', async () => {
@@ -96,11 +97,11 @@ test('requestSourceControlButtons preserves web-incompatible extensions in elect
   const commandMap = {
     'Extensions.getAllExtensions': async (): Promise<typeof mockExtensions> => mockExtensions,
   }
-  using mockRpc = ExtensionManagementWorker.registerMockRpc(commandMap)
+  using mockRpc = ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
 
-  const result = await requestSourceControlButtons('', PlatformType.Electron)
+  const result = await requestSourceControlButtons('', PlatformType.Electron, '')
 
   expect(result).toHaveLength(1)
   expect(result[0].label).toBe('Commit & Sync')
-  expect(mockRpc.invocations).toEqual([['Extensions.getAllExtensions', '', PlatformType.Electron]])
+  expect(mockRpc.invocations).toEqual([['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '', PlatformType.Electron]])
 })

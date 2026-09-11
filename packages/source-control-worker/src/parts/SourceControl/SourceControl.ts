@@ -4,18 +4,18 @@ import * as ExtensionHostSourceControl from '../ExtensionHostSourceControl/Exten
 import * as ExtensionMeta from '../ExtensionMeta/ExtensionMeta.ts'
 import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
 
-export const acceptInput = (providerId: string, text: string, assetDir: string, platform: number, applicationId?: string): Promise<void> => {
+export const acceptInput = (providerId: string, text: string, assetDir: string, platform: number, applicationId: string): Promise<void> => {
   Assert.string(providerId)
   Assert.string(text)
   return ExtensionHostSourceControl.acceptInput(providerId, text, assetDir, platform, applicationId)
 }
 
-export const generateCommitMessage = (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<string> => {
+export const generateCommitMessage = (providerId: string, assetDir: string, platform: number, applicationId: string): Promise<string> => {
   Assert.string(providerId)
   return ExtensionHostSourceControl.generateCommitMessage(providerId, assetDir, platform, applicationId)
 }
 
-export const getShowGenerateCommitMessageButton = async (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<boolean> => {
+export const getShowGenerateCommitMessageButton = async (providerId: string, assetDir: string, platform: number, applicationId: string): Promise<boolean> => {
   Assert.string(providerId)
   try {
     const features = await ExtensionHostSourceControl.getFeatures(providerId, assetDir, platform, applicationId)
@@ -31,11 +31,11 @@ export const getShowGenerateCommitMessageButton = async (providerId: string, ass
   }
 }
 
-export const getChangedFiles = (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<readonly any[]> => {
+export const getChangedFiles = (providerId: string, assetDir: string, platform: number, applicationId: string): Promise<readonly any[]> => {
   return ExtensionHostSourceControl.getChangedFiles(providerId, assetDir, platform, applicationId)
 }
 
-const getProviderBadgeCount = async (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<any> => {
+const getProviderBadgeCount = async (providerId: string, assetDir: string, platform: number, applicationId: string): Promise<any> => {
   try {
     return await ExtensionHostSourceControl.getBadgeCount(providerId, assetDir, platform, applicationId)
   } catch {
@@ -48,7 +48,7 @@ const getProviderBadgeCount = async (providerId: string, assetDir: string, platf
   }
 }
 
-export const getBadgeCount = async (providerIds: readonly string[], assetDir: string, platform: number, applicationId?: string): Promise<any> => {
+export const getBadgeCount = async (providerIds: readonly string[], assetDir: string, platform: number, applicationId: string): Promise<any> => {
   let badgeCount = 0
   for (const providerId of providerIds) {
     badgeCount += await getProviderBadgeCount(providerId, assetDir, platform, applicationId)
@@ -56,27 +56,27 @@ export const getBadgeCount = async (providerIds: readonly string[], assetDir: st
   return badgeCount
 }
 
-export const getWorkspaceBadgeCount = async (root: string, assetDir: string, platform: number, applicationId?: string): Promise<any> => {
+export const getWorkspaceBadgeCount = async (root: string, assetDir: string, platform: number, applicationId: string): Promise<any> => {
   const scheme = GetProtocol.getProtocol(root)
   const providerIds = await getEnabledProviderIds(scheme, root, assetDir, platform, applicationId)
   return getBadgeCount(providerIds, assetDir, platform, applicationId)
 }
 
-export const getFileDecorations = (providerId: string, uris: readonly string[], assetDir: string, platform: number, applicationId?: string): Promise<readonly any[]> => {
+export const getFileDecorations = (providerId: string, uris: readonly string[], assetDir: string, platform: number, applicationId: string): Promise<readonly any[]> => {
   return ExtensionHostSourceControl.getFileDecorations(providerId, uris, assetDir, platform, applicationId)
 }
 
-export const getFileBefore = (providerId: string, file: string, assetDir: string, platform: number, applicationId?: string): Promise<any> => {
+export const getFileBefore = (providerId: string, file: string, assetDir: string, platform: number, applicationId: string): Promise<any> => {
   return ExtensionHostSourceControl.getFileBefore(providerId, file, assetDir, platform, applicationId)
 }
 
-export const getEnabledProviderIds = (scheme: string, root: string, assetDir: string, platform: number, applicationId?: string): Promise<readonly string[]> => {
+export const getEnabledProviderIds = (scheme: string, root: string, assetDir: string, platform: number, applicationId: string): Promise<readonly string[]> => {
   Assert.string(scheme)
   Assert.string(root)
   return ExtensionHostSourceControl.getEnabledProviderIds(scheme, root, assetDir, platform, applicationId)
 }
 
-export const getGroups = (providerId: string, root: string, assetDir: string, platform: number, applicationId?: string): Promise<any> => {
+export const getGroups = (providerId: string, root: string, assetDir: string, platform: number, applicationId: string): Promise<any> => {
   return ExtensionHostSourceControl.getGroups(providerId, root, assetDir, platform, applicationId)
 }
 
@@ -93,7 +93,7 @@ const getIconDefinition = (icon: string, baseUri: string, platform: number): str
   return uri
 }
 
-export const getIconDefinitions = async (providerIds: readonly string[], assetDir: string, platform: number, applicationId?: string): Promise<readonly string[]> => {
+export const getIconDefinitions = async (providerIds: readonly string[], assetDir: string, platform: number, applicationId: string): Promise<readonly string[]> => {
   try {
     if (providerIds.length === 0) {
       return []

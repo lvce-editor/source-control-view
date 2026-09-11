@@ -5,6 +5,7 @@ import { RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleGenerateCommitMessage } from '../src/parts/HandleGenerateCommitMessage/HandleGenerateCommitMessage.ts'
+import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 test('handleGenerateCommitMessage - populates input value from provider', async (): Promise<void> => {
   const extensionHostCommandMap = {
@@ -16,7 +17,7 @@ test('handleGenerateCommitMessage - populates input value from provider', async 
     'Extensions.activateByEvent': async (): Promise<void> => {},
     'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 40,
   }
-  ExtensionManagementWorker.registerMockRpc(rendererCommandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(rendererCommandMap))
   RendererWorker.registerMockRpc(rendererCommandMap)
   TextMeasurementWorker.registerMockRpc(rendererCommandMap)
 
@@ -47,7 +48,7 @@ test('handleGenerateCommitMessage - shows helpful error when provider throws', a
   const rendererCommandMap = {
     'Extensions.activateByEvent': async (): Promise<void> => {},
   }
-  ExtensionManagementWorker.registerMockRpc(rendererCommandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(rendererCommandMap))
   RendererWorker.registerMockRpc(rendererCommandMap)
   TextMeasurementWorker.registerMockRpc(rendererCommandMap)
 

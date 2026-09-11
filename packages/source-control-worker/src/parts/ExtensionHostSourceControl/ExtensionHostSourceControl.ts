@@ -2,7 +2,7 @@ import * as Assert from '@lvce-editor/assert'
 import * as ExecuteProvider from '../ExecuteProvider/ExecuteProvider.ts'
 import * as ExtensionHostCommandType from '../ExtensionHostCommandType/ExtensionHostCommandType.ts'
 
-export const acceptInput = async (providerId: string, text: string, assetDir: string, platform: number, applicationId?: string): Promise<void> => {
+export const acceptInput = async (providerId: string, text: string, assetDir: string, platform: number, applicationId: string): Promise<void> => {
   return ExecuteProvider.executeProvider({
     applicationId,
     assetDir,
@@ -14,7 +14,7 @@ export const acceptInput = async (providerId: string, text: string, assetDir: st
   })
 }
 
-export const generateCommitMessage = async (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<string> => {
+export const generateCommitMessage = async (providerId: string, assetDir: string, platform: number, applicationId: string): Promise<string> => {
   return ExecuteProvider.executeProvider({
     applicationId,
     assetDir,
@@ -25,7 +25,7 @@ export const generateCommitMessage = async (providerId: string, assetDir: string
   })
 }
 
-export const getFeatures = async (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<any> => {
+export const getFeatures = async (providerId: string, assetDir: string, platform: number, applicationId: string): Promise<any> => {
   return ExecuteProvider.executeProvider({
     applicationId,
     assetDir,
@@ -36,7 +36,7 @@ export const getFeatures = async (providerId: string, assetDir: string, platform
   })
 }
 
-export const getChangedFiles = (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<readonly any[]> => {
+export const getChangedFiles = (providerId: string, assetDir: string, platform: number, applicationId: string): Promise<readonly any[]> => {
   return ExecuteProvider.executeProvider({
     applicationId,
     assetDir,
@@ -48,7 +48,7 @@ export const getChangedFiles = (providerId: string, assetDir: string, platform: 
   })
 }
 
-export const getBadgeCount = (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<any> => {
+export const getBadgeCount = (providerId: string, assetDir: string, platform: number, applicationId: string): Promise<any> => {
   return ExecuteProvider.executeProvider({
     applicationId,
     assetDir,
@@ -59,7 +59,7 @@ export const getBadgeCount = (providerId: string, assetDir: string, platform: nu
   })
 }
 
-export const getFileDecorations = (providerId: string, uris: readonly string[], assetDir: string, platform: number, applicationId?: string): Promise<readonly any[]> => {
+export const getFileDecorations = (providerId: string, uris: readonly string[], assetDir: string, platform: number, applicationId: string): Promise<readonly any[]> => {
   Assert.string(assetDir)
   Assert.number(platform)
   return ExecuteProvider.executeProvider({
@@ -72,7 +72,7 @@ export const getFileDecorations = (providerId: string, uris: readonly string[], 
   })
 }
 
-export const getFileBefore = (providerId: string, path: string, assetDir: string, platform: number, applicationId?: string): Promise<any> => {
+export const getFileBefore = (providerId: string, path: string, assetDir: string, platform: number, applicationId: string): Promise<any> => {
   return ExecuteProvider.executeProvider({
     applicationId,
     assetDir,
@@ -84,7 +84,7 @@ export const getFileBefore = (providerId: string, path: string, assetDir: string
   })
 }
 
-export const getGroups = (providerId: string, path: string, assetDir: string, platform: number, applicationId?: string): Promise<any> => {
+export const getGroups = (providerId: string, path: string, assetDir: string, platform: number, applicationId: string): Promise<any> => {
   return ExecuteProvider.executeProvider({
     applicationId,
     assetDir,
@@ -96,7 +96,7 @@ export const getGroups = (providerId: string, path: string, assetDir: string, pl
   })
 }
 
-export const getEnabledProviderIds = (scheme: string, root: string, assetDir: string, platform: number, applicationId?: string): Promise<readonly string[]> => {
+export const getEnabledProviderIds = (scheme: string, root: string, assetDir: string, platform: number, applicationId: string): Promise<readonly string[]> => {
   return ExecuteProvider.executeProvider({
     applicationId,
     assetDir,

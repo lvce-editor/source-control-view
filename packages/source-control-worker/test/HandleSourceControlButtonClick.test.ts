@@ -3,6 +3,7 @@ import { ExtensionHost, ExtensionManagementWorker } from '@lvce-editor/rpc-regis
 import { RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleSourceControlButtonClick } from '../src/parts/HandleSourceControlButtonClick/HandleSourceControlButtonClick.ts'
+import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 test('handleSourceControlButtonClick', async () => {
   const commandMap = {
@@ -13,8 +14,8 @@ test('handleSourceControlButtonClick', async () => {
     'Preferences.get': async (): Promise<any> => false,
     'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
-  using extensionHostMockRpc = ExtensionHost.registerMockRpc(commandMap)
-  using activationRpc = ExtensionManagementWorker.registerMockRpc(commandMap)
+  using _extensionHostMockRpc = ExtensionHost.registerMockRpc(commandMap)
+  using activationRpc = ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
   TextMeasurementWorker.registerMockRpc(commandMap)
   using mockRpc = RendererWorker.registerMockRpc(commandMap)
 
@@ -33,12 +34,14 @@ test('handleSourceControlButtonClick', async () => {
 
   const result = await handleSourceControlButtonClick(state, 'Commit & Sync')
 
-  expect(extensionHostMockRpc.invocations).toContainEqual(['Extensions.executeCommand', 'git.commitAndSync', 'test message'])
+  expect(activationRpc.invocations).toContainEqual(['Extensions.invokeForApplication', '', 'Extensions.executeCommand', 'git.commitAndSync', 'test message'])
   expect(result.inputValue).toBe('')
   expect(activationRpc.invocations).toEqual([
-    ['Extensions.activateByEvent', 'onCommand:git.commitAndSync', '', 0],
-    ['Extensions.activateByEvent', 'onSourceControl:file', '', 0],
-    ['Extensions.getAllExtensions', '', 0],
+    ['Extensions.invokeForApplication', '', 'Extensions.activateByEvent', 'onCommand:git.commitAndSync'],
+    ['Extensions.invokeForApplication', '', 'Extensions.executeCommand', 'git.commitAndSync', 'test message'],
+    ['Extensions.invokeForApplication', '', 'Extensions.activateByEvent', 'onSourceControl:file'],
+    ['Extensions.invokeForApplication', '', 'ExtensionHostSourceControl.getEnabledProviderIds', 'file', ''],
+    ['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '', 0],
   ])
   expect(mockRpc.invocations).toEqual([
     ['Preferences.get', 'sourceControl.splitButtonEnabled'],

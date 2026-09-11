@@ -3,6 +3,7 @@ import { DirentType } from '@lvce-editor/constants'
 import { ExtensionManagementWorker, RendererWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { executeMenuAction } from '../src/parts/ExecuteMenuAction/ExecuteMenuAction.ts'
+import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 const item = {
   badgeCount: 0,
@@ -20,7 +21,7 @@ const item = {
 }
 
 test('extension menu actions execute in their application and preserve input on refresh', async () => {
-  using rpc = ExtensionManagementWorker.registerMockRpc({ 'Extensions.invokeForApplication': async (): Promise<void> => {} })
+  using rpc = ExtensionManagementWorker.registerMockRpc(withApplicationRouting({ 'Extensions.invokeForApplication': async (): Promise<void> => {} }))
   using _renderer = RendererWorker.registerMockRpc({ 'IconTheme.getIcons': async (): Promise<readonly string[]> => [] })
   const state = {
     ...createDefaultState(),

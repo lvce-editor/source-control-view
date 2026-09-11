@@ -1,7 +1,7 @@
 import type { ActionButton } from '../ActionButton/ActionButton.ts'
 import * as ExtensionMeta from '../ExtensionMeta/ExtensionMeta.ts'
 
-export const requestInputActions = async (assetDir: string, platform: number, applicationId?: string): Promise<readonly ActionButton[]> => {
+export const requestInputActions = async (assetDir: string, platform: number, applicationId: string): Promise<readonly ActionButton[]> => {
   const extensions = await ExtensionMeta.getExtensions(assetDir, platform, applicationId)
   const actions: ActionButton[] = []
   for (const extension of extensions) {
