@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { ExtensionHost, RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, IconThemeWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as Refresh from '../src/parts/Refresh/Refresh.ts'

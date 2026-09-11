@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { ExtensionHost, ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
+import { IconThemeWorker, ExtensionHost, ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
 import { RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
@@ -24,6 +24,7 @@ test('handleButtonClick - valid button click', async (): Promise<void> => {
     'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   ExtensionManagementWorker.registerMockRpc(rendererCommandMap)
+  IconThemeWorker.registerMockRpc(rendererCommandMap)
   const rendererMockRpc = RendererWorker.registerMockRpc(rendererCommandMap)
   TextMeasurementWorker.registerMockRpc(rendererCommandMap)
 

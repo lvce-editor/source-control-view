@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { IconThemeWorker } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as UpdateIcons from '../src/parts/UpdateIcons/UpdateIcons.ts'
@@ -11,7 +11,7 @@ const commandMap = {
 }
 
 test('updateIcons - should update icons for visible items', async (): Promise<void> => {
-  using mockRpc = RendererWorker.registerMockRpc(commandMap)
+  using mockRpc = IconThemeWorker.registerMockRpc(commandMap)
   const defaultState = CreateDefaultState.createDefaultState()
   const state: SourceControlState = {
     ...defaultState,
@@ -38,7 +38,7 @@ test('updateIcons - should update icons for visible items', async (): Promise<vo
 })
 
 test('updateIcons - should handle empty visible items', async (): Promise<void> => {
-  using mockRpc = RendererWorker.registerMockRpc(commandMap)
+  using mockRpc = IconThemeWorker.registerMockRpc(commandMap)
   const defaultState = CreateDefaultState.createDefaultState()
   const state: SourceControlState = {
     ...defaultState,
