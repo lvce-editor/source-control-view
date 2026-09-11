@@ -1,11 +1,11 @@
 import type { Rpc } from '@lvce-editor/rpc'
 
-let rpc: Rpc
+const state = {} as { rpc: Rpc }
 
 export const set = (value: Rpc): void => {
-  rpc = value
+  state.rpc = value
 }
 
 export const invoke = (method: string, ...args: readonly unknown[]): Promise<any> => {
-  return rpc.invoke(method, ...args)
+  return state.rpc.invoke(method, ...args)
 }
