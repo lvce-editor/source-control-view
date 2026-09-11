@@ -79,7 +79,8 @@ test.each([
   }
 
   const result = await HandleInput.handleInput(state, value)
-  const firstFileCenterY = state.y + result.inputBoxHeight + state.inputPaddingBlock + state.itemHeight * 1.5
+  const { inputPaddingBlock, itemHeight, y } = state
+  const firstFileCenterY = y + result.inputBoxHeight + inputPaddingBlock + itemHeight * 1.5
 
-  expect(getIndex(result, 0, firstFileCenterY)).toBe(1 + deltaY / state.itemHeight)
+  expect(getIndex(result, 0, firstFileCenterY)).toBe(1 + deltaY / itemHeight)
 })

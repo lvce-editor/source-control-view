@@ -7,8 +7,10 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/a.css`, 'first file')
-  await FileSystem.writeFile(`${tmpDir}/b.css`, 'second file')
+  await FileSystem.setFiles([
+    { content: 'first file', uri: `${tmpDir}/a.css` },
+    { content: 'second file', uri: `${tmpDir}/b.css` },
+  ])
   await Workspace.setPath(tmpDir)
 
   await SourceControl.show()
