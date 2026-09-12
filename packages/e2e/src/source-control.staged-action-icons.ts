@@ -19,7 +19,10 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   const treeItems = Locator('.SourceControlItems .TreeItem')
   const stagedGroup = treeItems.nth(0)
   const stagedFile = treeItems.nth(1)
-  await expect(stagedGroup.locator('.MaskIconRemove')).toHaveCount(1)
-  await expect(stagedFile.locator('.MaskIconGoToFile')).toHaveCount(1)
-  await expect(stagedFile.locator('.MaskIconRemove')).toHaveCount(1)
+  const unstageAllIcon = stagedGroup.locator('.MaskIconRemove')
+  await expect(unstageAllIcon).toHaveCount(1)
+  const openFileIcon = stagedFile.locator('.MaskIconGoToFile')
+  await expect(openFileIcon).toHaveCount(1)
+  const unstageIcon = stagedFile.locator('.MaskIconRemove')
+  await expect(unstageIcon).toHaveCount(1)
 }

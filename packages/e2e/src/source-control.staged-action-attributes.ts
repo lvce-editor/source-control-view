@@ -19,7 +19,10 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   const treeItems = Locator('.SourceControlItems .TreeItem')
   const stagedGroup = treeItems.nth(0)
   const stagedFile = treeItems.nth(1)
-  await expect(stagedGroup.locator('.SourceControlButton[aria-label="Unstage All"][title="Unstage All"]')).toHaveCount(1)
-  await expect(stagedFile.locator('.SourceControlButton[aria-label="Open File"][title="Open File"]')).toHaveCount(1)
-  await expect(stagedFile.locator('.SourceControlButton[aria-label="Unstage Changes"][title="Unstage Changes"]')).toHaveCount(1)
+  const unstageAllButton = stagedGroup.locator('.SourceControlButton[aria-label="Unstage All"][title="Unstage All"]')
+  await expect(unstageAllButton).toHaveCount(1)
+  const openFileButton = stagedFile.locator('.SourceControlButton[aria-label="Open File"][title="Open File"]')
+  await expect(openFileButton).toHaveCount(1)
+  const unstageButton = stagedFile.locator('.SourceControlButton[aria-label="Unstage Changes"][title="Unstage Changes"]')
+  await expect(unstageButton).toHaveCount(1)
 }
