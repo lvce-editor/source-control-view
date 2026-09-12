@@ -39,7 +39,6 @@ test('handleSourceControlButtonClick', async () => {
   expect(activationRpc.invocations).toEqual([
     ['Extensions.activateByEvent', 'onCommand:git.commitAndSync', '', 0],
     ['Extensions.activateByEvent', 'onSourceControl:file', '', 0],
-    ['Extensions.getAllExtensions', '', 0],
   ])
   expect(mockRpc.invocations).toEqual([['Preferences.get', 'sourceControl.splitButtonEnabled']])
 })
