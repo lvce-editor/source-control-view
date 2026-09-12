@@ -51,6 +51,7 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
   expect(result.allGroups).toEqual([])
   expect(result.items).toEqual([])
   expect(result.visibleItems).toEqual([])
+  expect(result.providerUnavailableMessage).toBe('No workspace is open.')
   expect(result.inputValue).toBe('')
   expect(result.inputPlaceholder).toBeDefined()
   // Empty input returns lineHeight + inputPadding * 2
