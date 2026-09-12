@@ -2,8 +2,9 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'source-control.disabled-provider-message'
 
-export const test: Test = async ({ expect, Extension, Locator, SourceControl }) => {
+export const test: Test = async ({ expect, Extension, Locator, SourceControl, Workspace }) => {
   // arrange
+  await Workspace.openTmpDir()
   const uri = import.meta.resolve('../fixtures/sample-disabled-source-control-provider')
   await Extension.addWebExtension(uri)
 

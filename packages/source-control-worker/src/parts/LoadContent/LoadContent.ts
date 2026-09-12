@@ -45,7 +45,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   const { inputValue } = restoreState(savedState)
   const { assetDir, platform } = state
   const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root, assetDir, platform, applicationId)
-  const providerUnavailableMessage = enabledProviderIds.length === 0 ? await getSourceControlUnavailableMessage(assetDir, platform, applicationId) : ''
+  const providerUnavailableMessage = enabledProviderIds.length === 0 ? await getSourceControlUnavailableMessage(workspacePath, assetDir, platform, applicationId) : ''
   const showGenerateCommitMessageButton =
     enabledProviderIds.length === 0 ? false : await SourceControl.getShowGenerateCommitMessageButton(enabledProviderIds[0], assetDir, platform, applicationId)
 

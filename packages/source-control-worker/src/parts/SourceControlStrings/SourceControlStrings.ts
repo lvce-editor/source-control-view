@@ -99,3 +99,7 @@ export const sourceControlExtensionsDisabled = (): string => {
 export const noSourceControlProviderForWorkspace = (): string => {
   return I18nString.i18nString(UiStrings.NoSourceControlProviderForWorkspace)
 }
+
+export const noWorkspaceOpen = (): string => {
+  return I18nString.i18nString(UiStrings.NoWorkspaceOpen)
+}
