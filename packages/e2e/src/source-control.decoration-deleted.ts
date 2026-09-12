@@ -20,5 +20,6 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   const decoration = fileItem.locator('.DecorationIcon')
   await expect(decoration).toHaveCount(1)
   await expect(decoration).toHaveAttribute('title', 'Deleted')
-  await expect(fileItem.locator('.Label.StrikeThrough')).toHaveCount(1)
+  const deletedLabel = fileItem.locator('.Label.StrikeThrough')
+  await expect(deletedLabel).toHaveCount(1)
 }

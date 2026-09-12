@@ -16,7 +16,10 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   // assert
   const fileItem = Locator('.SourceControlItems .TreeItem').nth(1)
-  await expect(fileItem.locator('.SourceControlButton[aria-label="Open File"][title="Open File"]')).toHaveCount(1)
-  await expect(fileItem.locator('.SourceControlButton[aria-label="Discard"][title="Discard"]')).toHaveCount(1)
-  await expect(fileItem.locator('.SourceControlButton[aria-label="Stage"][title="Stage"]')).toHaveCount(1)
+  const openFileButton = fileItem.locator('.SourceControlButton[aria-label="Open File"][title="Open File"]')
+  await expect(openFileButton).toHaveCount(1)
+  const discardButton = fileItem.locator('.SourceControlButton[aria-label="Discard"][title="Discard"]')
+  await expect(discardButton).toHaveCount(1)
+  const stageButton = fileItem.locator('.SourceControlButton[aria-label="Stage"][title="Stage"]')
+  await expect(stageButton).toHaveCount(1)
 }

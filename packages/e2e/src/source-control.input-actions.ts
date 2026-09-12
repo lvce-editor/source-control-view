@@ -12,7 +12,8 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   const input = Locator('.SourceControl textarea')
   const action = Locator('.ViewSourceControlInput button[title="Suggest Message"]')
   await expect(action).toBeVisible()
-  await expect(action.locator('.MaskIconDebugAlt2')).toBeVisible()
+  const actionIcon = action.locator('.MaskIconDebugAlt2')
+  await expect(actionIcon).toBeVisible()
   await SourceControl.handleInput('My change')
   await expect(input).toHaveValue('My change')
 

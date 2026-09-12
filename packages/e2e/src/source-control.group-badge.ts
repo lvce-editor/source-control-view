@@ -20,5 +20,6 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   // assert
   const group = Locator('.SourceControlItems .TreeItem').nth(0)
-  await expect(group.locator('.SourceControlBadge')).toHaveText('3')
+  const badge = group.locator('.SourceControlBadge')
+  await expect(badge).toHaveText('3')
 }

@@ -16,6 +16,8 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   // assert
   const group = Locator('.SourceControlItems .TreeItem').nth(0)
-  await expect(group.locator('.SourceControlButton[aria-label="Discard All"][title="Discard All"]')).toHaveCount(1)
-  await expect(group.locator('.SourceControlButton[aria-label="Stage All"][title="Stage All"]')).toHaveCount(1)
+  const discardAllButton = group.locator('.SourceControlButton[aria-label="Discard All"][title="Discard All"]')
+  await expect(discardAllButton).toHaveCount(1)
+  const stageAllButton = group.locator('.SourceControlButton[aria-label="Stage All"][title="Stage All"]')
+  await expect(stageAllButton).toHaveCount(1)
 }
