@@ -23,7 +23,7 @@ test('updates progress without replacing files or input', async () => {
   const before = SourceControlStates.get(1).newState
   await handleSourceControlProgressChange(1)
   const after = SourceControlStates.get(1).newState
-  expect(after.operationInProgress).toBe(true)
+  expect(after.inProgress).toBe(true)
   expect(after.items).toBe(before.items)
   expect(after.inputValue).toBe(before.inputValue)
 })
@@ -44,7 +44,7 @@ test('a late busy response cannot overwrite a newer completion', async () => {
   await handleSourceControlProgressChange(1)
   first.resolve(true)
   await pending
-  expect(SourceControlStates.get(1).newState.operationInProgress).toBe(false)
+  expect(SourceControlStates.get(1).newState.inProgress).toBe(false)
 })
 
 test('closing and reopening the view ignores an old response', async () => {
@@ -63,7 +63,7 @@ test('closing and reopening the view ignores an old response', async () => {
   initialize()
   response.resolve(true)
   await pending
-  expect(SourceControlStates.get(1).newState.operationInProgress).toBe(false)
+  expect(SourceControlStates.get(1).newState.inProgress).toBe(false)
 })
 
 test('changing providers while querying ignores the old result', async () => {
@@ -82,7 +82,7 @@ test('changing providers while querying ignores the old result', async () => {
   SourceControlStates.set(1, before, { ...before, enabledProviderIds: ['other'] })
   response.resolve(true)
   await pending
-  expect(SourceControlStates.get(1).newState.operationInProgress).toBe(false)
+  expect(SourceControlStates.get(1).newState.inProgress).toBe(false)
 })
 
 test('unsupported providers do not leave stale progress', async () => {
@@ -93,5 +93,5 @@ test('unsupported providers do not leave stale progress', async () => {
   })
   initialize()
   await handleSourceControlProgressChange(1)
-  expect(SourceControlStates.get(1).newState.operationInProgress).toBe(false)
+  expect(SourceControlStates.get(1).newState.inProgress).toBe(false)
 })

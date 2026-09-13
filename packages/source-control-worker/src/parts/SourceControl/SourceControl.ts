@@ -1,5 +1,6 @@
 import { PlatformType } from '@lvce-editor/constants'
 import * as Assert from '../Assert/Assert.ts'
+import * as ExecuteProvider from '../ExecuteProvider/ExecuteProvider.ts'
 import * as ExtensionHostSourceControl from '../ExtensionHostSourceControl/ExtensionHostSourceControl.ts'
 import * as ExtensionMeta from '../ExtensionMeta/ExtensionMeta.ts'
 import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
@@ -37,7 +38,14 @@ export const getChangedFiles = (providerId: string, assetDir: string, platform: 
 
 const getProviderBadgeCount = async (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<any> => {
   try {
-    return await ExtensionHostSourceControl.getBadgeCount(providerId, assetDir, platform, applicationId)
+    return await ExecuteProvider.executeProvider({
+      applicationId,
+      assetDir,
+      event: 'none',
+      method: 'ExtensionHostSourceControl.getBadgeCount',
+      params: [providerId],
+      platform,
+    })
   } catch {
     try {
       const changedFiles = await ExtensionHostSourceControl.getChangedFiles(providerId, assetDir, platform, applicationId)
@@ -115,6 +123,14 @@ export const getIconDefinitions = async (providerIds: readonly string[], assetDi
 }
 
 export const getProgress = async (providerIds: readonly string[], assetDir: string, platform: number, applicationId?: string): Promise<boolean> => {
-  const results = await Promise.allSettled(providerIds.map((id) => ExtensionHostSourceControl.getProgress(id, assetDir, platform, applicationId)))
-  return results.some((result: Readonly<PromiseSettledResult<boolean>>) => result.status === 'fulfilled' && result.value)
+  for (const id of providerIds) {
+    try {
+      if (await ExecuteProvider.executeProvider({ applicationId, assetDir, event: 'none', method: 'ExtensionHostSourceControl.getProgress', params: [id], platform })) {
+        return true
+      }
+    } catch {
+      // Providers and runtimes without progress support are idle.
+    }
+  }
+  return false
 }

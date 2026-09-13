@@ -30,12 +30,12 @@ export const getSourceControlVirtualDom = (
   scrollBarHeight: number,
   scrollBarActive: boolean,
   inputActions: readonly ActionButton[] = [],
-  operationInProgress = false,
+  inProgress = false,
 ): readonly VirtualDomNode[] => {
   const dom: VirtualDomNode[] = [
     {
-      ariaBusy: loading || operationInProgress,
-      childCount: (message ? 1 : 2 + buttons.length) + (loading || operationInProgress ? 1 : 0),
+      ariaBusy: loading || inProgress,
+      childCount: (message ? 1 : 2 + buttons.length) + (loading || inProgress ? 1 : 0),
       className: className,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onMouseOver: DomEventListenerFunctions.HandleMouseOver,
@@ -44,7 +44,7 @@ export const getSourceControlVirtualDom = (
       type: VirtualDomElements.Div,
     },
   ]
-  if (loading || operationInProgress) {
+  if (loading || inProgress) {
     dom.push(...GetProgressVirtualDom.getProgressVirtualDom())
   }
   if (message) {

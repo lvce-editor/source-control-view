@@ -11,7 +11,7 @@ export const loadContentCommand = SourceControlStates.wrapAsyncCommand(async (co
       current.enabledProviderIds.length === loaded.enabledProviderIds.length && current.enabledProviderIds.every((id, index) => id === loaded.enabledProviderIds[index])
     const loadedState = {
       ...loaded,
-      operationInProgress: (sameProviders && current.progressRequestId !== progressRequestId ? current : loaded).operationInProgress,
+      inProgress: (sameProviders && current.progressRequestId !== progressRequestId ? current : loaded).inProgress,
       progressRequestId: current.progressRequestId,
     }
     if (loading && current.inputValue === previousInputValue) {

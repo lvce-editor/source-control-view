@@ -48,17 +48,6 @@ export const getChangedFiles = (providerId: string, assetDir: string, platform: 
   })
 }
 
-export const getBadgeCount = (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<any> => {
-  return ExecuteProvider.executeProvider({
-    applicationId,
-    assetDir,
-    event: 'none',
-    method: ExtensionHostCommandType.SourceControlGetBadgeCount,
-    params: [providerId],
-    platform,
-  })
-}
-
 export const getFileDecorations = (providerId: string, uris: readonly string[], assetDir: string, platform: number, applicationId?: string): Promise<readonly any[]> => {
   Assert.string(assetDir)
   Assert.number(platform)
@@ -105,16 +94,5 @@ export const getEnabledProviderIds = (scheme: string, root: string, assetDir: st
     params: [scheme, root],
     platform,
     // noProviderFoundMessage: 'No source control provider found',
-  })
-}
-
-export const getProgress = async (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<boolean> => {
-  return ExecuteProvider.executeProvider({
-    applicationId,
-    assetDir,
-    event: 'none',
-    method: 'ExtensionHostSourceControl.getProgress',
-    params: [providerId],
-    platform,
   })
 }

@@ -13,7 +13,7 @@ test('operation progress keeps the input and file list visible', () => {
 
 test('completing an operation schedules a render and removes progress', () => {
   const state = createDefaultState()
-  expect(isEqual(state, { ...state, operationInProgress: true })).toBe(false)
+  expect(isEqual(state, { ...state, inProgress: true })).toBe(false)
   const dom = getSourceControlVirtualDom([], [], false, '', '', '', false, 0, false)
   expect(dom[0].ariaBusy).toBe(false)
   expect(dom.some((node) => node.className === 'ProgressContainer')).toBe(false)
