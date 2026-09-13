@@ -43,6 +43,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
   const newFileIconCache = await GetFileIcons.getFileIcons(displayItems, fileIconCache)
   const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
+  const inProgress = await SourceControl.getProgress(enabledProviderIds, assetDir, platform, applicationId)
   return {
     ...state,
     actionsCache,
@@ -54,6 +55,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     finalDeltaY,
     gitRoot,
     indents: getIndents(indents, visibleItems),
+    inProgress,
     items: displayItems,
     maxLineY,
     minLineY,

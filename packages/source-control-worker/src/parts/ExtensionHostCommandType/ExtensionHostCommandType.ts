@@ -1,7 +1,6 @@
 export const CommandExecute = 'Extensions.executeCommand'
 export const SourceControlAcceptInput = 'ExtensionHostSourceControl.acceptInput'
 export const SourceControlGenerateCommitMessage = 'ExtensionHostSourceControl.generateCommitMessage'
-export const SourceControlGetBadgeCount = 'ExtensionHostSourceControl.getBadgeCount'
 export const SourceControlGetChangedFiles = 'ExtensionHost.sourceControlGetChangedFiles'
 export const SourceControlGetFileDecorations = 'ExtensionHostSourceControl.getFileDecorations'
 export const SourceControlGetEnabledProviderIds = 'ExtensionHostSourceControl.getEnabledProviderIds'

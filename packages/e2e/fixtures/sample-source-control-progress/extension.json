@@ -1,0 +1,20 @@
+{
+  "id": "builtin.sample-source-control-progress",
+  "name": "Sample Source Control Progress",
+  "browser": "src/index.ts",
+  "isolated": true,
+  "activation": ["onSourceControl", "onSourceControl:file", "onCommand:progress.begin", "onCommand:progress.finish"],
+  "sourceControlProviders": [
+    {
+      "id": "progress"
+    }
+  ],
+  "commands": [
+    {
+      "id": "progress.begin"
+    },
+    {
+      "id": "progress.finish"
+    }
+  ]
+}

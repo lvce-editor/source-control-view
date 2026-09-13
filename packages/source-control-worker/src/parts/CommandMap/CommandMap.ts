@@ -29,6 +29,7 @@ import { handleScrollBarCaptureLost } from '../HandleScrollBarCaptureLost/Handle
 import { handleScrollBarClick } from '../HandleScrollBarClick/HandleScrollBarClick.ts'
 import { handleScrollBarMove } from '../HandleScrollBarMove/HandleScrollBarMove.ts'
 import * as HandleSourceControlButtonClick from '../HandleSourceControlButtonClick/HandleSourceControlButtonClick.ts'
+import { handleSourceControlProgressChange } from '../HandleSourceControlProgressChange/HandleSourceControlProgressChange.ts'
 import * as HandleWheel from '../HandleWheel/HandleWheel.ts'
 import { handleWorkspaceRefresh } from '../HandleWorkspaceRefresh/HandleWorkspaceRefresh.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
@@ -93,6 +94,7 @@ export const commandMap = {
   'SourceControl.handleScrollBarClick': WrapCommand.wrapCommand(handleScrollBarClick),
   'SourceControl.handleScrollBarMove': WrapCommand.wrapCommand(handleScrollBarMove),
   'SourceControl.handleSourceControlButtonClick': WrapCommand.wrapCommand(HandleSourceControlButtonClick.handleSourceControlButtonClick),
+  'SourceControl.handleSourceControlProgressChange': handleSourceControlProgressChange,
   'SourceControl.handleWheel': WrapCommand.wrapCommand(HandleWheel.handleWheel),
   'SourceControl.handleWorkspaceRefresh': WrapCommand.wrapCommand(handleWorkspaceRefresh),
   'SourceControl.loadContent': loadContentCommand,
