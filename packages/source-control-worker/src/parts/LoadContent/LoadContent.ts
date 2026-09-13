@@ -76,6 +76,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   const newFileIconCache = await GetFileIcons.getFileIcons(displayItems, fileIconCache)
   const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
+  const operationInProgress = await SourceControl.getProgress(enabledProviderIds, assetDir, platform, applicationId)
   return {
     ...state,
     actionsCache,
@@ -96,6 +97,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     items: displayItems,
     loading: false,
     maxLineY,
+    operationInProgress,
     providerUnavailableMessage,
     root,
     scrollBarHeight,

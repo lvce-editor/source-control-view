@@ -11,6 +11,7 @@ export const renderItems = (oldState: SourceControlState, newState: SourceContro
     inputPlaceholder,
     items,
     loading,
+    operationInProgress,
     providerUnavailableMessage,
     scrollBarActive,
     scrollBarHeight,
@@ -31,6 +32,7 @@ export const renderItems = (oldState: SourceControlState, newState: SourceContro
     scrollBarHeight,
     scrollBarActive,
     inputActions,
+    operationInProgress,
   )
   return [ViewletCommand.SetDom2, id, dom]
 }

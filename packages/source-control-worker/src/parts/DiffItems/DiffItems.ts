@@ -8,6 +8,7 @@ export const isEqual = (oldState: SourceControlState, newState: SourceControlSta
     oldState.inputActions === newState.inputActions &&
     oldState.inputMessage === newState.inputMessage &&
     oldState.loading === newState.loading &&
+    oldState.operationInProgress === newState.operationInProgress &&
     oldState.maxLineY === newState.maxLineY &&
     oldState.minLineY === newState.minLineY &&
     oldState.providerUnavailableMessage === newState.providerUnavailableMessage &&

@@ -113,3 +113,8 @@ export const getIconDefinitions = async (providerIds: readonly string[], assetDi
     return []
   }
 }
+
+export const getProgress = async (providerIds: readonly string[], assetDir: string, platform: number, applicationId?: string): Promise<boolean> => {
+  const results = await Promise.allSettled(providerIds.map((id) => ExtensionHostSourceControl.getProgress(id, assetDir, platform, applicationId)))
+  return results.some((result: Readonly<PromiseSettledResult<boolean>>) => result.status === 'fulfilled' && result.value)
+}

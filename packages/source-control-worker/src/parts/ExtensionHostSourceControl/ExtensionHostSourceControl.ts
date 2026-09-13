@@ -107,3 +107,14 @@ export const getEnabledProviderIds = (scheme: string, root: string, assetDir: st
     // noProviderFoundMessage: 'No source control provider found',
   })
 }
+
+export const getProgress = async (providerId: string, assetDir: string, platform: number, applicationId?: string): Promise<boolean> => {
+  return ExecuteProvider.executeProvider({
+    applicationId,
+    assetDir,
+    event: 'none',
+    method: 'ExtensionHostSourceControl.getProgress',
+    params: [providerId],
+    platform,
+  })
+}

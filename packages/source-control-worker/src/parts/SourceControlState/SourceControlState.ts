@@ -54,7 +54,9 @@ export interface SourceControlState {
   readonly merge: readonly any[]
   readonly minimumSliderSize: number
   readonly minLineY: number
+  readonly operationInProgress: boolean
   readonly platform: number
+  readonly progressRequestId: number
   readonly providerId: string
   readonly providerUnavailableMessage: string
   readonly root: string
