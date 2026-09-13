@@ -12,7 +12,8 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, Locat
   await expect(progress).toHaveCount(0)
   await Command.execute('ExtensionHost.executeCommand', 'progress.begin')
   await expect(progress).toBeVisible()
-  await expect(Locator('.Viewlet.SourceControl textarea')).toBeVisible()
+  const input = Locator('.Viewlet.SourceControl textarea')
+  await expect(input).toBeVisible()
   await Command.execute('ExtensionHost.executeCommand', 'progress.finish')
   await expect(progress).toHaveCount(0)
 }
