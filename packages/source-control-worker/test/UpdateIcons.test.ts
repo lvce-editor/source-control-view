@@ -1,4 +1,5 @@
 import { expect, test } from '@jest/globals'
+import { DirentType } from '@lvce-editor/constants'
 import { IconThemeWorker } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
@@ -53,4 +54,52 @@ test('updateIcons - should handle empty visible items', async (): Promise<void> 
   const { items } = state
   expect(result.items).toEqual(items)
   expect(mockRpc.invocations).toEqual([['IconTheme.getIcons', []]])
+})
+
+test('updateIcons - should not request icons for group headers', async (): Promise<void> => {
+  using mockRpc = IconThemeWorker.registerMockRpc({
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => ['file-icon'],
+  })
+  const defaultState = CreateDefaultState.createDefaultState()
+  const state: SourceControlState = {
+    ...defaultState,
+    items: [
+      {
+        badgeCount: 1,
+        decorationIcon: '',
+        decorationIconTitle: '',
+        decorationStrikeThrough: false,
+        detail: '',
+        file: '',
+        groupId: 'group',
+        icon: 'ChevronDown',
+        label: 'Changes',
+        posInSet: 1,
+        setSize: 1,
+        type: DirentType.DirectoryExpanded,
+      },
+      {
+        badgeCount: 0,
+        decorationIcon: '',
+        decorationIconTitle: '',
+        decorationStrikeThrough: false,
+        detail: '/test',
+        file: '/test/file1.ts',
+        groupId: 'group',
+        icon: '',
+        label: 'file1.ts',
+        posInSet: 1,
+        setSize: 1,
+        type: DirentType.File,
+      },
+    ],
+    maxLineY: 2,
+    minLineY: 0,
+  }
+
+  const result = await UpdateIcons.updateIcons(state)
+
+  expect(result.fileIconCache).toEqual({ 'file1.ts': 'file-icon' })
+  expect(result.fileIconCache).not.toHaveProperty('Changes')
+  expect(mockRpc.invocations).toEqual([['IconTheme.getIcons', [{ name: 'file1.ts', type: 1 }]]])
 })
