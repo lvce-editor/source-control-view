@@ -88,7 +88,23 @@ export const getGroups = (providerId: string, root: string, assetDir: string, pl
   return ExtensionHostSourceControl.getGroups(providerId, root, assetDir, platform, applicationId)
 }
 
-const getIconDefinition = (icon: string, baseUri: string, platform: number): string => {
+const trimTrailingSlashes = (value: string): string => {
+  let result = value
+  while (result.endsWith('/')) {
+    result = result.slice(0, -1)
+  }
+  return result
+}
+
+const normalizeAssetDir = (assetDir: string): string => {
+  if (!assetDir) {
+    return ''
+  }
+  const withLeadingSlash = assetDir.startsWith('/') ? assetDir : `/${assetDir}`
+  return trimTrailingSlashes(withLeadingSlash)
+}
+
+const getIconDefinition = (icon: string, baseUri: string, assetDir: string, platform: number, extensionId: unknown): string => {
   if (!URL.canParse(icon, baseUri)) {
     throw new Error('Invalid source control icon URL')
   }
@@ -96,6 +112,15 @@ const getIconDefinition = (icon: string, baseUri: string, platform: number): str
   if (platform === PlatformType.Electron || platform === PlatformType.Remote) {
     const protocol = GetProtocol.getProtocol(uri)
     const path = GetProtocol.getPath(protocol, uri)
+    const extensionUri = new URL('.', baseUri).href
+    const extensionProtocol = GetProtocol.getProtocol(extensionUri)
+    const extensionPath = trimTrailingSlashes(GetProtocol.getPath(extensionProtocol, extensionUri))
+    const normalizedAssetDir = normalizeAssetDir(assetDir)
+    const packagedExtensionPath = `/static${normalizedAssetDir}/extensions/builtin.git`
+    if (extensionId === 'builtin.git' && normalizedAssetDir && extensionPath.endsWith(packagedExtensionPath) && path.startsWith(`${extensionPath}/`)) {
+      const relativePath = path.slice(extensionPath.length)
+      return `${normalizedAssetDir}/extensions/builtin.git${relativePath}`
+    }
     return `/remote${path.startsWith('/') ? '' : '/'}${path}`
   }
   return uri
@@ -116,7 +141,7 @@ export const getIconDefinitions = async (providerIds: readonly string[], assetDi
     }
     const icons = extension['source-control-icons'].filter((icon: unknown): icon is string => typeof icon === 'string')
     const baseUri = extension.uri.endsWith('/') ? extension.uri : `${extension.uri}/`
-    return icons.map((icon) => getIconDefinition(icon, baseUri, platform))
+    return icons.map((icon) => getIconDefinition(icon, baseUri, assetDir, platform, extension.id))
   } catch {
     return []
   }
