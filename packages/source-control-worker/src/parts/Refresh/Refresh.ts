@@ -26,6 +26,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     minimumSliderSize,
     platform,
     root,
+    selectedItem,
     splitButtonEnabled,
   } = state
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform, applicationId)
@@ -41,7 +42,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
   const minLineY = 0
   const maxLineY = Math.min(numberOfVisible, total)
   const newFileIconCache = await GetFileIcons.getFileIcons(displayItems, fileIconCache)
-  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
+  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache, selectedItem)
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inProgress = await SourceControl.getProgress(enabledProviderIds, assetDir, platform, applicationId)
   return {
@@ -60,6 +61,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     maxLineY,
     minLineY,
     scrollBarHeight,
+    selectedItem,
     splitButtonEnabled,
     visibleItems,
   }

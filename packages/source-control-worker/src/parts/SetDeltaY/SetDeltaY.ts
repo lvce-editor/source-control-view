@@ -4,14 +4,14 @@ import { getNumberOfVisibleItems } from '../GetNumberOfVisibleItems/GetNumberOfV
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 
 export const setDeltaY = async (state: SourceControlState, newDeltaY: number): Promise<SourceControlState> => {
-  const { actionsCache, fileIconCache, finalDeltaY, headerHeight, height, indents, itemHeight, items } = state
+  const { actionsCache, fileIconCache, finalDeltaY, headerHeight, height, indents, itemHeight, items, selectedItem } = state
   const normalizedDeltaY = Math.min(Math.max(newDeltaY, 0), finalDeltaY)
   const newMinLineY = Math.floor(normalizedDeltaY / itemHeight)
   const total = items.length
   const listHeight = height - headerHeight
   const visibleCount = getNumberOfVisibleItems(listHeight, itemHeight)
   const maxLineY = Math.min(newMinLineY + visibleCount, total)
-  const visible = getVisibleSourceControlItems(items, newMinLineY, maxLineY, actionsCache, fileIconCache)
+  const visible = getVisibleSourceControlItems(items, newMinLineY, maxLineY, actionsCache, fileIconCache, selectedItem)
   return {
     ...state,
     deltaY: normalizedDeltaY,

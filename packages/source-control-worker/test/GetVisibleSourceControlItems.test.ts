@@ -51,6 +51,7 @@ test('getVisibleSourceControlItems - single item', () => {
       buttons: actionsCache['test-item'],
       fileIcon: 'file-icon',
       indent: 16,
+      selected: false,
     },
   ])
 })
@@ -117,12 +118,14 @@ test('getVisibleSourceControlItems - multiple items', () => {
       buttons: actionsCache['test1-item'],
       fileIcon: 'file-icon1',
       indent: 16,
+      selected: false,
     },
     {
       ...items[1],
       buttons: actionsCache['test2-item'],
       fileIcon: 'file-icon2',
       indent: 16,
+      selected: false,
     },
   ])
 })

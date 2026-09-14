@@ -37,6 +37,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     inputPaddingBlock,
     itemHeight,
     minimumSliderSize,
+    selectedItem,
     width,
     workspacePath,
   } = state
@@ -74,7 +75,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   const minLineY = 0
   const maxLineY = Math.min(numberOfVisible, total)
   const newFileIconCache = await GetFileIcons.getFileIcons(displayItems, fileIconCache)
-  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
+  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache, selectedItem)
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inProgress = await SourceControl.getProgress(enabledProviderIds, assetDir, platform, applicationId)
   return {
@@ -101,6 +102,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     providerUnavailableMessage,
     root,
     scrollBarHeight,
+    selectedItem,
     showGenerateCommitMessageButton,
     sourceControlButtons,
     splitButtonEnabled,
