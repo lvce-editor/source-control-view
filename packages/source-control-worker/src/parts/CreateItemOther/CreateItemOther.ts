@@ -41,14 +41,14 @@ export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] =>
   const hasButtons = buttons.length
   const buttonsDom = getButtonsVirtualDom(buttons)
   const iconsDom = getIconsDom(icon, fileIcon)
-  const treeItemClassName = getTreeItemClassName(indent, selected)
+  const treeItemClassName = getTreeItemClassName(indent)
   dom.push(
     {
       ariaPosInSet: posInSet,
-      ariaSelected: selected ? 'true' : undefined,
       ariaSetSize: setSize,
       childCount: 2 + (iconsDom.length > 0 ? 1 : 0) + (hasButtons ? 1 : 0),
       className: treeItemClassName,
+      id: selected ? 'TreeItemActive' : undefined,
       role: AriaRoles.TreeItem,
       title: file,
       type: VirtualDomElements.Div,

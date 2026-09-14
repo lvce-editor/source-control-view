@@ -19,7 +19,6 @@ test('createItemDirectory - basic directory', () => {
     indent: 0,
     label: 'test',
     posInSet: 1,
-    selected: false,
     setSize: 2,
     type: DirentType.Directory,
   }
@@ -88,7 +87,6 @@ test('createItemDirectory - expanded directory with badge and buttons', () => {
     indent: 0,
     label: 'test',
     posInSet: 1,
-    selected: false,
     setSize: 2,
     type: DirentType.DirectoryExpanded,
   }

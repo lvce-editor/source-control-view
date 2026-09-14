@@ -18,7 +18,6 @@ test('getSourceControlItemVirtualDom - directory', () => {
     indent: 0,
     label: 'test',
     posInSet: 1,
-    selected: false,
     setSize: 1,
     type: DirentType.Directory,
   }
@@ -41,7 +40,6 @@ test('getSourceControlItemVirtualDom - directory expanded', () => {
     indent: 0,
     label: 'test',
     posInSet: 1,
-    selected: false,
     setSize: 1,
     type: DirentType.DirectoryExpanded,
   }
@@ -64,7 +62,6 @@ test('getSourceControlItemVirtualDom - other', () => {
     indent: 16,
     label: 'test.js',
     posInSet: 1,
-    selected: false,
     setSize: 1,
     type: DirentType.File,
   }
@@ -96,8 +93,8 @@ test('getSourceControlItemVirtualDom - selected file', () => {
 
   expect(result[0]).toEqual(
     expect.objectContaining({
-      ariaSelected: 'true',
-      className: 'TreeItem Indent-16 IndentRight-12 TreeItemActive',
+      className: 'TreeItem Indent-16 IndentRight-12',
+      id: 'TreeItemActive',
     }),
   )
 })

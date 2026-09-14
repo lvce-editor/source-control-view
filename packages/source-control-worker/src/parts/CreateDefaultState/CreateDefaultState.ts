@@ -55,7 +55,6 @@ export const createDefaultState = (): SourceControlState => ({
   root: '/',
   scrollBarActive: false,
   scrollBarHeight: 0,
-  selectedItem: undefined,
   showGenerateCommitMessageButton: false,
   sourceControlButtons: [],
   splitButtonEnabled: false,

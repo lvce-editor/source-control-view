@@ -3,7 +3,6 @@ import type { ActionsCache } from '../ActionsCache/ActionsCache.ts'
 import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
 import type { FileIconCache } from '../FileIconCache/FileIconCache.ts'
 import type { Group } from '../Group/Group.ts'
-import type { SelectedItem } from '../SelectedItem/SelectedItem.ts'
 import type { ViewMode } from '../ViewMode/ViewMode.ts'
 import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 
@@ -63,7 +62,7 @@ export interface SourceControlState {
   readonly root: string
   readonly scrollBarActive: boolean
   readonly scrollBarHeight: number
-  readonly selectedItem: SelectedItem | undefined
+  readonly selectedItem?: string
   readonly showGenerateCommitMessageButton: boolean
   readonly sourceControlButtons: readonly ActionButton[]
   readonly splitButtonEnabled: boolean

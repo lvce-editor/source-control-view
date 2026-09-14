@@ -18,16 +18,15 @@ export const selectIndex = async (state: SourceControlState, index: number): Pro
     case DirentType.DirectoryExpanded:
       return handleClickDirectoryExpanded(state, item)
     case DirentType.File: {
-      const selectedItem = {
-        file: item.file,
-        groupId: item.groupId,
-      }
-      const selectedState = {
-        ...state,
-        selectedItem,
-        visibleItems: getVisibleSourceControlItems(items, minLineY, maxLineY, actionsCache, fileIconCache, selectedItem),
-      }
-      return handleClickFile(selectedState, item)
+      const selectedItem = `${item.groupId}\0${item.file}`
+      return handleClickFile(
+        {
+          ...state,
+          selectedItem,
+          visibleItems: getVisibleSourceControlItems(items, minLineY, maxLineY, actionsCache, fileIconCache, selectedItem),
+        },
+        item,
+      )
     }
     default:
       Logger.warn(`unknown item type: ${item.type}`)

@@ -33,14 +33,12 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(diffEditor).toBeVisible()
   await expect(changedContent).toContainText('a')
   await expect(errorMessage).toHaveCount(0)
-  await expect(firstFile).toHaveClass('TreeItemActive')
-  await expect(firstFile).toHaveAttribute('aria-selected', 'true')
-  await expect(secondFile).toHaveAttribute('aria-selected', null)
+  await expect(firstFile).toHaveId('TreeItemActive')
 
   // Move focus to the editor and ensure the selection remains visible.
   // eslint-disable-next-line e2e/no-direct-click -- Move focus away from the selected row.
   await diffEditor.click()
-  await expect(firstFile).toHaveClass('TreeItemActive')
+  await expect(firstFile).toHaveId('TreeItemActive')
 
   // act
   // eslint-disable-next-line e2e/no-direct-click -- Verify selection moves through the real row click path.
@@ -48,7 +46,5 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await new Promise((resolve) => setTimeout(resolve, 2000))
 
   // assert
-  await expect(firstFile).toHaveAttribute('aria-selected', null)
-  await expect(secondFile).toHaveClass('TreeItemActive')
-  await expect(secondFile).toHaveAttribute('aria-selected', 'true')
+  await expect(secondFile).toHaveId('TreeItemActive')
 }

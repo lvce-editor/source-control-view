@@ -14,7 +14,6 @@ export const isEqual = (oldState: SourceControlState, newState: SourceControlSta
     oldState.providerUnavailableMessage === newState.providerUnavailableMessage &&
     oldState.scrollBarActive === newState.scrollBarActive &&
     oldState.scrollBarHeight === newState.scrollBarHeight &&
-    oldState.selectedItem === newState.selectedItem &&
     oldState.sourceControlButtons === newState.sourceControlButtons &&
     oldState.visibleItems === newState.visibleItems
   )

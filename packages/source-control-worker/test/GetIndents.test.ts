@@ -16,7 +16,6 @@ const item: VisibleItem = {
   indent: 0,
   label: 'test',
   posInSet: 1,
-  selected: false,
   setSize: 1,
   type: 0,
 }
