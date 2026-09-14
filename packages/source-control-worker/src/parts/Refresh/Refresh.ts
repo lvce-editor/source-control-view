@@ -9,6 +9,7 @@ import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOf
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedGroups.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
+import * as SelectedItem from '../SelectedItem/SelectedItem.ts'
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 
 export const refresh = async (state: SourceControlState): Promise<SourceControlState> => {
@@ -26,6 +27,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     minimumSliderSize,
     platform,
     root,
+    selectedItem: currentSelectedItem,
     splitButtonEnabled,
   } = state
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform, applicationId)
@@ -41,7 +43,8 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
   const minLineY = 0
   const maxLineY = Math.min(numberOfVisible, total)
   const newFileIconCache = await GetFileIcons.getFileIcons(displayItems, fileIconCache)
-  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
+  const selectedItem = SelectedItem.isSelectedItemValid(currentSelectedItem, allGroups) ? currentSelectedItem : undefined
+  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache, selectedItem)
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inProgress = await SourceControl.getProgress(enabledProviderIds, assetDir, platform, applicationId)
   return {
@@ -60,6 +63,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     maxLineY,
     minLineY,
     scrollBarHeight,
+    selectedItem,
     splitButtonEnabled,
     visibleItems,
   }

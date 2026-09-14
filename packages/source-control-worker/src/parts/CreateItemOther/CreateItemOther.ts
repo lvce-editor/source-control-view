@@ -35,16 +35,17 @@ const getIconsDom = (icon: string, fileIcon: string): readonly VirtualDomNode[] 
 }
 
 export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] => {
-  const { buttons, decorationIcon, decorationIconTitle, decorationStrikeThrough, detail, file, fileIcon, icon, indent, label, posInSet, setSize } = item
+  const { buttons, decorationIcon, decorationIconTitle, decorationStrikeThrough, detail, file, fileIcon, icon, indent, label, posInSet, selected, setSize } = item
   const labelClassName = getLabelClassName(decorationStrikeThrough)
   const dom: VirtualDomNode[] = []
   const hasButtons = buttons.length
   const buttonsDom = getButtonsVirtualDom(buttons)
   const iconsDom = getIconsDom(icon, fileIcon)
-  const treeItemClassName = getTreeItemClassName(indent)
+  const treeItemClassName = getTreeItemClassName(indent, selected)
   dom.push(
     {
       ariaPosInSet: posInSet,
+      ariaSelected: selected ? 'true' : undefined,
       ariaSetSize: setSize,
       childCount: 2 + (iconsDom.length > 0 ? 1 : 0) + (hasButtons ? 1 : 0),
       className: treeItemClassName,

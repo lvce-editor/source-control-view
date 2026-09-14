@@ -8,7 +8,7 @@ import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/Ge
 import { getScrollBarSize } from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 
 export const updateVisibleItems = async (state: Readonly<SourceControlState>, expandedGroups: Readonly<Record<string, boolean>>): Promise<SourceControlState> => {
-  const { actionsCache, allGroups, fileIconCache, headerHeight, height, iconDefinitions, indents, itemHeight, minimumSliderSize } = state
+  const { actionsCache, allGroups, fileIconCache, headerHeight, height, iconDefinitions, indents, itemHeight, minimumSliderSize, selectedItem } = state
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
   const badgeCount = allGroups.reduce((sum, group) => sum + group.items.length, 0)
   const total = displayItems.length
@@ -20,7 +20,7 @@ export const updateVisibleItems = async (state: Readonly<SourceControlState>, ex
   const numberOfVisible = GetNumberOfVisibleItems.getNumberOfVisibleItems(listHeight, itemHeight)
   const minLineY = 0
   const maxLineY = Math.min(numberOfVisible, total)
-  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, fileIconCache)
+  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, fileIconCache, selectedItem)
   return {
     ...state,
     badgeCount,

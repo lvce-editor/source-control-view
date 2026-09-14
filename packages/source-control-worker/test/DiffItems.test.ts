@@ -93,10 +93,24 @@ test('isEqual - different visibleItems', () => {
         indent: 16,
         label: 'test.js',
         posInSet: 1,
+        selected: false,
         setSize: 1,
         type: 0,
       },
     ],
+  }
+  const result = isEqual(state1, state2)
+  expect(result).toBe(false)
+})
+
+test('isEqual - different selectedItem', () => {
+  const state1: SourceControlState = {
+    ...CreateDefaultState.createDefaultState(),
+    selectedItem: undefined,
+  }
+  const state2: SourceControlState = {
+    ...CreateDefaultState.createDefaultState(),
+    selectedItem: { file: 'test.js', groupId: 'changes' },
   }
   const result = isEqual(state1, state2)
   expect(result).toBe(false)

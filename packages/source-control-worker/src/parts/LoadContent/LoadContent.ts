@@ -18,6 +18,7 @@ import { requestSourceControlButtons } from '../RequestSourceControlButtons/Requ
 import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedGroups.ts'
 import { restoreState } from '../RestoreState/RestoreState.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
+import * as SelectedItem from '../SelectedItem/SelectedItem.ts'
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 import * as SourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
@@ -37,6 +38,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     inputPaddingBlock,
     itemHeight,
     minimumSliderSize,
+    selectedItem: currentSelectedItem,
     width,
     workspacePath,
   } = state
@@ -74,7 +76,8 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   const minLineY = 0
   const maxLineY = Math.min(numberOfVisible, total)
   const newFileIconCache = await GetFileIcons.getFileIcons(displayItems, fileIconCache)
-  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
+  const selectedItem = SelectedItem.isSelectedItemValid(currentSelectedItem, allGroups) ? currentSelectedItem : undefined
+  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache, selectedItem)
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inProgress = await SourceControl.getProgress(enabledProviderIds, assetDir, platform, applicationId)
   return {
@@ -101,6 +104,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     providerUnavailableMessage,
     root,
     scrollBarHeight,
+    selectedItem,
     showGenerateCommitMessageButton,
     sourceControlButtons,
     splitButtonEnabled,

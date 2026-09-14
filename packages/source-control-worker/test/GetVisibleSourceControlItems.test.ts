@@ -51,6 +51,7 @@ test('getVisibleSourceControlItems - single item', () => {
       buttons: actionsCache['test-item'],
       fileIcon: 'file-icon',
       indent: 16,
+      selected: false,
     },
   ])
 })
@@ -117,12 +118,51 @@ test('getVisibleSourceControlItems - multiple items', () => {
       buttons: actionsCache['test1-item'],
       fileIcon: 'file-icon1',
       indent: 16,
+      selected: false,
     },
     {
       ...items[1],
       buttons: actionsCache['test2-item'],
       fileIcon: 'file-icon2',
       indent: 16,
+      selected: false,
     },
   ])
+})
+
+test('getVisibleSourceControlItems - selects only the matching file in its group', () => {
+  const items = [
+    {
+      badgeCount: 0,
+      decorationIcon: '',
+      decorationIconTitle: '',
+      decorationStrikeThrough: false,
+      detail: '',
+      file: 'test.txt',
+      groupId: 'changes',
+      icon: '',
+      label: 'test.txt',
+      posInSet: 1,
+      setSize: 1,
+      type: DirentType.File,
+    },
+    {
+      badgeCount: 0,
+      decorationIcon: '',
+      decorationIconTitle: '',
+      decorationStrikeThrough: false,
+      detail: '',
+      file: 'test.txt',
+      groupId: 'staged',
+      icon: '',
+      label: 'test.txt',
+      posInSet: 1,
+      setSize: 1,
+      type: DirentType.File,
+    },
+  ]
+
+  const result = getVisibleSourceControlItems(items, 0, 2, {}, {}, { file: 'test.txt', groupId: 'staged' })
+
+  expect(result.map((item) => item.selected)).toEqual([false, true])
 })

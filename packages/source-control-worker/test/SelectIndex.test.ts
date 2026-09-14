@@ -132,10 +132,22 @@ test('selectIndex - file', async (): Promise<void> => {
     ],
     enabledProviderIds: ['test'],
     items: [testItem],
+    maxLineY: 1,
     root: '/test',
+    visibleItems: [
+      {
+        ...testItem,
+        buttons: [],
+        fileIcon: '',
+        indent: 16,
+        selected: false,
+      },
+    ],
   }
   const newState = await selectIndex(state, 0)
   expect(newState.items[0].type).toBe(DirentType.File)
+  expect(newState.selectedItem).toEqual({ file: 'test.txt', groupId: 'test' })
+  expect(newState.visibleItems[0].selected).toBe(true)
 })
 
 test('selectIndex - unknown item type', async (): Promise<void> => {

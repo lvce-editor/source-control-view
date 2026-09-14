@@ -18,6 +18,7 @@ test('getSourceControlItemVirtualDom - directory', () => {
     indent: 0,
     label: 'test',
     posInSet: 1,
+    selected: false,
     setSize: 1,
     type: DirentType.Directory,
   }
@@ -40,6 +41,7 @@ test('getSourceControlItemVirtualDom - directory expanded', () => {
     indent: 0,
     label: 'test',
     posInSet: 1,
+    selected: false,
     setSize: 1,
     type: DirentType.DirectoryExpanded,
   }
@@ -62,10 +64,40 @@ test('getSourceControlItemVirtualDom - other', () => {
     indent: 16,
     label: 'test.js',
     posInSet: 1,
+    selected: false,
     setSize: 1,
     type: DirentType.File,
   }
   const result = getSourceControlItemVirtualDom(item)
   expect(result[0].childCount).toBe(2)
   expect(result.some((node) => node.className === 'FileIcon')).toBe(false)
+})
+
+test('getSourceControlItemVirtualDom - selected file', () => {
+  const item: VisibleItem = {
+    badgeCount: 0,
+    buttons: [],
+    decorationIcon: '',
+    decorationIconTitle: '',
+    decorationStrikeThrough: false,
+    detail: '',
+    file: 'test.js',
+    fileIcon: '',
+    groupId: 'test',
+    icon: '',
+    indent: 16,
+    label: 'test.js',
+    posInSet: 1,
+    selected: true,
+    setSize: 1,
+    type: DirentType.File,
+  }
+  const result = getSourceControlItemVirtualDom(item)
+
+  expect(result[0]).toEqual(
+    expect.objectContaining({
+      ariaSelected: 'true',
+      className: 'TreeItem Indent-16 IndentRight-12 TreeItemActive',
+    }),
+  )
 })
