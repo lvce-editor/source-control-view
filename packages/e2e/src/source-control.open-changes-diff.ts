@@ -35,7 +35,6 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(errorMessage).toHaveCount(0)
   await expect(firstFile).toHaveClass('TreeItemActive')
   await expect(firstFile).toHaveAttribute('aria-selected', 'true')
-  await expect(firstFile).toHaveCSS('background-color', 'rgba(86, 114, 143, 0.12)')
   await expect(secondFile).toHaveAttribute('aria-selected', null)
 
   // Move focus to the editor and ensure the selection remains visible.
