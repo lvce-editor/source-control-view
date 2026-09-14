@@ -88,38 +88,14 @@ export const getGroups = (providerId: string, root: string, assetDir: string, pl
   return ExtensionHostSourceControl.getGroups(providerId, root, assetDir, platform, applicationId)
 }
 
-const trimTrailingSlashes = (value: string): string => {
-  let result = value
-  while (result.endsWith('/')) {
-    result = result.slice(0, -1)
-  }
-  return result
-}
-
-const normalizeAssetDir = (assetDir: string): string => {
-  if (!assetDir) {
-    return ''
-  }
-  const withLeadingSlash = assetDir.startsWith('/') ? assetDir : `/${assetDir}`
-  return trimTrailingSlashes(withLeadingSlash)
-}
-
-const getIconDefinition = (icon: string, baseUri: string, assetDir: string, platform: number, extensionId: unknown): string => {
-  if (!URL.canParse(icon, baseUri)) {
-    throw new Error('Invalid source control icon URL')
-  }
+const getIconDefinition = (icon: string, baseUri: string, dir: string, platform: number, id: unknown): string => {
   const uri = new URL(icon, baseUri).href
   if (platform === PlatformType.Electron || platform === PlatformType.Remote) {
     const protocol = GetProtocol.getProtocol(uri)
     const path = GetProtocol.getPath(protocol, uri)
-    const extensionUri = new URL('.', baseUri).href
-    const extensionProtocol = GetProtocol.getProtocol(extensionUri)
-    const extensionPath = trimTrailingSlashes(GetProtocol.getPath(extensionProtocol, extensionUri))
-    const normalizedAssetDir = normalizeAssetDir(assetDir)
-    const packagedExtensionPath = `/static${normalizedAssetDir}/extensions/builtin.git`
-    if (extensionId === 'builtin.git' && normalizedAssetDir && extensionPath.endsWith(packagedExtensionPath) && path.startsWith(`${extensionPath}/`)) {
-      const relativePath = path.slice(extensionPath.length)
-      return `${normalizedAssetDir}/extensions/builtin.git${relativePath}`
+    const root = GetProtocol.getPath(GetProtocol.getProtocol(baseUri), baseUri)
+    if (id === 'builtin.git' && dir && root.endsWith(`/static${dir}/extensions/builtin.git/`) && path.startsWith(root)) {
+      return `${dir}/extensions/builtin.git${path.slice(root.length - 1)}`
     }
     return `/remote${path.startsWith('/') ? '' : '/'}${path}`
   }
