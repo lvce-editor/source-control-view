@@ -10,7 +10,7 @@ test('returns installed message when no source control extension is installed', 
     }),
   )
 
-  const result = await getSourceControlUnavailableMessage('/test-assets', 1, '')
+  const result = await getSourceControlUnavailableMessage('/workspace', '/test-assets', 1, '')
 
   expect(result).toBe('No source control extensions are installed.')
   expect(mockRpc.invocations).toEqual([['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '/test-assets', 1]])
@@ -36,7 +36,7 @@ test('returns disabled message when all source control extensions are disabled',
     }),
   )
 
-  const result = await getSourceControlUnavailableMessage('/test-assets', 1, '')
+  const result = await getSourceControlUnavailableMessage('/workspace', '/test-assets', 1, '')
 
   expect(result).toBe('All installed source control extensions are disabled.')
 })
@@ -53,7 +53,7 @@ test('returns workspace message when an enabled source control extension is inst
     }),
   )
 
-  const result = await getSourceControlUnavailableMessage('/test-assets', 1, '')
+  const result = await getSourceControlUnavailableMessage('/workspace', '/test-assets', 1, '')
 
   expect(result).toBe('No source control provider is available for this workspace.')
 })
@@ -67,7 +67,16 @@ test('returns fallback message when extension management is unavailable', async 
     }),
   )
 
-  const result = await getSourceControlUnavailableMessage('/test-assets', 1, '')
+  const result = await getSourceControlUnavailableMessage('/workspace', '/test-assets', 1, '')
 
   expect(result).toBe('No source control provider is enabled or installed.')
+})
+
+test('returns no workspace message without querying extensions', async () => {
+  using mockRpc = ExtensionManagementWorker.registerMockRpc({})
+
+  const result = await getSourceControlUnavailableMessage('', '/test-assets', 1, '')
+
+  expect(result).toBe('No workspace is open.')
+  expect(mockRpc.invocations).toEqual([])
 })

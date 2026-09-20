@@ -1,5 +1,6 @@
 import { PlatformType } from '@lvce-editor/constants'
 import * as Assert from '../Assert/Assert.ts'
+import * as ExecuteProvider from '../ExecuteProvider/ExecuteProvider.ts'
 import * as ExtensionHostSourceControl from '../ExtensionHostSourceControl/ExtensionHostSourceControl.ts'
 import * as ExtensionMeta from '../ExtensionMeta/ExtensionMeta.ts'
 import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
@@ -37,7 +38,14 @@ export const getChangedFiles = (providerId: string, assetDir: string, platform: 
 
 const getProviderBadgeCount = async (providerId: string, assetDir: string, platform: number, applicationId: string): Promise<any> => {
   try {
-    return await ExtensionHostSourceControl.getBadgeCount(providerId, assetDir, platform, applicationId)
+    return await ExecuteProvider.executeProvider({
+      applicationId,
+      assetDir,
+      event: 'none',
+      method: 'ExtensionHostSourceControl.getBadgeCount',
+      params: [providerId],
+      platform,
+    })
   } catch {
     try {
       const changedFiles = await ExtensionHostSourceControl.getChangedFiles(providerId, assetDir, platform, applicationId)
@@ -80,25 +88,40 @@ export const getGroups = (providerId: string, root: string, assetDir: string, pl
   return ExtensionHostSourceControl.getGroups(providerId, root, assetDir, platform, applicationId)
 }
 
-const getIconDefinition = (icon: string, baseUri: string, platform: number): string => {
-  if (!URL.canParse(icon, baseUri)) {
-    throw new Error('Invalid source control icon URL')
+export const getCurrentBranch = async (providerIds: readonly string[], root: string, assetDir: string, platform: number, applicationId: string): Promise<string> => {
+  for (const providerId of providerIds) {
+    try {
+      const branch = await ExtensionHostSourceControl.getCurrentBranch(providerId, root, assetDir, platform, applicationId)
+      if (typeof branch === 'string' && branch.trim()) {
+        return branch.trim()
+      }
+    } catch {
+      // Providers without branch metadata do not affect the source control view.
+    }
   }
-  const uri = new URL(icon, baseUri).href
-  if (platform === PlatformType.Electron || platform === PlatformType.Remote) {
+  return ''
+}
+
+const getIcon = (icon: string, base: string, dir: string, p: number): string => {
+  const uri = new URL(icon, base).href
+  if (p === PlatformType.Electron || p === PlatformType.Remote) {
     const protocol = GetProtocol.getProtocol(uri)
-    const path = GetProtocol.getPath(protocol, uri)
-    return `/remote${path.startsWith('/') ? '' : '/'}${path}`
+    const x = GetProtocol.getPath(protocol, uri)
+    const root = GetProtocol.getPath(GetProtocol.getProtocol(base), base)
+    if (dir && root.endsWith(`/static${dir}/extensions/builtin.git/`) && x.startsWith(root)) {
+      return `${dir}/extensions/builtin.git${x.slice(root.length - 1)}`
+    }
+    return `/remote${x.startsWith('/') ? '' : '/'}${x}`
   }
   return uri
 }
 
-export const getIconDefinitions = async (providerIds: readonly string[], assetDir: string, platform: number, applicationId: string): Promise<readonly string[]> => {
+export const getIconDefinitions = async (providerIds: readonly string[], dir: string, platform: number, applicationId: string): Promise<readonly string[]> => {
   try {
     if (providerIds.length === 0) {
       return []
     }
-    const extensions = await ExtensionMeta.getExtensions(assetDir, platform, applicationId)
+    const extensions = await ExtensionMeta.getExtensions(dir, platform, applicationId)
     const extension = extensions.find((extension) => {
       const idParts = typeof extension?.id === 'string' ? extension.id.split('.') : []
       return idParts[1] === providerIds[0]
@@ -107,9 +130,22 @@ export const getIconDefinitions = async (providerIds: readonly string[], assetDi
       return []
     }
     const icons = extension['source-control-icons'].filter((icon: unknown): icon is string => typeof icon === 'string')
-    const baseUri = extension.uri.endsWith('/') ? extension.uri : `${extension.uri}/`
-    return icons.map((icon) => getIconDefinition(icon, baseUri, platform))
+    const base = extension.uri.endsWith('/') ? extension.uri : `${extension.uri}/`
+    return icons.map((icon) => getIcon(icon, base, dir, platform))
   } catch {
     return []
   }
+}
+
+export const getProgress = async (providerIds: readonly string[], assetDir: string, platform: number, applicationId: string): Promise<boolean> => {
+  for (const id of providerIds) {
+    try {
+      if (await ExecuteProvider.executeProvider({ applicationId, assetDir, event: 'none', method: 'ExtensionHostSourceControl.getProgress', params: [id], platform })) {
+        return true
+      }
+    } catch {
+      // Providers and runtimes without progress support are idle.
+    }
+  }
+  return false
 }

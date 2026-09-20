@@ -7,15 +7,19 @@ interface TimerGlobal {
 
 const timerGlobal = globalThis as unknown as TimerGlobal
 
-const revealInExplorerActual = async (uri: string, uid: number): Promise<void> => {
+const revealInExplorerActual = async (uri: string, uid: number, applicationId: string | undefined): Promise<void> => {
+  if (applicationId === undefined) {
+    await RendererWorker.invoke('RevealInExplorer.reveal', uri)
+    return
+  }
   await RendererWorker.invoke('Application.executeForView', uid, 'SideBar.show', 'Explorer')
   await RendererWorker.invoke('Application.executeForView', uid, 'Explorer.reveal', uri)
 }
 
 export const revealInExplorer = (state: SourceControlState, uri: string): SourceControlState => {
-  const { id } = state
+  const { applicationId, id } = state
   timerGlobal.setTimeout(() => {
-    void revealInExplorerActual(uri, id).catch(() => {})
+    void revealInExplorerActual(uri, id, applicationId).catch(() => {})
   }, 0)
   return state
 }

@@ -12,3 +12,11 @@ test('readFile', async (): Promise<void> => {
   expect(content).toBe('test content')
   expect(mockRpc.invocations).toEqual([['Application.execute', '', 'FileSystem.readFile', 'test.txt']])
 })
+
+test('readFile supports legacy desktop views without an application id', async (): Promise<void> => {
+  using mockRpc = RendererWorker.registerMockRpc({
+    'FileSystem.readFile': async (): Promise<string> => 'test content',
+  })
+  expect(await readFile('test.txt', 'utf8', undefined)).toBe('test content')
+  expect(mockRpc.invocations).toEqual([['FileSystem.readFile', 'test.txt']])
+})

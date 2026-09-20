@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { ExtensionHost, ExtensionManagementWorker, RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
+import { IconThemeWorker, ExtensionHost, ExtensionManagementWorker, RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
@@ -14,6 +14,7 @@ test('loadContent - returns an error state when loading fails', async (): Promis
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
+  IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 
@@ -39,6 +40,7 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
+  IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 
@@ -50,6 +52,7 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
   expect(result.allGroups).toEqual([])
   expect(result.items).toEqual([])
   expect(result.visibleItems).toEqual([])
+  expect(result.providerUnavailableMessage).toBe('No workspace is open.')
   expect(result.inputValue).toBe('')
   expect(result.inputPlaceholder).toBeDefined()
   // Empty input returns lineHeight + inputPadding * 2
@@ -68,6 +71,7 @@ test('loadContent - with saved state inputValue', async (): Promise<void> => {
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
+  IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 
@@ -100,6 +104,7 @@ test('loadContent - with enabled providers', async (): Promise<void> => {
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
+  IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 
@@ -113,6 +118,41 @@ test('loadContent - with enabled providers', async (): Promise<void> => {
   expect(result.iconDefinitions).toEqual(['https://example.com/extensions/builtin.git/icon1', 'https://example.com/extensions/builtin.git/icon2'])
   expect(result.decorationIcons).toEqual(['https://example.com/extensions/builtin.git/icon1', 'https://example.com/extensions/builtin.git/icon2'])
   expect(result.showGenerateCommitMessageButton).toBe(false)
+})
+
+test('loadContent - uses short paths for packaged builtin git decoration icons', async (): Promise<void> => {
+  const commandMap = {
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
+    'ExtensionHostSourceControl.getFeatures': async (): Promise<{ showGenerateCommitMessageButton: boolean }> => ({ showGenerateCommitMessageButton: false }),
+    'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [],
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [
+      {
+        id: 'builtin.git',
+        'source-control-icons': ['./icons/dark/status-modified.svg'],
+        uri: 'file:///usr/lib/lvce/resources/app/static/abc123/extensions/builtin.git',
+      },
+    ],
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
+  }
+  ExtensionHost.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
+  IconThemeWorker.registerMockRpc(commandMap)
+  RendererWorker.registerMockRpc(commandMap)
+  TextMeasurementWorker.registerMockRpc(commandMap)
+
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    assetDir: '/abc123',
+    platform: 2,
+    workspacePath: '/test/workspace',
+  }
+  const result = await loadContent(state, {})
+
+  expect(result.iconDefinitions).toEqual(['/abc123/extensions/builtin.git/icons/dark/status-modified.svg'])
+  expect(result.decorationIcons).toEqual(['/abc123/extensions/builtin.git/icons/dark/status-modified.svg'])
 })
 
 test('loadContent - with groups', async (): Promise<void> => {
@@ -143,6 +183,7 @@ test('loadContent - with groups', async (): Promise<void> => {
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
+  IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 
@@ -191,6 +232,7 @@ test.each([
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
+  IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 
@@ -250,6 +292,7 @@ test('loadContent - calculates scroll bar and visible items correctly', async ()
   }
   ExtensionHost.registerMockRpc(commandMap)
   ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
+  IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 

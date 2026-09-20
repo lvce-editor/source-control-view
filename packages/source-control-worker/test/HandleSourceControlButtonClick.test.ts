@@ -1,5 +1,5 @@
 import { expect, jest, test } from '@jest/globals'
-import { ExtensionHost, ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
+import { IconThemeWorker, ExtensionHost, ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
 import { RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleSourceControlButtonClick } from '../src/parts/HandleSourceControlButtonClick/HandleSourceControlButtonClick.ts'
@@ -17,6 +17,7 @@ test('handleSourceControlButtonClick', async () => {
   using _extensionHostMockRpc = ExtensionHost.registerMockRpc(commandMap)
   using activationRpc = ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
   TextMeasurementWorker.registerMockRpc(commandMap)
+  IconThemeWorker.registerMockRpc(commandMap)
   using mockRpc = RendererWorker.registerMockRpc(commandMap)
 
   const state = {
@@ -41,12 +42,8 @@ test('handleSourceControlButtonClick', async () => {
     ['Extensions.invokeForApplication', '', 'Extensions.executeCommand', 'git.commitAndSync', 'test message'],
     ['Extensions.invokeForApplication', '', 'Extensions.activateByEvent', 'onSourceControl:file'],
     ['Extensions.invokeForApplication', '', 'ExtensionHostSourceControl.getEnabledProviderIds', 'file', ''],
-    ['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '', 0],
   ])
-  expect(mockRpc.invocations).toEqual([
-    ['Preferences.get', 'sourceControl.splitButtonEnabled'],
-    ['IconTheme.getIcons', []],
-  ])
+  expect(mockRpc.invocations).toEqual([['Preferences.get', 'sourceControl.splitButtonEnabled']])
 })
 
 test('handleSourceControlButtonClick - unknown button', async () => {

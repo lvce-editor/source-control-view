@@ -54,6 +54,16 @@ test('isEqual - different items', () => {
   expect(result).toBe(false)
 })
 
+test('isEqual - different inputPlaceholder', () => {
+  const state1: SourceControlState = CreateDefaultState.createDefaultState()
+  const state2: SourceControlState = {
+    ...CreateDefaultState.createDefaultState(),
+    inputPlaceholder: "Message (Enter) to commit on 'feature/test'",
+  }
+  const result = isEqual(state1, state2)
+  expect(result).toBe(false)
+})
+
 test('isEqual - different maxLineY', () => {
   const state1: SourceControlState = CreateDefaultState.createDefaultState()
   const state2: SourceControlState = {

@@ -43,3 +43,19 @@ test('revealInExplorer keeps the explorer in the source control application', as
   ])
   jest.useRealTimers()
 })
+
+test('revealInExplorer supports legacy desktop views without an application id', async () => {
+  jest.useFakeTimers()
+  using mockRpc = ParentRpc.registerMockRpc({
+    'RevealInExplorer.reveal': async (): Promise<void> => {},
+  })
+  const state = createDefaultState()
+  Object.assign(state, { applicationId: undefined })
+  const uri = '/test/src/test.ts'
+
+  expect(revealInExplorer(state, uri)).toBe(state)
+  await jest.runAllTimersAsync()
+
+  expect(mockRpc.invocations).toEqual([['RevealInExplorer.reveal', uri]])
+  jest.useRealTimers()
+})

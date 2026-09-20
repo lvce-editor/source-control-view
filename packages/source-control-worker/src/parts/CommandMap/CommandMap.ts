@@ -29,10 +29,11 @@ import { handleScrollBarCaptureLost } from '../HandleScrollBarCaptureLost/Handle
 import { handleScrollBarClick } from '../HandleScrollBarClick/HandleScrollBarClick.ts'
 import { handleScrollBarMove } from '../HandleScrollBarMove/HandleScrollBarMove.ts'
 import * as HandleSourceControlButtonClick from '../HandleSourceControlButtonClick/HandleSourceControlButtonClick.ts'
+import { handleSourceControlProgressChange } from '../HandleSourceControlProgressChange/HandleSourceControlProgressChange.ts'
 import * as HandleWheel from '../HandleWheel/HandleWheel.ts'
 import { handleWorkspaceRefresh } from '../HandleWorkspaceRefresh/HandleWorkspaceRefresh.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
-import * as LoadContent from '../LoadContent/LoadContent.ts'
+import { loadContentCommand } from '../LoadContentCommand/LoadContentCommand.ts'
 import { openChanges } from '../OpenChanges/OpenChanges.ts'
 import { openContainingFolder } from '../OpenContainingFolder/OpenContainingFolder.ts'
 import { openFile } from '../OpenFile/OpenFile.ts'
@@ -93,9 +94,10 @@ export const commandMap = {
   'SourceControl.handleScrollBarClick': WrapCommand.wrapCommand(handleScrollBarClick),
   'SourceControl.handleScrollBarMove': WrapCommand.wrapCommand(handleScrollBarMove),
   'SourceControl.handleSourceControlButtonClick': WrapCommand.wrapCommand(HandleSourceControlButtonClick.handleSourceControlButtonClick),
+  'SourceControl.handleSourceControlProgressChange': handleSourceControlProgressChange,
   'SourceControl.handleWheel': WrapCommand.wrapCommand(HandleWheel.handleWheel),
   'SourceControl.handleWorkspaceRefresh': WrapCommand.wrapCommand(handleWorkspaceRefresh),
-  'SourceControl.loadContent': WrapCommand.wrapCommand(LoadContent.loadContent),
+  'SourceControl.loadContent': loadContentCommand,
   'SourceControl.openChanges': WrapCommand.wrapCommand(openChanges),
   'SourceControl.openContainingFolder': WrapCommand.wrapCommand(openContainingFolder),
   'SourceControl.openFile': WrapCommand.wrapCommand(openFile),

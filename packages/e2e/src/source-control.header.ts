@@ -18,5 +18,6 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(header).toBeVisible()
   const inputWrapper = header.locator('.ViewSourceControlInput')
   await expect(inputWrapper).toHaveCount(1)
-  await expect(inputWrapper.locator('textarea.InputBox.MultilineInputBox')).toHaveCount(1)
+  const textArea = inputWrapper.locator('textarea.InputBox.MultilineInputBox')
+  await expect(textArea).toHaveCount(1)
 }

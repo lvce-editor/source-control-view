@@ -31,6 +31,7 @@ export interface SourceControlState {
   readonly index: readonly any[]
   readonly initial: boolean
   readonly inlineDiffEditorBreakpoint: number
+  readonly inProgress: boolean
   readonly inputActions: readonly ActionButton[]
   readonly inputBoxHeight: number
   readonly inputBoxMaxHeight: number
@@ -55,6 +56,7 @@ export interface SourceControlState {
   readonly minimumSliderSize: number
   readonly minLineY: number
   readonly platform: number
+  readonly progressRequestId: number
   readonly providerId: string
   readonly providerUnavailableMessage: string
   readonly root: string

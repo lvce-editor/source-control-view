@@ -48,13 +48,13 @@ export const getChangedFiles = (providerId: string, assetDir: string, platform: 
   })
 }
 
-export const getBadgeCount = (providerId: string, assetDir: string, platform: number, applicationId: string): Promise<any> => {
+export const getCurrentBranch = (providerId: string, path: string, assetDir: string, platform: number, applicationId: string): Promise<string | undefined> => {
   return ExecuteProvider.executeProvider({
     applicationId,
     assetDir,
     event: 'none',
-    method: ExtensionHostCommandType.SourceControlGetBadgeCount,
-    params: [providerId],
+    method: ExtensionHostCommandType.SourceControlGetCurrentBranch,
+    params: [providerId, path],
     platform,
   })
 }

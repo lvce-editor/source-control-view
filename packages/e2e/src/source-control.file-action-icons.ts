@@ -16,7 +16,10 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   // assert
   const fileItem = Locator('.SourceControlItems .TreeItem').nth(1)
-  await expect(fileItem.locator('.MaskIconGoToFile')).toHaveCount(1)
-  await expect(fileItem.locator('.MaskIconDiscard')).toHaveCount(1)
-  await expect(fileItem.locator('.MaskIconAdd')).toHaveCount(1)
+  const openFileIcon = fileItem.locator('.MaskIconGoToFile')
+  await expect(openFileIcon).toHaveCount(1)
+  const discardIcon = fileItem.locator('.MaskIconDiscard')
+  await expect(discardIcon).toHaveCount(1)
+  const stageIcon = fileItem.locator('.MaskIconAdd')
+  await expect(stageIcon).toHaveCount(1)
 }
