@@ -89,6 +89,37 @@ test('getChangedFiles should call ExtensionHostSourceControl.getChangedFiles', a
   expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHost.sourceControlGetChangedFiles', 'test-provider']])
 })
 
+test('getCurrentBranch should return the first available provider branch', async (): Promise<void> => {
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc({
+    'ExtensionHostSourceControl.getCurrentBranch': async (providerId: string): Promise<string | undefined> => (providerId === 'git' ? 'main' : undefined),
+  })
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+  })
+
+  const result = await SourceControl.getCurrentBranch(['other', 'git'], '/test/root', '/test-asset-dir', 1)
+
+  expect(result).toBe('main')
+  expect(extensionHostMockRpc.invocations).toEqual([
+    ['ExtensionHostSourceControl.getCurrentBranch', 'other', '/test/root'],
+    ['ExtensionHostSourceControl.getCurrentBranch', 'git', '/test/root'],
+  ])
+})
+
+test('getCurrentBranch should use an empty fallback when providers do not expose a branch', async (): Promise<void> => {
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc({
+    'ExtensionHostSourceControl.getCurrentBranch': async (): Promise<undefined> => undefined,
+  })
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+  })
+
+  const result = await SourceControl.getCurrentBranch(['provider'], '/test/root', '/test-asset-dir', 1)
+
+  expect(result).toBe('')
+  expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHostSourceControl.getCurrentBranch', 'provider', '/test/root']])
+})
+
 test('getBadgeCount should call ExtensionHostSourceControl.getBadgeCount for each provider', async (): Promise<void> => {
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.getBadgeCount': async (providerId: string): Promise<number> => (providerId === 'test-provider-1' ? 2 : 3),

@@ -103,6 +103,11 @@ test('messageEnterToCommitOnMaster', () => {
   expect(result).toBe(I18nString.i18nString(UiStrings.MessageEnterToCommitOnMaster))
 })
 
+test('messageEnterToCommit', () => {
+  expect(SourceControlStrings.messageEnterToCommit('main')).toBe("Message (Enter) to commit on 'main'")
+  expect(SourceControlStrings.messageEnterToCommit('')).toBe('Message (Enter) to commit')
+})
+
 test('sourceControlInput', () => {
   const result = SourceControlStrings.sourceControlInput()
   expect(result).toBe(I18nString.i18nString(UiStrings.SourceControlInput))

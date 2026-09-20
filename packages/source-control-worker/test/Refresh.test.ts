@@ -25,12 +25,38 @@ test('refresh should update state with groups and visible items', async (): Prom
     allGroups: [],
     finalDeltaY: 0,
     gitRoot: '',
+    inputPlaceholder: 'Message (Enter) to commit',
     items: [],
     maxLineY: 0,
     scrollBarHeight: 0,
     visibleItems: [],
   })
   expect(mockRpc.invocations).toEqual([])
+})
+
+test('refresh updates the placeholder when only the current branch changes', async (): Promise<void> => {
+  using iconRpc = IconThemeWorker.registerMockRpc({
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+  })
+  using _extensionManagementRpc = ExtensionManagementWorker.registerMockRpc({
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+  })
+  using extensionRpc = ExtensionHost.registerMockRpc({
+    'ExtensionHostSourceControl.getGroups': async (): Promise<readonly never[]> => [],
+    'ExtensionHostSourceControl.getBadgeCount': async (): Promise<number> => 0,
+    'ExtensionHostSourceControl.getProgress': async (): Promise<boolean> => false,
+    'ExtensionHostSourceControl.getCurrentBranch': async (): Promise<string> => 'feature/test',
+  })
+
+  const result = await Refresh.refresh({
+    ...createDefaultState(),
+    enabledProviderIds: ['git'],
+    inputPlaceholder: "Message (Enter) to commit on 'main'",
+  })
+
+  expect(result.inputPlaceholder).toBe("Message (Enter) to commit on 'feature/test'")
+  expect(extensionRpc.invocations).toContainEqual(['ExtensionHostSourceControl.getCurrentBranch', 'git', '/'])
+  expect(iconRpc.invocations).toEqual([['IconTheme.getIcons', []]])
 })
 
 test('refresh - should not request icons for group headers', async (): Promise<void> => {

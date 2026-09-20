@@ -20,6 +20,8 @@ const committed = Object.create(null)
 
 const renamedFilesMap = Object.create(null)
 
+let currentBranch = 'main'
+
 const decorations = {
   'added.css': {
     icon: IconType.Added,
@@ -138,6 +140,14 @@ const getChangedFiles = () => {
   return []
 }
 
+const getCurrentBranch = () => {
+  return currentBranch
+}
+
+const checkout = (branch) => {
+  currentBranch = branch
+}
+
 const stage = (path) => {
   staged[path] = true
 }
@@ -184,6 +194,7 @@ const sampleSourceControlProvider = {
   rootUri,
   getGroups,
   getChangedFiles,
+  getCurrentBranch,
   stage,
   unstage,
   acceptInput,
@@ -214,6 +225,10 @@ const activate = async () => {
   registerCommand({
     id: 'sampleSourceControl.rename',
     execute: rename,
+  })
+  registerCommand({
+    id: 'sampleSourceControl.checkout',
+    execute: checkout,
   })
 }
 
