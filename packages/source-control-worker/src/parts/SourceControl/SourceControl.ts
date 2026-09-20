@@ -88,6 +88,20 @@ export const getGroups = (providerId: string, root: string, assetDir: string, pl
   return ExtensionHostSourceControl.getGroups(providerId, root, assetDir, platform, applicationId)
 }
 
+export const getCurrentBranch = async (providerIds: readonly string[], root: string, assetDir: string, platform: number, applicationId?: string): Promise<string> => {
+  for (const providerId of providerIds) {
+    try {
+      const branch = await ExtensionHostSourceControl.getCurrentBranch(providerId, root, assetDir, platform, applicationId)
+      if (typeof branch === 'string' && branch.trim()) {
+        return branch.trim()
+      }
+    } catch {
+      // Providers without branch metadata do not affect the source control view.
+    }
+  }
+  return ''
+}
+
 const getIcon = (icon: string, base: string, dir: string, p: number): string => {
   const uri = new URL(icon, base).href
   if (p === PlatformType.Electron || p === PlatformType.Remote) {
