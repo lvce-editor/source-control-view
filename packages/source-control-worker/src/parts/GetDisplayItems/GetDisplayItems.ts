@@ -20,6 +20,12 @@ export function getDisplayItems(
   allGroups: readonly Group[],
   expandedGroups: Readonly<Record<string, boolean>>,
   iconDefinitions: readonly string[],
+  viewMode: SourceControlViewMode,
+): readonly DisplayItem[] | Promise<readonly DisplayItem[]>
+export function getDisplayItems(
+  allGroups: readonly Group[],
+  expandedGroups: Readonly<Record<string, boolean>>,
+  iconDefinitions: readonly string[],
   viewMode: SourceControlViewMode = ViewMode.List,
 ): readonly DisplayItem[] | Promise<readonly DisplayItem[]> {
   if (viewMode === ViewMode.Tree) {
