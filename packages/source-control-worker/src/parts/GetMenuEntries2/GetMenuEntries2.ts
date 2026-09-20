@@ -12,7 +12,7 @@ export const getMenuEntries2 = (state: SourceControlState, props: ContextMenuPro
     return []
   }
   const entries = item.type === DirentType.File ? getMenuEntries(props.uri, platform !== PlatformType.Web) : []
-  const actions = actionsCache[getContextId(item.groupId, item.type)] || []
+  const actions = actionsCache[getContextId(item.groupId, item.type, item.directory)] || []
   const contributed = actions
     .filter((action) => entries.every((entry) => entry.label !== action.label))
     .map((action): MenuEntry => ({

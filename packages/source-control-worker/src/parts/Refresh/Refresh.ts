@@ -28,10 +28,11 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     platform,
     root,
     splitButtonEnabled,
+    viewMode,
   } = state
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform, applicationId)
   const expandedGroups = restoreExpandedGroups(allGroups)
-  const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
+  const displayItems = await getDisplayItems(allGroups, expandedGroups, iconDefinitions, viewMode)
   const badgeCount = await SourceControl.getBadgeCount(enabledProviderIds, assetDir, platform, applicationId)
   const total = displayItems.length
   const contentHeight = total * itemHeight

@@ -16,10 +16,10 @@ export const getVisibleSourceControlItems = (
   const visible: VisibleItem[] = []
   for (let i = minLineY; i < maxLineY; i++) {
     const item = items[i]
-    const contextId = getContextId(item.groupId, item.type)
+    const contextId = getContextId(item.groupId, item.type, item.directory)
     const buttons = actionsCache[contextId] || EmptySourceControlButtons.emptySourceControlButtons
     const fileIcon = fileIconCache[item.label] || ''
-    const indent = GetTreeItemIndent.getTreeItemIndent(item.type)
+    const indent = GetTreeItemIndent.getTreeItemIndent(item.type, item.depth)
     visible.push({
       ...item,
       buttons,
