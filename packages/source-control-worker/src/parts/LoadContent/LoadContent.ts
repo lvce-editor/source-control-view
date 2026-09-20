@@ -6,6 +6,7 @@ import { getGroups } from '../GetGroups/GetGroups.ts'
 import { getHeaderHeight } from '../GetHeaderHeight/GetHeaderHeight.ts'
 import { getIndents } from '../GetIndents/GetIndents.ts'
 import { getInputHeight } from '../GetInputHeight/GetInputHeight.ts'
+import { getInputWidth } from '../GetInputWidth/GetInputWidth.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
 import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
 import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
@@ -65,7 +66,16 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   const badgeCount = await SourceControl.getBadgeCount(enabledProviderIds, assetDir, platform, applicationId)
   const currentBranch = await SourceControl.getCurrentBranch(enabledProviderIds, root, assetDir, platform, applicationId)
   const inputPlaceholder = SourceControlStrings.messageEnterToCommit(currentBranch)
-  const inputBoxHeight = await getInputHeight(inputValue, width, inputFontFamily, inputFontSize, inputFontWeight, inputLetterSpacing, inputLineHeight, inputPadding)
+  const inputBoxHeight = await getInputHeight(
+    inputValue,
+    getInputWidth(width, inputActions),
+    inputFontFamily,
+    inputFontWeight,
+    inputFontSize,
+    inputLetterSpacing,
+    inputLineHeight,
+    inputPadding,
+  )
   const headerHeight = getHeaderHeight(inputBoxHeight, sourceControlButtons, inputPaddingBlock, buttonBlockHeight)
   const total = displayItems.length
   const contentHeight = total * itemHeight

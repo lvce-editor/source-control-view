@@ -25,6 +25,7 @@ import * as HandleMouseOutAt from '../HandleMouseOutAt/HandleMouseOutAt.ts'
 import * as HandleMouseOver from '../HandleMouseOver/HandleMouseOver.ts'
 import * as HandleMouseOverAt from '../HandleMouseOverAt/HandleMouseOverAt.ts'
 import * as HandleRendererProcessMessagePort from '../HandleRendererProcessMessagePort/HandleRendererProcessMessagePort.ts'
+import * as HandleResize from '../HandleResize/HandleResize.ts'
 import { handleScrollBarCaptureLost } from '../HandleScrollBarCaptureLost/HandleScrollBarCaptureLost.ts'
 import { handleScrollBarClick } from '../HandleScrollBarClick/HandleScrollBarClick.ts'
 import { handleScrollBarMove } from '../HandleScrollBarMove/HandleScrollBarMove.ts'
@@ -90,6 +91,7 @@ export const commandMap = {
   'SourceControl.handleMouseOver': WrapCommand.wrapCommand(HandleMouseOver.handleMouseOver),
   'SourceControl.handleMouseOverAt': WrapCommand.wrapCommand(HandleMouseOverAt.handleMouseOverAt),
   'SourceControl.handleRendererProcessMessagePort': handleDirectMessagePort,
+  'SourceControl.handleResize': WrapCommand.wrapCommand(HandleResize.handleResize),
   'SourceControl.handleScrollBarCaptureLost': WrapCommand.wrapCommand(handleScrollBarCaptureLost),
   'SourceControl.handleScrollBarClick': WrapCommand.wrapCommand(handleScrollBarClick),
   'SourceControl.handleScrollBarMove': WrapCommand.wrapCommand(handleScrollBarMove),

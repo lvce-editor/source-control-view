@@ -16,6 +16,8 @@ const getExpectedCss = (inputBoxHeight: number): string => `:root {
 .SourceControl .ViewSourceControlInput > textarea {
   flex: 1;
   min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
 }
 
 .SourceControlInputAction {
@@ -176,6 +178,8 @@ test('renderCss - generates indent CSS rules', () => {
 .SourceControl .ViewSourceControlInput > textarea {
   flex: 1;
   min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
 }
 
 .SourceControlInputAction {
