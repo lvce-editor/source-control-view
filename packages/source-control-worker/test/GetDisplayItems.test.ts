@@ -1,5 +1,7 @@
 import { test, expect } from '@jest/globals'
+import { ViewMode } from '@lvce-editor/constants'
 import { getDisplayItems } from '../src/parts/GetDisplayItems/GetDisplayItems.ts'
+import { getDirectoryKey } from '../src/parts/GetDisplayItemsGroup/GetDisplayItemsGroup.ts'
 
 test('getDisplayItems - collapsed', () => {
   const groups = [
@@ -155,4 +157,57 @@ test('getDisplayItems - multiple groups with different expansion states', () => 
     setSize: 1,
     type: 3,
   })
+})
+
+test('getDisplayItems - tree mode builds independent nested folders for each group', () => {
+  const groups = [
+    {
+      id: 'changes',
+      items: [
+        { file: '/src/z.ts', icon: 'icon-z', iconTitle: 'Modified', strikeThrough: false },
+        { file: '/root.ts', icon: 'icon-root', iconTitle: 'Added', strikeThrough: false },
+        { file: '/src/nested/a.ts', icon: 'icon-a', iconTitle: 'Deleted', strikeThrough: true },
+      ],
+      label: 'Changes',
+    },
+    {
+      id: 'staged',
+      items: [{ file: '/src/z.ts', icon: 'icon-staged', iconTitle: 'Modified', strikeThrough: false }],
+      label: 'Staged Changes',
+    },
+  ]
+
+  const actual = getDisplayItems(groups, { changes: true, staged: true }, [], ViewMode.Tree)
+
+  expect(actual.map(({ depth, directory, file, label }) => ({ depth, directory, file, label }))).toEqual([
+    { depth: undefined, directory: undefined, file: '', label: 'Changes' },
+    { depth: 0, directory: '/src', file: '', label: 'src' },
+    { depth: 1, directory: undefined, file: '/src/z.ts', label: 'z.ts' },
+    { depth: 1, directory: '/src/nested', file: '', label: 'nested' },
+    { depth: 2, directory: undefined, file: '/src/nested/a.ts', label: 'a.ts' },
+    { depth: 0, directory: undefined, file: '/root.ts', label: 'root.ts' },
+    { depth: undefined, directory: undefined, file: '', label: 'Staged Changes' },
+    { depth: 0, directory: '/src', file: '', label: 'src' },
+    { depth: 1, directory: undefined, file: '/src/z.ts', label: 'z.ts' },
+  ])
+  expect(actual[0].badgeCount).toBe(3)
+  expect(actual.filter((item) => item.file).map((item) => item.file)).toEqual(['/src/z.ts', '/src/nested/a.ts', '/root.ts', '/src/z.ts'])
+})
+
+test('getDisplayItems - tree mode hides only descendants of a collapsed folder', () => {
+  const group = {
+    id: 'changes',
+    items: [
+      { file: '/src/nested/a.ts', icon: '', iconTitle: '', strikeThrough: false },
+      { file: '/src/other.ts', icon: '', iconTitle: '', strikeThrough: false },
+    ],
+    label: 'Changes',
+  }
+
+  const actual = getDisplayItems([group], { changes: true, [getDirectoryKey('changes', '/src')]: false }, [], ViewMode.Tree)
+
+  expect(actual.map(({ directory, file, label }) => ({ directory, file, label }))).toEqual([
+    { directory: undefined, file: '', label: 'Changes' },
+    { directory: '/src', file: '', label: 'src' },
+  ])
 })
