@@ -38,6 +38,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     itemHeight,
     minimumSliderSize,
     selectedItem,
+    viewMode,
     width,
     workspacePath,
   } = state
@@ -54,7 +55,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform, applicationId)
 
   const expandedGroups = restoreExpandedGroups(allGroups)
-  const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
+  const displayItems = await getDisplayItems(allGroups, expandedGroups, iconDefinitions, viewMode)
 
   const actionsCache = enabledProviderIds.length === 0 ? Object.create(null) : await requestSourceActions(assetDir, platform, applicationId)
   const inputActions = enabledProviderIds.length === 0 ? [] : await requestInputActions(assetDir, platform, applicationId)
@@ -63,7 +64,8 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   // TODO make preferences async and more functional
   const splitButtonEnabled = await Preferences.get('sourceControl.splitButtonEnabled')
   const badgeCount = await SourceControl.getBadgeCount(enabledProviderIds, assetDir, platform, applicationId)
-  const inputPlaceholder = SourceControlStrings.messageEnterToCommitOnMaster()
+  const currentBranch = await SourceControl.getCurrentBranch(enabledProviderIds, root, assetDir, platform, applicationId)
+  const inputPlaceholder = SourceControlStrings.messageEnterToCommit(currentBranch)
   const inputBoxHeight = await getInputHeight(inputValue, width, inputFontFamily, inputFontSize, inputFontWeight, inputLetterSpacing, inputLineHeight, inputPadding)
   const headerHeight = getHeaderHeight(inputBoxHeight, sourceControlButtons, inputPaddingBlock, buttonBlockHeight)
   const total = displayItems.length

@@ -10,6 +10,7 @@ import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/Ge
 import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedGroups.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 import * as SourceControl from '../SourceControl/SourceControl.ts'
+import * as SourceControlStrings from '../SourceControlStrings/SourceControlStrings.ts'
 
 export const refresh = async (state: SourceControlState): Promise<SourceControlState> => {
   const {
@@ -28,10 +29,11 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     root,
     selectedItem,
     splitButtonEnabled,
+    viewMode,
   } = state
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform, applicationId)
   const expandedGroups = restoreExpandedGroups(allGroups)
-  const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
+  const displayItems = await getDisplayItems(allGroups, expandedGroups, iconDefinitions, viewMode)
   const badgeCount = await SourceControl.getBadgeCount(enabledProviderIds, assetDir, platform, applicationId)
   const total = displayItems.length
   const contentHeight = total * itemHeight
@@ -45,6 +47,8 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
   const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache, selectedItem)
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inProgress = await SourceControl.getProgress(enabledProviderIds, assetDir, platform, applicationId)
+  const currentBranch = await SourceControl.getCurrentBranch(enabledProviderIds, root, assetDir, platform, applicationId)
+  const inputPlaceholder = SourceControlStrings.messageEnterToCommit(currentBranch)
   return {
     ...state,
     actionsCache,
@@ -57,6 +61,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     gitRoot,
     indents: getIndents(indents, visibleItems),
     inProgress,
+    inputPlaceholder,
     items: displayItems,
     maxLineY,
     minLineY,

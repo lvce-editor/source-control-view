@@ -48,6 +48,17 @@ export const getChangedFiles = (providerId: string, assetDir: string, platform: 
   })
 }
 
+export const getCurrentBranch = (providerId: string, path: string, assetDir: string, platform: number, applicationId?: string): Promise<string | undefined> => {
+  return ExecuteProvider.executeProvider({
+    applicationId,
+    assetDir,
+    event: 'none',
+    method: ExtensionHostCommandType.SourceControlGetCurrentBranch,
+    params: [providerId, path],
+    platform,
+  })
+}
+
 export const getFileDecorations = (providerId: string, uris: readonly string[], assetDir: string, platform: number, applicationId?: string): Promise<readonly any[]> => {
   Assert.string(assetDir)
   Assert.number(platform)
