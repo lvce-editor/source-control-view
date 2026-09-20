@@ -89,6 +89,37 @@ test('getChangedFiles should call ExtensionHostSourceControl.getChangedFiles', a
   expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHost.sourceControlGetChangedFiles', 'test-provider']])
 })
 
+test('getCurrentBranch should return the first available provider branch', async (): Promise<void> => {
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc({
+    'ExtensionHostSourceControl.getCurrentBranch': async (providerId: string): Promise<string | undefined> => (providerId === 'git' ? 'main' : undefined),
+  })
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+  })
+
+  const result = await SourceControl.getCurrentBranch(['other', 'git'], '/test/root', '/test-asset-dir', 1)
+
+  expect(result).toBe('main')
+  expect(extensionHostMockRpc.invocations).toEqual([
+    ['ExtensionHostSourceControl.getCurrentBranch', 'other', '/test/root'],
+    ['ExtensionHostSourceControl.getCurrentBranch', 'git', '/test/root'],
+  ])
+})
+
+test('getCurrentBranch should use an empty fallback when providers do not expose a branch', async (): Promise<void> => {
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc({
+    'ExtensionHostSourceControl.getCurrentBranch': async (): Promise<undefined> => undefined,
+  })
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+  })
+
+  const result = await SourceControl.getCurrentBranch(['provider'], '/test/root', '/test-asset-dir', 1)
+
+  expect(result).toBe('')
+  expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHostSourceControl.getCurrentBranch', 'provider', '/test/root']])
+})
+
 test('getBadgeCount should call ExtensionHostSourceControl.getBadgeCount for each provider', async (): Promise<void> => {
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.getBadgeCount': async (providerId: string): Promise<number> => (providerId === 'test-provider-1' ? 2 : 3),
@@ -248,6 +279,66 @@ test('getIconDefinitions should convert desktop file urls to remote urls', async
 
   const result = await SourceControl.getIconDefinitions(['git'], '/assets', 2)
   expect(result).toEqual(['/remote/usr/lib/lvce-editor/extensions/builtin.git/icons/status-modified.svg'])
+})
+
+test('getIconDefinitions should use the asset dir for packaged builtin git icons', async (): Promise<void> => {
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [
+      {
+        id: 'builtin.git',
+        'source-control-icons': ['./icons/dark/status-modified.svg'],
+        uri: 'file:///usr/lib/lvce/resources/app/static/abc123/extensions/builtin.git',
+      },
+    ],
+  })
+
+  const result = await SourceControl.getIconDefinitions(['git'], '/abc123', 2)
+  expect(result).toEqual(['/abc123/extensions/builtin.git/icons/dark/status-modified.svg'])
+})
+
+test('getIconDefinitions should use the asset dir for packaged remote builtin git icons', async (): Promise<void> => {
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [
+      {
+        id: 'builtin.git',
+        'source-control-icons': ['./icons/dark/status-untracked.svg'],
+        uri: 'http://localhost:3000/remote/usr/lib/lvce/resources/app/static/abc123/extensions/builtin.git',
+      },
+    ],
+  })
+
+  const result = await SourceControl.getIconDefinitions(['git'], '/abc123', 3)
+  expect(result).toEqual(['/abc123/extensions/builtin.git/icons/dark/status-untracked.svg'])
+})
+
+test('getIconDefinitions should not shorten icons outside the packaged asset dir', async (): Promise<void> => {
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [
+      {
+        id: 'builtin.git',
+        'source-control-icons': ['./icons/dark/status-modified.svg'],
+        uri: 'file:///tmp/abc123/extensions/builtin.git',
+      },
+    ],
+  })
+
+  const result = await SourceControl.getIconDefinitions(['git'], '/abc123', 2)
+  expect(result).toEqual(['/remote/tmp/abc123/extensions/builtin.git/icons/dark/status-modified.svg'])
+})
+
+test('getIconDefinitions should not shorten icons that escape the packaged extension', async (): Promise<void> => {
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [
+      {
+        id: 'builtin.git',
+        'source-control-icons': ['../outside.svg'],
+        uri: 'file:///usr/lib/lvce/resources/app/static/abc123/extensions/builtin.git',
+      },
+    ],
+  })
+
+  const result = await SourceControl.getIconDefinitions(['git'], '/abc123', 2)
+  expect(result).toEqual(['/remote/usr/lib/lvce/resources/app/static/abc123/extensions/outside.svg'])
 })
 
 test('getIconDefinitions should normalize remote icon urls before converting them', async (): Promise<void> => {

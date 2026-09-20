@@ -119,6 +119,41 @@ test('loadContent - with enabled providers', async (): Promise<void> => {
   expect(result.showGenerateCommitMessageButton).toBe(false)
 })
 
+test('loadContent - uses short paths for packaged builtin git decoration icons', async (): Promise<void> => {
+  const commandMap = {
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
+    'ExtensionHostSourceControl.getFeatures': async (): Promise<{ showGenerateCommitMessageButton: boolean }> => ({ showGenerateCommitMessageButton: false }),
+    'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [],
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [
+      {
+        id: 'builtin.git',
+        'source-control-icons': ['./icons/dark/status-modified.svg'],
+        uri: 'file:///usr/lib/lvce/resources/app/static/abc123/extensions/builtin.git',
+      },
+    ],
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
+  }
+  ExtensionHost.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(commandMap)
+  IconThemeWorker.registerMockRpc(commandMap)
+  RendererWorker.registerMockRpc(commandMap)
+  TextMeasurementWorker.registerMockRpc(commandMap)
+
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    assetDir: '/abc123',
+    platform: 2,
+    workspacePath: '/test/workspace',
+  }
+  const result = await loadContent(state, {})
+
+  expect(result.iconDefinitions).toEqual(['/abc123/extensions/builtin.git/icons/dark/status-modified.svg'])
+  expect(result.decorationIcons).toEqual(['/abc123/extensions/builtin.git/icons/dark/status-modified.svg'])
+})
+
 test('loadContent - with groups', async (): Promise<void> => {
   const mockGroups = [
     {
