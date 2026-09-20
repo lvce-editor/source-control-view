@@ -159,7 +159,7 @@ test('getDisplayItems - multiple groups with different expansion states', () => 
   })
 })
 
-test('getDisplayItems - tree mode builds independent nested folders for each group', () => {
+test('getDisplayItems - tree mode builds independent nested folders for each group', async () => {
   const groups = [
     {
       id: 'changes',
@@ -177,24 +177,24 @@ test('getDisplayItems - tree mode builds independent nested folders for each gro
     },
   ]
 
-  const actual = getDisplayItems(groups, { changes: true, staged: true }, [], ViewMode.Tree)
+  const actual = await getDisplayItems(groups, { changes: true, staged: true }, [], ViewMode.Tree)
 
   expect(actual.map(({ depth, directory, file, label }) => ({ depth, directory, file, label }))).toEqual([
     { depth: undefined, directory: undefined, file: '', label: 'Changes' },
+    { depth: 0, directory: undefined, file: '/root.ts', label: 'root.ts' },
     { depth: 0, directory: '/src', file: '', label: 'src' },
-    { depth: 1, directory: undefined, file: '/src/z.ts', label: 'z.ts' },
     { depth: 1, directory: '/src/nested', file: '', label: 'nested' },
     { depth: 2, directory: undefined, file: '/src/nested/a.ts', label: 'a.ts' },
-    { depth: 0, directory: undefined, file: '/root.ts', label: 'root.ts' },
+    { depth: 1, directory: undefined, file: '/src/z.ts', label: 'z.ts' },
     { depth: undefined, directory: undefined, file: '', label: 'Staged Changes' },
     { depth: 0, directory: '/src', file: '', label: 'src' },
     { depth: 1, directory: undefined, file: '/src/z.ts', label: 'z.ts' },
   ])
   expect(actual[0].badgeCount).toBe(3)
-  expect(actual.filter((item) => item.file).map((item) => item.file)).toEqual(['/src/z.ts', '/src/nested/a.ts', '/root.ts', '/src/z.ts'])
+  expect(actual.filter((item) => item.file).map((item) => item.file)).toEqual(['/root.ts', '/src/nested/a.ts', '/src/z.ts', '/src/z.ts'])
 })
 
-test('getDisplayItems - tree mode hides only descendants of a collapsed folder', () => {
+test('getDisplayItems - tree mode hides only descendants of a collapsed folder', async () => {
   const group = {
     id: 'changes',
     items: [
@@ -204,7 +204,7 @@ test('getDisplayItems - tree mode hides only descendants of a collapsed folder',
     label: 'Changes',
   }
 
-  const actual = getDisplayItems([group], { changes: true, [getDirectoryKey('changes', '/src')]: false }, [], ViewMode.Tree)
+  const actual = await getDisplayItems([group], { changes: true, [getDirectoryKey('changes', '/src')]: false }, [], ViewMode.Tree)
 
   expect(actual.map(({ directory, file, label }) => ({ directory, file, label }))).toEqual([
     { directory: undefined, file: '', label: 'Changes' },
