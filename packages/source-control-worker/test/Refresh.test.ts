@@ -42,10 +42,10 @@ test('refresh updates the placeholder when only the current branch changes', asy
     'Extensions.activateByEvent': async (): Promise<void> => {},
   })
   using extensionRpc = ExtensionHost.registerMockRpc({
-    'ExtensionHostSourceControl.getGroups': async (): Promise<readonly never[]> => [],
     'ExtensionHostSourceControl.getBadgeCount': async (): Promise<number> => 0,
-    'ExtensionHostSourceControl.getProgress': async (): Promise<boolean> => false,
     'ExtensionHostSourceControl.getCurrentBranch': async (): Promise<string> => 'feature/test',
+    'ExtensionHostSourceControl.getGroups': async (): Promise<readonly never[]> => [],
+    'ExtensionHostSourceControl.getProgress': async (): Promise<boolean> => false,
   })
 
   const result = await Refresh.refresh({
