@@ -5,6 +5,8 @@ import type { SourceControlState } from '../src/parts/SourceControlState/SourceC
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { getDirectoryKey } from '../src/parts/GetDisplayItemsGroup/GetDisplayItemsGroup.ts'
 import { selectIndex } from '../src/parts/SelectIndex/SelectIndex.ts'
+import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
+import { withRendererApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 test('selectIndex - invalid index', async (): Promise<void> => {
   const state: SourceControlState = createDefaultState()
@@ -17,8 +19,8 @@ test('selectIndex - directory', async (): Promise<void> => {
     'FileSystem.readDirWithFileTypes': async (): Promise<never[]> => [],
     'IconTheme.getIcons': async (): Promise<never[]> => [],
   }
+  ParentRpc.registerMockRpc(withRendererApplicationRouting(commandMap))
   IconThemeWorker.registerMockRpc(commandMap)
-  ParentRpc.registerMockRpc(commandMap)
 
   const testItem = {
     badgeCount: 0,
@@ -56,8 +58,8 @@ test('selectIndex - expanded directory', async (): Promise<void> => {
     'FileSystem.readDirWithFileTypes': async (): Promise<never[]> => [],
     'IconTheme.getIcons': async (): Promise<never[]> => [],
   }
+  ParentRpc.registerMockRpc(withRendererApplicationRouting(commandMap))
   IconThemeWorker.registerMockRpc(commandMap)
-  ParentRpc.registerMockRpc(commandMap)
 
   const testItem = {
     badgeCount: 0,
@@ -145,9 +147,9 @@ test('selectIndex - file', async (): Promise<void> => {
     'IconTheme.getIcons': async (): Promise<never[]> => [],
     'Main.openUri': async (): Promise<void> => {},
   }
-  ExtensionManagementWorker.registerMockRpc(parentCommandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(parentCommandMap))
+  ParentRpc.registerMockRpc(withRendererApplicationRouting(parentCommandMap))
   IconThemeWorker.registerMockRpc(parentCommandMap)
-  ParentRpc.registerMockRpc(parentCommandMap)
 
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.getFileBefore': async (): Promise<string> => '',

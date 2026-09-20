@@ -3,6 +3,7 @@ import { ExtensionHost, ExtensionManagementWorker, IconThemeWorker } from '@lvce
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as Refresh from '../src/parts/Refresh/Refresh.ts'
+import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 test('refresh should update state with groups and visible items', async (): Promise<void> => {
   const parentCommandMap = {
@@ -38,9 +39,11 @@ test('refresh updates the placeholder when only the current branch changes', asy
   using iconRpc = IconThemeWorker.registerMockRpc({
     'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
   })
-  using _extensionManagementRpc = ExtensionManagementWorker.registerMockRpc({
-    'Extensions.activateByEvent': async (): Promise<void> => {},
-  })
+  using _extensionManagementRpc = ExtensionManagementWorker.registerMockRpc(
+    withApplicationRouting({
+      'Extensions.activateByEvent': async (): Promise<void> => {},
+    }),
+  )
   using extensionRpc = ExtensionHost.registerMockRpc({
     'ExtensionHostSourceControl.getBadgeCount': async (): Promise<number> => 0,
     'ExtensionHostSourceControl.getCurrentBranch': async (): Promise<string> => 'feature/test',
@@ -63,9 +66,11 @@ test('refresh - should not request icons for group headers', async (): Promise<v
   using iconRpc = IconThemeWorker.registerMockRpc({
     'IconTheme.getIcons': async (): Promise<readonly string[]> => ['file-icon'],
   })
-  using _extensionManagementRpc = ExtensionManagementWorker.registerMockRpc({
-    'Extensions.activateByEvent': async (): Promise<void> => {},
-  })
+  using _extensionManagementRpc = ExtensionManagementWorker.registerMockRpc(
+    withApplicationRouting({
+      'Extensions.activateByEvent': async (): Promise<void> => {},
+    }),
+  )
   using _extensionHostRpc = ExtensionHost.registerMockRpc({
     'ExtensionHostSourceControl.getBadgeCount': async (): Promise<number> => 1,
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [

@@ -3,6 +3,7 @@ import { ExtensionHost, ExtensionManagementWorker } from '@lvce-editor/rpc-regis
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleSourceControlProgressChange } from '../src/parts/HandleSourceControlProgressChange/HandleSourceControlProgressChange.ts'
 import * as SourceControlStates from '../src/parts/SourceControlStates/SourceControlStates.ts'
+import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 const initialize = (): void => {
   const state = { ...createDefaultState(), enabledProviderIds: ['git'], id: 1 }
@@ -10,7 +11,7 @@ const initialize = (): void => {
 }
 
 beforeEach(() => {
-  ExtensionManagementWorker.registerMockRpc({ 'Extensions.activateByEvent': async () => {} })
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting({ 'Extensions.activateByEvent': async () => {} }))
 })
 
 afterEach(() => {

@@ -4,6 +4,7 @@ import { ExtensionHost, ExtensionManagementWorker, IconThemeWorker, RendererWork
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContentCommand } from '../src/parts/LoadContentCommand/LoadContentCommand.ts'
 import * as SourceControlStates from '../src/parts/SourceControlStates/SourceControlStates.ts'
+import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 const registerProviders = (getEnabledProviderIds: () => Promise<readonly string[]>): void => {
   const commandMap = {
@@ -15,7 +16,7 @@ const registerProviders = (getEnabledProviderIds: () => Promise<readonly string[
     'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   ExtensionHost.registerMockRpc(commandMap)
-  ExtensionManagementWorker.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
   IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
