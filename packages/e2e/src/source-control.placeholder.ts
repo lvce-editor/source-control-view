@@ -1,6 +1,8 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'source-control.placeholder'
+// Enable after the lvce-editor renderer bridge is released.
+export const skip = 1
 
 export const test: Test = async ({ Command, expect, Extension, FileSystem, Locator, SourceControl, Workspace }) => {
   // arrange
