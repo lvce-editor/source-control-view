@@ -98,11 +98,6 @@ test('refresh', () => {
   expect(result).toBe(I18nString.i18nString(UiStrings.Refresh))
 })
 
-test('messageEnterToCommitOnMaster', () => {
-  const result = SourceControlStrings.messageEnterToCommitOnMaster()
-  expect(result).toBe(I18nString.i18nString(UiStrings.MessageEnterToCommitOnMaster))
-})
-
 test('messageEnterToCommit', () => {
   expect(SourceControlStrings.messageEnterToCommit('main')).toBe("Message (Enter) to commit on 'main'")
   expect(SourceControlStrings.messageEnterToCommit('')).toBe('Message (Enter) to commit')
