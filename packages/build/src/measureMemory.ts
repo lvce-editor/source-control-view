@@ -19,4 +19,3 @@ await measureMemory({
   instantiations,
   instantiationsPath,
 })
-f
