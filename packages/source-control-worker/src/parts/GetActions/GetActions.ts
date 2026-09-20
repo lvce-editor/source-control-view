@@ -20,22 +20,14 @@ export const getActions = (state: SourceControlState): readonly Action[] => {
     ]
   }
   const { viewMode } = state
-  const viewAction: Action =
-    viewMode === ViewMode.Tree
-      ? {
-          command: '',
-          icon: MaskIcon.ListTree,
-          id: ViewletSourceControlStrings.viewAsList(),
-          name: InputName.ViewAsList,
-          type: ActionType.Button,
-        }
-      : {
-          command: '',
-          icon: MaskIcon.ListFlat,
-          id: ViewletSourceControlStrings.viewAsTree(),
-          name: InputName.ViewAsTree,
-          type: ActionType.Button,
-        }
+  const isTree = viewMode === ViewMode.Tree
+  const viewAction: Action = {
+    command: '',
+    icon: isTree ? MaskIcon.ListTree : MaskIcon.ListFlat,
+    id: isTree ? ViewletSourceControlStrings.viewAsList() : ViewletSourceControlStrings.viewAsTree(),
+    name: isTree ? InputName.ViewAsList : InputName.ViewAsTree,
+    type: ActionType.Button,
+  }
   const actions: Action[] = [
     viewAction,
     {
