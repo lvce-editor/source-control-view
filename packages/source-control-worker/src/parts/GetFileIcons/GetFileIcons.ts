@@ -6,6 +6,9 @@ import * as UpdateIconCache from '../UpdateIconCache/UpdateIconCache.ts'
 
 export const getFileIcons = async (dirents: readonly DisplayItem[], fileIconCache: FileIconCache): Promise<FileIconCache> => {
   const missingRequests = GetMissingIconRequests.getMissingIconRequests(dirents, fileIconCache)
+  if (missingRequests.length === 0) {
+    return fileIconCache
+  }
   const newIcons = await RequestFileIcons.requestFileIcons(missingRequests)
   const newFileIconCache = UpdateIconCache.updateIconCache(fileIconCache, missingRequests, newIcons)
   return newFileIconCache

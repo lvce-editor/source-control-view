@@ -1,5 +1,7 @@
+import { DirentType } from '@lvce-editor/constants'
 import type { FileIconCache } from '../FileIconCache/FileIconCache.ts'
 import type { IconRequest } from '../IconRequest/IconRequest.ts'
+import * as GetIconCacheKey from '../GetIconCacheKey/GetIconCacheKey.ts'
 
 export const updateIconCache = (iconCache: FileIconCache, missingRequests: readonly IconRequest[], newIcons: readonly string[]): FileIconCache => {
   if (missingRequests.length === 0) {
@@ -9,7 +11,8 @@ export const updateIconCache = (iconCache: FileIconCache, missingRequests: reado
   for (let i = 0; i < missingRequests.length; i++) {
     const request = missingRequests[i]
     const icon = newIcons[i]
-    newFileIconCache[request.name] = icon
+    const cacheKey = GetIconCacheKey.getIconCacheKey(request.path, request.expanded ? DirentType.DirectoryExpanded : DirentType.Directory)
+    newFileIconCache[cacheKey] = icon
   }
   return newFileIconCache
 }

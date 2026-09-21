@@ -1,12 +1,11 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
-import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
 import { getGroups } from '../GetGroups/GetGroups.ts'
 import { getIndents } from '../GetIndents/GetIndents.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
 import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
-import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
+import * as GetVisibleSourceControlItemsWithIcons from '../GetVisibleSourceControlItemsWithIcons/GetVisibleSourceControlItemsWithIcons.ts'
 import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedGroups.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 import * as SourceControl from '../SourceControl/SourceControl.ts'
@@ -42,8 +41,13 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
   const numberOfVisible = GetNumberOfVisibleItems.getNumberOfVisibleItems(listHeight, itemHeight)
   const minLineY = 0
   const maxLineY = Math.min(numberOfVisible, total)
-  const newFileIconCache = await GetFileIcons.getFileIcons(displayItems, fileIconCache)
-  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
+  const { fileIconCache: newFileIconCache, visibleItems } = await GetVisibleSourceControlItemsWithIcons.getVisibleSourceControlItemsWithIcons(
+    displayItems,
+    minLineY,
+    maxLineY,
+    actionsCache,
+    fileIconCache,
+  )
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inProgress = await SourceControl.getProgress(enabledProviderIds, assetDir, platform, applicationId)
   const currentBranch = await SourceControl.getCurrentBranch(enabledProviderIds, root, assetDir, platform, applicationId)
