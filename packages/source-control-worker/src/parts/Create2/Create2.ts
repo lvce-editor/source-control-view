@@ -9,7 +9,7 @@ export const create2 = (
   y: number,
   width: number,
   height: number,
-  workspacePath: string,
+  workspaceUri: string,
   platform: number,
   assetDir: string,
   applicationId: string,
@@ -25,7 +25,7 @@ export const create2 = (
     loading: true,
     platform,
     width,
-    workspacePath,
+    workspaceUri,
     x,
     y,
   }

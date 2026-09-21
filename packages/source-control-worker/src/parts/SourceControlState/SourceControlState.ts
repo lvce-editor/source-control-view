@@ -72,7 +72,7 @@ export interface SourceControlState {
   readonly visibleItems: readonly VisibleItem[]
   readonly width: number
   readonly workingTree: readonly any[]
-  readonly workspacePath: string
+  readonly workspaceUri: string
   readonly x: number
   readonly y: number
 }

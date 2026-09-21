@@ -66,7 +66,7 @@ export const createDefaultState = (): SourceControlState => ({
   visibleItems: [],
   width: 100,
   workingTree: [],
-  workspacePath: '',
+  workspaceUri: '',
   x: 0,
   y: 0,
 })

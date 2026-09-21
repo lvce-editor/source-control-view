@@ -110,7 +110,7 @@ test('loadContent - with enabled providers', async (): Promise<void> => {
 
   const state: SourceControlState = {
     ...createDefaultState(),
-    workspacePath: '/test/workspace',
+    workspaceUri: '/test/workspace',
   }
   const result = await loadContent(state, {})
 
@@ -147,7 +147,7 @@ test('loadContent - uses short paths for packaged builtin git decoration icons',
     ...createDefaultState(),
     assetDir: '/abc123',
     platform: 2,
-    workspacePath: '/test/workspace',
+    workspaceUri: '/test/workspace',
   }
   const result = await loadContent(state, {})
 
@@ -189,7 +189,7 @@ test('loadContent - with groups', async (): Promise<void> => {
 
   const state: SourceControlState = {
     ...createDefaultState(),
-    workspacePath: '/test/workspace',
+    workspaceUri: '/test/workspace',
   }
   const result = await loadContent(state, {})
 
@@ -301,7 +301,7 @@ test('loadContent - calculates scroll bar and visible items correctly', async ()
     height: 200,
     itemHeight: 20,
     minimumSliderSize: 30,
-    workspacePath: '/test/workspace',
+    workspaceUri: '/test/workspace',
   }
   const result = await loadContent(state, {})
 

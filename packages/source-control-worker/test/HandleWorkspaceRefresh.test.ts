@@ -35,7 +35,7 @@ test('handleWorkspaceRefresh should discover newly available source control prov
     ...createDefaultState(),
     enabledProviderIds: [],
     inputValue: 'existing commit message',
-    workspacePath: '/test',
+    workspaceUri: '/test',
   }
   const result = await handleWorkspaceRefresh(state)
 
@@ -71,7 +71,7 @@ test('handleWorkspaceRefresh should use the lightweight refresh when providers a
   const state: SourceControlState = {
     ...createDefaultState(),
     inputValue: 'existing commit message',
-    workspacePath: '/test',
+    workspaceUri: '/test',
   }
   const result = await handleWorkspaceRefresh(state)
 
