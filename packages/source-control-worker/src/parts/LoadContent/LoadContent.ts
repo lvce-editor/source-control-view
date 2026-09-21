@@ -40,14 +40,14 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     minimumSliderSize,
     viewMode,
     width,
-    workspacePath,
+    workspaceUri,
   } = state
-  const root = workspacePath
+  const root = workspaceUri
   const scheme = GetProtocol.getProtocol(root)
   const { history, inputValue } = restoreState(savedState, currentHistory)
   const { assetDir, platform } = state
   const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root, assetDir, platform, applicationId)
-  const providerUnavailableMessage = enabledProviderIds.length === 0 ? await getSourceControlUnavailableMessage(workspacePath, assetDir, platform, applicationId) : ''
+  const providerUnavailableMessage = enabledProviderIds.length === 0 ? await getSourceControlUnavailableMessage(workspaceUri, assetDir, platform, applicationId) : ''
   const showGenerateCommitMessageButton =
     enabledProviderIds.length === 0 ? false : await SourceControl.getShowGenerateCommitMessageButton(enabledProviderIds[0], assetDir, platform, applicationId)
 
