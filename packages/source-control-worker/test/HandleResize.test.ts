@@ -1,10 +1,13 @@
 import { expect, test } from '@jest/globals'
-import { TextMeasurementWorker } from '@lvce-editor/rpc-registry'
+import { IconThemeWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleResize } from '../src/parts/HandleResize/HandleResize.ts'
 
 test('handleResize remeasures the input and updates list geometry', async () => {
+  using _iconRpc = IconThemeWorker.registerMockRpc({
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+  })
   using mockRpc = TextMeasurementWorker.registerMockRpc({
     'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 60,
   })

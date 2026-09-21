@@ -6,7 +6,7 @@ import { getInputHeight } from '../GetInputHeight/GetInputHeight.ts'
 import { getInputWidth } from '../GetInputWidth/GetInputWidth.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
 import { getNumberOfVisibleItems } from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
-import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
+import * as GetVisibleSourceControlItemsWithIcons from '../GetVisibleSourceControlItemsWithIcons/GetVisibleSourceControlItemsWithIcons.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 
 export interface Dimensions {
@@ -64,11 +64,18 @@ export const handleResize = async (state: SourceControlState, dimensions: Dimens
   const minLineY = Math.floor(deltaY / itemHeight)
   const visibleCount = getNumberOfVisibleItems(getListHeight(total, itemHeight, listHeight), itemHeight)
   const maxLineY = Math.min(minLineY + visibleCount, total)
-  const visibleItems = getVisibleSourceControlItems(items, minLineY, maxLineY, actionsCache, fileIconCache)
+  const { fileIconCache: newFileIconCache, visibleItems } = await GetVisibleSourceControlItemsWithIcons.getVisibleSourceControlItemsWithIcons(
+    items,
+    minLineY,
+    maxLineY,
+    actionsCache,
+    fileIconCache,
+  )
   const scrollBarHeight = ScrollBarFunctions.getScrollBarSize(listHeight, contentHeight, minimumSliderSize)
   return {
     ...state,
     deltaY,
+    fileIconCache: newFileIconCache,
     finalDeltaY,
     headerHeight,
     height,

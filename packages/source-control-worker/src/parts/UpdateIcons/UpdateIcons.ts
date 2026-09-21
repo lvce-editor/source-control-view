@@ -1,13 +1,21 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
-import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
+import { getIndents } from '../GetIndents/GetIndents.ts'
+import * as GetVisibleSourceControlItemsWithIcons from '../GetVisibleSourceControlItemsWithIcons/GetVisibleSourceControlItemsWithIcons.ts'
 
 export const updateIcons = async (state: SourceControlState): Promise<SourceControlState> => {
   const { items, maxLineY, minLineY } = state
-  const visible = items.slice(minLineY, maxLineY)
-  const newFileIconCache = await GetFileIcons.getFileIcons(visible, Object.create(null))
-  // TODO update visible items
+  const { actionsCache, indents } = state
+  const { fileIconCache, visibleItems } = await GetVisibleSourceControlItemsWithIcons.getVisibleSourceControlItemsWithIcons(
+    items,
+    minLineY,
+    maxLineY,
+    actionsCache,
+    Object.create(null),
+  )
   return {
     ...state,
-    fileIconCache: newFileIconCache,
+    fileIconCache,
+    indents: getIndents(indents, visibleItems),
+    visibleItems,
   }
 }

@@ -4,6 +4,7 @@ import type { FileIconCache } from '../FileIconCache/FileIconCache.ts'
 import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 import * as EmptySourceControlButtons from '../EmptySourceControlButtons/EmptySourceControlButton.ts'
 import { getContextId } from '../GetContextId/GetContextId.ts'
+import * as GetIconCacheKey from '../GetIconCacheKey/GetIconCacheKey.ts'
 import * as GetTreeItemIndent from '../GetTreeItemIndent/GetTreeItemIndent.ts'
 
 export const getVisibleSourceControlItems = (
@@ -18,7 +19,9 @@ export const getVisibleSourceControlItems = (
     const item = items[i]
     const contextId = getContextId(item.groupId, item.type, item.directory)
     const buttons = actionsCache[contextId] || EmptySourceControlButtons.emptySourceControlButtons
-    const fileIcon = fileIconCache[item.label] || ''
+    const path = item.file || item.directory
+    const cacheKey = path ? GetIconCacheKey.getIconCacheKey(path, item.type) : ''
+    const fileIcon = cacheKey ? fileIconCache[cacheKey] || '' : ''
     const indent = GetTreeItemIndent.getTreeItemIndent(item.type, item.depth)
     visible.push({
       ...item,

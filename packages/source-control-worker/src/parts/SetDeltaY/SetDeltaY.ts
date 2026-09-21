@@ -1,7 +1,7 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import { getIndents } from '../GetIndents/GetIndents.ts'
 import { getNumberOfVisibleItems } from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
-import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
+import * as GetVisibleSourceControlItemsWithIcons from '../GetVisibleSourceControlItemsWithIcons/GetVisibleSourceControlItemsWithIcons.ts'
 
 export const setDeltaY = async (state: SourceControlState, newDeltaY: number): Promise<SourceControlState> => {
   const { actionsCache, fileIconCache, finalDeltaY, headerHeight, height, indents, itemHeight, items } = state
@@ -11,13 +11,20 @@ export const setDeltaY = async (state: SourceControlState, newDeltaY: number): P
   const listHeight = height - headerHeight
   const visibleCount = getNumberOfVisibleItems(listHeight, itemHeight)
   const maxLineY = Math.min(newMinLineY + visibleCount, total)
-  const visible = getVisibleSourceControlItems(items, newMinLineY, maxLineY, actionsCache, fileIconCache)
+  const { fileIconCache: newFileIconCache, visibleItems } = await GetVisibleSourceControlItemsWithIcons.getVisibleSourceControlItemsWithIcons(
+    items,
+    newMinLineY,
+    maxLineY,
+    actionsCache,
+    fileIconCache,
+  )
   return {
     ...state,
     deltaY: normalizedDeltaY,
-    indents: getIndents(indents, visible),
+    fileIconCache: newFileIconCache,
+    indents: getIndents(indents, visibleItems),
     maxLineY,
     minLineY: newMinLineY,
-    visibleItems: visible,
+    visibleItems,
   }
 }

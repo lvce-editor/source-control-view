@@ -59,7 +59,7 @@ test('refresh updates the placeholder when only the current branch changes', asy
 
   expect(result.inputPlaceholder).toBe("Message (Enter) to commit on 'feature/test'")
   expect(extensionRpc.invocations).toContainEqual(['ExtensionHostSourceControl.getCurrentBranch', 'git', '/'])
-  expect(iconRpc.invocations).toEqual([['IconTheme.getIcons', []]])
+  expect(iconRpc.invocations).toEqual([])
 })
 
 test('refresh - should not request icons for group headers', async (): Promise<void> => {
@@ -96,8 +96,8 @@ test('refresh - should not request icons for group headers', async (): Promise<v
 
   const result = await Refresh.refresh(state)
 
-  expect(result.fileIconCache).toEqual({ 'file1.ts': 'file-icon' })
+  expect(result.fileIconCache).toEqual({ '/test/file1.ts': 'file-icon' })
   expect(result.fileIconCache).not.toHaveProperty('Changes')
   expect(result.items.map((item) => item.label)).toEqual(['Changes', 'file1.ts'])
-  expect(iconRpc.invocations).toEqual([['IconTheme.getIcons', [{ name: 'file1.ts', type: 1 }]]])
+  expect(iconRpc.invocations).toEqual([['IconTheme.getIcons', [{ name: 'file1.ts', path: '/test/file1.ts', type: 1 }]]])
 })

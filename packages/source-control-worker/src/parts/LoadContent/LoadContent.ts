@@ -1,6 +1,5 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
-import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
 import { getGroups } from '../GetGroups/GetGroups.ts'
 import { getHeaderHeight } from '../GetHeaderHeight/GetHeaderHeight.ts'
@@ -11,7 +10,7 @@ import { getListHeight } from '../GetListHeight/GetListHeight.ts'
 import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
 import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
 import { getSourceControlUnavailableMessage } from '../GetSourceControlUnavailableMessage/GetSourceControlUnavailableMessage.ts'
-import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
+import * as GetVisibleSourceControlItemsWithIcons from '../GetVisibleSourceControlItemsWithIcons/GetVisibleSourceControlItemsWithIcons.ts'
 import * as Preferences from '../Preferences/Preferences.ts'
 import { requestInputActions } from '../RequestInputActions/RequestInputActions.ts'
 import { requestSourceActions } from '../RequestSourceActions/RequestSourceActions.ts'
@@ -85,8 +84,13 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   const numberOfVisible = GetNumberOfVisibleItems.getNumberOfVisibleItems(listHeight, itemHeight)
   const minLineY = 0
   const maxLineY = Math.min(numberOfVisible, total)
-  const newFileIconCache = await GetFileIcons.getFileIcons(displayItems, fileIconCache)
-  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache)
+  const { fileIconCache: newFileIconCache, visibleItems } = await GetVisibleSourceControlItemsWithIcons.getVisibleSourceControlItemsWithIcons(
+    displayItems,
+    minLineY,
+    maxLineY,
+    actionsCache,
+    fileIconCache,
+  )
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inProgress = await SourceControl.getProgress(enabledProviderIds, assetDir, platform, applicationId)
   return {
