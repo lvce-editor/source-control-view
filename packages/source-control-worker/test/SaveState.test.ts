@@ -10,6 +10,7 @@ test('saveState', () => {
   const state: SourceControlState = {
     ...defaultState,
     expandedGroups: { '1': true, '2': false },
+    history: ['previous message'],
     maxLineY: 100,
     root: '/test',
   }
@@ -18,6 +19,7 @@ test('saveState', () => {
   expect(result).toEqual({
     deltaY: 0,
     expandedGroups: { '1': true, '2': false },
+    history: ['previous message'],
     inputValue: '',
     maxLineY: 100,
     minLineY: 0,

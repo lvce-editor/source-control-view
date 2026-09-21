@@ -28,8 +28,10 @@ export const handleInput = async (state: SourceControlState, value: string, inpu
     inputLineHeight,
     inputPadding,
   )
+  const historyState = inputSource === InputSource.User ? { historyDraft: '', historyIndex: -1 } : {}
   return {
     ...state,
+    ...historyState,
     headerHeight: getHeaderHeight(inputBoxHeight, sourceControlButtons, inputPaddingBlock, buttonBlockHeight),
     inputBoxHeight,
     inputMessage: '',

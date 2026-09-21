@@ -37,6 +37,7 @@ test('handleSourceControlButtonClick', async () => {
 
   expect(activationRpc.invocations).toContainEqual(['Extensions.invokeForApplication', '', 'Extensions.executeCommand', 'git.commitAndSync', 'test message'])
   expect(result.inputValue).toBe('')
+  expect(result.history).toEqual(['test message'])
   expect(activationRpc.invocations).toEqual([
     ['Extensions.invokeForApplication', '', 'Extensions.activateByEvent', 'onCommand:git.commitAndSync'],
     ['Extensions.invokeForApplication', '', 'Extensions.executeCommand', 'git.commitAndSync', 'test message'],
@@ -44,6 +45,29 @@ test('handleSourceControlButtonClick', async () => {
     ['Extensions.invokeForApplication', '', 'ExtensionHostSourceControl.getEnabledProviderIds', 'file', ''],
   ])
   expect(mockRpc.invocations).toEqual([['Preferences.get', 'sourceControl.splitButtonEnabled']])
+})
+
+test('handleSourceControlButtonClick - failed command does not add to history', async () => {
+  const commandMap = {
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => [],
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+    'Extensions.executeCommand': async (): Promise<void> => {
+      throw new Error('failed')
+    },
+  }
+  using _extensionHostMockRpc = ExtensionHost.registerMockRpc(commandMap)
+  using _activationRpc = ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
+
+  const state = {
+    ...createDefaultState(),
+    history: ['existing'],
+    inputValue: 'failed message',
+    sourceControlButtons: [{ command: 'git.commit', icon: 'Check', id: 'git.commit', label: 'Commit' }],
+  }
+
+  await expect(handleSourceControlButtonClick(state, 'Commit')).rejects.toThrow('failed')
+  const { history } = state
+  expect(history).toEqual(['existing'])
 })
 
 test('handleSourceControlButtonClick - unknown button', async () => {

@@ -35,10 +35,12 @@ import * as HandleWheel from '../HandleWheel/HandleWheel.ts'
 import { handleWorkspaceRefresh } from '../HandleWorkspaceRefresh/HandleWorkspaceRefresh.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import { loadContentCommand } from '../LoadContentCommand/LoadContentCommand.ts'
+import { nextHistory } from '../NextHistory/NextHistory.ts'
 import { openChanges } from '../OpenChanges/OpenChanges.ts'
 import { openContainingFolder } from '../OpenContainingFolder/OpenContainingFolder.ts'
 import { openFile } from '../OpenFile/OpenFile.ts'
 import { openFileHead } from '../OpenFileHead/OpenFileHead.ts'
+import { previousHistory } from '../PreviousHistory/PreviousHistory.ts'
 import * as Refresh from '../Refresh/Refresh.ts'
 import * as Render2 from '../Render2/Render2.ts'
 import * as RenderActions2 from '../RenderActions2/RenderActions2.ts'
@@ -100,10 +102,12 @@ export const commandMap = {
   'SourceControl.handleWheel': WrapCommand.wrapCommand(HandleWheel.handleWheel),
   'SourceControl.handleWorkspaceRefresh': WrapCommand.wrapCommand(handleWorkspaceRefresh),
   'SourceControl.loadContent': loadContentCommand,
+  'SourceControl.nextHistory': WrapCommand.wrapCommand(nextHistory),
   'SourceControl.openChanges': WrapCommand.wrapCommand(openChanges),
   'SourceControl.openContainingFolder': WrapCommand.wrapCommand(openContainingFolder),
   'SourceControl.openFile': WrapCommand.wrapCommand(openFile),
   'SourceControl.openFileHead': WrapCommand.wrapCommand(openFileHead),
+  'SourceControl.previousHistory': WrapCommand.wrapCommand(previousHistory),
   'SourceControl.refresh': WrapCommand.wrapCommand(Refresh.refresh),
   'SourceControl.render2': Render2.render2,
   'SourceControl.renderActions': WrapCommand.wrapGetter(RenderActions2.renderActions),

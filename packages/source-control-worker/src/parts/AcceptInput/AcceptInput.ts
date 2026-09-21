@@ -1,10 +1,11 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import { addToHistory } from '../AddToHistory/AddToHistory.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
 import * as Logger from '../Logger/Logger.ts'
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 
 export const acceptInput = async (state: SourceControlState): Promise<SourceControlState> => {
-  const { applicationId, assetDir, enabledProviderIds, inputValue, platform } = state
+  const { applicationId, assetDir, enabledProviderIds, history, inputValue, platform } = state
   if (enabledProviderIds.length === 0) {
     Logger.info('[ViewletSourceControl] no source control provider found')
     return state
@@ -15,6 +16,9 @@ export const acceptInput = async (state: SourceControlState): Promise<SourceCont
   const newState = await loadContent(state, {})
   return {
     ...newState,
+    history: addToHistory(history, inputValue),
+    historyDraft: '',
+    historyIndex: -1,
     inputMessage: '',
     inputValue: '',
   }
