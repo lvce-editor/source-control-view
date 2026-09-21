@@ -19,6 +19,8 @@ export const createDefaultState = (): SourceControlState => ({
   headerHeight: 40,
   height: 100,
   history: [],
+  historyDraft: '',
+  historyIndex: -1,
   iconDefinitions: [],
   id: 1,
   indents: [],

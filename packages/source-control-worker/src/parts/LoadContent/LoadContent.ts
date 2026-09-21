@@ -27,6 +27,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     buttonBlockHeight,
     fileIconCache,
     height,
+    history: currentHistory,
     indents,
     inputFontFamily,
     inputFontSize,
@@ -43,7 +44,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   } = state
   const root = workspacePath
   const scheme = GetProtocol.getProtocol(root)
-  const { inputValue } = restoreState(savedState)
+  const { history, inputValue } = restoreState(savedState, currentHistory)
   const { assetDir, platform } = state
   const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root, assetDir, platform, applicationId)
   const providerUnavailableMessage = enabledProviderIds.length === 0 ? await getSourceControlUnavailableMessage(workspacePath, assetDir, platform, applicationId) : ''
@@ -104,6 +105,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     finalDeltaY,
     gitRoot,
     headerHeight,
+    history,
     iconDefinitions,
     indents: getIndents(indents, visibleItems),
     inProgress,

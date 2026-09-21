@@ -25,6 +25,8 @@ export interface SourceControlState {
   readonly headerHeight: number
   readonly height: number
   readonly history: readonly string[]
+  readonly historyDraft: string
+  readonly historyIndex: number
   readonly iconDefinitions: readonly string[]
   readonly id: number
   readonly indents: readonly number[]
