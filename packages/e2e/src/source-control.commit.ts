@@ -19,5 +19,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   // assert
   const treeItems = Locator('.SourceControlItems .TreeItem')
+  const input = Locator('.SourceControl .InputBox')
   await expect(treeItems).toHaveCount(0)
+  await expect(input).toHaveValue('')
 }
