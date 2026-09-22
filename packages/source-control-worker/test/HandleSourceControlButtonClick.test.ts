@@ -1,4 +1,5 @@
 import { expect, jest, test } from '@jest/globals'
+import { InputSource } from '@lvce-editor/constants'
 import { IconThemeWorker, ExtensionHost, ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
 import { RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
@@ -45,6 +46,8 @@ test('handleSourceControlButtonClick', async () => {
     ['Extensions.invokeForApplication', '', 'ExtensionHostSourceControl.getEnabledProviderIds', 'file', ''],
   ])
   expect(mockRpc.invocations).toEqual([['Preferences.get', 'sourceControl.splitButtonEnabled']])
+  expect(result.inputSource).toBe(InputSource.Script)
+  expect(result.inputBoxHeight).toBe(createDefaultState().inputLineHeight + createDefaultState().inputPadding * 2)
 })
 
 test('handleSourceControlButtonClick - failed command does not add to history', async () => {

@@ -15,8 +15,10 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, KeyBo
   const firstMessage = '  first line\nsecond line  '
   await SourceControl.handleInput(firstMessage)
   await SourceControl.acceptInput()
+  await expect(input).toHaveValue('')
   await SourceControl.handleInput('second message')
   await SourceControl.acceptInput()
+  await expect(input).toHaveValue('')
   await SourceControl.handleInput('draft')
   // eslint-disable-next-line e2e/no-direct-click -- Focus the source control input before sending navigation keys.
   await input.click()
