@@ -1,4 +1,5 @@
 export interface SavedState {
+  readonly defaultInputValue?: string
   readonly deltaY: number
   readonly expandedGroups: Record<string, boolean>
   readonly history: readonly string[]

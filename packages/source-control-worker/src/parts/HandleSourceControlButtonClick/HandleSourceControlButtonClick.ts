@@ -15,6 +15,7 @@ export const handleSourceControlButtonClick = async (state: SourceControlState, 
   const newState = await loadContent(state, {})
   return {
     ...newState,
+    defaultInputValue: '',
     history: addToHistory(history, inputValue),
     historyDraft: '',
     historyIndex: -1,

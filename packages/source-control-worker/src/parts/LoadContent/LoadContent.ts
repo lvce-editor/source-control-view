@@ -1,3 +1,4 @@
+import { InputSource } from '@lvce-editor/constants'
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
@@ -36,6 +37,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     inputLineHeight,
     inputPadding,
     inputPaddingBlock,
+    inputSource,
     itemHeight,
     minimumSliderSize,
     viewMode,
@@ -44,9 +46,19 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   } = state
   const root = workspaceUri
   const scheme = GetProtocol.getProtocol(root)
-  const { history, inputValue } = restoreState(savedState, currentHistory)
+  const { defaultInputValue: restoredDefaultInputValue, history, inputValue: restoredInputValue } = restoreState(savedState, currentHistory)
+  const hasSavedInputValue = Boolean(savedState && typeof savedState === 'object' && 'inputValue' in savedState && typeof savedState.inputValue === 'string')
+  const hasSavedDefaultInputValue = Boolean(
+    savedState && typeof savedState === 'object' && 'defaultInputValue' in savedState && typeof savedState.defaultInputValue === 'string',
+  )
+  let inputValue = restoredInputValue
   const { assetDir, platform } = state
   const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root, assetDir, platform, applicationId)
+  const currentDefaultInputValue = await SourceControl.getDefaultCommitMessage(enabledProviderIds, root, assetDir, platform, applicationId)
+  const canRestoreDefaultInputValue = !hasSavedInputValue || (hasSavedDefaultInputValue && restoredInputValue === restoredDefaultInputValue)
+  if (canRestoreDefaultInputValue && inputSource !== InputSource.User) {
+    inputValue = currentDefaultInputValue
+  }
   const providerUnavailableMessage = enabledProviderIds.length === 0 ? await getSourceControlUnavailableMessage(workspaceUri, assetDir, platform, applicationId) : ''
   const showGenerateCommitMessageButton =
     enabledProviderIds.length === 0 ? false : await SourceControl.getShowGenerateCommitMessageButton(enabledProviderIds[0], assetDir, platform, applicationId)
@@ -100,6 +112,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     allGroups,
     badgeCount,
     decorationIcons: iconDefinitions,
+    defaultInputValue: canRestoreDefaultInputValue ? currentDefaultInputValue : restoredDefaultInputValue,
     enabledProviderIds,
     fileIconCache: newFileIconCache,
     finalDeltaY,

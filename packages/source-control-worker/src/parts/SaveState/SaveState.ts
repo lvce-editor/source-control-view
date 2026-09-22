@@ -6,8 +6,9 @@ export const saveState = (uid: number): SavedState => {
   Assert.number(uid)
   const value = SourceControlStates.get(uid)
   const { newState } = value
-  const { expandedGroups, history, inputValue, maxLineY, root } = newState
+  const { defaultInputValue, expandedGroups, history, inputValue, maxLineY, root } = newState
   return {
+    defaultInputValue: defaultInputValue || '',
     deltaY: 0,
     expandedGroups,
     history,

@@ -9,6 +9,7 @@ export const createDefaultState = (): SourceControlState => ({
   buttonBlockHeight: 34,
   componentStateRevision: 0,
   decorationIcons: [],
+  defaultInputValue: '',
   deltaY: 0,
   enabledProviderIds: [],
   expandedGroups: Object.create(null),

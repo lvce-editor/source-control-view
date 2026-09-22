@@ -15,6 +15,7 @@ export interface SourceControlState {
   readonly buttonBlockHeight: number
   readonly componentStateRevision: number
   readonly decorationIcons: readonly string[]
+  readonly defaultInputValue?: string
   readonly deltaY: number
   readonly enabledProviderIds: readonly string[]
   readonly expandedGroups: Readonly<Record<string, boolean>>

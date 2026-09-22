@@ -16,6 +16,7 @@ export const acceptInput = async (state: SourceControlState): Promise<SourceCont
   const newState = await loadContent(state, {})
   return {
     ...newState,
+    defaultInputValue: '',
     history: addToHistory(history, inputValue),
     historyDraft: '',
     historyIndex: -1,

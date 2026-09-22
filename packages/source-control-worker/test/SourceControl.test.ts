@@ -125,6 +125,26 @@ test('getCurrentBranch should use an empty fallback when providers do not expose
   expect(extensionHostMockRpc.invocations).toEqual([['ExtensionHostSourceControl.getCurrentBranch', 'provider', '/test/root']])
 })
 
+test('getDefaultCommitMessage should return the first provider message', async (): Promise<void> => {
+  const extensionHostMockRpc = ExtensionHost.registerMockRpc({
+    'ExtensionHostSourceControl.getDefaultCommitMessage': async (providerId: string, root: string): Promise<string | undefined> =>
+      providerId === 'git' ? `Merge branch into ${root}` : undefined,
+  })
+  ExtensionManagementWorker.registerMockRpc(
+    withApplicationRouting({
+      'Extensions.activateByEvent': async (): Promise<void> => {},
+    }),
+  )
+
+  const result = await SourceControl.getDefaultCommitMessage(['other', 'git'], '/test/root', '/test-asset-dir', 1, '')
+
+  expect(result).toBe('Merge branch into /test/root')
+  expect(extensionHostMockRpc.invocations).toEqual([
+    ['ExtensionHostSourceControl.getDefaultCommitMessage', 'other', '/test/root'],
+    ['ExtensionHostSourceControl.getDefaultCommitMessage', 'git', '/test/root'],
+  ])
+})
+
 test('getBadgeCount should call ExtensionHostSourceControl.getBadgeCount for each provider', async (): Promise<void> => {
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.getBadgeCount': async (providerId: string): Promise<number> => (providerId === 'test-provider-1' ? 2 : 3),

@@ -102,6 +102,26 @@ export const getCurrentBranch = async (providerIds: readonly string[], root: str
   return ''
 }
 
+export const getDefaultCommitMessage = async (
+  providerIds: readonly string[],
+  root: string,
+  assetDir: string,
+  platform: number,
+  applicationId: string,
+): Promise<string> => {
+  for (const providerId of providerIds) {
+    try {
+      const message = await ExtensionHostSourceControl.getDefaultCommitMessage(providerId, root, assetDir, platform, applicationId)
+      if (typeof message === 'string' && message.trim()) {
+        return message.trim()
+      }
+    } catch {
+      // Providers without default commit message metadata do not affect the source control view.
+    }
+  }
+  return ''
+}
+
 const getIcon = (icon: string, base: string, dir: string, p: number): string => {
   const uri = new URL(icon, base).href
   if (p === PlatformType.Electron || p === PlatformType.Remote) {

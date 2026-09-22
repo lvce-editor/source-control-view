@@ -59,6 +59,17 @@ export const getCurrentBranch = (providerId: string, path: string, assetDir: str
   })
 }
 
+export const getDefaultCommitMessage = (providerId: string, path: string, assetDir: string, platform: number, applicationId: string): Promise<string | undefined> => {
+  return ExecuteProvider.executeProvider({
+    applicationId,
+    assetDir,
+    event: 'none',
+    method: ExtensionHostCommandType.SourceControlGetDefaultCommitMessage,
+    params: [providerId, path],
+    platform,
+  })
+}
+
 export const getFileDecorations = (providerId: string, uris: readonly string[], assetDir: string, platform: number, applicationId: string): Promise<readonly any[]> => {
   Assert.string(assetDir)
   Assert.number(platform)

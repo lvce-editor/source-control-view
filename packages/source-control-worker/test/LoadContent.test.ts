@@ -85,6 +85,58 @@ test('loadContent - with saved state inputValue', async (): Promise<void> => {
   expect(result.inputBoxHeight).toBe(49) // 45 from RPC + inputPadding * 2 (2 * 2 = 4)
 })
 
+test('loadContent - prepopulates an empty initial input with the provider default commit message', async (): Promise<void> => {
+  const commandMap = {
+    'ExtensionHostSourceControl.getDefaultCommitMessage': async (): Promise<string> => "Merge branch 'feature' into main",
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
+    'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [],
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
+  }
+  ExtensionHost.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
+  IconThemeWorker.registerMockRpc(commandMap)
+  RendererWorker.registerMockRpc(commandMap)
+  TextMeasurementWorker.registerMockRpc(commandMap)
+
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    workspaceUri: '/test/workspace',
+  }
+  const result = await loadContent(state, {})
+
+  expect(result.inputValue).toBe("Merge branch 'feature' into main")
+})
+
+test('loadContent - preserves a saved empty input instead of restoring a stale default', async (): Promise<void> => {
+  const commandMap = {
+    'ExtensionHostSourceControl.getDefaultCommitMessage': async (): Promise<string> => "Merge branch 'feature' into main",
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
+    'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [],
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
+  }
+  ExtensionHost.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
+  IconThemeWorker.registerMockRpc(commandMap)
+  RendererWorker.registerMockRpc(commandMap)
+  TextMeasurementWorker.registerMockRpc(commandMap)
+
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    workspaceUri: '/test/workspace',
+  }
+  const result = await loadContent(state, { inputValue: '' })
+
+  expect(result.inputValue).toBe('')
+})
+
 test('loadContent - with enabled providers', async (): Promise<void> => {
   const commandMap = {
     'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
