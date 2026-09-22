@@ -17,6 +17,7 @@ test('saveState', () => {
   set(uid, state, state)
   const result = saveState(uid)
   expect(result).toEqual({
+    defaultInputValue: '',
     deltaY: 0,
     expandedGroups: { '1': true, '2': false },
     history: ['previous message'],

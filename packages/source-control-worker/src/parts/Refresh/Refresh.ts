@@ -16,12 +16,14 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     actionsCache,
     applicationId,
     assetDir,
+    defaultInputValue,
     enabledProviderIds,
     fileIconCache,
     headerHeight,
     height,
     iconDefinitions,
     indents,
+    inputValue,
     itemHeight,
     minimumSliderSize,
     platform,
@@ -50,6 +52,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
   )
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inProgress = await SourceControl.getProgress(enabledProviderIds, assetDir, platform, applicationId)
+  const currentDefaultInputValue = await SourceControl.getDefaultCommitMessage(enabledProviderIds, root, assetDir, platform, applicationId)
   const currentBranch = await SourceControl.getCurrentBranch(enabledProviderIds, root, assetDir, platform, applicationId)
   const inputPlaceholder = SourceControlStrings.messageEnterToCommit(currentBranch)
   return {
@@ -57,6 +60,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     actionsCache,
     allGroups,
     badgeCount,
+    defaultInputValue: currentDefaultInputValue,
     deltaY: 0,
     enabledProviderIds,
     fileIconCache: newFileIconCache,
@@ -65,6 +69,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     indents: getIndents(indents, visibleItems),
     inProgress,
     inputPlaceholder,
+    inputValue: inputValue === defaultInputValue ? currentDefaultInputValue : inputValue,
     items: displayItems,
     maxLineY,
     minLineY,
