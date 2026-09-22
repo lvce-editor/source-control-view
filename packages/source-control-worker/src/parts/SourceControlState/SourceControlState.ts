@@ -13,6 +13,7 @@ export interface SourceControlState {
   readonly assetDir: string
   readonly badgeCount: number
   readonly buttonBlockHeight: number
+  readonly componentStateRevision: number
   readonly decorationIcons: readonly string[]
   readonly deltaY: number
   readonly enabledProviderIds: readonly string[]

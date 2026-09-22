@@ -10,7 +10,7 @@ const applyComponentState = (currentState: SourceControlState, state: SourceCont
   if (id !== currentId) {
     throw new Error(`Source Control state id must remain ${currentId}`)
   }
-  return state
+  return { ...state, componentStateRevision: currentState.componentStateRevision + 1 }
 }
 
 export const setComponentState = SourceControlStates.wrapCommand(applyComponentState)

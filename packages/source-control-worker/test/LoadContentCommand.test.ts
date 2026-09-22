@@ -3,6 +3,7 @@ import { InputSource } from '@lvce-editor/constants'
 import { ExtensionHost, ExtensionManagementWorker, IconThemeWorker, RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContentCommand } from '../src/parts/LoadContentCommand/LoadContentCommand.ts'
+import { setComponentState } from '../src/parts/SetComponentState/SetComponentState.ts'
 import * as SourceControlStates from '../src/parts/SourceControlStates/SourceControlStates.ts'
 import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
@@ -67,4 +68,25 @@ test('extension reload preserves a message already entered before loading', asyn
   SourceControlStates.set(3, state, state)
   await loadContentCommand(3, undefined)
   expect(SourceControlStates.get(3).newState.inputValue).toBe('My change')
+})
+
+test('an extension reload does not overwrite a newer live component state edit', async () => {
+  const started = Promise.withResolvers<void>()
+  const providers = Promise.withResolvers<readonly string[]>()
+  registerProviders(async () => {
+    started.resolve()
+    return providers.promise
+  })
+  const state = { ...createDefaultState(), id: 4, providerUnavailableMessage: 'No source control extensions are installed.' }
+  SourceControlStates.set(4, state, state)
+  const pending = loadContentCommand(4, undefined)
+  await started.promise
+  await setComponentState(4, { ...state, providerUnavailableMessage: 'Live source control message' })
+  providers.resolve([])
+  await pending
+  expect(SourceControlStates.get(4).newState.providerUnavailableMessage).toBe('Live source control message')
+  // A reload started after the edit is still allowed to refresh provider state.
+  registerProviders(async () => [])
+  await loadContentCommand(4, undefined)
+  expect(SourceControlStates.get(4).newState.providerUnavailableMessage).toBe('No workspace is open.')
 })
