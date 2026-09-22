@@ -7,6 +7,7 @@ export const createDefaultState = (): SourceControlState => ({
   assetDir: '',
   badgeCount: 0,
   buttonBlockHeight: 34,
+  componentStateRevision: 0,
   decorationIcons: [],
   deltaY: 0,
   enabledProviderIds: [],
