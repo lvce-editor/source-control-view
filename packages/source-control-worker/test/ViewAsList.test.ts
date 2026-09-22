@@ -1,5 +1,6 @@
 import { test, expect } from '@jest/globals'
 import { ViewMode } from '@lvce-editor/constants'
+import { IconThemeWorker } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewAsList from '../src/parts/ViewAsList/ViewAsList.ts'
@@ -51,6 +52,9 @@ test('viewAsList - changes viewMode from List to List', async () => {
 })
 
 test('viewAsList - rebuilds flat display items after tree view', async () => {
+  using _iconRpc = IconThemeWorker.registerMockRpc({
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+  })
   const state: SourceControlState = {
     ...createDefaultState(),
     allGroups: [

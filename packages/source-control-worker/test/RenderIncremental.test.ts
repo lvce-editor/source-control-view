@@ -18,14 +18,14 @@ test('loading state changed', () => {
   expect(result).toEqual([ViewletCommand.SetDom2, newState.id, expect.any(Array)])
 })
 
-test('workspace path changed', () => {
+test('workspace URI changed', () => {
   const oldState = {
     ...createDefaultState(),
-    workspacePath: '/old',
+    workspaceUri: '/old',
   }
   const newState = {
     ...oldState,
-    workspacePath: '/new',
+    workspaceUri: '/new',
   }
 
   const result = RenderIncremental.renderIncremental(oldState, newState)

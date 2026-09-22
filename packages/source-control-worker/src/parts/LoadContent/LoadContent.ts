@@ -1,16 +1,16 @@
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
-import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
 import { getGroups } from '../GetGroups/GetGroups.ts'
 import { getHeaderHeight } from '../GetHeaderHeight/GetHeaderHeight.ts'
 import { getIndents } from '../GetIndents/GetIndents.ts'
 import { getInputHeight } from '../GetInputHeight/GetInputHeight.ts'
+import { getInputWidth } from '../GetInputWidth/GetInputWidth.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
 import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
 import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
 import { getSourceControlUnavailableMessage } from '../GetSourceControlUnavailableMessage/GetSourceControlUnavailableMessage.ts'
-import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
+import * as GetVisibleSourceControlItemsWithIcons from '../GetVisibleSourceControlItemsWithIcons/GetVisibleSourceControlItemsWithIcons.ts'
 import * as Preferences from '../Preferences/Preferences.ts'
 import { requestInputActions } from '../RequestInputActions/RequestInputActions.ts'
 import { requestSourceActions } from '../RequestSourceActions/RequestSourceActions.ts'
@@ -27,6 +27,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     buttonBlockHeight,
     fileIconCache,
     height,
+    history: currentHistory,
     indents,
     inputFontFamily,
     inputFontSize,
@@ -40,14 +41,14 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     selectedItem,
     viewMode,
     width,
-    workspacePath,
+    workspaceUri,
   } = state
-  const root = workspacePath
+  const root = workspaceUri
   const scheme = GetProtocol.getProtocol(root)
-  const { inputValue } = restoreState(savedState)
+  const { history, inputValue } = restoreState(savedState, currentHistory)
   const { assetDir, platform } = state
   const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root, assetDir, platform, applicationId)
-  const providerUnavailableMessage = enabledProviderIds.length === 0 ? await getSourceControlUnavailableMessage(workspacePath, assetDir, platform, applicationId) : ''
+  const providerUnavailableMessage = enabledProviderIds.length === 0 ? await getSourceControlUnavailableMessage(workspaceUri, assetDir, platform, applicationId) : ''
   const showGenerateCommitMessageButton =
     enabledProviderIds.length === 0 ? false : await SourceControl.getShowGenerateCommitMessageButton(enabledProviderIds[0], assetDir, platform, applicationId)
 
@@ -66,7 +67,16 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   const badgeCount = await SourceControl.getBadgeCount(enabledProviderIds, assetDir, platform, applicationId)
   const currentBranch = await SourceControl.getCurrentBranch(enabledProviderIds, root, assetDir, platform, applicationId)
   const inputPlaceholder = SourceControlStrings.messageEnterToCommit(currentBranch)
-  const inputBoxHeight = await getInputHeight(inputValue, width, inputFontFamily, inputFontSize, inputFontWeight, inputLetterSpacing, inputLineHeight, inputPadding)
+  const inputBoxHeight = await getInputHeight(
+    inputValue,
+    getInputWidth(width, inputActions),
+    inputFontFamily,
+    inputFontWeight,
+    inputFontSize,
+    inputLetterSpacing,
+    inputLineHeight,
+    inputPadding,
+  )
   const headerHeight = getHeaderHeight(inputBoxHeight, sourceControlButtons, inputPaddingBlock, buttonBlockHeight)
   const total = displayItems.length
   const contentHeight = total * itemHeight
@@ -76,8 +86,14 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   const numberOfVisible = GetNumberOfVisibleItems.getNumberOfVisibleItems(listHeight, itemHeight)
   const minLineY = 0
   const maxLineY = Math.min(numberOfVisible, total)
-  const newFileIconCache = await GetFileIcons.getFileIcons(displayItems, fileIconCache)
-  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, newFileIconCache, selectedItem)
+  const { fileIconCache: newFileIconCache, visibleItems } = await GetVisibleSourceControlItemsWithIcons.getVisibleSourceControlItemsWithIcons(
+    displayItems,
+    minLineY,
+    maxLineY,
+    actionsCache,
+    fileIconCache,
+    selectedItem,
+  )
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inProgress = await SourceControl.getProgress(enabledProviderIds, assetDir, platform, applicationId)
   return {
@@ -91,6 +107,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     finalDeltaY,
     gitRoot,
     headerHeight,
+    history,
     iconDefinitions,
     indents: getIndents(indents, visibleItems),
     inProgress,

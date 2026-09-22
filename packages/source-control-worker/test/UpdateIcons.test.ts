@@ -18,11 +18,11 @@ test('updateIcons - should update icons for visible items', async (): Promise<vo
     ...defaultState,
     items: [
       // @ts-ignore
-      { depth: 1, name: 'file1.ts', path: '/test/file1.ts', selected: false, type: 1 },
+      { depth: 1, file: '/test/file1.ts', label: 'file1.ts', name: 'file1.ts', path: '/test/file1.ts', selected: false, type: 1 },
       // @ts-ignore
-      { depth: 1, name: 'file2.ts', path: '/test/file2.ts', selected: false, type: 1 },
+      { depth: 1, file: '/test/file2.ts', label: 'file2.ts', name: 'file2.ts', path: '/test/file2.ts', selected: false, type: 1 },
       // @ts-ignore
-      { depth: 1, name: 'file3.ts', path: '/test/file3.ts', selected: false, type: 1 },
+      { depth: 1, file: '/test/file3.ts', label: 'file3.ts', name: 'file3.ts', path: '/test/file3.ts', selected: false, type: 1 },
     ],
     maxLineY: 2,
     minLineY: 0,
@@ -53,7 +53,7 @@ test('updateIcons - should handle empty visible items', async (): Promise<void> 
   expect(result.fileIconCache).toBeDefined()
   const { items } = state
   expect(result.items).toEqual(items)
-  expect(mockRpc.invocations).toEqual([['IconTheme.getIcons', []]])
+  expect(mockRpc.invocations).toEqual([])
 })
 
 test('updateIcons - should not request icons for group headers', async (): Promise<void> => {
@@ -99,7 +99,8 @@ test('updateIcons - should not request icons for group headers', async (): Promi
 
   const result = await UpdateIcons.updateIcons(state)
 
-  expect(result.fileIconCache).toEqual({ 'file1.ts': 'file-icon' })
+  expect(result.fileIconCache).toEqual({ '/test/file1.ts': 'file-icon' })
   expect(result.fileIconCache).not.toHaveProperty('Changes')
-  expect(mockRpc.invocations).toEqual([['IconTheme.getIcons', [{ name: 'file1.ts', type: 1 }]]])
+  expect(result.visibleItems[1].fileIcon).toBe('file-icon')
+  expect(mockRpc.invocations).toEqual([['IconTheme.getIcons', [{ name: 'file1.ts', path: '/test/file1.ts', type: 1 }]]])
 })

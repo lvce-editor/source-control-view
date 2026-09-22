@@ -1,9 +1,9 @@
 import * as Assert from '@lvce-editor/assert'
-import { ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
+import * as ApplicationExtensionRpc from '../ApplicationExtensionRpc/ApplicationExtensionRpc.ts'
 
-export const activateByEvent = (event: string, assetDir: string, platform: number): Promise<void> => {
+export const activateByEvent = (event: string, assetDir: string, platform: number, applicationId: string): Promise<void> => {
   Assert.string(event)
   Assert.string(assetDir)
   Assert.number(platform)
-  return ExtensionManagementWorker.invoke('Extensions.activateByEvent', event, assetDir, platform)
+  return ApplicationExtensionRpc.invoke(applicationId, 'Extensions.activateByEvent', event)
 }

@@ -25,6 +25,7 @@ import * as HandleMouseOutAt from '../HandleMouseOutAt/HandleMouseOutAt.ts'
 import * as HandleMouseOver from '../HandleMouseOver/HandleMouseOver.ts'
 import * as HandleMouseOverAt from '../HandleMouseOverAt/HandleMouseOverAt.ts'
 import * as HandleRendererProcessMessagePort from '../HandleRendererProcessMessagePort/HandleRendererProcessMessagePort.ts'
+import * as HandleResize from '../HandleResize/HandleResize.ts'
 import { handleScrollBarCaptureLost } from '../HandleScrollBarCaptureLost/HandleScrollBarCaptureLost.ts'
 import { handleScrollBarClick } from '../HandleScrollBarClick/HandleScrollBarClick.ts'
 import { handleScrollBarMove } from '../HandleScrollBarMove/HandleScrollBarMove.ts'
@@ -34,10 +35,12 @@ import * as HandleWheel from '../HandleWheel/HandleWheel.ts'
 import { handleWorkspaceRefresh } from '../HandleWorkspaceRefresh/HandleWorkspaceRefresh.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import { loadContentCommand } from '../LoadContentCommand/LoadContentCommand.ts'
+import { nextHistory } from '../NextHistory/NextHistory.ts'
 import { openChanges } from '../OpenChanges/OpenChanges.ts'
 import { openContainingFolder } from '../OpenContainingFolder/OpenContainingFolder.ts'
 import { openFile } from '../OpenFile/OpenFile.ts'
 import { openFileHead } from '../OpenFileHead/OpenFileHead.ts'
+import { previousHistory } from '../PreviousHistory/PreviousHistory.ts'
 import * as Refresh from '../Refresh/Refresh.ts'
 import * as Render2 from '../Render2/Render2.ts'
 import * as RenderActions2 from '../RenderActions2/RenderActions2.ts'
@@ -90,6 +93,7 @@ export const commandMap = {
   'SourceControl.handleMouseOver': WrapCommand.wrapCommand(HandleMouseOver.handleMouseOver),
   'SourceControl.handleMouseOverAt': WrapCommand.wrapCommand(HandleMouseOverAt.handleMouseOverAt),
   'SourceControl.handleRendererProcessMessagePort': handleDirectMessagePort,
+  'SourceControl.handleResize': WrapCommand.wrapCommand(HandleResize.handleResize),
   'SourceControl.handleScrollBarCaptureLost': WrapCommand.wrapCommand(handleScrollBarCaptureLost),
   'SourceControl.handleScrollBarClick': WrapCommand.wrapCommand(handleScrollBarClick),
   'SourceControl.handleScrollBarMove': WrapCommand.wrapCommand(handleScrollBarMove),
@@ -98,10 +102,12 @@ export const commandMap = {
   'SourceControl.handleWheel': WrapCommand.wrapCommand(HandleWheel.handleWheel),
   'SourceControl.handleWorkspaceRefresh': WrapCommand.wrapCommand(handleWorkspaceRefresh),
   'SourceControl.loadContent': loadContentCommand,
+  'SourceControl.nextHistory': WrapCommand.wrapCommand(nextHistory),
   'SourceControl.openChanges': WrapCommand.wrapCommand(openChanges),
   'SourceControl.openContainingFolder': WrapCommand.wrapCommand(openContainingFolder),
   'SourceControl.openFile': WrapCommand.wrapCommand(openFile),
   'SourceControl.openFileHead': WrapCommand.wrapCommand(openFileHead),
+  'SourceControl.previousHistory': WrapCommand.wrapCommand(previousHistory),
   'SourceControl.refresh': WrapCommand.wrapCommand(Refresh.refresh),
   'SourceControl.render2': Render2.render2,
   'SourceControl.renderActions': WrapCommand.wrapGetter(RenderActions2.renderActions),

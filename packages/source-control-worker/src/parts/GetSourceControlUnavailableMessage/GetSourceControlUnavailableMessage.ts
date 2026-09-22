@@ -14,8 +14,8 @@ const isSourceControlExtension = (extension: any): boolean => {
   return Boolean(extension?.sourceControl) || hasSourceControlActivation(extension)
 }
 
-export const getSourceControlUnavailableMessage = async (workspacePath: string, assetDir: string, platform: number, applicationId?: string): Promise<string> => {
-  if (!workspacePath) {
+export const getSourceControlUnavailableMessage = async (workspaceUri: string, assetDir: string, platform: number, applicationId: string): Promise<string> => {
+  if (!workspaceUri) {
     return SourceControlStrings.noWorkspaceOpen()
   }
   try {

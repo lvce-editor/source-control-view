@@ -9,10 +9,11 @@ import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 export interface SourceControlState {
   readonly actionsCache: ActionsCache
   readonly allGroups: readonly Group[]
-  readonly applicationId?: string
+  readonly applicationId: string
   readonly assetDir: string
   readonly badgeCount: number
   readonly buttonBlockHeight: number
+  readonly componentStateRevision: number
   readonly decorationIcons: readonly string[]
   readonly deltaY: number
   readonly enabledProviderIds: readonly string[]
@@ -25,6 +26,8 @@ export interface SourceControlState {
   readonly headerHeight: number
   readonly height: number
   readonly history: readonly string[]
+  readonly historyDraft: string
+  readonly historyIndex: number
   readonly iconDefinitions: readonly string[]
   readonly id: number
   readonly indents: readonly number[]
@@ -71,7 +74,7 @@ export interface SourceControlState {
   readonly visibleItems: readonly VisibleItem[]
   readonly width: number
   readonly workingTree: readonly any[]
-  readonly workspacePath: string
+  readonly workspaceUri: string
   readonly x: number
   readonly y: number
 }

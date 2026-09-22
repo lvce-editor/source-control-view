@@ -129,3 +129,47 @@ test('getVisibleSourceControlItems - multiple items', () => {
     },
   ])
 })
+
+test('getVisibleSourceControlItems - uses the full path for file icons', () => {
+  const items = [
+    {
+      badgeCount: 0,
+      decorationIcon: '',
+      decorationIconTitle: '',
+      decorationStrikeThrough: false,
+      detail: '',
+      file: '/one/file.txt',
+      groupId: 'test1',
+      icon: '',
+      label: 'file.txt',
+      posInSet: 1,
+      setSize: 2,
+      type: DirentType.File,
+    },
+    {
+      badgeCount: 0,
+      decorationIcon: '',
+      decorationIconTitle: '',
+      decorationStrikeThrough: false,
+      detail: '',
+      file: '/two/file.txt',
+      groupId: 'test2',
+      icon: '',
+      label: 'file.txt',
+      posInSet: 2,
+      setSize: 2,
+      type: DirentType.File,
+    },
+  ]
+  const result = getVisibleSourceControlItems(
+    items,
+    0,
+    2,
+    {},
+    {
+      '/one/file.txt': 'file-icon1',
+      '/two/file.txt': 'file-icon2',
+    },
+  )
+  expect(result.map((item) => item.fileIcon)).toEqual(['file-icon1', 'file-icon2'])
+})

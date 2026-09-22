@@ -44,6 +44,20 @@ test('handleInput - handles empty input', async () => {
   expect(typeof result.inputBoxHeight).toBe('number')
 })
 
+test('handleInput - user edits leave history navigation', async () => {
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    historyDraft: 'draft',
+    historyIndex: 1,
+  }
+
+  const result = await HandleInput.handleInput(state, 'edited')
+
+  expect(result.inputValue).toBe('edited')
+  expect(result.historyDraft).toBe('')
+  expect(result.historyIndex).toBe(-1)
+})
+
 test('handleInput - preserves other state properties', async () => {
   const state: SourceControlState = {
     ...createDefaultState(),
