@@ -24,7 +24,7 @@ test('a pending command cannot restore the previous workspace', async () => {
   const response = Promise.withResolvers<SourceControlState>()
   const command = SourceControlStates.wrapCommand(async () => response.promise)
   const pending = command(id)
-  const current = { ...state, inProgress: true, workspacePath: '/other' }
+  const current = { ...state, inProgress: true, workspaceUri: '/other' }
   SourceControlStates.set(id, state, current)
   response.resolve({ ...state, inProgress: false })
   await pending
