@@ -37,13 +37,13 @@ test('handleResize remeasures the input and updates list geometry', async () => 
 
   expect(result.width).toBe(200)
   expect(result.height).toBe(120)
-  expect(result.inputBoxHeight).toBe(64)
-  expect(result.headerHeight).toBe(75)
-  expect(result.finalDeltaY).toBe(355)
+  expect(result.inputBoxHeight).toBe(68)
+  expect(result.headerHeight).toBe(79)
+  expect(result.finalDeltaY).toBe(359)
   expect(result.deltaY).toBe(80)
   expect(result.minLineY).toBe(4)
   expect(result.maxLineY).toBe(8)
-  expect(mockRpc.invocations).toEqual([['TextMeasurement.measureTextBlockHeight', 'a long commit message', '', 15, '14.95px', 156]])
+  expect(mockRpc.invocations).toEqual([['TextMeasurement.measureTextBlockHeight', 'a long commit message', 'monospace', 13, '14.95px', 154]])
 })
 
 test('handleResize ignores invalid dimensions', async () => {
