@@ -32,7 +32,7 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, Locat
   await Command.execute('Source Control.handleWheel', 0, 200)
 
   // assert
-  await expect(scrollBarThumb).toHaveCSS('translate', '0px 58px')
+  await expect(scrollBarThumb).toHaveCSS('translate', '0px 57px')
 
   const visibleFileItem = Locator('.SourceControlItems .TreeItem', { hasText: '10.txt' })
   await expect(visibleFileItem).toBeVisible()

@@ -13,6 +13,11 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(input).toBeVisible()
 
   // act
+  const shortValue = 'feature: enable tsconfig rule'
+  await SourceControl.handleInput(shortValue)
+  await expect(input).toHaveValue(shortValue)
+  await expect(input).toHaveCSS('height', '37.8906px')
+
   const value = `first line\nsecond line\n${'unbroken-token-'.repeat(30)}`
   await SourceControl.handleInput(value)
 
