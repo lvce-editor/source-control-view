@@ -6,13 +6,13 @@ export const { dispose, get, getCommandIds, registerCommands, set, wrapAsyncComm
 export const wrapCommand = (fn: ViewletRegistry.Fn<SourceControlState>): ViewletRegistry.WrappedFn =>
   wrapAsyncCommand(async (context, ...args) => {
     const state = context.getState()
-    const { enabledProviderIds, progressRequestId, workspacePath } = state
+    const { enabledProviderIds, progressRequestId, workspaceUri } = state
     const result = await fn(state, ...args)
     if (result === state) {
       return
     }
     await context.updateState((current) => {
-      if (current.workspacePath !== workspacePath || current.enabledProviderIds !== enabledProviderIds) {
+      if (current.workspaceUri !== workspaceUri || current.enabledProviderIds !== enabledProviderIds) {
         return current
       }
       return {
