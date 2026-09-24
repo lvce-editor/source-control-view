@@ -35,3 +35,21 @@ test('getVisibleSourceControlItemsWithIcons - only requests uncached visible ite
   await getVisibleSourceControlItemsWithIcons(items, 0, 20, {}, second.fileIconCache)
   expect(iconRpc.invocations).toHaveLength(2)
 })
+
+test('getVisibleSourceControlItemsWithIcons - preserves selection when scrolling away and back', async (): Promise<void> => {
+  using iconRpc = IconThemeWorker.registerMockRpc({
+    'IconTheme.getIcons': async (requests: readonly any[]): Promise<readonly string[]> => requests.map((request) => `${request.name}-icon`),
+  })
+  const items = Array.from({ length: 40 }, (_, index) => createDisplayItem(index))
+  const selectedItem = 'changes\0/workspace/file-3.txt'
+  const first = await getVisibleSourceControlItemsWithIcons(items, 0, 20, {}, {}, selectedItem)
+  expect(first.visibleItems.filter((item) => item.selected).map((item) => item.file)).toEqual(['/workspace/file-3.txt'])
+
+  const second = await getVisibleSourceControlItemsWithIcons(items, 20, 40, {}, first.fileIconCache, selectedItem)
+  expect(second.visibleItems.some((item) => item.selected)).toBe(false)
+
+  const third = await getVisibleSourceControlItemsWithIcons(items, 0, 20, {}, second.fileIconCache, selectedItem)
+  expect(third.visibleItems.filter((item) => item.selected).map((item) => item.file)).toEqual(['/workspace/file-3.txt'])
+  expect(third.visibleItems[3].fileIcon).toBe('file-3.txt-icon')
+  expect(iconRpc.invocations).toHaveLength(2)
+})

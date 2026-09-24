@@ -28,6 +28,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     minimumSliderSize,
     platform,
     root,
+    selectedItem,
     splitButtonEnabled,
     viewMode,
   } = state
@@ -49,6 +50,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     maxLineY,
     actionsCache,
     fileIconCache,
+    selectedItem,
   )
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inProgress = await SourceControl.getProgress(enabledProviderIds, assetDir, platform, applicationId)
@@ -74,6 +76,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     maxLineY,
     minLineY,
     scrollBarHeight,
+    selectedItem,
     splitButtonEnabled,
     visibleItems,
   }

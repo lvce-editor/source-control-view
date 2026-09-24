@@ -66,6 +66,7 @@ export interface SourceControlState {
   readonly root: string
   readonly scrollBarActive: boolean
   readonly scrollBarHeight: number
+  readonly selectedItem?: string
   readonly showGenerateCommitMessageButton: boolean
   readonly sourceControlButtons: readonly ActionButton[]
   readonly splitButtonEnabled: boolean
