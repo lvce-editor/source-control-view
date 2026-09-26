@@ -100,7 +100,7 @@ test('viewAsTree - expands groups without saved expansion state', async () => {
 test('viewAsTree - preserves explicitly collapsed groups', async () => {
   const state: SourceControlState = {
     ...createDefaultState(),
-    allGroups: [{ id: 'changes', label: 'Changes', items: [{ file: '/src/file.ts', icon: '', iconTitle: '', strikeThrough: false }] }],
+    allGroups: [{ id: 'changes', items: [{ file: '/src/file.ts', icon: '', iconTitle: '', strikeThrough: false }], label: 'Changes' }],
     expandedGroups: { changes: false },
   }
 
