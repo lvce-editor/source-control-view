@@ -4,7 +4,7 @@ const id = 'sample-source-control'
 const label = 'Sample Source Control'
 const rootUri = ''
 
-const iconRoot = new URL('../icons/dark', import.meta.url).toString()
+const iconRoot = import.meta.resolve('../icons/dark')
 
 const IconType = {
   Modified: `${iconRoot}/status-modified.svg`,
