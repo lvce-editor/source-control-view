@@ -1,0 +1,13 @@
+{
+  "id": "builtin.sample-source-control-tree-provider",
+  "name": "Sample Source Control Tree Provider",
+  "description": "Sample Source Control Tree Provider",
+  "browser": "src/index.ts",
+  "isolated": true,
+  "activation": ["onSourceControl", "onSourceControl:file"],
+  "sourceControlProviders": [
+    {
+      "id": "sample-source-control-tree-provider"
+    }
+  ]
+}
