@@ -1,4 +1,4 @@
-import { cp } from 'node:fs/promises'
+import { cp, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { build } from 'esbuild'
 import { root } from './root.ts'
