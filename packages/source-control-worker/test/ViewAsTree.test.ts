@@ -74,3 +74,38 @@ test('viewAsTree - rebuilds display items', async () => {
     { directory: undefined, label: 'file.ts' },
   ])
 })
+
+test('viewAsTree - expands groups without saved expansion state', async () => {
+  using _iconRpc = IconThemeWorker.registerMockRpc({
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+  })
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    allGroups: [
+      {
+        id: 'changes',
+        items: [{ file: '/src/file.ts', icon: '', iconTitle: '', strikeThrough: false }],
+        label: 'Changes',
+      },
+    ],
+    expandedGroups: {},
+  }
+
+  const result = await ViewAsTree.viewAsTree(state)
+
+  expect(result.expandedGroups).toEqual({ changes: true })
+  expect(result.items.map(({ label }) => label)).toEqual(['Changes', 'src', 'file.ts'])
+})
+
+test('viewAsTree - preserves explicitly collapsed groups', async () => {
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    allGroups: [{ id: 'changes', label: 'Changes', items: [{ file: '/src/file.ts', icon: '', iconTitle: '', strikeThrough: false }] }],
+    expandedGroups: { changes: false },
+  }
+
+  const result = await ViewAsTree.viewAsTree(state)
+
+  expect(result.expandedGroups).toEqual({ changes: false })
+  expect(result.items.map(({ label }) => label)).toEqual(['Changes'])
+})
