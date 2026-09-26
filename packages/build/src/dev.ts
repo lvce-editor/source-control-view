@@ -7,11 +7,15 @@ const serverRequire = createRequire(join(root, 'packages', 'server', 'package.js
 const serverPath = serverRequire.resolve('@lvce-editor/server/bin/server.js')
 
 const main = async (): Promise<void> => {
+  await execa('npm', ['run', 'build'], {
+    cwd: root,
+    stdio: 'inherit',
+  })
   execa(`npm`, ['run', 'build:watch'], {
     cwd: root,
     stdio: 'inherit',
   })
-  execa('node', [serverPath, '--test-path=packages/e2e'], {
+  execa('node', [serverPath, '--test-path=packages/e2e', '--link=.tmp/dist'], {
     cwd: root,
     stdio: 'inherit',
   })
