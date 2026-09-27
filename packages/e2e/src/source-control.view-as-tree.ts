@@ -7,7 +7,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   const uri = import.meta.resolve('../fixtures/sample-source-control-tree-provider')
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
   await SourceControl.show()
 
   const viewlet = Locator('.Viewlet.SourceControl')
@@ -18,7 +18,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   const viewAsTree = actions.locator('[name="ViewAsTree"]')
   await expect(viewAsTree).toBeVisible()
   await expect(treeItems).toHaveCount(6)
-  // eslint-disable-next-line e2e/no-direct-click -- Exercise the actual toolbar event that switches the view mode.
+  // eslint-disable-next-line e2e/no-direct-click, @typescript-eslint/no-deprecated -- Exercise the actual toolbar event that switches the view mode.
   await viewAsTree.click()
 
   // assert
@@ -47,7 +47,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(performanceDirectory).toHaveAttribute('aria-expanded', 'true')
 
   // act
-  // eslint-disable-next-line e2e/no-direct-click -- Verify directory row clicks collapse the rendered tree.
+  // eslint-disable-next-line e2e/no-direct-click, @typescript-eslint/no-deprecated -- Verify directory row clicks collapse the rendered tree.
   await performanceDirectory.click()
 
   // assert
@@ -55,7 +55,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(performanceDirectory).toHaveAttribute('aria-expanded', 'false')
   const collapsedElectronSixLabel = treeItems.nth(4).locator('.Label')
   await expect(collapsedElectronSixLabel).toHaveText('electron-6')
-  // eslint-disable-next-line e2e/no-direct-click -- Verify the collapsed directory row can expand again.
+  // eslint-disable-next-line e2e/no-direct-click, @typescript-eslint/no-deprecated -- Verify the collapsed directory row can expand again.
   await performanceDirectory.click()
   await expect(treeItems).toHaveCount(10)
   const addedDecorations = viewlet.locator('.DecorationIcon[title="Added"]')

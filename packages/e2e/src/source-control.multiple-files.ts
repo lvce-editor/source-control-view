@@ -12,7 +12,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
     { content: 'b', uri: `${tmpDir}/b.css` },
     { content: 'c', uri: `${tmpDir}/c.css` },
   ])
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
 
   // act
   await SourceControl.show()

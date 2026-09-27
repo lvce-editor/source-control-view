@@ -9,7 +9,7 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, Locat
   const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
 
   // act
   await SourceControl.show()

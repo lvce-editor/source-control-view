@@ -7,7 +7,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await Extension.addWebExtension(import.meta.resolve('../fixtures/sample-source-control-provider'))
   await Extension.addWebExtension(import.meta.resolve('../fixtures/sample-input-actions'))
   const tmpDir = await FileSystem.getTmpDir()
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
   await SourceControl.show()
   const input = Locator('.SourceControl textarea')
   const action = Locator('.ViewSourceControlInput button[title="Suggest Message"]')
@@ -18,7 +18,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(input).toHaveValue('My change')
 
   // act
-  // eslint-disable-next-line e2e/no-direct-click -- Verify the contributed button event reaches its extension command.
+  // eslint-disable-next-line e2e/no-direct-click, @typescript-eslint/no-deprecated -- Verify the contributed button event reaches its extension command.
   await action.click()
 
   // assert
