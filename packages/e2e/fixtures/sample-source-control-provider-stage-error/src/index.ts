@@ -101,8 +101,8 @@ const getChangedFiles = () => {
   return []
 }
 
-const stage = (_path) => {
-  throw new TypeError(`x is not a function`)
+const stage = async (path) => {
+  throw new Error(`Provider failed to stage ${path.split('/').at(-1)}`)
 }
 
 const unstage = (path) => {
