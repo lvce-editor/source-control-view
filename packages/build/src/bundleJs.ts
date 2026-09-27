@@ -7,12 +7,13 @@ import { root } from './root.ts'
 
 const options: RollupOptions = {
   input: join(root, 'packages/source-control-worker/src/sourceControlWorkerMain.ts'),
-  preserveEntrySignatures: 'strict',
+  preserveEntrySignatures: false,
   treeshake: {
     propertyReadSideEffects: false,
   },
   output: {
-    file: join(root, '.tmp/dist/dist/sourceControlWorkerMain.js'),
+    dir: join(root, '.tmp/dist/dist'),
+    entryFileNames: 'sourceControlWorkerMain.js',
     format: 'es',
     freeze: false,
     generatedCode: {

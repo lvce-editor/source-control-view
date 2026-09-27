@@ -9,7 +9,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   const tmpDir = await FileSystem.getTmpDir()
   const file = `${tmpDir}/modified.css`
   await FileSystem.writeFile(file, 'modified')
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
 
   // act
   await SourceControl.show()

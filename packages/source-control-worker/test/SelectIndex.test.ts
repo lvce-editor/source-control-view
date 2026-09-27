@@ -1,9 +1,12 @@
 import { expect, test } from '@jest/globals'
-import { DirentType } from '@lvce-editor/constants'
+import { DirentType, ViewMode } from '@lvce-editor/constants'
 import { IconThemeWorker, ExtensionHost, ExtensionManagementWorker, RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import { getDirectoryKey } from '../src/parts/GetDisplayItemsGroup/GetDisplayItemsGroup.ts'
 import { selectIndex } from '../src/parts/SelectIndex/SelectIndex.ts'
+import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
+import { withRendererApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 test('selectIndex - invalid index', async (): Promise<void> => {
   const state: SourceControlState = createDefaultState()
@@ -16,8 +19,8 @@ test('selectIndex - directory', async (): Promise<void> => {
     'FileSystem.readDirWithFileTypes': async (): Promise<never[]> => [],
     'IconTheme.getIcons': async (): Promise<never[]> => [],
   }
+  ParentRpc.registerMockRpc(withRendererApplicationRouting(commandMap))
   IconThemeWorker.registerMockRpc(commandMap)
-  ParentRpc.registerMockRpc(commandMap)
 
   const testItem = {
     badgeCount: 0,
@@ -55,8 +58,8 @@ test('selectIndex - expanded directory', async (): Promise<void> => {
     'FileSystem.readDirWithFileTypes': async (): Promise<never[]> => [],
     'IconTheme.getIcons': async (): Promise<never[]> => [],
   }
+  ParentRpc.registerMockRpc(withRendererApplicationRouting(commandMap))
   IconThemeWorker.registerMockRpc(commandMap)
-  ParentRpc.registerMockRpc(commandMap)
 
   const testItem = {
     badgeCount: 0,
@@ -90,6 +93,53 @@ test('selectIndex - expanded directory', async (): Promise<void> => {
   expect(newState.expandedGroups['test']).toBe(false)
 })
 
+test('selectIndex - tree directory does not change the group expansion state', async (): Promise<void> => {
+  const commandMap = {
+    'FileSystem.readDirWithFileTypes': async (): Promise<never[]> => [],
+    'IconTheme.getIcons': async (): Promise<never[]> => [],
+  }
+  IconThemeWorker.registerMockRpc(commandMap)
+  ParentRpc.registerMockRpc(commandMap)
+
+  const directory = '/src'
+  const testItem = {
+    badgeCount: 0,
+    decorationIcon: '',
+    decorationIconTitle: '',
+    decorationStrikeThrough: false,
+    depth: 0,
+    detail: '',
+    directory,
+    file: '',
+    groupId: 'test',
+    icon: 'ChevronDown',
+    label: 'src',
+    posInSet: 1,
+    setSize: 1,
+    type: DirentType.DirectoryExpanded,
+  }
+
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    allGroups: [
+      {
+        id: 'test',
+        items: [{ file: '/src/test.ts', icon: '', iconTitle: '', strikeThrough: false }],
+        label: 'test',
+      },
+    ],
+    enabledProviderIds: ['test'],
+    expandedGroups: { [getDirectoryKey('test', directory)]: true, test: true },
+    items: [testItem],
+    viewMode: ViewMode.Tree,
+  }
+
+  const newState = await selectIndex(state, 0)
+
+  expect(newState.expandedGroups.test).toBe(true)
+  expect(newState.expandedGroups[getDirectoryKey('test', directory)]).toBe(false)
+})
+
 test('selectIndex - file', async (): Promise<void> => {
   const parentCommandMap = {
     'Extensions.activateByEvent': async (): Promise<void> => {},
@@ -97,9 +147,9 @@ test('selectIndex - file', async (): Promise<void> => {
     'IconTheme.getIcons': async (): Promise<never[]> => [],
     'Main.openUri': async (): Promise<void> => {},
   }
-  ExtensionManagementWorker.registerMockRpc(parentCommandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(parentCommandMap))
+  ParentRpc.registerMockRpc(withRendererApplicationRouting(parentCommandMap))
   IconThemeWorker.registerMockRpc(parentCommandMap)
-  ParentRpc.registerMockRpc(parentCommandMap)
 
   const extensionHostCommandMap = {
     'ExtensionHostSourceControl.getFileBefore': async (): Promise<string> => '',

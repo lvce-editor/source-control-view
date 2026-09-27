@@ -8,7 +8,7 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, Locat
   await Extension.addWebExtension(extensionUri)
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.css`, 'abc')
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
   await SourceControl.show()
   await new Promise((resolve) => setTimeout(resolve, 2000))
   const changedFile = Locator('.SourceControlItems .TreeItem[title="test.css"]')

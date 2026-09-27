@@ -1,4 +1,5 @@
 import { expect, test } from '@jest/globals'
+import { IconThemeWorker } from '@lvce-editor/rpc-registry'
 import type { DisplayItem } from '../src/parts/DisplayItem/DisplayItem.ts'
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
@@ -25,6 +26,9 @@ test('setDeltaY - negative value', async () => {
 })
 
 test('setDeltaY - with items', async () => {
+  using _iconRpc = IconThemeWorker.registerMockRpc({
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+  })
   const items: DisplayItem[] = [
     {
       badgeCount: 0,

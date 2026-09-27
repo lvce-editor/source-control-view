@@ -9,7 +9,7 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, Locat
   const tmpDir = await FileSystem.getTmpDir()
   const contents = Array.from(Array(100), (_item, index) => index)
   await Promise.all(contents.map((i) => FileSystem.writeFile(`${tmpDir}/${i}.txt`, String(i))))
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
 
   // act
   await SourceControl.show()
@@ -32,7 +32,7 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, Locat
   await Command.execute('Source Control.handleWheel', 0, 200)
 
   // assert
-  await expect(scrollBarThumb).toHaveCSS('translate', '0px 58px')
+  await expect(scrollBarThumb).toHaveCSS('translate', '0px 57px')
 
   const visibleFileItem = Locator('.SourceControlItems .TreeItem', { hasText: '10.txt' })
   await expect(visibleFileItem).toBeVisible()

@@ -9,7 +9,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   const tmpDir = await FileSystem.getTmpDir()
   const file = `${tmpDir}/conflict.css`
   await FileSystem.writeFile(file, 'conflict')
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
 
   // act
   await SourceControl.show()

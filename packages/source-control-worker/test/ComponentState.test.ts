@@ -13,7 +13,8 @@ test('gets and sets the live component state', async () => {
   expect(getComponentState(id)).toBe(oldState)
   await setComponentState(id, newState)
 
-  expect(SourceControlStates.get(id)).toEqual({ newState, oldState, scheduledState: newState })
+  const updatedState = { ...newState, componentStateRevision: 1 }
+  expect(SourceControlStates.get(id)).toEqual({ newState: updatedState, oldState, scheduledState: updatedState })
 })
 
 test('rejects an invalid live component state', async () => {

@@ -4,7 +4,7 @@ const id = 'sample-source-control'
 const label = 'Sample Source Control'
 const rootUri = ''
 
-const iconRoot = new URL('../icons/dark', import.meta.url).toString()
+const iconRoot = import.meta.resolve('../icons/dark')
 
 const IconType = {
   Modified: `${iconRoot}/status-modified.svg`,
@@ -101,8 +101,8 @@ const getChangedFiles = () => {
   return []
 }
 
-const stage = (_path) => {
-  throw new TypeError(`x is not a function`)
+const stage = async (path) => {
+  throw new Error(`Provider failed to stage ${path.split('/').at(-1)}`)
 }
 
 const unstage = (path) => {

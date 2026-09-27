@@ -9,5 +9,15 @@ export const getKeyBindings = (): readonly KeyBinding[] => {
       key: KeyModifier.CtrlCmd | KeyCode.Enter,
       when: WhenExpression.FocusSourceControlInput,
     },
+    {
+      command: 'Source Control.previousHistory',
+      key: KeyCode.UpArrow,
+      when: WhenExpression.FocusSourceControlInput,
+    },
+    {
+      command: 'Source Control.nextHistory',
+      key: KeyCode.DownArrow,
+      when: WhenExpression.FocusSourceControlInput,
+    },
   ]
 }

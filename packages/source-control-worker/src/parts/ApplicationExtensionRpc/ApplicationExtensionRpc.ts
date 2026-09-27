@@ -1,7 +1,5 @@
 import { ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
 
-export const invoke = async (applicationId: string | undefined, method: string, ...args: readonly unknown[]): Promise<any> => {
-  return applicationId === undefined
-    ? ExtensionManagementWorker.invoke(method, ...args)
-    : ExtensionManagementWorker.invoke('Extensions.invokeForApplication', applicationId, method, ...args)
+export const invoke = async (applicationId: string, method: string, ...args: readonly unknown[]): Promise<any> => {
+  return ExtensionManagementWorker.invoke('Extensions.invokeForApplication', applicationId, method, ...args)
 }

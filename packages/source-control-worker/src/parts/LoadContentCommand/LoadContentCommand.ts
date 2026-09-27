@@ -4,9 +4,12 @@ import * as SourceControlStates from '../SourceControlStates/SourceControlStates
 
 export const loadContentCommand = SourceControlStates.wrapAsyncCommand(async (context, savedState: unknown) => {
   const state = context.getState()
-  const { inputValue: previousInputValue, loading, progressRequestId } = state
+  const { componentStateRevision, inputValue: previousInputValue, loading, progressRequestId } = state
   const loaded = await loadContent(state, savedState)
   await context.updateState((current) => {
+    if (current.componentStateRevision !== componentStateRevision) {
+      return current
+    }
     const sameProviders =
       current.enabledProviderIds.length === loaded.enabledProviderIds.length && current.enabledProviderIds.every((id, index) => id === loaded.enabledProviderIds[index])
     const loadedState = {

@@ -9,14 +9,15 @@ test('create2 - creates state with provided parameters', (): void => {
   const y = 20
   const width = 300
   const height = 400
-  const workspacePath = '/test/workspace'
+  const workspaceUri = 'remote-ssh://host/home/test/workspace'
 
-  create2(id, uri, x, y, width, height, workspacePath, 0, '')
+  create2(id, uri, x, y, width, height, workspaceUri, 0, '', '')
 
   const { newState, oldState } = get(id)
   expect(newState).toBeDefined()
   expect(newState.id).toBe(id)
-  expect(newState.workspacePath).toBe(workspacePath)
+  expect(newState.workspaceUri).toBe(workspaceUri)
+  expect(newState).not.toHaveProperty('workspacePath')
   expect(newState.width).toBe(width)
   expect(newState.height).toBe(height)
   expect(newState.x).toBe(x)
@@ -28,12 +29,12 @@ test('create2 - creates state with provided parameters', (): void => {
   expect(newState.loading).toBe(true)
   expect(oldState.initial).toBe(true)
   expect(oldState.loading).toBe(false)
-  expect(newState.applicationId).toBeUndefined()
+  expect(newState.applicationId).toBe('')
 })
 
-test('create2 - retains explicit application ownership without changing legacy arguments', (): void => {
+test('create2 - retains explicit application ownership', (): void => {
   create2(124, 'memfs:///workspace', 10, 20, 300, 400, '/workspace', 2, '/assets', 'preview')
   const { newState, oldState } = get(124)
-  expect(newState).toMatchObject({ applicationId: 'preview', assetDir: '/assets', id: 124, platform: 2, workspacePath: '/workspace' })
+  expect(newState).toMatchObject({ applicationId: 'preview', assetDir: '/assets', id: 124, platform: 2, workspaceUri: '/workspace' })
   expect(oldState.applicationId).toBe('preview')
 })

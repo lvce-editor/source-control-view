@@ -8,7 +8,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.css`, `abc`)
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
   await SourceControl.show()
   await new Promise((resolve) => setTimeout(resolve, 2000))
   await SourceControl.handleClickSourceControlButtons(1, `Stage`)
@@ -19,5 +19,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   // assert
   const treeItems = Locator('.SourceControlItems .TreeItem')
+  const input = Locator('.SourceControl .InputBox')
   await expect(treeItems).toHaveCount(0)
+  await expect(input).toHaveValue('')
 }

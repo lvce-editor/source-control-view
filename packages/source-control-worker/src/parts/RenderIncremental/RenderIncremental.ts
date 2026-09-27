@@ -3,7 +3,7 @@ import type { SourceControlState } from '../SourceControlState/SourceControlStat
 import { renderItems } from '../RenderItems/RenderItems.ts'
 
 export const renderIncremental = (oldState: SourceControlState, newState: SourceControlState): any => {
-  if (oldState.loading !== newState.loading || oldState.workspacePath !== newState.workspacePath) {
+  if (oldState.loading !== newState.loading || oldState.workspaceUri !== newState.workspaceUri) {
     return renderItems(oldState, newState)
   }
   const oldDom = renderItems(oldState, oldState)[2]

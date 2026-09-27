@@ -60,6 +60,10 @@ export const viewAsTree = (): string => {
   return I18nString.i18nString(UiStrings.ViewAsTree)
 }
 
+export const viewAsList = (): string => {
+  return I18nString.i18nString(UiStrings.ViewAsList)
+}
+
 export const createPullRequest = (): string => {
   return I18nString.i18nString(UiStrings.CreatePullRequest)
 }
@@ -76,8 +80,13 @@ export const refresh = (): string => {
   return I18nString.i18nString(UiStrings.Refresh)
 }
 
-export const messageEnterToCommitOnMaster = (): string => {
-  return I18nString.i18nString(UiStrings.MessageEnterToCommitOnMaster)
+export const messageEnterToCommit = (branch: string): string => {
+  if (!branch) {
+    return I18nString.i18nString(UiStrings.MessageEnterToCommit)
+  }
+  return I18nString.i18nString(UiStrings.MessageEnterToCommitOnBranch, {
+    PH1: branch,
+  })
 }
 
 export const sourceControlInput = (): string => {

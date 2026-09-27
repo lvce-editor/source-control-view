@@ -3,6 +3,7 @@ import { IconThemeWorker, ExtensionHost, ExtensionManagementWorker, RendererWork
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
+import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 test('loadContent - returns an error state when loading fails', async (): Promise<void> => {
   const commandMap = {
@@ -12,7 +13,7 @@ test('loadContent - returns an error state when loading fails', async (): Promis
     'Extensions.activateByEvent': async (): Promise<void> => {},
   }
   ExtensionHost.registerMockRpc(commandMap)
-  ExtensionManagementWorker.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
   IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
@@ -38,7 +39,7 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
     'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   ExtensionHost.registerMockRpc(commandMap)
-  ExtensionManagementWorker.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
   IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
@@ -69,7 +70,7 @@ test('loadContent - with saved state inputValue', async (): Promise<void> => {
     'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 45,
   }
   ExtensionHost.registerMockRpc(commandMap)
-  ExtensionManagementWorker.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
   IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
@@ -81,7 +82,59 @@ test('loadContent - with saved state inputValue', async (): Promise<void> => {
   const result = await loadContent(state, savedState)
 
   expect(result.inputValue).toBe('test commit message')
-  expect(result.inputBoxHeight).toBe(49) // 45 from RPC + inputPadding * 2 (2 * 2 = 4)
+  expect(result.inputBoxHeight).toBe(53) // 45 from RPC + inputPadding * 2 (4 * 2 = 8)
+})
+
+test('loadContent - prepopulates an empty initial input with the provider default commit message', async (): Promise<void> => {
+  const commandMap = {
+    'ExtensionHostSourceControl.getDefaultCommitMessage': async (): Promise<string> => "Merge branch 'feature' into main",
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
+    'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [],
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
+  }
+  ExtensionHost.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
+  IconThemeWorker.registerMockRpc(commandMap)
+  RendererWorker.registerMockRpc(commandMap)
+  TextMeasurementWorker.registerMockRpc(commandMap)
+
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    workspaceUri: '/test/workspace',
+  }
+  const result = await loadContent(state, {})
+
+  expect(result.inputValue).toBe("Merge branch 'feature' into main")
+})
+
+test('loadContent - preserves a saved empty input instead of restoring a stale default', async (): Promise<void> => {
+  const commandMap = {
+    'ExtensionHostSourceControl.getDefaultCommitMessage': async (): Promise<string> => "Merge branch 'feature' into main",
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => ['git'],
+    'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [],
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+    'Extensions.getAllExtensions': async (): Promise<readonly any[]> => [],
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
+  }
+  ExtensionHost.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
+  IconThemeWorker.registerMockRpc(commandMap)
+  RendererWorker.registerMockRpc(commandMap)
+  TextMeasurementWorker.registerMockRpc(commandMap)
+
+  const state: SourceControlState = {
+    ...createDefaultState(),
+    workspaceUri: '/test/workspace',
+  }
+  const result = await loadContent(state, { inputValue: '' })
+
+  expect(result.inputValue).toBe('')
 })
 
 test('loadContent - with enabled providers', async (): Promise<void> => {
@@ -102,14 +155,14 @@ test('loadContent - with enabled providers', async (): Promise<void> => {
     'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   ExtensionHost.registerMockRpc(commandMap)
-  ExtensionManagementWorker.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
   IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 
   const state: SourceControlState = {
     ...createDefaultState(),
-    workspacePath: '/test/workspace',
+    workspaceUri: '/test/workspace',
   }
   const result = await loadContent(state, {})
 
@@ -137,7 +190,7 @@ test('loadContent - uses short paths for packaged builtin git decoration icons',
     'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   ExtensionHost.registerMockRpc(commandMap)
-  ExtensionManagementWorker.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
   IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
@@ -146,7 +199,7 @@ test('loadContent - uses short paths for packaged builtin git decoration icons',
     ...createDefaultState(),
     assetDir: '/abc123',
     platform: 2,
-    workspacePath: '/test/workspace',
+    workspaceUri: '/test/workspace',
   }
   const result = await loadContent(state, {})
 
@@ -181,14 +234,14 @@ test('loadContent - with groups', async (): Promise<void> => {
     'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   ExtensionHost.registerMockRpc(commandMap)
-  ExtensionManagementWorker.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
   IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
 
   const state: SourceControlState = {
     ...createDefaultState(),
-    workspacePath: '/test/workspace',
+    workspaceUri: '/test/workspace',
   }
   const result = await loadContent(state, {})
 
@@ -230,7 +283,7 @@ test.each([
     'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   ExtensionHost.registerMockRpc(commandMap)
-  ExtensionManagementWorker.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
   IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
@@ -290,7 +343,7 @@ test('loadContent - calculates scroll bar and visible items correctly', async ()
     'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
   }
   ExtensionHost.registerMockRpc(commandMap)
-  ExtensionManagementWorker.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
   IconThemeWorker.registerMockRpc(commandMap)
   RendererWorker.registerMockRpc(commandMap)
   TextMeasurementWorker.registerMockRpc(commandMap)
@@ -300,7 +353,7 @@ test('loadContent - calculates scroll bar and visible items correctly', async ()
     height: 200,
     itemHeight: 20,
     minimumSliderSize: 30,
-    workspacePath: '/test/workspace',
+    workspaceUri: '/test/workspace',
   }
   const result = await loadContent(state, {})
 

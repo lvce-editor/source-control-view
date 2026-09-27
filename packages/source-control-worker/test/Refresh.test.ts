@@ -3,6 +3,7 @@ import { ExtensionHost, ExtensionManagementWorker, IconThemeWorker } from '@lvce
 import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as Refresh from '../src/parts/Refresh/Refresh.ts'
+import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
 test('refresh should update state with groups and visible items', async (): Promise<void> => {
   const parentCommandMap = {
@@ -25,6 +26,7 @@ test('refresh should update state with groups and visible items', async (): Prom
     allGroups: [],
     finalDeltaY: 0,
     gitRoot: '',
+    inputPlaceholder: 'Message (Enter) to commit',
     items: [],
     maxLineY: 0,
     scrollBarHeight: 0,
@@ -33,13 +35,42 @@ test('refresh should update state with groups and visible items', async (): Prom
   expect(mockRpc.invocations).toEqual([])
 })
 
+test('refresh updates the placeholder when only the current branch changes', async (): Promise<void> => {
+  using iconRpc = IconThemeWorker.registerMockRpc({
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+  })
+  using _extensionManagementRpc = ExtensionManagementWorker.registerMockRpc(
+    withApplicationRouting({
+      'Extensions.activateByEvent': async (): Promise<void> => {},
+    }),
+  )
+  using extensionRpc = ExtensionHost.registerMockRpc({
+    'ExtensionHostSourceControl.getBadgeCount': async (): Promise<number> => 0,
+    'ExtensionHostSourceControl.getCurrentBranch': async (): Promise<string> => 'feature/test',
+    'ExtensionHostSourceControl.getGroups': async (): Promise<readonly never[]> => [],
+    'ExtensionHostSourceControl.getProgress': async (): Promise<boolean> => false,
+  })
+
+  const result = await Refresh.refresh({
+    ...createDefaultState(),
+    enabledProviderIds: ['git'],
+    inputPlaceholder: "Message (Enter) to commit on 'main'",
+  })
+
+  expect(result.inputPlaceholder).toBe("Message (Enter) to commit on 'feature/test'")
+  expect(extensionRpc.invocations).toContainEqual(['ExtensionHostSourceControl.getCurrentBranch', 'git', '/'])
+  expect(iconRpc.invocations).toEqual([])
+})
+
 test('refresh - should not request icons for group headers', async (): Promise<void> => {
   using iconRpc = IconThemeWorker.registerMockRpc({
     'IconTheme.getIcons': async (): Promise<readonly string[]> => ['file-icon'],
   })
-  using _extensionManagementRpc = ExtensionManagementWorker.registerMockRpc({
-    'Extensions.activateByEvent': async (): Promise<void> => {},
-  })
+  using _extensionManagementRpc = ExtensionManagementWorker.registerMockRpc(
+    withApplicationRouting({
+      'Extensions.activateByEvent': async (): Promise<void> => {},
+    }),
+  )
   using _extensionHostRpc = ExtensionHost.registerMockRpc({
     'ExtensionHostSourceControl.getBadgeCount': async (): Promise<number> => 1,
     'ExtensionHostSourceControl.getGroups': async (): Promise<readonly any[]> => [
@@ -65,8 +96,8 @@ test('refresh - should not request icons for group headers', async (): Promise<v
 
   const result = await Refresh.refresh(state)
 
-  expect(result.fileIconCache).toEqual({ 'file1.ts': 'file-icon' })
+  expect(result.fileIconCache).toEqual({ '/test/file1.ts': 'file-icon' })
   expect(result.fileIconCache).not.toHaveProperty('Changes')
   expect(result.items.map((item) => item.label)).toEqual(['Changes', 'file1.ts'])
-  expect(iconRpc.invocations).toEqual([['IconTheme.getIcons', [{ name: 'file1.ts', type: 1 }]]])
+  expect(iconRpc.invocations).toEqual([['IconTheme.getIcons', [{ name: 'file1.ts', path: '/test/file1.ts', type: 1 }]]])
 })

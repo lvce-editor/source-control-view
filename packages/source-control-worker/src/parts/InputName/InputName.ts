@@ -1,5 +1,6 @@
 export const SourceControlInput = 'SourceControlInput'
 export const ViewAsTree = 'ViewAsTree'
+export const ViewAsList = 'ViewAsList'
 export const CommitAndPush = 'CommitAndPush'
 export const Refresh = 'Refresh'
 export const GenerateCommitMessage = 'GenerateCommitMessage'

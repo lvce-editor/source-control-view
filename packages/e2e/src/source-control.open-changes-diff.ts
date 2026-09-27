@@ -11,7 +11,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
     { content: 'a', uri: `${tmpDir}/a.css` },
     { content: 'b', uri: `${tmpDir}/b.css` },
   ])
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
 
   await SourceControl.show()
   await new Promise((resolve) => setTimeout(resolve, 2000))

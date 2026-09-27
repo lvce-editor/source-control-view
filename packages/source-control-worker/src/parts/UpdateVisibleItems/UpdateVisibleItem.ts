@@ -4,12 +4,12 @@ import { getFinalDeltaY } from '../GetFinalDeltaY/GetFinalDeltaY.ts'
 import { getIndents } from '../GetIndents/GetIndents.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
 import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
-import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
+import * as GetVisibleSourceControlItemsWithIcons from '../GetVisibleSourceControlItemsWithIcons/GetVisibleSourceControlItemsWithIcons.ts'
 import { getScrollBarSize } from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 
 export const updateVisibleItems = async (state: Readonly<SourceControlState>, expandedGroups: Readonly<Record<string, boolean>>): Promise<SourceControlState> => {
-  const { actionsCache, allGroups, fileIconCache, headerHeight, height, iconDefinitions, indents, itemHeight, minimumSliderSize, selectedItem } = state
-  const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
+  const { actionsCache, allGroups, fileIconCache, headerHeight, height, iconDefinitions, indents, itemHeight, minimumSliderSize, selectedItem, viewMode } = state
+  const displayItems = await getDisplayItems(allGroups, expandedGroups, iconDefinitions, viewMode)
   const badgeCount = allGroups.reduce((sum, group) => sum + group.items.length, 0)
   const total = displayItems.length
   const availableListHeight = Math.max(height - headerHeight, 0)
@@ -20,12 +20,20 @@ export const updateVisibleItems = async (state: Readonly<SourceControlState>, ex
   const numberOfVisible = GetNumberOfVisibleItems.getNumberOfVisibleItems(listHeight, itemHeight)
   const minLineY = 0
   const maxLineY = Math.min(numberOfVisible, total)
-  const visibleItems = getVisibleSourceControlItems(displayItems, minLineY, maxLineY, actionsCache, fileIconCache, selectedItem)
+  const { fileIconCache: newFileIconCache, visibleItems } = await GetVisibleSourceControlItemsWithIcons.getVisibleSourceControlItemsWithIcons(
+    displayItems,
+    minLineY,
+    maxLineY,
+    actionsCache,
+    fileIconCache,
+    selectedItem,
+  )
   return {
     ...state,
     badgeCount,
     deltaY: 0,
     expandedGroups,
+    fileIconCache: newFileIconCache,
     finalDeltaY,
     indents: getIndents(indents, visibleItems),
     items: displayItems,

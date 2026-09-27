@@ -10,14 +10,17 @@ test('saveState', () => {
   const state: SourceControlState = {
     ...defaultState,
     expandedGroups: { '1': true, '2': false },
+    history: ['previous message'],
     maxLineY: 100,
     root: '/test',
   }
   set(uid, state, state)
   const result = saveState(uid)
   expect(result).toEqual({
+    defaultInputValue: '',
     deltaY: 0,
     expandedGroups: { '1': true, '2': false },
+    history: ['previous message'],
     inputValue: '',
     maxLineY: 100,
     minLineY: 0,

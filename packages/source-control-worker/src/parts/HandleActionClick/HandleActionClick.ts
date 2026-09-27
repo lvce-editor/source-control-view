@@ -3,6 +3,7 @@ import * as HandleGenerateCommitMessage from '../HandleGenerateCommitMessage/Han
 import * as InputName from '../InputName/InputName.ts'
 import * as Logger from '../Logger/Logger.ts'
 import { refresh } from '../Refresh/Refresh.ts'
+import { viewAsList } from '../ViewAsList/ViewAsList.ts'
 import { viewAsTree } from '../ViewAsTree/ViewAsTree.ts'
 
 export const handleActionClick = async (state: SourceControlState, actionName: string): Promise<SourceControlState> => {
@@ -14,6 +15,8 @@ export const handleActionClick = async (state: SourceControlState, actionName: s
       return HandleGenerateCommitMessage.handleGenerateCommitMessage(state)
     case InputName.Refresh:
       return refresh(state)
+    case InputName.ViewAsList:
+      return viewAsList(state)
     case InputName.ViewAsTree:
       return viewAsTree(state)
     default:

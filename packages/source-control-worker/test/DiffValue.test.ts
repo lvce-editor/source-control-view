@@ -115,3 +115,19 @@ test('isEqual - returns false when one inputValue is empty and inputSource is no
 
   expect(isEqual(oldState, newState)).toBe(false)
 })
+
+test('isEqual - renders a cleared scripted input after user input', (): void => {
+  const oldState: SourceControlState = {
+    ...createDefaultState(),
+    inputSource: InputSource.User,
+    inputValue: 'commit message',
+  }
+
+  const newState: SourceControlState = {
+    ...createDefaultState(),
+    inputSource: InputSource.Script,
+    inputValue: '',
+  }
+
+  expect(isEqual(oldState, newState)).toBe(false)
+})

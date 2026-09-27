@@ -8,7 +8,7 @@ export const test: Test = async ({ Command, ContextMenu, expect, Extension, File
   await Extension.addWebExtension(uri)
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.css`, `abc`)
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
   await SourceControl.show()
   await new Promise((resolve) => setTimeout(resolve, 2000))
 

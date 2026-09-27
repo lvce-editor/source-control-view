@@ -1,4 +1,4 @@
-import { PlatformType } from '@lvce-editor/constants'
+import { PlatformType, ViewMode } from '@lvce-editor/constants'
 import type { Action } from '../Action/Action.ts'
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import * as ActionType from '../ActionType/ActionType.ts'
@@ -19,14 +19,17 @@ export const getActions = (state: SourceControlState): readonly Action[] => {
       },
     ]
   }
+  const { viewMode } = state
+  const isTree = viewMode === ViewMode.Tree
+  const viewAction: Action = {
+    command: '',
+    icon: isTree ? MaskIcon.ListTree : MaskIcon.ListFlat,
+    id: isTree ? ViewletSourceControlStrings.viewAsList() : ViewletSourceControlStrings.viewAsTree(),
+    name: isTree ? InputName.ViewAsList : InputName.ViewAsTree,
+    type: ActionType.Button,
+  }
   const actions: Action[] = [
-    {
-      command: '',
-      icon: MaskIcon.ListFlat,
-      id: ViewletSourceControlStrings.viewAsTree(),
-      name: InputName.ViewAsTree,
-      type: ActionType.Button,
-    },
+    viewAction,
     {
       command: '',
       icon: MaskIcon.Check,
