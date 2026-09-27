@@ -22,7 +22,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(secondFile).toHaveText('b.css')
 
   // act
-  // eslint-disable-next-line e2e/no-direct-click -- Verify selection through the real row click path.
+  // eslint-disable-next-line e2e/no-direct-click, @typescript-eslint/no-deprecated -- Verify selection through the real row click path.
   await firstFile.click()
   await new Promise((resolve) => setTimeout(resolve, 2000))
 
@@ -36,12 +36,12 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(firstFile).toHaveId('TreeItemActive')
 
   // Move focus to the editor and ensure the selection remains visible.
-  // eslint-disable-next-line e2e/no-direct-click -- Move focus away from the selected row.
+  // eslint-disable-next-line e2e/no-direct-click, @typescript-eslint/no-deprecated -- Move focus away from the selected row.
   await diffEditor.click()
   await expect(firstFile).toHaveId('TreeItemActive')
 
   // act
-  // eslint-disable-next-line e2e/no-direct-click -- Verify selection moves through the real row click path.
+  // eslint-disable-next-line e2e/no-direct-click, @typescript-eslint/no-deprecated -- Verify selection moves through the real row click path.
   await secondFile.click()
   await new Promise((resolve) => setTimeout(resolve, 2000))
 
