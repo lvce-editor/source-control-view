@@ -18,7 +18,14 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(initialFile).toHaveText('test.css')
 
   // act
-  await SourceControl.handleClickSourceControlButtons(1, `Stage`)
+  try {
+    await SourceControl.handleClickSourceControlButtons(1, `Stage`)
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    if (errorMessage !== 'Provider failed to stage test.css') {
+      throw error
+    }
+  }
 
   // assert
   const sourceControlView = Locator('.Viewlet.SourceControl')
