@@ -35,7 +35,7 @@ const getIconsDom = (icon: string, fileIcon: string): readonly VirtualDomNode[] 
 }
 
 export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] => {
-  const { buttons, decorationIcon, decorationIconTitle, decorationStrikeThrough, detail, file, fileIcon, icon, indent, label, posInSet, setSize } = item
+  const { buttons, decorationIcon, decorationIconTitle, decorationStrikeThrough, detail, file, fileIcon, icon, indent, label, posInSet, selected, setSize } = item
   const labelClassName = getLabelClassName(decorationStrikeThrough)
   const dom: VirtualDomNode[] = []
   const hasButtons = buttons.length
@@ -48,6 +48,7 @@ export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] =>
       ariaSetSize: setSize,
       childCount: 2 + (iconsDom.length > 0 ? 1 : 0) + (hasButtons ? 1 : 0),
       className: treeItemClassName,
+      id: selected ? 'TreeItemActive' : undefined,
       role: AriaRoles.TreeItem,
       title: file,
       type: VirtualDomElements.Div,

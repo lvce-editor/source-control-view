@@ -40,6 +40,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     inputSource,
     itemHeight,
     minimumSliderSize,
+    selectedItem,
     viewMode,
     width,
     workspaceUri,
@@ -103,6 +104,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     maxLineY,
     actionsCache,
     fileIconCache,
+    selectedItem,
   )
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inProgress = await SourceControl.getProgress(enabledProviderIds, assetDir, platform, applicationId)
@@ -132,6 +134,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     providerUnavailableMessage,
     root,
     scrollBarHeight,
+    selectedItem,
     showGenerateCommitMessageButton,
     sourceControlButtons,
     splitButtonEnabled,

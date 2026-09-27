@@ -13,6 +13,7 @@ export const getVisibleSourceControlItems = (
   maxLineY: number,
   actionsCache: ActionsCache,
   fileIconCache: FileIconCache,
+  selectedItem: string | undefined = undefined,
 ): readonly VisibleItem[] => {
   const visible: VisibleItem[] = []
   for (let i = minLineY; i < maxLineY; i++) {
@@ -28,6 +29,7 @@ export const getVisibleSourceControlItems = (
       buttons,
       fileIcon,
       indent,
+      selected: `${item.groupId}\0${item.file}` === selectedItem,
     })
   }
   return visible
