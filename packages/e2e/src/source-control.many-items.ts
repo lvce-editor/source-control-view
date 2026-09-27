@@ -9,7 +9,7 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, Locat
   const tmpDir = await FileSystem.getTmpDir()
   const contents = Array.from(Array(100), (_item, index) => index)
   await Promise.all(contents.map((i) => FileSystem.writeFile(`${tmpDir}/${i}.txt`, String(i))))
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
 
   // act
   await SourceControl.show()

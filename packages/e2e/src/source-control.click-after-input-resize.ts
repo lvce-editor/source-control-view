@@ -11,7 +11,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
     { content: 'first file', uri: `${tmpDir}/a.css` },
     { content: 'second file', uri: `${tmpDir}/b.css` },
   ])
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
 
   await SourceControl.show()
   await new Promise((resolve) => setTimeout(resolve, 2000))
@@ -21,7 +21,7 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   // act
   await SourceControl.handleInput('first line\nsecond line')
-  // eslint-disable-next-line e2e/no-direct-click -- Verify row coordinates after the commit input resizes.
+  // eslint-disable-next-line e2e/no-direct-click, @typescript-eslint/no-deprecated -- Verify row coordinates after the commit input resizes.
   await fileItem.click()
   await new Promise((resolve) => setTimeout(resolve, 2000))
 

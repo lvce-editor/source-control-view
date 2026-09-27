@@ -6,7 +6,7 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, KeyBo
   await Extension.addWebExtension(import.meta.resolve('../fixtures/sample-source-control-provider'))
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.css`, 'content')
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
   await SourceControl.show()
   await new Promise((resolve) => setTimeout(resolve, 2000))
   await SourceControl.handleClickSourceControlButtons(1, 'Stage')
@@ -20,9 +20,6 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, KeyBo
   await SourceControl.acceptInput()
   await expect(input).toHaveValue('')
   await SourceControl.handleInput('draft')
-  // eslint-disable-next-line e2e/no-direct-click -- Focus the source control input before sending navigation keys.
-  await input.click()
-
   await Command.execute('Source Control.handleFocus')
 
   await KeyBoard.press('ArrowUp')
