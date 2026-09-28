@@ -5,7 +5,7 @@ import * as ExtensionHostSourceControl from '../ExtensionHostSourceControl/Exten
 import * as ExtensionMeta from '../ExtensionMeta/ExtensionMeta.ts'
 import * as GetProtocol from '../GetProtocol/GetProtocol.ts'
 
-export const acceptInput = (providerId: string, text: string, assetDir: string, platform: number, applicationId: string): Promise<void> => {
+export const acceptInput = (providerId: string, text: string, assetDir: string, platform: number, applicationId: string): Promise<boolean | void> => {
   Assert.string(providerId)
   Assert.string(text)
   return ExtensionHostSourceControl.acceptInput(providerId, text, assetDir, platform, applicationId)

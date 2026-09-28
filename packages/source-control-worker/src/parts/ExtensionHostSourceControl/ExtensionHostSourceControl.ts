@@ -2,7 +2,7 @@ import * as Assert from '@lvce-editor/assert'
 import * as ExecuteProvider from '../ExecuteProvider/ExecuteProvider.ts'
 import * as ExtensionHostCommandType from '../ExtensionHostCommandType/ExtensionHostCommandType.ts'
 
-export const acceptInput = async (providerId: string, text: string, assetDir: string, platform: number, applicationId: string): Promise<void> => {
+export const acceptInput = async (providerId: string, text: string, assetDir: string, platform: number, applicationId: string): Promise<boolean | void> => {
   return ExecuteProvider.executeProvider({
     applicationId,
     assetDir,
