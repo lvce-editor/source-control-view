@@ -4,7 +4,7 @@ import { acceptInput } from '../src/parts/AcceptInput/AcceptInput.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { withApplicationRouting } from './test-util/WithApplicationRouting.ts'
 
-const registerProviders = (acceptInput: () => Promise<void>): void => {
+const registerProviders = (acceptInput: () => Promise<boolean | void>): void => {
   const commandMap = {
     'ExtensionHostSourceControl.acceptInput': acceptInput,
     'ExtensionHostSourceControl.getBadgeCount': async (): Promise<number> => 0,
@@ -56,4 +56,20 @@ test('acceptInput does not add a failed commit message to history', async () => 
   await expect(acceptInput(state)).rejects.toThrow('failed')
   const { history } = state
   expect(history).toEqual(['previous'])
+})
+
+test('acceptInput preserves the input and history when a provider cancels', async () => {
+  registerProviders(async () => false)
+  const state = {
+    ...createDefaultState(),
+    enabledProviderIds: ['git'],
+    history: ['previous'],
+    inputValue: 'empty commit message',
+  }
+
+  const result = await acceptInput(state)
+
+  expect(result).toBe(state)
+  expect(result.inputValue).toBe('empty commit message')
+  expect(result.history).toEqual(['previous'])
 })

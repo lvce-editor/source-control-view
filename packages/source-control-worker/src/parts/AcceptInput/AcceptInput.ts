@@ -13,7 +13,10 @@ export const acceptInput = async (state: SourceControlState): Promise<SourceCont
     return state
   }
   for (const providerId of enabledProviderIds) {
-    await SourceControl.acceptInput(providerId, inputValue, assetDir, platform, applicationId)
+    const accepted = await SourceControl.acceptInput(providerId, inputValue, assetDir, platform, applicationId)
+    if (accepted === false) {
+      return state
+    }
   }
   const newState = await loadContent(state, {})
   const clearedState = await handleInput(newState, '', InputSource.Script)
