@@ -3,6 +3,11 @@ import * as config from '@lvce-editor/eslint-config'
 
 export default defineConfig([
   ...config.default,
+  {
+    // These regressions exercise toolbar clicks and keyboard input through the DOM.
+    files: ['packages/e2e-integration/src/**/*.ts'],
+    rules: { '@typescript-eslint/no-deprecated': 'off' },
+  },
   ...config.recommendedVirtualDom,
   ...config.recommendedRegex,
   ...config.recommendedActions,
