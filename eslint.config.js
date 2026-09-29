@@ -4,11 +4,6 @@ import * as config from '@lvce-editor/eslint-config'
 export default defineConfig([
   ...config.default,
   {
-    // The application runtime has its own Node version in the pinned checkout.
-    files: ['.github/workflows/integration.yml'],
-    rules: { 'github-actions/node-version-file': 'off' },
-  },
-  {
     // These regressions exercise toolbar clicks and keyboard input through the DOM.
     files: ['packages/e2e-integration/src/**/*.ts'],
     rules: { '@typescript-eslint/no-deprecated': 'off' },
@@ -39,5 +34,10 @@ export default defineConfig([
     rules: {
       'virtual-dom/prefer-constants': 'off',
     },
+  },
+  {
+    // The application runtime has its own Node version in the pinned checkout.
+    files: ['.github/workflows/integration.yml'],
+    rules: { 'github-actions/node-version-file': 'off' },
   },
 ])
