@@ -7,6 +7,7 @@ import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEven
 import { getScrollBarVirtualDom } from '../GetScrollBarVirtualDom/GetScrollBarVirtualDom.ts'
 import * as GetSourceControlItemVirtualDom from '../GetSourceControlItemVirtualDom/GetSourceControlItemVirtualDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
+import * as TabIndex from '../TabIndex/TabIndex.ts'
 
 const listClassName = MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.List)
 const itemsClassName = MergeClassNames.mergeClassNames(ClassNames.ListItems, ClassNames.SourceControlItems)
@@ -26,6 +27,7 @@ export const getSourceControlListVirtualDom = (items: readonly VisibleItem[], sc
       onPointerOut: DomEventListenerFunctions.HandleMouseOutAt,
       onPointerOver: DomEventListenerFunctions.HandleMouseOverAt,
       role: AriaRoles.Tree,
+      tabIndex: TabIndex.Focusable,
       type: VirtualDomElements.Div,
     },
     ...items.flatMap(GetSourceControlItemVirtualDom.getSourceControlItemVirtualDom),
