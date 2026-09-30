@@ -1,0 +1,8 @@
+{
+  "id": "builtin.sample-source-control-workspace",
+  "name": "Sample Source Control Workspace",
+  "browser": "main.js",
+  "isolated": true,
+  "activation": ["onSourceControl:memfs"],
+  "sourceControlProviders": [{ "id": "sample-source-control-workspace" }]
+}
