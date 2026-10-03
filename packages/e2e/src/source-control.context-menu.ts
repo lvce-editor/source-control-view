@@ -28,6 +28,18 @@ export const test: Test = async ({ Command, ContextMenu, expect, Extension, File
   await expect(menuItem2).toHaveText('Open File')
   const menuItem3 = menuItems.nth(2)
   await expect(menuItem3).toHaveText('Open File (HEAD)')
+
+  // act: opening the existing disk-backed file must load an editor tab.
+  await ContextMenu.selectItem('Open File')
+
+  // assert
+  const editorTab = Locator('.MainTab[title="test.css"]')
+  await expect(editorTab).toBeVisible()
+  const textEditorError = Locator('.Viewlet.TextEditorError')
+  await expect(textEditorError).toHaveCount(0)
+
+  // act
+  await Command.execute('Source Control.showContextMenu', 1)
   await ContextMenu.selectItem('Stage')
   const treeItems = Locator('.SourceControlItems .TreeItem')
   const group = treeItems.nth(0)

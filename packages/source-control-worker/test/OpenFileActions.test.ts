@@ -26,7 +26,28 @@ test('open file targets the owning application', async () => {
   using rpc = RendererWorker.registerMockRpc({ 'Application.execute': async (): Promise<void> => {} })
   const state = { ...createDefaultState(), applicationId: 'preview' }
   expect(await openFile(state, '/workspace/test.css')).toBe(state)
-  expect(rpc.invocations).toEqual([['Application.execute', 'preview', 'Main.openUri', { uri: '/workspace/test.css' }]])
+  expect(rpc.invocations).toEqual([['Application.execute', 'preview', 'Main.openUri', { uri: 'file:///workspace/test.css' }]])
+})
+
+test('open file escapes filesystem paths when converting to a file uri', async () => {
+  using rpc = RendererWorker.registerMockRpc({ 'Application.execute': async (): Promise<void> => {} })
+  const state = { ...createDefaultState(), applicationId: 'preview' }
+  await openFile(state, '/workspace/test file #1.css')
+  expect(rpc.invocations).toEqual([['Application.execute', 'preview', 'Main.openUri', { uri: 'file:///workspace/test%20file%20%231.css' }]])
+})
+
+test('open file preserves existing uris', async () => {
+  using rpc = RendererWorker.registerMockRpc({ 'Application.execute': async (): Promise<void> => {} })
+  const state = { ...createDefaultState(), applicationId: 'preview' }
+  await openFile(state, 'file:///workspace/test.css')
+  expect(rpc.invocations).toEqual([['Application.execute', 'preview', 'Main.openUri', { uri: 'file:///workspace/test.css' }]])
+})
+
+test('open file converts Windows filesystem paths to file uris', async () => {
+  using rpc = RendererWorker.registerMockRpc({ 'Application.execute': async (): Promise<void> => {} })
+  const state = { ...createDefaultState(), applicationId: 'preview' }
+  await openFile(state, 'C:\\workspace\\test file.css')
+  expect(rpc.invocations).toEqual([['Application.execute', 'preview', 'Main.openUri', { uri: 'file:///C:/workspace/test%20file.css' }]])
 })
 
 test('open HEAD uses original provider contents and application routing', async () => {
