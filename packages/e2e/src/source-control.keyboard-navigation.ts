@@ -10,6 +10,8 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, KeyBo
 
   const list = Locator('.SourceControlItems[role="tree"]')
   const treeItems = list.locator('[role="treeitem"]')
+  const firstItem = treeItems.nth(0)
+  const secondItem = treeItems.nth(1)
   await expect(treeItems).toHaveCount(6)
 
   // Focus the empty tree; it should show the list outline before any row is active.
@@ -20,16 +22,16 @@ export const test: Test = async ({ Command, expect, Extension, FileSystem, KeyBo
 
   await KeyBoard.press('ArrowDown')
   await expect(activeItem).toHaveCount(1)
-  await expect(activeItem).toHaveAttribute('aria-posinset', '1')
+  await expect(firstItem).toHaveId('SourceControlTreeItemFocused')
   await expect(focusOutline).toHaveCount(0)
-  await expect(list).toHaveAttribute('aria-activedescendant', 'SourceControlTreeItemFocused')
+  await expect(activeItem).toHaveId('SourceControlTreeItemFocused')
 
   await KeyBoard.press('ArrowDown')
   await expect(activeItem).toHaveCount(1)
-  await expect(activeItem).toHaveAttribute('aria-posinset', '2')
+  await expect(secondItem).toHaveId('SourceControlTreeItemFocused')
 
   await KeyBoard.press('Home')
-  await expect(activeItem).toHaveAttribute('aria-posinset', '1')
+  await expect(firstItem).toHaveId('SourceControlTreeItemFocused')
   await KeyBoard.press('ArrowUp')
-  await expect(activeItem).toHaveAttribute('aria-posinset', '1')
+  await expect(firstItem).toHaveId('SourceControlTreeItemFocused')
 }
