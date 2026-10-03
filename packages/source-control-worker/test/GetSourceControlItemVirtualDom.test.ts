@@ -93,7 +93,7 @@ test('getSourceControlItemVirtualDom - selected file', () => {
 
   expect(result[0]).toEqual(
     expect.objectContaining({
-      className: 'TreeItem Indent-16 IndentRight-12',
+      className: 'TreeItem Indent-16 IndentRight-12 TreeItemActive',
       id: 'TreeItemActive',
     }),
   )

@@ -7,6 +7,7 @@ import { getButtonsVirtualDom } from '../GetButtonsVirtualDom/GetButtonsVirtualD
 import * as GetFileIconVirtualDom from '../GetFileIconVirtualDom/GetFileIconVirtualDom.ts'
 import * as GetIconVirtualDom from '../GetIconVirtualDom/GetIconVirtualDom.ts'
 import { getLabelClassName } from '../GetLabelClassName/GetLabelClassName.ts'
+import { getSourceControlItemId } from '../GetSourceControlItemId/GetSourceControlItemId.ts'
 import { getTreeItemClassName } from '../GetTreeItemClassName/GetTreeItemClassName.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
@@ -35,20 +36,22 @@ const getIconsDom = (icon: string, fileIcon: string): readonly VirtualDomNode[] 
 }
 
 export const createItemOther = (item: VisibleItem): readonly VirtualDomNode[] => {
-  const { buttons, decorationIcon, decorationIconTitle, decorationStrikeThrough, detail, file, fileIcon, icon, indent, label, posInSet, selected, setSize } = item
+  const { buttons, decorationIcon, decorationIconTitle, decorationStrikeThrough, detail, file, fileIcon, focused, icon, indent, label, posInSet, selected, setSize } =
+    item
   const labelClassName = getLabelClassName(decorationStrikeThrough)
   const dom: VirtualDomNode[] = []
   const hasButtons = buttons.length
   const buttonsDom = getButtonsVirtualDom(buttons)
   const iconsDom = getIconsDom(icon, fileIcon)
-  const treeItemClassName = getTreeItemClassName(indent)
+  const treeItemClassName = getTreeItemClassName(indent, selected || focused)
   dom.push(
     {
       ariaPosInSet: posInSet,
+      ariaSelected: selected,
       ariaSetSize: setSize,
       childCount: 2 + (iconsDom.length > 0 ? 1 : 0) + (hasButtons ? 1 : 0),
       className: treeItemClassName,
-      id: selected ? 'TreeItemActive' : undefined,
+      id: getSourceControlItemId(selected, focused),
       role: AriaRoles.TreeItem,
       title: file,
       type: VirtualDomElements.Div,

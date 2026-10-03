@@ -6,23 +6,26 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as GetBadgeVirtualDom from '../GetBadgeVirtualDom/GetBadgeVirtualDom.ts'
 import { getButtonsVirtualDom } from '../GetButtonsVirtualDom/GetButtonsVirtualDom.ts'
 import { getLabelClassName } from '../GetLabelClassName/GetLabelClassName.ts'
+import { getSourceControlItemId } from '../GetSourceControlItemId/GetSourceControlItemId.ts'
 import { getTreeItemClassName } from '../GetTreeItemClassName/GetTreeItemClassName.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 export const createItemDirectory = (item: VisibleItem): readonly VirtualDomNode[] => {
-  const { badgeCount, buttons, decorationStrikeThrough, icon, indent, label, posInSet, setSize, type } = item
+  const { badgeCount, buttons, decorationStrikeThrough, focused, icon, indent, label, posInSet, selected, setSize, type } = item
   const labelClassName = getLabelClassName(decorationStrikeThrough)
   const buttonsDom = getButtonsVirtualDom(buttons)
   const hasButtons = buttons.length
-  const treeItemClassName = getTreeItemClassName(indent)
+  const treeItemClassName = getTreeItemClassName(indent, selected || focused)
   return [
     {
       ariaExpanded: type === DirentType.DirectoryExpanded,
       ariaPosInSet: posInSet,
+      ariaSelected: selected,
       ariaSetSize: setSize,
       childCount: 3 + (hasButtons ? 1 : 0),
       className: treeItemClassName,
+      id: getSourceControlItemId(selected, focused),
       role: AriaRoles.TreeItem,
       type: VirtualDomElements.Div,
     },

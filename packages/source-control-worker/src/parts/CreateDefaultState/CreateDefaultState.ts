@@ -16,6 +16,7 @@ export const createDefaultState = (): SourceControlState => ({
   fileIconCache: {},
   finalDeltaY: 0,
   focus: 0,
+  focusedIndex: -1,
   gitRoot: '',
   handleOffset: 0,
   headerHeight: 40,

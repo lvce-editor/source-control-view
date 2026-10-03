@@ -27,6 +27,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     applicationId,
     buttonBlockHeight,
     fileIconCache,
+    focusedIndex,
     height,
     history: currentHistory,
     indents,
@@ -105,6 +106,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     actionsCache,
     fileIconCache,
     selectedItem,
+    focusedIndex,
   )
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inProgress = await SourceControl.getProgress(enabledProviderIds, assetDir, platform, applicationId)

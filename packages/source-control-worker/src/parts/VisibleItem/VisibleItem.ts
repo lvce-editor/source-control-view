@@ -4,6 +4,7 @@ import type { DisplayItem } from '../DisplayItem/DisplayItem.ts'
 export interface VisibleItem extends DisplayItem {
   readonly buttons: readonly ActionButton[]
   readonly fileIcon: string
+  readonly focused?: boolean
   readonly indent: number
   readonly selected?: boolean
 }

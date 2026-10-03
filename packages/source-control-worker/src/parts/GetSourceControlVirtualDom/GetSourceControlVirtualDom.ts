@@ -31,6 +31,8 @@ export const getSourceControlVirtualDom = (
   scrollBarActive: boolean,
   inputActions: readonly ActionButton[] = [],
   inProgress = false,
+  focus = 0,
+  focusedIndex = -1,
 ): readonly VirtualDomNode[] => {
   const dom: VirtualDomNode[] = [
     {
@@ -55,6 +57,6 @@ export const getSourceControlVirtualDom = (
   for (const button of buttons) {
     dom.push(...GetSourceControlButtonVirtualDom.getSourceControlButtonVirtualDom(button, disabled))
   }
-  dom.push(...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items, scrollBarHeight, scrollBarActive))
+  dom.push(...GetSourceControlListVirtualDom.getSourceControlListVirtualDom(items, scrollBarHeight, scrollBarActive, focus, focusedIndex))
   return dom
 }

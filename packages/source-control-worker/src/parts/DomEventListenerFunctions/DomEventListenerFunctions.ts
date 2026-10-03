@@ -12,3 +12,5 @@ export const HandleClickSourceControlButton = 11
 export const HandleScrollBarMove = 12
 export const HandleScrollBarPointerCaptureLost = 13
 export const HandleScrollBarPointerDown = 14
+export const HandleListFocus = 16
+export const HandleListBlur = 17
