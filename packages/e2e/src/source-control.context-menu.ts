@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'source-control.context-menu'
 
-export const test: Test = async ({ Command, ContextMenu, expect, Extension, FileSystem, Locator, SourceControl, Workspace }) => {
+export const test: Test = async ({ Command, ContextMenu, Editor, expect, Extension, FileSystem, Locator, SourceControl, Workspace }) => {
   // arrange
   const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)
@@ -28,6 +28,15 @@ export const test: Test = async ({ Command, ContextMenu, expect, Extension, File
   await expect(menuItem2).toHaveText('Open File')
   const menuItem3 = menuItems.nth(2)
   await expect(menuItem3).toHaveText('Open File (HEAD)')
+
+  // act: opening the existing disk-backed file must load an editor tab.
+  await ContextMenu.selectItem('Open File')
+
+  // assert
+  await Editor.shouldHaveText('abc')
+
+  // act
+  await Command.execute('Source Control.showContextMenu', 1)
   await ContextMenu.selectItem('Stage')
   const treeItems = Locator('.SourceControlItems .TreeItem')
   const group = treeItems.nth(0)
