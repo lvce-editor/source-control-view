@@ -5,6 +5,7 @@ export const isEqual = (oldState: SourceControlState, newState: SourceControlSta
     oldState.allGroups === newState.allGroups &&
     oldState.deltaY === newState.deltaY &&
     oldState.items === newState.items &&
+    oldState.focusedIndex === newState.focusedIndex &&
     oldState.inputActions === newState.inputActions &&
     oldState.inputMessage === newState.inputMessage &&
     oldState.inputPlaceholder === newState.inputPlaceholder &&

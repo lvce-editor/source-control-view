@@ -14,16 +14,17 @@ export const selectIndex = async (state: SourceControlState, index: number): Pro
   const item = items[index]
   switch (item.type) {
     case DirentType.Directory:
-      return handleClickDirectory(state, item)
+      return handleClickDirectory({ ...state, focusedIndex: index }, item)
     case DirentType.DirectoryExpanded:
-      return handleClickDirectoryExpanded(state, item)
+      return handleClickDirectoryExpanded({ ...state, focusedIndex: index }, item)
     case DirentType.File: {
       const selectedItem = `${item.groupId}\0${item.file}`
       return handleClickFile(
         {
           ...state,
+          focusedIndex: index,
           selectedItem,
-          visibleItems: getVisibleSourceControlItems(items, minLineY, maxLineY, actionsCache, fileIconCache, selectedItem),
+          visibleItems: getVisibleSourceControlItems(items, minLineY, maxLineY, actionsCache, fileIconCache, selectedItem, index),
         },
         item,
       )

@@ -3,6 +3,7 @@ import { acceptInput } from '../AcceptInput/AcceptInput.ts'
 import * as Create2 from '../Create2/Create2.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import { executeMenuAction } from '../ExecuteMenuAction/ExecuteMenuAction.ts'
+import * as FocusIndex from '../FocusIndex/FocusIndex.ts'
 import { getBadgeCount } from '../GetBadgeCount/GetBadgeCount.ts'
 import { getComponentState } from '../GetComponentState/GetComponentState.ts'
 import * as GetInfo from '../GetInfo/GetInfo.ts'
@@ -19,6 +20,8 @@ import * as HandleGenerateCommitMessage from '../HandleGenerateCommitMessage/Han
 import { handleInput } from '../HandleInput/HandleInput.ts'
 import { handleInputActionClick } from '../HandleInputActionClick/HandleInputActionClick.ts'
 import { handleInputBlur } from '../HandleInputBlur/HandleInputBlur.ts'
+import * as HandleListBlur from '../HandleListBlur/HandleListBlur.ts'
+import * as HandleListFocus from '../HandleListFocus/HandleListFocus.ts'
 import * as HandleMessagePort from '../HandleMessagePort/HandleMessagePort.ts'
 import * as HandleMouseOut from '../HandleMouseOut/HandleMouseOut.ts'
 import * as HandleMouseOutAt from '../HandleMouseOutAt/HandleMouseOutAt.ts'
@@ -63,10 +66,15 @@ const handleDirectMessagePort = (port: any, setAsRendererProcess = true): Promis
 export const commandMap = {
   'Initialize.initialize': Initialize.initialize,
   'SourceControl.acceptInput': WrapCommand.wrapCommand(acceptInput),
+  'SourceControl.activateFocused': WrapCommand.wrapCommand(FocusIndex.activateFocused),
   'SourceControl.create2': Create2.create2,
   'SourceControl.diff2': Diff2.diff2,
   'SourceControl.dispose': WrapCommand.dispose,
   'SourceControl.executeMenuAction': WrapCommand.wrapCommand(executeMenuAction),
+  'SourceControl.focusFirst': WrapCommand.wrapCommand(FocusIndex.focusFirst),
+  'SourceControl.focusLast': WrapCommand.wrapCommand(FocusIndex.focusLast),
+  'SourceControl.focusNext': WrapCommand.wrapCommand(FocusIndex.focusNext),
+  'SourceControl.focusPrevious': WrapCommand.wrapCommand(FocusIndex.focusPrevious),
   'SourceControl.getBadgeCount': WrapCommand.wrapGetter(getBadgeCount),
   'SourceControl.getCommandIds': WrapCommand.getCommandIds,
   'SourceControl.getComponentState': getComponentState,
@@ -87,6 +95,8 @@ export const commandMap = {
   'SourceControl.handleInput': WrapCommand.wrapCommand(handleInput),
   'SourceControl.handleInputActionClick': WrapCommand.wrapCommand(handleInputActionClick),
   'SourceControl.handleInputBlur': WrapCommand.wrapCommand(handleInputBlur),
+  'SourceControl.handleListBlur': WrapCommand.wrapCommand(HandleListBlur.handleListBlur),
+  'SourceControl.handleListFocus': WrapCommand.wrapCommand(HandleListFocus.handleListFocus),
   'SourceControl.handleMessagePort': HandleMessagePort.handleMessagePort,
   'SourceControl.handleMouseOut': WrapCommand.wrapCommand(HandleMouseOut.handleMouseOut),
   'SourceControl.handleMouseOutAt': WrapCommand.wrapCommand(HandleMouseOutAt.handleMouseOutAt),

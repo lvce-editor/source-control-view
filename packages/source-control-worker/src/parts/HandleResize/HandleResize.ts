@@ -30,6 +30,7 @@ export const handleResize = async (state: SourceControlState, dimensions: Dimens
     buttonBlockHeight,
     deltaY: currentDeltaY,
     fileIconCache,
+    focusedIndex,
     indents,
     inputActions,
     inputFontFamily,
@@ -43,6 +44,7 @@ export const handleResize = async (state: SourceControlState, dimensions: Dimens
     itemHeight,
     items,
     minimumSliderSize,
+    selectedItem,
     sourceControlButtons,
   } = state
   const inputBoxHeight = await getInputHeight(
@@ -70,6 +72,8 @@ export const handleResize = async (state: SourceControlState, dimensions: Dimens
     maxLineY,
     actionsCache,
     fileIconCache,
+    selectedItem,
+    focusedIndex,
   )
   const scrollBarHeight = ScrollBarFunctions.getScrollBarSize(listHeight, contentHeight, minimumSliderSize)
   return {

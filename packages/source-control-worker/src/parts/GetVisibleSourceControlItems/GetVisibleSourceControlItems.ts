@@ -14,6 +14,7 @@ export const getVisibleSourceControlItems = (
   actionsCache: ActionsCache,
   fileIconCache: FileIconCache,
   selectedItem: string | undefined = undefined,
+  focusedIndex = -1,
 ): readonly VisibleItem[] => {
   const visible: VisibleItem[] = []
   for (let i = minLineY; i < maxLineY; i++) {
@@ -28,6 +29,7 @@ export const getVisibleSourceControlItems = (
       ...item,
       buttons,
       fileIcon,
+      ...(i === focusedIndex && { focused: true }),
       indent,
       selected: `${item.groupId}\0${item.file}` === selectedItem,
     })

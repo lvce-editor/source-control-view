@@ -4,6 +4,8 @@ import * as DomEventListenersFunctions from '../DomEventListenerFunctions/DomEve
 
 export const renderEventListeners = (): readonly DomEventListener[] => {
   return [
+    { name: DomEventListenersFunctions.HandleListFocus, params: ['handleListFocus'] },
+    { name: DomEventListenersFunctions.HandleListBlur, params: ['handleListBlur'] },
     { name: DomEventListenersFunctions.HandleInputActionClick, params: ['handleInputActionClick', EventExpression.TargetName] },
     {
       name: DomEventListenersFunctions.HandleWheel,

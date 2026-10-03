@@ -1,13 +1,11 @@
-import { InputSource, WhenExpression } from '@lvce-editor/constants'
 import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 
-export const handleInputFocus = async (state: SourceControlState): Promise<SourceControlState> => {
+export const handleListBlur = (state: SourceControlState): SourceControlState => {
   const { actionsCache, fileIconCache, items, maxLineY, minLineY, selectedItem } = state
   return {
     ...state,
-    focus: WhenExpression.FocusSourceControlInput,
-    inputSource: InputSource.Script,
+    focus: 0,
     visibleItems: getVisibleSourceControlItems(items, minLineY, maxLineY, actionsCache, fileIconCache, selectedItem),
   }
 }

@@ -17,10 +17,11 @@ export const getVisibleSourceControlItemsWithIcons = async (
   actionsCache: ActionsCache,
   fileIconCache: FileIconCache,
   selectedItem: string | undefined = undefined,
+  focusedIndex = -1,
 ): Promise<VisibleSourceControlItemsWithIcons> => {
   const visible = items.slice(minLineY, maxLineY)
   const newFileIconCache = await GetFileIcons.getFileIcons(visible, fileIconCache)
-  const visibleItems = getVisibleSourceControlItems(items, minLineY, maxLineY, actionsCache, newFileIconCache, selectedItem)
+  const visibleItems = getVisibleSourceControlItems(items, minLineY, maxLineY, actionsCache, newFileIconCache, selectedItem, focusedIndex)
   return {
     fileIconCache: newFileIconCache,
     visibleItems,

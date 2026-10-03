@@ -19,6 +19,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     defaultInputValue,
     enabledProviderIds,
     fileIconCache,
+    focusedIndex,
     headerHeight,
     height,
     iconDefinitions,
@@ -51,6 +52,7 @@ export const refresh = async (state: SourceControlState): Promise<SourceControlS
     actionsCache,
     fileIconCache,
     selectedItem,
+    focusedIndex,
   )
   const finalDeltaY = GetFinalDeltaY.getFinalDeltaY(listHeight, itemHeight, total)
   const inProgress = await SourceControl.getProgress(enabledProviderIds, assetDir, platform, applicationId)

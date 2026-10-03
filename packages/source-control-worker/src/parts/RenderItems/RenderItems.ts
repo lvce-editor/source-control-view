@@ -4,6 +4,8 @@ import * as GetSourceControlDom from '../GetSourceControlVirtualDom/GetSourceCon
 
 export const renderItems = (oldState: SourceControlState, newState: SourceControlState): any => {
   const {
+    focus,
+    focusedIndex,
     id,
     initial,
     inProgress,
@@ -33,6 +35,8 @@ export const renderItems = (oldState: SourceControlState, newState: SourceContro
     scrollBarActive,
     inputActions,
     inProgress,
+    focus,
+    focusedIndex,
   )
   return [ViewletCommand.SetDom2, id, dom]
 }

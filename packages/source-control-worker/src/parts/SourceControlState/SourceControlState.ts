@@ -22,6 +22,7 @@ export interface SourceControlState {
   readonly fileIconCache: FileIconCache
   readonly finalDeltaY: number
   readonly focus: number
+  readonly focusedIndex: number
   readonly gitRoot: string
   readonly handleOffset: number
   readonly headerHeight: number
