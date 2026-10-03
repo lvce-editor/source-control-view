@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'source-control.context-menu'
 
-export const test: Test = async ({ Command, ContextMenu, expect, Extension, FileSystem, Locator, SourceControl, Workspace }) => {
+export const test: Test = async ({ Command, ContextMenu, Editor, expect, Extension, FileSystem, Locator, SourceControl, Workspace }) => {
   // arrange
   const uri = import.meta.resolve('../fixtures/sample-source-control-provider')
   await Extension.addWebExtension(uri)
@@ -33,10 +33,7 @@ export const test: Test = async ({ Command, ContextMenu, expect, Extension, File
   await ContextMenu.selectItem('Open File')
 
   // assert
-  const editorTab = Locator('.MainTab[title="test.css"]')
-  await expect(editorTab).toBeVisible()
-  const textEditorError = Locator('.Viewlet.TextEditorError')
-  await expect(textEditorError).toHaveCount(0)
+  await Editor.shouldHaveText('abc')
 
   // act
   await Command.execute('Source Control.showContextMenu', 1)
