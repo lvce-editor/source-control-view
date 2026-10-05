@@ -178,8 +178,7 @@ const acceptInput = () => {
 }
 
 const getFileBefore = (_path) => {
-  // Return empty string for this sample provider
-  return ''
+  return 'head content'
 }
 
 const dispose = () => {}

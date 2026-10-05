@@ -29,7 +29,14 @@ export const test: Test = async ({ Command, ContextMenu, Editor, expect, Extensi
   const menuItem3 = menuItems.nth(2)
   await expect(menuItem3).toHaveText('Open File (HEAD)')
 
+  // act: opening HEAD must show the provider's original file content.
+  await ContextMenu.selectItem('Open File (HEAD)')
+
+  // assert
+  await Editor.shouldHaveText('head content')
+
   // act: opening the existing disk-backed file must load an editor tab.
+  await Command.execute('Source Control.showContextMenu', 1)
   await ContextMenu.selectItem('Open File')
 
   // assert
