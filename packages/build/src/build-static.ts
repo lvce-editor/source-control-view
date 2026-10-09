@@ -45,4 +45,6 @@ const updateStaticFixtureEntryPoint = async (fixture: string): Promise<void> => 
 
 await Promise.all(sourceControlFixtures.map(updateStaticFixtureEntryPoint))
 
+await cp(join(root, '.tmp', 'dist', 'dist'), join(root, 'dist', commitHash, 'packages', 'source-control-worker', 'dist'), { recursive: true })
+
 await cp(join(root, 'dist'), join(root, '.tmp', 'static'), { recursive: true })
