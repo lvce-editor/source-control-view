@@ -1,8 +1,9 @@
-import { activate as activateExtensionApi, readDirWithFileTypes, registerCommand, registerSourceControlProvider } from '@lvce-editor/api'
+import { activate as activateExtensionApi, readDirWithFileTypes, registerCommand, registerSourceControlProvider, remove } from '@lvce-editor/api'
 
 const id = 'sample-source-control-provider' // TODO name it just sample-source-control-provider
 const label = 'Sample Source Control'
 const rootUri = ''
+let currentRootUri = ''
 
 const IconType = {
   Modified: 0,
@@ -108,6 +109,7 @@ const isChanged = (dirent) => {
 }
 
 const getGroups = async (root) => {
+  currentRootUri = root
   const dirents = await readDirWithFileTypes(root)
   const changed = dirents.filter(isChanged).map((item) => toChangedItem(item, root))
   const staged = dirents.filter(isStaged).map((item) => toStagedItem(item, root))
@@ -224,6 +226,12 @@ const activate = async () => {
   registerCommand({
     id: 'sampleSourceControl.rename',
     execute: rename,
+  })
+  registerCommand({
+    id: 'sampleSourceControl.discard',
+    execute: async (file) => {
+      await remove(`${currentRootUri}/${file}`)
+    },
   })
   registerCommand({
     id: 'sampleSourceControl.checkout',
