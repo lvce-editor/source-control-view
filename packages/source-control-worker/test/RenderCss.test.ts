@@ -34,6 +34,10 @@ const getExpectedCss = (inputBoxHeight: number): string => `:root {
   height: 16px;
 }
 
+.SourceControlButton > .MaskIcon {
+  pointer-events: none;
+}
+
 .SourceControl > .Message {
   padding-left: 20px;
   padding-right: 20px;
@@ -194,6 +198,10 @@ test('renderCss - generates indent CSS rules', () => {
   pointer-events: none;
   width: 16px;
   height: 16px;
+}
+
+.SourceControlButton > .MaskIcon {
+  pointer-events: none;
 }
 
 .SourceControl > .Message {
