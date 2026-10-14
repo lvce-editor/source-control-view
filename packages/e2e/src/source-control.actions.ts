@@ -33,4 +33,9 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
   await expect(discardButton).toHaveCount(1)
   const stageButton = fileItem.locator('.SourceControlButton[name="Stage"]')
   await expect(stageButton).toHaveCount(1)
+
+  // The delegated click handler reads the target's name, so the icon must let
+  // pointer clicks reach the named button.
+  const stageIcon = stageButton.locator('.MaskIconAdd')
+  await expect(stageIcon).toHaveCSS('pointer-events', 'none')
 }

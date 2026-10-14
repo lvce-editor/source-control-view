@@ -42,6 +42,10 @@ export const renderCss = (oldState: SourceControlState, newState: SourceControlS
   height: 16px;
 }
 
+.SourceControlButton > .MaskIcon {
+  pointer-events: none;
+}
+
 .SourceControl > .Message {
   padding-left: 20px;
   padding-right: 20px;
