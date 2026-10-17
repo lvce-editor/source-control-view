@@ -30,7 +30,7 @@ test('extension reload preserves a message generated while providers are loading
     started.resolve()
     return providers.promise
   })
-  const state = { ...createDefaultState(), id: 1, inputValue: 'My change' }
+  const state = { ...createDefaultState(), id: 1, inputValue: 'My change', workspaceUri: '/test/workspace' }
   SourceControlStates.set(1, state, state)
   const pending = loadContentCommand(1, { inputValue: 'old saved message' })
   await started.promise
@@ -77,7 +77,7 @@ test('an extension reload does not overwrite a newer live component state edit',
     started.resolve()
     return providers.promise
   })
-  const state = { ...createDefaultState(), id: 4, providerUnavailableMessage: 'No source control extensions are installed.' }
+  const state = { ...createDefaultState(), id: 4, providerUnavailableMessage: 'No source control extensions are installed.', workspaceUri: '/test/workspace' }
   SourceControlStates.set(4, state, state)
   const pending = loadContentCommand(4, undefined)
   await started.promise
@@ -88,5 +88,5 @@ test('an extension reload does not overwrite a newer live component state edit',
   // A reload started after the edit is still allowed to refresh provider state.
   registerProviders(async () => [])
   await loadContentCommand(4, undefined)
-  expect(SourceControlStates.get(4).newState.providerUnavailableMessage).toBe('No workspace is open.')
+  expect(SourceControlStates.get(4).newState.providerUnavailableMessage).toBe('No source control extensions are installed.')
 })

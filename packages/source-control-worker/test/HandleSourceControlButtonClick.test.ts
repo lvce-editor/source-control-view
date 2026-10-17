@@ -32,6 +32,7 @@ test('handleSourceControlButtonClick', async () => {
         label: 'Commit & Sync',
       },
     ],
+    workspaceUri: '/test/workspace',
   }
 
   const result = await handleSourceControlButtonClick(state, 'Commit & Sync')
@@ -43,7 +44,8 @@ test('handleSourceControlButtonClick', async () => {
     ['Extensions.invokeForApplication', '', 'Extensions.activateByEvent', 'onCommand:git.commitAndSync'],
     ['Extensions.invokeForApplication', '', 'Extensions.executeCommand', 'git.commitAndSync', 'test message'],
     ['Extensions.invokeForApplication', '', 'Extensions.activateByEvent', 'onSourceControl:file'],
-    ['Extensions.invokeForApplication', '', 'ExtensionHostSourceControl.getEnabledProviderIds', 'file', ''],
+    ['Extensions.invokeForApplication', '', 'ExtensionHostSourceControl.getEnabledProviderIds', 'file', '/test/workspace'],
+    ['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '', 0],
   ])
   expect(mockRpc.invocations).toEqual([['Preferences.get', 'sourceControl.splitButtonEnabled']])
   expect(result.inputSource).toBe(InputSource.Script)

@@ -21,6 +21,7 @@ test('loadContent - returns an error state when loading fails', async (): Promis
   const state: SourceControlState = {
     ...createDefaultState(),
     loading: true,
+    workspaceUri: '/test/workspace',
   }
   const result = await loadContent(state, {})
 
@@ -58,6 +59,32 @@ test('loadContent - basic with empty state', async (): Promise<void> => {
   // Empty input returns lineHeight + inputPadding * 2
   const { inputLineHeight, inputPadding } = state
   expect(result.inputBoxHeight).toBe(inputLineHeight + inputPadding * 2)
+})
+
+test('loadContent - handles a missing workspace uri without querying source control providers', async (): Promise<void> => {
+  const commandMap = {
+    'ExtensionHostSourceControl.getEnabledProviderIds': async (): Promise<readonly string[]> => {
+      throw new Error('expected value to be of type string')
+    },
+    'Extensions.activateByEvent': async (): Promise<void> => {},
+    'IconTheme.getIcons': async (): Promise<readonly string[]> => [],
+    'Preferences.get': async (): Promise<any> => false,
+    'TextMeasurement.measureTextBlockHeight': async (): Promise<number> => 30,
+  }
+  ExtensionHost.registerMockRpc(commandMap)
+  ExtensionManagementWorker.registerMockRpc(withApplicationRouting(commandMap))
+  IconThemeWorker.registerMockRpc(commandMap)
+  RendererWorker.registerMockRpc(commandMap)
+  TextMeasurementWorker.registerMockRpc(commandMap)
+
+  const state = {
+    ...createDefaultState(),
+    workspaceUri: undefined as unknown as string,
+  }
+  const result = await loadContent(state, {})
+
+  expect(result.enabledProviderIds).toEqual([])
+  expect(result.providerUnavailableMessage).toBe('No workspace is open.')
 })
 
 test('loadContent - with saved state inputValue', async (): Promise<void> => {
@@ -292,6 +319,7 @@ test.each([
     ...createDefaultState(),
     buttonBlockHeight,
     inputPaddingBlock,
+    workspaceUri: '/test/workspace',
   }
   const result = await loadContent(state, {})
 
