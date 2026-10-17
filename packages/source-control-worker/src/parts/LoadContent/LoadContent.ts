@@ -46,7 +46,7 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
     width,
     workspaceUri,
   } = state
-  const root = workspaceUri
+  const root = workspaceUri || ''
   const scheme = GetProtocol.getProtocol(root)
   const { defaultInputValue: restoredDefaultInputValue, history, inputValue: restoredInputValue } = restoreState(savedState, currentHistory)
   const hasSavedInputValue = Boolean(savedState && typeof savedState === 'object' && 'inputValue' in savedState && typeof savedState.inputValue === 'string')
@@ -55,13 +55,13 @@ const loadContentActual = async (state: SourceControlState, savedState: unknown)
   )
   let inputValue = restoredInputValue
   const { assetDir, platform } = state
-  const enabledProviderIds = await SourceControl.getEnabledProviderIds(scheme, root, assetDir, platform, applicationId)
+  const enabledProviderIds = root ? await SourceControl.getEnabledProviderIds(scheme, root, assetDir, platform, applicationId) : []
   const currentDefaultInputValue = await SourceControl.getDefaultCommitMessage(enabledProviderIds, root, assetDir, platform, applicationId)
   const canRestoreDefaultInputValue = !hasSavedInputValue || (hasSavedDefaultInputValue && restoredInputValue === restoredDefaultInputValue)
   if (canRestoreDefaultInputValue && inputSource !== InputSource.User) {
     inputValue = currentDefaultInputValue
   }
-  const providerUnavailableMessage = enabledProviderIds.length === 0 ? await getSourceControlUnavailableMessage(workspaceUri, assetDir, platform, applicationId) : ''
+  const providerUnavailableMessage = enabledProviderIds.length === 0 ? await getSourceControlUnavailableMessage(root, assetDir, platform, applicationId) : ''
   const showGenerateCommitMessageButton =
     enabledProviderIds.length === 0 ? false : await SourceControl.getShowGenerateCommitMessageButton(enabledProviderIds[0], assetDir, platform, applicationId)
 
