@@ -56,6 +56,34 @@ test('getVisibleSourceControlItems - single item', () => {
   ])
 })
 
+test('getVisibleSourceControlItems - hides Add to Gitignore from inline actions', () => {
+  const items = [{
+    badgeCount: 0,
+    decorationIcon: '',
+    decorationIconTitle: '',
+    decorationStrikeThrough: false,
+    detail: '',
+    file: 'test.txt',
+    groupId: 'test',
+    icon: '',
+    label: 'test.txt',
+    posInSet: 1,
+    setSize: 1,
+    type: DirentType.File,
+  }]
+  const actionsCache = {
+    'test-item': [
+      { command: 'git.addToGitignore', icon: 'ignore', id: 'ignore', label: 'Add to Gitignore' },
+      { command: 'git.stage', icon: 'stage', id: 'stage', label: 'Stage' },
+    ],
+  }
+
+  const result = getVisibleSourceControlItems(items, 0, 1, actionsCache, {})
+
+  expect(result[0].buttons).toEqual([actionsCache['test-item'][1]])
+  expect(actionsCache['test-item']).toHaveLength(2)
+})
+
 test('getVisibleSourceControlItems - multiple items', () => {
   const items = [
     {

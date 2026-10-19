@@ -20,7 +20,8 @@ export const getVisibleSourceControlItems = (
   for (let i = minLineY; i < maxLineY; i++) {
     const item = items[i]
     const contextId = getContextId(item.groupId, item.type, item.directory)
-    const buttons = actionsCache[contextId] || EmptySourceControlButtons.emptySourceControlButtons
+    const contributedButtons = actionsCache[contextId] || EmptySourceControlButtons.emptySourceControlButtons
+    const buttons = contributedButtons.filter((button) => button.command !== 'git.addToGitignore')
     const path = item.file || item.directory
     const cacheKey = path ? GetIconCacheKey.getIconCacheKey(path, item.type) : ''
     const fileIcon = cacheKey ? fileIconCache[cacheKey] || '' : ''
