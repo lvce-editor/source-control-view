@@ -19,6 +19,8 @@ export const renderItems = (oldState: SourceControlState, newState: SourceContro
     scrollBarHeight,
     sourceControlButtons,
     visibleItems,
+    width,
+    workspaceUri,
   } = newState
   if (initial) {
     return [ViewletCommand.SetDom2, id, []]
@@ -37,6 +39,8 @@ export const renderItems = (oldState: SourceControlState, newState: SourceContro
     inProgress,
     focus,
     focusedIndex,
+    !workspaceUri && !loading && !inProgress,
+    width > 450,
   )
   return [ViewletCommand.SetDom2, id, dom]
 }

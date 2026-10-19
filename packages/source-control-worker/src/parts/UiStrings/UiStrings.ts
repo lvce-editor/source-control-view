@@ -26,3 +26,5 @@ export const NoSourceControlExtensionsInstalled = 'No source control extensions 
 export const SourceControlExtensionsDisabled = 'All installed source control extensions are disabled.'
 export const NoSourceControlProviderForWorkspace = 'No source control provider is available for this workspace.'
 export const NoWorkspaceOpen = 'No workspace is open.'
+export const YouHaveNotYetOpenedAFolder = 'You have not yet opened a folder.'
+export const OpenFolder = 'Open folder'

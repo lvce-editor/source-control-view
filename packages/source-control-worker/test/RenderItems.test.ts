@@ -104,6 +104,20 @@ test('renderItems - handles empty placeholder', () => {
   expect(result).toEqual([ViewletCommand.SetDom2, 3, expect.any(Object)])
 })
 
+test('renderItems - renders Explorer welcome when no workspace is open', () => {
+  const state = { ...createDefaultState(), id: 4, initial: false, workspaceUri: '' }
+  const result = RenderItems.renderItems(state, state)
+  const dom = result[2]
+
+  expect(dom).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ className: ClassNames.Welcome }),
+      expect.objectContaining({ className: ClassNames.WelcomeMessage }),
+      expect.objectContaining({ name: 'OpenFolder' }),
+    ]),
+  )
+})
+
 test('renderItems - shows unavailable message instead of commit controls without providers', () => {
   const oldState: SourceControlState = createDefaultState()
   const newState: SourceControlState = {
@@ -117,6 +131,7 @@ test('renderItems - shows unavailable message instead of commit controls without
         label: 'Commit & Sync',
       },
     ],
+    workspaceUri: '/workspace',
   }
 
   const result = RenderItems.renderItems(oldState, newState)
@@ -176,6 +191,7 @@ test('renderItems - shows a load error instead of progress', () => {
   const newState: SourceControlState = {
     ...createDefaultState(),
     providerUnavailableMessage: 'Unable to read repository state',
+    workspaceUri: '/workspace',
   }
 
   const result = RenderItems.renderItems(oldState, newState)
@@ -206,6 +222,7 @@ test('renderItems - disables source control buttons without changes', () => {
         label: 'Commit & Sync',
       },
     ],
+    workspaceUri: '/workspace',
   }
 
   const result = RenderItems.renderItems(oldState, newState)
