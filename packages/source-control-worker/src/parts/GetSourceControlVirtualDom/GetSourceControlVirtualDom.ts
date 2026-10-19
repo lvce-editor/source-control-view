@@ -8,6 +8,7 @@ import * as GetProgressVirtualDom from '../GetProgressVirtualDom/GetProgressVirt
 import * as GetSourceControlButtonVirtualDom from '../GetSourceControlButtonVirtualDom/GetSourceControlButtonVirtualDom.ts'
 import * as GetSourceControlHeaderVirtualDom from '../GetSourceControlHeaderVirtualDom/GetSourceControlHeaderVirtualDom.ts'
 import * as GetSourceControlListVirtualDom from '../GetSourceControlListVirtualDom/GetSourceControlListVirtualDom.ts'
+import * as GetSourceControlWelcomeVirtualDom from '../GetSourceControlWelcomeVirtualDom/GetSourceControlWelcomeVirtualDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
@@ -33,7 +34,12 @@ export const getSourceControlVirtualDom = (
   inProgress = false,
   focus = 0,
   focusedIndex = -1,
+  noWorkspace = false,
+  isWide = false,
 ): readonly VirtualDomNode[] => {
+  if (noWorkspace) {
+    return GetSourceControlWelcomeVirtualDom.getSourceControlWelcomeVirtualDom(isWide)
+  }
   const dom: VirtualDomNode[] = [
     {
       ariaBusy: loading || inProgress,

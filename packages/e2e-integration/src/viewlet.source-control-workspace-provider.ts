@@ -13,8 +13,8 @@ export const test: Test = async ({ ActivityBar, Command, expect, Extension, Loca
   await Command.execute('Layout.handleExtensionsChanged')
   await SourceControl.show()
 
-  const message = Locator('.Viewlet.SourceControl > .Message')
-  await expect(message).toHaveText('No workspace is open.')
+  const message = Locator('.Viewlet.SourceControl .WelcomeMessage')
+  await expect(message).toHaveText('You have not yet opened a folder.')
   await Command.execute('RecentlyOpened.addToRecentlyOpened', 'memfs:///first-workspace')
   await Command.execute('QuickPick.showRecent')
   await QuickPick.selectIndex(0)
@@ -30,6 +30,6 @@ export const test: Test = async ({ ActivityBar, Command, expect, Extension, Loca
   await expect(rows.nth(1).locator('.Label')).toHaveText('second.txt')
 
   await Workspace.close()
-  await expect(message).toHaveText('No workspace is open.')
+  await expect(message).toHaveText('You have not yet opened a folder.')
   await expect(rows).toHaveCount(0)
 }

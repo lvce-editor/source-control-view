@@ -13,6 +13,7 @@ import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
 import * as HandleActionClick from '../HandleActionClick/HandleActionClick.ts'
 import * as HandleButtonClick from '../HandleButtonClick/HandleButtonClick.ts'
 import * as HandleClickAt from '../HandleClickAt/HandleClickAt.ts'
+import * as HandleClickOpenFolder from '../HandleClickOpenFolder/HandleClickOpenFolder.ts'
 import * as HandleClickSourceControlButtons from '../HandleClickSourceControlButtons/HandleClickSourceControlButtons.ts'
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandleFocus from '../HandleFocus/HandleFocus.ts'
@@ -88,6 +89,7 @@ export const commandMap = {
   'SourceControl.handleActionClick': WrapCommand.wrapCommand(HandleActionClick.handleActionClick),
   'SourceControl.handleButtonClick': WrapCommand.wrapCommand(HandleButtonClick.handleButtonClick),
   'SourceControl.handleClickAt': WrapCommand.wrapCommand(HandleClickAt.handleClickAt),
+  'SourceControl.handleClickOpenFolder': WrapCommand.wrapCommand(HandleClickOpenFolder.handleClickOpenFolder),
   'SourceControl.handleClickSourceControlButtons': WrapCommand.wrapCommand(HandleClickSourceControlButtons.handleClickSourceControlButtons),
   'SourceControl.handleContextMenu': WrapCommand.wrapCommand(HandleContextMenu.handleContextMenu),
   'SourceControl.handleFocus': WrapCommand.wrapCommand(HandleFocus.handleInputFocus),

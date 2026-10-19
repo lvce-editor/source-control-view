@@ -6,6 +6,7 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
   return [
     { name: DomEventListenersFunctions.HandleListFocus, params: ['handleListFocus'] },
     { name: DomEventListenersFunctions.HandleListBlur, params: ['handleListBlur'] },
+    { name: DomEventListenersFunctions.HandleClickOpenFolder, params: ['handleClickOpenFolder'], preventDefault: true },
     { name: DomEventListenersFunctions.HandleInputActionClick, params: ['handleInputActionClick', EventExpression.TargetName] },
     {
       name: DomEventListenersFunctions.HandleWheel,

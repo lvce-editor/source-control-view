@@ -112,3 +112,11 @@ export const noSourceControlProviderForWorkspace = (): string => {
 export const noWorkspaceOpen = (): string => {
   return I18nString.i18nString(UiStrings.NoWorkspaceOpen)
 }
+
+export const youHaveNotYetOpenedAFolder = (): string => {
+  return I18nString.i18nString(UiStrings.YouHaveNotYetOpenedAFolder)
+}
+
+export const openFolder = (): string => {
+  return I18nString.i18nString(UiStrings.OpenFolder)
+}
