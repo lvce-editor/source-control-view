@@ -105,7 +105,7 @@ test('renderItems - handles empty placeholder', () => {
 })
 
 test('renderItems - renders Explorer welcome when no workspace is open', () => {
-  const state = { ...createDefaultState(), id: 4, initial: false, workspaceUri: '' }
+  const state = { ...createDefaultState(), id: 4, initial: false, width: 450, workspaceUri: '' }
   const result = RenderItems.renderItems(state, state)
   const dom = result[2]
 
@@ -113,8 +113,14 @@ test('renderItems - renders Explorer welcome when no workspace is open', () => {
     expect.arrayContaining([
       expect.objectContaining({ className: ClassNames.Welcome }),
       expect.objectContaining({ className: ClassNames.WelcomeMessage }),
-      expect.objectContaining({ name: 'OpenFolder' }),
+      expect.objectContaining({ className: `${ClassNames.Button} ${ClassNames.ButtonPrimary} ${ClassNames.ButtonNarrow}`, name: 'OpenFolder' }),
     ]),
+  )
+
+  const wideState = { ...state, width: 451 }
+  const wideResult = RenderItems.renderItems(wideState, wideState)
+  expect(wideResult[2]).toContainEqual(
+    expect.objectContaining({ className: `${ClassNames.Button} ${ClassNames.ButtonPrimary} ${ClassNames.ButtonWide}`, name: 'OpenFolder' }),
   )
 })
 

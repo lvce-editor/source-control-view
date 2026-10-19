@@ -29,5 +29,5 @@ export const test: Test = async ({ Command, expect, Locator, QuickPick, SourceCo
   await Command.execute('SideBar.show', 'Explorer', true)
   await Workspace.setUri('memfs:///third-workspace')
   await SourceControl.show()
-  await expect(noWorkspaceMessage).toHaveText('No source control provider is available for this workspace.')
+  await expect(providerMessage).toHaveText('No source control provider is available for this workspace.')
 }
