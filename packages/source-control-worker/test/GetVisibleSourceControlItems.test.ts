@@ -57,20 +57,22 @@ test('getVisibleSourceControlItems - single item', () => {
 })
 
 test('getVisibleSourceControlItems - hides Add to Gitignore from inline actions', () => {
-  const items = [{
-    badgeCount: 0,
-    decorationIcon: '',
-    decorationIconTitle: '',
-    decorationStrikeThrough: false,
-    detail: '',
-    file: 'test.txt',
-    groupId: 'test',
-    icon: '',
-    label: 'test.txt',
-    posInSet: 1,
-    setSize: 1,
-    type: DirentType.File,
-  }]
+  const items = [
+    {
+      badgeCount: 0,
+      decorationIcon: '',
+      decorationIconTitle: '',
+      decorationStrikeThrough: false,
+      detail: '',
+      file: 'test.txt',
+      groupId: 'test',
+      icon: '',
+      label: 'test.txt',
+      posInSet: 1,
+      setSize: 1,
+      type: DirentType.File,
+    },
+  ]
   const actionsCache = {
     'test-item': [
       { command: 'git.addToGitignore', icon: 'ignore', id: 'ignore', label: 'Add to Gitignore' },
