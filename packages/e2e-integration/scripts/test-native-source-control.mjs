@@ -16,9 +16,9 @@ export const test = async ({ page }) => {
       // The fixture starts with restoration disabled to isolate extension tests.
       // Exercise production hide/show persistence during the native UI pass.
       const ViewletStates = await import('/packages/renderer-worker/src/parts/ViewletStates/ViewletStates.js')
-      const layout = ViewletStates.getInstance('Layout')
-      layout.state.restore = true
-      layout.renderedState.restore = true
+      const { state: layoutState, renderedState } = ViewletStates.getInstance('Layout')
+      layoutState.restore = true
+      renderedState.restore = true
     })
     const entry = await page.locator('script[type="module"][src]').evaluateAll((scripts) => scripts.find((script) => script.src.includes('rendererProcessMain')).src)
     const execute = (method, ...params) =>
