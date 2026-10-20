@@ -6,6 +6,17 @@ const rendererWorkerUrl = /\/renderer-worker\/src\/rendererWorkerMain/
 
 export const test = async ({ page }) => {
   let stage = 'setup'
+  let beforeStage
+  const readSourceState = async () => {
+    const worker = page.workers().find((entry) => rendererWorkerUrl.test(entry.url()))
+    return worker.evaluate(async () => {
+      const ViewletStates = await import('/packages/renderer-worker/src/parts/ViewletStates/ViewletStates.js')
+      const SourceControlWorker = await import('/packages/renderer-worker/src/parts/SourceControlWorker/SourceControlWorker.js')
+      const { state } = ViewletStates.getInstance('Source Control')
+      const { uid } = state
+      return SourceControlWorker.invoke('SourceControl.getComponentState', uid)
+    })
+  }
   const errors = []
   page.on('pageerror', (error) => errors.push(String(error)))
   page.on('console', (message) => {
@@ -85,6 +96,7 @@ export const test = async ({ page }) => {
     stage = 'stage file'
     const stageButton = file.locator('button[name="Stage"]')
     assert.equal(await stageButton.count(), 1, 'The isolated provider must contribute exactly one Stage action')
+    beforeStage = await readSourceState()
     await stageButton.click()
     await page.waitForFunction(() => document.querySelector('.SourceControlItems')?.textContent.includes('Staged Changes'))
     stage = 'stage-file draft retention'
@@ -113,6 +125,7 @@ export const test = async ({ page }) => {
             openFile: true,
             stage: true,
             hideShowFocus: true,
+            beforeStage,
             commands: await worker.evaluate(() => globalThis.sourceControlNativeCommands),
           },
           null,
@@ -130,7 +143,20 @@ export const test = async ({ page }) => {
       const commands = worker ? await worker.evaluate(() => globalThis.sourceControlNativeCommands) : []
       await writeFile(
         join(evidence, 'failure.json'),
-        JSON.stringify({ stage, error: String(error), errors, events, commands, dom: await page.locator('body').innerText() }, null, 2),
+        JSON.stringify(
+          {
+            stage,
+            error: String(error),
+            errors,
+            events,
+            commands,
+            beforeStage,
+            afterStage: await readSourceState().catch(String),
+            dom: await page.locator('body').innerText(),
+          },
+          null,
+          2,
+        ),
       )
     }
     throw new Error(`Source control native regression: ${stage}`, { cause: error })
