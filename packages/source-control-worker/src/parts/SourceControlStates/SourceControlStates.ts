@@ -11,12 +11,14 @@ export const wrapCommand = (fn: ViewletRegistry.Fn<SourceControlState>): Viewlet
     if (result === state) {
       return
     }
+    const changes = Object.fromEntries(Object.entries(result).filter(([key, value]: readonly [string, unknown]) => value !== state[key as keyof SourceControlState]))
     await context.updateState((current) => {
       if (current.workspaceUri !== workspaceUri || current.enabledProviderIds !== enabledProviderIds) {
         return current
       }
       return {
-        ...result,
+        ...current,
+        ...changes,
         inProgress: (current.progressRequestId === progressRequestId ? result : current).inProgress,
         progressRequestId: current.progressRequestId,
       }
