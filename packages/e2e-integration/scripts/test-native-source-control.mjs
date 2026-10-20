@@ -6,7 +6,25 @@ const rendererWorkerUrl = /\/renderer-worker\/src\/rendererWorkerMain/
 
 export const test = async ({ page }) => {
   let stage = 'setup'
+  const errors = []
+  page.on('pageerror', (error) => errors.push(String(error)))
+  page.on('console', (message) => {
+    if (message.type() === 'error') errors.push(message.text())
+  })
   try {
+    await page.evaluate(() => {
+      globalThis.sourceControlNativeEvents = []
+      for (const type of ['pointerdown', 'pointerup', 'click']) {
+        document.addEventListener(
+          type,
+          (event) => {
+            if (!event.target.closest('.SourceControl')) return
+            globalThis.sourceControlNativeEvents.push({ type, x: event.clientX, y: event.clientY, target: event.target.outerHTML })
+          },
+          true,
+        )
+      }
+    })
     await page.locator('#TestOverlay').evaluate((element) => element.remove())
     const worker = page.workers().find((entry) => rendererWorkerUrl.test(entry.url()))
     assert.ok(worker, 'Use the application source runtime for this regression')
@@ -86,7 +104,11 @@ export const test = async ({ page }) => {
     if (evidence) {
       await mkdir(evidence, { recursive: true })
       await page.screenshot({ path: join(evidence, 'failure.png') })
-      await writeFile(join(evidence, 'failure.json'), JSON.stringify({ stage, error: String(error), dom: await page.locator('body').innerText() }, null, 2))
+      const events = await page.evaluate(() => globalThis.sourceControlNativeEvents)
+      await writeFile(
+        join(evidence, 'failure.json'),
+        JSON.stringify({ stage, error: String(error), errors, events, dom: await page.locator('body').innerText() }, null, 2),
+      )
     }
     throw new Error(`Source control native regression: ${stage}`, { cause: error })
   }
