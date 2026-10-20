@@ -31,6 +31,14 @@ export const test = async ({ page }) => {
     await worker.evaluate(async () => {
       const { state } = await import('/packages/renderer-worker/src/parts/IsTest/IsTest.js')
       state.isTest = false
+      const Command = await import('/packages/renderer-worker/src/parts/Command/Command.js')
+      const command = 'Viewlet.executeViewletCommand'
+      const original = Command.state.commands[command]
+      globalThis.sourceControlNativeCommands = []
+      Command.state.commands[command] = (...args) => {
+        globalThis.sourceControlNativeCommands.push(args)
+        return original(...args)
+      }
       // The fixture starts with restoration disabled to isolate extension tests.
       // Exercise production hide/show persistence during the native UI pass.
       const ViewletStates = await import('/packages/renderer-worker/src/parts/ViewletStates/ViewletStates.js')
@@ -96,7 +104,20 @@ export const test = async ({ page }) => {
       await page.screenshot({ path: join(evidence, 'source-control-native.png') })
       await writeFile(
         join(evidence, 'result.json'),
-        JSON.stringify({ input: true, viewModes: true, scroll: { before, after }, menu, openFile: true, stage: true, hideShowFocus: true }, null, 2),
+        JSON.stringify(
+          {
+            input: true,
+            viewModes: true,
+            scroll: { before, after },
+            menu,
+            openFile: true,
+            stage: true,
+            hideShowFocus: true,
+            commands: await worker.evaluate(() => globalThis.sourceControlNativeCommands),
+          },
+          null,
+          2,
+        ),
       )
     }
   } catch (error) {
@@ -105,9 +126,11 @@ export const test = async ({ page }) => {
       await mkdir(evidence, { recursive: true })
       await page.screenshot({ path: join(evidence, 'failure.png') })
       const events = await page.evaluate(() => globalThis.sourceControlNativeEvents)
+      const worker = page.workers().find((entry) => rendererWorkerUrl.test(entry.url()))
+      const commands = worker ? await worker.evaluate(() => globalThis.sourceControlNativeCommands) : []
       await writeFile(
         join(evidence, 'failure.json'),
-        JSON.stringify({ stage, error: String(error), errors, events, dom: await page.locator('body').innerText() }, null, 2),
+        JSON.stringify({ stage, error: String(error), errors, events, commands, dom: await page.locator('body').innerText() }, null, 2),
       )
     }
     throw new Error(`Source control native regression: ${stage}`, { cause: error })
