@@ -44,9 +44,18 @@ export const test = async ({ page }) => {
       const Command = await import('/packages/renderer-worker/src/parts/Command/Command.js')
       const command = 'Viewlet.executeViewletCommand'
       const original = Command.state.commands[command]
+      const SourceControlWorker = await import('/packages/renderer-worker/src/parts/SourceControlWorker/SourceControlWorker.js')
       globalThis.sourceControlNativeCommands = []
+      globalThis.sourceControlClickStates = []
       Command.state.commands[command] = (...args) => {
         globalThis.sourceControlNativeCommands.push(args)
+        if (args[1] === 'handleClickAt') {
+          // Observe alongside dispatch; do not await and delay the native action.
+          SourceControlWorker.invoke('SourceControl.getComponentState', args[0]).then(
+            (state) => globalThis.sourceControlClickStates.push({ args, state }),
+            (error) => globalThis.sourceControlClickStates.push({ args, error: String(error) }),
+          )
+        }
         return original(...args)
       }
       // The fixture starts with restoration disabled to isolate extension tests.
@@ -123,6 +132,7 @@ export const test = async ({ page }) => {
             openFile: true,
             stage: true,
             hideShowFocus: true,
+            clickStates: await worker.evaluate(() => globalThis.sourceControlClickStates),
             commands: await worker.evaluate(() => globalThis.sourceControlNativeCommands),
           },
           null,
@@ -138,6 +148,7 @@ export const test = async ({ page }) => {
       const events = await page.evaluate(() => globalThis.sourceControlNativeEvents)
       const worker = page.workers().find((entry) => rendererWorkerUrl.test(entry.url()))
       const commands = worker ? await worker.evaluate(() => globalThis.sourceControlNativeCommands) : []
+      const clickStates = worker ? await worker.evaluate(() => globalThis.sourceControlClickStates) : []
       await writeFile(
         join(evidence, 'failure.json'),
         JSON.stringify(
@@ -147,6 +158,7 @@ export const test = async ({ page }) => {
             errors,
             events,
             commands,
+            clickStates,
             afterStage: await readSourceState().catch(String),
             dom: await page.locator('body').innerText(),
           },
