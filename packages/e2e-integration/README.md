@@ -13,3 +13,15 @@ npm run e2e:headless
 ```
 
 Use a disposable checkout: preparation replaces its test inventory and overlays the local build. See the workflow for initial settings and additional script commands.
+
+The native source-control regression is staged separately so the consumer can run
+it with its published packages. It checks list layout, toolbar updates, native
+scrolling/context menus, file opening, staging, and repeated input focus:
+
+```sh
+node packages/e2e-integration/stage-native-source-control.mjs /path/to/disposable/lvce-editor
+cd /path/to/disposable/lvce-editor/packages/extension-host-worker-tests
+npm run e2e:headless -- --test-name-prefix=viewlet.source-control-native-interactions --browser-test=/path/to/source-control-view/packages/e2e-integration/scripts/test-native-source-control.mjs
+```
+
+Use `stage-native-source-control.mjs APPLICATION --clean` to remove the staged test.
