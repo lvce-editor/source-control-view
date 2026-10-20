@@ -13,7 +13,10 @@ export const wrapCommand = (fn: ViewletRegistry.Fn<SourceControlState>): Viewlet
     }
     const changes = Object.fromEntries(Object.entries(result).filter(([key, value]: readonly [string, unknown]) => value !== state[key as keyof SourceControlState]))
     await context.updateState((current) => {
-      if (current.workspaceUri !== workspaceUri || current.enabledProviderIds !== enabledProviderIds) {
+      const { enabledProviderIds: currentProviderIds } = current
+      // Reloading can allocate an equivalent provider list while a command is pending.
+      const sameProviders = currentProviderIds.length === enabledProviderIds.length && currentProviderIds.every((id, index) => id === enabledProviderIds[index])
+      if (current.workspaceUri !== workspaceUri || !sameProviders) {
         return current
       }
       return {
