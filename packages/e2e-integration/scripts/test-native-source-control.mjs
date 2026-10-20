@@ -13,6 +13,12 @@ export const test = async ({ page }) => {
     await worker.evaluate(async () => {
       const { state } = await import('/packages/renderer-worker/src/parts/IsTest/IsTest.js')
       state.isTest = false
+      // The fixture starts with restoration disabled to isolate extension tests.
+      // Exercise production hide/show persistence during the native UI pass.
+      const ViewletStates = await import('/packages/renderer-worker/src/parts/ViewletStates/ViewletStates.js')
+      const layout = ViewletStates.getInstance('Layout')
+      layout.state.restore = true
+      layout.renderedState.restore = true
     })
     const entry = await page.locator('script[type="module"][src]').evaluateAll((scripts) => scripts.find((script) => script.src.includes('rendererProcessMain')).src)
     const execute = (method, ...params) =>
@@ -25,6 +31,8 @@ export const test = async ({ page }) => {
     await page.locator('.SideBarTitleArea [name="ViewAsList"]').waitFor({ state: 'visible' })
     await page.locator('.SideBarTitleArea [name="ViewAsList"]').click()
     await page.locator('.SideBarTitleArea [name="ViewAsTree"]').waitFor({ state: 'visible' })
+    stage = 'view-mode draft retention'
+    assert.equal(await input.inputValue(), 'acceptance commit')
 
     stage = 'native scrolling'
     const thumb = source.locator('.ScrollBarThumb')
@@ -51,6 +59,8 @@ export const test = async ({ page }) => {
     stage = 'stage file'
     await file.locator('button[name="Stage"]').click()
     await page.waitForFunction(() => document.querySelector('.SourceControlItems')?.textContent.includes('Staged Changes'))
+    stage = 'stage-file draft retention'
+    assert.equal(await input.inputValue(), 'acceptance commit')
     stage = 'hide/show focus'
     for (let index = 0; index < 2; index++) {
       await execute('SideBar.show', 'Explorer', true)
