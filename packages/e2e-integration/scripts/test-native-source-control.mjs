@@ -57,7 +57,9 @@ export const test = async ({ page }) => {
     await page.waitForFunction(() => document.querySelector('.Editor .EditorRow')?.textContent.includes('source-control-0'))
     await file.hover()
     stage = 'stage file'
-    await file.locator('button[name="Stage"]').click()
+    const stageButton = file.locator('button[name="Stage"]')
+    assert.equal(await stageButton.count(), 1, 'The isolated provider must contribute exactly one Stage action')
+    await stageButton.click()
     await page.waitForFunction(() => document.querySelector('.SourceControlItems')?.textContent.includes('Staged Changes'))
     stage = 'stage-file draft retention'
     assert.equal(await input.inputValue(), 'acceptance commit')
