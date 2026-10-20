@@ -92,6 +92,11 @@
     ],
     "working-tree-item": [
       {
+        "command": "git.addToGitignore",
+        "label": "Add to Gitignore",
+        "icon": "Remove"
+      },
+      {
         "command": "sampleSourceControl.openFile",
         "label": "Open File",
         "icon": "GoToFile"

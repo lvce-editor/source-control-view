@@ -16,6 +16,8 @@ export const test: Test = async ({ expect, Extension, FileSystem, Locator, Sourc
 
   // assert
   const fileItem = Locator('.SourceControlItems .TreeItem').nth(1)
+  const ignoreButton = fileItem.locator('.SourceControlButton[title="Add to Gitignore"]')
+  await expect(ignoreButton).toHaveCount(0)
   const openFileButton = fileItem.locator('.SourceControlButton[aria-label="Open File"][title="Open File"]')
   await expect(openFileButton).toHaveCount(1)
   const discardButton = fileItem.locator('.SourceControlButton[aria-label="Discard"][title="Discard"]')
