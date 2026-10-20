@@ -15,5 +15,5 @@ if (process.argv.includes('--clean')) {
   await mkdir(join(tests, 'fixtures'), { recursive: true })
   await cp(join(here, '../e2e/fixtures/sample-source-control-provider'), join(tests, 'fixtures/sample-source-control-provider'), { recursive: true })
   const source = await readFile(join(here, 'native-src', `${name}.ts`), 'utf8')
-  await writeFile(join(tests, 'src', `${name}.js`), stripTypeScriptTypes(source, { mode: 'transform' }))
+  await writeFile(join(tests, 'src', `${name}.js`), stripTypeScriptTypes(source))
 }
