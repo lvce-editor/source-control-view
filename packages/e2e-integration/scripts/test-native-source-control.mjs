@@ -6,7 +6,6 @@ const rendererWorkerUrl = /\/renderer-worker\/src\/rendererWorkerMain/
 
 export const test = async ({ page }) => {
   let stage = 'setup'
-  let beforeStage
   const readSourceState = async () => {
     const worker = page.workers().find((entry) => rendererWorkerUrl.test(entry.url()))
     return worker.evaluate(async () => {
@@ -96,7 +95,6 @@ export const test = async ({ page }) => {
     stage = 'stage file'
     const stageButton = file.locator('button[name="Stage"]')
     assert.equal(await stageButton.count(), 1, 'The isolated provider must contribute exactly one Stage action')
-    beforeStage = await readSourceState()
     await stageButton.click()
     await page.waitForFunction(() => document.querySelector('.SourceControlItems')?.textContent.includes('Staged Changes'))
     stage = 'stage-file draft retention'
@@ -125,7 +123,6 @@ export const test = async ({ page }) => {
             openFile: true,
             stage: true,
             hideShowFocus: true,
-            beforeStage,
             commands: await worker.evaluate(() => globalThis.sourceControlNativeCommands),
           },
           null,
@@ -150,7 +147,6 @@ export const test = async ({ page }) => {
             errors,
             events,
             commands,
-            beforeStage,
             afterStage: await readSourceState().catch(String),
             dom: await page.locator('body').innerText(),
           },
