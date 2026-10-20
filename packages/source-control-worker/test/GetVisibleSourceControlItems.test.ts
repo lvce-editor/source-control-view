@@ -1,5 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { DirentType } from '@lvce-editor/constants'
+import { getButtonsVirtualDom } from '../src/parts/GetButtonsVirtualDom/GetButtonsVirtualDom.ts'
 import { getVisibleSourceControlItems } from '../src/parts/GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 
 test('getVisibleSourceControlItems - empty items', () => {
@@ -11,6 +12,30 @@ test('getVisibleSourceControlItems - empty items', () => {
   const result = getVisibleSourceControlItems(items, minLineY, maxLineY, actionsCache, fileIconCache)
   expect(result).toEqual([])
 })
+
+test.each([{ actions: [] }, { actions: [{ command: 'git.addToGitignore', icon: 'ignore', label: 'Add to Gitignore' }] }])(
+  'getVisibleSourceControlItems - renders no empty inline toolbar for %j',
+  ({ actions }) => {
+    const items = [
+      {
+        badgeCount: 0,
+        decorationIcon: '',
+        decorationIconTitle: '',
+        decorationStrikeThrough: false,
+        detail: '',
+        file: 'test.txt',
+        groupId: 'test',
+        icon: '',
+        label: 'test.txt',
+        posInSet: 1,
+        setSize: 1,
+        type: DirentType.File,
+      },
+    ]
+    const [item] = getVisibleSourceControlItems(items, 0, 1, { 'test-item': actions }, {})
+    expect(getButtonsVirtualDom(item.buttons)).toEqual([])
+  },
+)
 
 test('getVisibleSourceControlItems - single item', () => {
   const items = [
