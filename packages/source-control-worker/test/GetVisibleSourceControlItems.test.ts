@@ -1,5 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { DirentType } from '@lvce-editor/constants'
+import type { ActionButton } from '../src/parts/ActionButton/ActionButton.ts'
 import { getButtonsVirtualDom } from '../src/parts/GetButtonsVirtualDom/GetButtonsVirtualDom.ts'
 import { getVisibleSourceControlItems } from '../src/parts/GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 
@@ -15,7 +16,7 @@ test('getVisibleSourceControlItems - empty items', () => {
 
 test.each([{ actions: [] }, { actions: [{ command: 'git.addToGitignore', icon: 'ignore', label: 'Add to Gitignore' }] }])(
   'getVisibleSourceControlItems - renders no empty inline toolbar for %j',
-  ({ actions }) => {
+  ({ actions }: Readonly<{ actions: readonly ActionButton[] }>) => {
     const items = [
       {
         badgeCount: 0,
