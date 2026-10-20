@@ -65,3 +65,29 @@ test('a pending refresh preserves concurrent input while applying its own change
   await pending
   expect(SourceControlStates.get(id).newState).toMatchObject({ badgeCount: 1, inputValue: 'new draft' })
 })
+
+test('a pending command survives reloading the same provider IDs', async () => {
+  const state = { ...createDefaultState(), enabledProviderIds: ['sample'], id: 706 }
+  const { id } = state
+  SourceControlStates.set(id, state, state)
+  const response = Promise.withResolvers<SourceControlState>()
+  const pending = SourceControlStates.wrapCommand(async () => response.promise)(id)
+  const current = { ...state, enabledProviderIds: ['sample'] }
+  SourceControlStates.set(id, state, current)
+  response.resolve({ ...state, allGroups: [{ id: 'index', items: [{ file: '0.css' }], label: 'Staged Changes' }] })
+  await pending
+  expect(SourceControlStates.get(id).newState.allGroups).toEqual([{ id: 'index', items: [{ file: '0.css' }], label: 'Staged Changes' }])
+})
+
+test('a pending command is discarded when provider IDs change', async () => {
+  const state = { ...createDefaultState(), enabledProviderIds: ['sample'], id: 707 }
+  const { id } = state
+  SourceControlStates.set(id, state, state)
+  const response = Promise.withResolvers<SourceControlState>()
+  const pending = SourceControlStates.wrapCommand(async () => response.promise)(id)
+  const current = { ...state, enabledProviderIds: ['other'] }
+  SourceControlStates.set(id, state, current)
+  response.resolve({ ...state, badgeCount: 1 })
+  await pending
+  expect(SourceControlStates.get(id).newState).toEqual(current)
+})
