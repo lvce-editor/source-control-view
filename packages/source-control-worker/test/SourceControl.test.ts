@@ -1,4 +1,5 @@
 import { beforeAll, expect, test } from '@jest/globals'
+import { PlatformType } from '@lvce-editor/constants'
 import { ExtensionHost, ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
 import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import * as SourceControl from '../src/parts/SourceControl/SourceControl.ts'
@@ -487,4 +488,69 @@ test('getBadgeCount without providers performs no RPC calls', async (): Promise<
   expect(await SourceControl.getBadgeCount([], '/assets', 1, '')).toBe(0)
   expect(extensionRpc.invocations).toEqual([])
   expect(parentRpc.invocations).toEqual([])
+})
+
+test('loads browser icon assets for a Node extension enabled by the remote workspace', async () => {
+  using _rpc = ExtensionManagementWorker.registerMockRpc(
+    withApplicationRouting({
+      'Extensions.getAllExtensions': async () => [
+        {
+          compatibility: { web: false },
+          id: 'builtin.git',
+          'source-control-icons': ['icons/status-added.svg'],
+          uri: 'https://static.example/lvce-editor/hash/extensions/builtin.git',
+        },
+      ],
+    }),
+  )
+  await expect(SourceControl.getIconDefinitions(['git'], '/lvce-editor/hash', PlatformType.Web, '')).resolves.toEqual([
+    'https://static.example/lvce-editor/hash/extensions/builtin.git/icons/status-added.svg',
+  ])
+})
+
+test('resolves static extension paths against the frontend origin and preserves its Pages prefix', async () => {
+  const location = Object.getOwnPropertyDescriptor(globalThis, 'location')
+  Object.defineProperty(globalThis, 'location', { configurable: true, value: { origin: 'https://static.example' } })
+  try {
+    using _rpc = ExtensionManagementWorker.registerMockRpc(
+      withApplicationRouting({
+        'Extensions.getAllExtensions': async () => [
+          {
+            compatibility: { web: false },
+            id: 'builtin.git',
+            path: '/lvce-editor/hash/extensions/builtin.git',
+            'source-control-icons': ['icons/status-added.svg'],
+          },
+        ],
+      }),
+    )
+    await expect(SourceControl.getIconDefinitions(['git'], '/lvce-editor/hash', PlatformType.Web, '')).resolves.toEqual([
+      'https://static.example/lvce-editor/hash/extensions/builtin.git/icons/status-added.svg',
+    ])
+  } finally {
+    if (location) Object.defineProperty(globalThis, 'location', location)
+    else delete (globalThis as { location?: unknown }).location
+  }
+})
+
+test.each([
+  { metadata: {}, platform: PlatformType.Web },
+  { metadata: { uri: '' }, platform: PlatformType.Web },
+  { metadata: { path: 42 }, platform: PlatformType.Web },
+  { metadata: { path: 'http://[' }, platform: PlatformType.Web },
+  { metadata: { path: '/extensions/git' }, platform: PlatformType.Electron },
+] as const)('ignores missing or invalid extension locations: %j', async ({ metadata, platform }) => {
+  const location = Object.getOwnPropertyDescriptor(globalThis, 'location')
+  Object.defineProperty(globalThis, 'location', { configurable: true, value: { origin: 'https://static.example' } })
+  try {
+    using _rpc = ExtensionManagementWorker.registerMockRpc(
+      withApplicationRouting({
+        'Extensions.getAllExtensions': async () => [{ id: 'builtin.git', 'source-control-icons': ['icon.svg'], ...metadata }],
+      }),
+    )
+    await expect(SourceControl.getIconDefinitions(['git'], '/assets', platform, '')).resolves.toEqual([])
+  } finally {
+    if (location) Object.defineProperty(globalThis, 'location', location)
+    else delete (globalThis as { location?: unknown }).location
+  }
 })

@@ -136,6 +136,14 @@ const getIcon = (icon: string, base: string, dir: string, p: number): string => 
   return uri
 }
 
+const getExtensionUri = (uri: unknown, extensionPath: unknown, platform: number): string => {
+  if (typeof uri === 'string') return uri
+  if (platform !== PlatformType.Web || typeof extensionPath !== 'string') return ''
+  const { origin } = globalThis.location
+  if (!URL.canParse(extensionPath, origin)) return ''
+  return new URL(extensionPath, origin).href
+}
+
 export const getIconDefinitions = async (providerIds: readonly string[], dir: string, platform: number, applicationId: string): Promise<readonly string[]> => {
   try {
     if (providerIds.length === 0) {
@@ -146,11 +154,13 @@ export const getIconDefinitions = async (providerIds: readonly string[], dir: st
       const idParts = typeof extension?.id === 'string' ? extension.id.split('.') : []
       return idParts[1] === providerIds[0]
     })
-    if (!Array.isArray(extension?.['source-control-icons']) || typeof extension.uri !== 'string') {
+    if (!Array.isArray(extension?.['source-control-icons'])) {
       return []
     }
+    const uri = getExtensionUri(extension.uri, extension.path, platform)
+    if (!uri) return []
     const icons = extension['source-control-icons'].filter((icon: unknown): icon is string => typeof icon === 'string')
-    const base = extension.uri.endsWith('/') ? extension.uri : `${extension.uri}/`
+    const base = uri.endsWith('/') ? uri : `${uri}/`
     return icons.map((icon) => getIcon(icon, base, dir, platform))
   } catch {
     return []

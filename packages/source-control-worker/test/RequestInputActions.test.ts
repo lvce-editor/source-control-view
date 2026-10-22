@@ -22,11 +22,11 @@ test('collects valid contributions from independent extensions', async () => {
   expect(await requestInputActions('', 0, '')).toEqual([first, second])
 })
 
-test('excludes incompatible web extensions', async () => {
+test('preserves remote extension contributions selected by extension management', async () => {
   using _rpc = ExtensionManagementWorker.registerMockRpc(
     withApplicationRouting({
       'Extensions.getAllExtensions': async () => [{ compatibility: { web: false }, 'source-control-input-actions': [first] }],
     }),
   )
-  expect(await requestInputActions('', PlatformType.Web, '')).toEqual([])
+  expect(await requestInputActions('', PlatformType.Web, '')).toEqual([first])
 })

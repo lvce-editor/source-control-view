@@ -51,7 +51,7 @@ test('requestSourceControlButtons', async () => {
   expect(mockRpc.invocations).toEqual([['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '', 0]])
 })
 
-test('requestSourceControlButtons excludes extensions that are incompatible with web', async () => {
+test('requestSourceControlButtons preserves remote extension contributions selected by extension management', async () => {
   const mockExtensions = [
     {
       compatibility: {
@@ -74,7 +74,7 @@ test('requestSourceControlButtons excludes extensions that are incompatible with
 
   const result = await requestSourceControlButtons('', PlatformType.Web, '')
 
-  expect(result).toEqual([])
+  expect(result).toEqual(mockExtensions[0]['source-control-buttons'])
   expect(mockRpc.invocations).toEqual([['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '', PlatformType.Web]])
 })
 

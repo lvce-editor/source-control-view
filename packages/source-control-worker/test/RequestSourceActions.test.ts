@@ -33,7 +33,7 @@ test('requestSourceActions', async () => {
   expect(mockRpc.invocations).toEqual([['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '/assets', PlatformType.Electron]])
 })
 
-test('requestSourceActions excludes extensions that are incompatible with web', async () => {
+test('requestSourceActions preserves remote extension contributions selected by extension management', async () => {
   const mockExtensions = [
     {
       compatibility: {
@@ -51,7 +51,7 @@ test('requestSourceActions excludes extensions that are incompatible with web', 
 
   const result = await requestSourceActions('', PlatformType.Web, '')
 
-  expect(result).toEqual({})
+  expect(result).toEqual({ action1: [{ command: 'command1', label: 'label1' }] })
   expect(mockRpc.invocations).toEqual([['Extensions.invokeForApplication', '', 'Extensions.getAllExtensions', '', PlatformType.Web]])
 })
 
