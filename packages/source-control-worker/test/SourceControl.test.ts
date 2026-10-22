@@ -532,3 +532,25 @@ test('resolves static extension paths against the frontend origin and preserves 
     else delete (globalThis as { location?: unknown }).location
   }
 })
+
+test.each([
+  { metadata: {}, platform: PlatformType.Web },
+  { metadata: { uri: '' }, platform: PlatformType.Web },
+  { metadata: { path: 42 }, platform: PlatformType.Web },
+  { metadata: { path: 'http://[' }, platform: PlatformType.Web },
+  { metadata: { path: '/extensions/git' }, platform: PlatformType.Electron },
+])('ignores missing or invalid extension locations: %j', async ({ metadata, platform }) => {
+  const location = Object.getOwnPropertyDescriptor(globalThis, 'location')
+  Object.defineProperty(globalThis, 'location', { configurable: true, value: { origin: 'https://static.example' } })
+  try {
+    using _rpc = ExtensionManagementWorker.registerMockRpc(
+      withApplicationRouting({
+        'Extensions.getAllExtensions': async () => [{ id: 'builtin.git', 'source-control-icons': ['icon.svg'], ...metadata }],
+      }),
+    )
+    await expect(SourceControl.getIconDefinitions(['git'], '/assets', platform, '')).resolves.toEqual([])
+  } finally {
+    if (location) Object.defineProperty(globalThis, 'location', location)
+    else delete (globalThis as { location?: unknown }).location
+  }
+})
