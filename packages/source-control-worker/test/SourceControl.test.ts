@@ -539,7 +539,7 @@ test.each([
   { metadata: { path: 42 }, platform: PlatformType.Web },
   { metadata: { path: 'http://[' }, platform: PlatformType.Web },
   { metadata: { path: '/extensions/git' }, platform: PlatformType.Electron },
-])('ignores missing or invalid extension locations: %j', async ({ metadata, platform }) => {
+] as const)('ignores missing or invalid extension locations: %j', async ({ metadata, platform }) => {
   const location = Object.getOwnPropertyDescriptor(globalThis, 'location')
   Object.defineProperty(globalThis, 'location', { configurable: true, value: { origin: 'https://static.example' } })
   try {
