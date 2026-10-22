@@ -30,6 +30,16 @@ export const test: Test = async ({ ActivityBar, Command, expect, Extension, Loca
   await expect(rows.nth(1).locator('.Label')).toHaveText('second.txt')
 
   await Workspace.close()
-  await expect(message).toHaveText('You have not yet opened a folder.')
-  await expect(rows).toHaveCount(0)
+  try {
+    await expect(message).toHaveText('You have not yet opened a folder.')
+    await expect(rows).toHaveCount(0)
+  } catch (error) {
+    try {
+      const [workspace, dirtyTabs] = await Promise.all([Command.execute('Workspace.getUri'), Command.execute('Main.hasDirtyTabs')])
+      console.error('Source Control workspace-close state', JSON.stringify({ dirtyTabs, workspace }))
+    } catch {
+      // Preserve the original failed assertion if diagnostics are unavailable.
+    }
+    throw error
+  }
 }
