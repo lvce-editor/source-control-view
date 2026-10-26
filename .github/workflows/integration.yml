@@ -43,3 +43,20 @@ jobs:
         shell: bash
         working-directory: .tmp/lvce-integration/packages/extension-host-worker-tests
         run: npm run e2e:headless --
+      - name: Stage native source control regression
+        run: node packages/e2e-integration/stage-native-source-control.mjs .tmp/lvce-integration
+      - name: Stress native source control with published packages
+        working-directory: .tmp/lvce-integration/packages/extension-host-worker-tests
+        run: node ../../../../packages/e2e-integration/scripts/stress-native-source-control.mjs
+        env:
+          SOURCE_CONTROL_NATIVE_EVIDENCE_DIR: ${{ github.workspace }}/.tmp/source-control-native
+      - name: Upload native source control evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: source-control-native-${{ matrix.os }}
+          path: .tmp/source-control-native
+          if-no-files-found: warn
+      - name: Remove staged native source control regression
+        if: always()
+        run: node packages/e2e-integration/stage-native-source-control.mjs .tmp/lvce-integration --clean

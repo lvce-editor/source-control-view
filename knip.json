@@ -1,5 +1,11 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignoreUnresolved": [
+    "/packages/renderer-worker/src/parts/ViewletStates/ViewletStates.js",
+    "/packages/renderer-worker/src/parts/SourceControlWorker/SourceControlWorker.js",
+    "/packages/renderer-worker/src/parts/IsTest/IsTest.js",
+    "/packages/renderer-worker/src/parts/Command/Command.js"
+  ],
   "workspaces": {
     ".": {
       "project": ["*.js"]
